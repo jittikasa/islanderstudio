@@ -27,22 +27,25 @@ export default function Header() {
     <header className={`header ${scrolled ? 'scrolled' : ''}`}>
       <div className="container">
         <nav className="nav">
-          <Link to="/" className="logo">
-            <span className="logo-text">Islander</span>
-            <span className="logo-accent">Studio</span>
+          <div className="logo-wrapper">
+            <Link to="/" className="logo">
+              <span className="logo-text">Islander</span>
+              <span className="logo-accent">Studio</span>
+            </Link>
             {isShellistPage && (
-              <>
+              <div className="logo-app-section">
                 <span className="logo-separator">×</span>
                 <span className="logo-app-name">Shellist</span>
-              </>
+              </div>
             )}
             {isPolaMomentPage && (
-              <>
+              <div className="logo-app-section">
                 <span className="logo-separator">×</span>
                 <span className="logo-app-name">PolaMoment</span>
-              </>
+                <span className="logo-app-dot">.</span>
+              </div>
             )}
-          </Link>
+          </div>
 
           <button
             className={`menu-toggle ${menuOpen ? 'active' : ''}`}

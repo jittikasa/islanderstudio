@@ -1,6 +1,5 @@
-import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowDown, Apple } from 'lucide-react'
+import { Apple } from 'lucide-react'
 
 const PrivacyLockIcon = () => (
   <svg viewBox="0 0 64 64" fill="none" className="w-12 h-12">
@@ -12,21 +11,6 @@ const PrivacyLockIcon = () => (
 )
 
 export default function PolaMomentOriginal() {
-  const scrollToSection = (id) => (e) => {
-    e.preventDefault()
-    const element = document.getElementById(id)
-    if (element) {
-      const headerOffset = 100
-      const elementPosition = element.getBoundingClientRect().top
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      })
-    }
-  }
-
   return (
     <div className="min-h-screen bg-[#FAFAF5] text-stone-800 selection:bg-pola-red selection:text-white" style={{ paddingTop: '100px' }}>
       {/* Hero Section */}
@@ -99,15 +83,6 @@ export default function PolaMomentOriginal() {
                 </div>
               </div>
             </div>
-          </div>
-
-          <div className="flex justify-center">
-            <a href="#story" onClick={scrollToSection('story')} className="group flex flex-col items-center gap-2 text-sm font-medium text-stone-500 hover:text-stone-900 transition-colors cursor-pointer">
-              <span className="tracking-wider">EXPLORE</span>
-              <span className="p-2 border border-stone-300 rounded-full group-hover:border-stone-900 group-hover:bg-white transition-all bg-white/50">
-                <ArrowDown size={16} />
-              </span>
-            </a>
           </div>
         </div>
       </header>

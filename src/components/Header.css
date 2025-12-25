@@ -28,6 +28,12 @@
   padding: 1rem 0;
 }
 
+.logo-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
 .logo {
   display: flex;
   align-items: center;
@@ -43,6 +49,15 @@
 
 .logo:hover {
   transform: translateY(-1px);
+}
+
+.logo-app-section {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 800;
 }
 
 .logo-app-icon {
@@ -67,6 +82,13 @@
   color: var(--ink-black);
   font-family: var(--font-display);
   font-weight: 800;
+}
+
+.logo-app-dot {
+  color: #D93025;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.5rem;
 }
 
 .logo-accent {
