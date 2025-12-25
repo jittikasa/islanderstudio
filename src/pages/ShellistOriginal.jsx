@@ -85,87 +85,7 @@ export default function ShellistOriginal() {
   }, [])
 
   return (
-    <>
-      {/* Shellist Header */}
-      <header className="header-area-desktop miwlo-white-bg miwlo-header-black">
-        <div className="container">
-          <div className="row">
-            <div className="col">
-              <nav className="navbar navbar-expand-md miwlo-initial-navbar" role="navigation" aria-label="Main navigation">
-                <a className="navbar-brand" href="#" aria-label="Shellist home">
-                  <img src="/shellist/images/Shellist-logo.png" alt="Shellist" />
-                </a>
-                <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                  <ul className="navbar-nav ms-auto" role="menubar">
-                    <li className="menu-item" role="none">
-                      <a className="active" href="#" role="menuitem" aria-current="page">Home</a>
-                    </li>
-                    <li className="menu-item" role="none">
-                      <Link to="/support" role="menuitem">Support</Link>
-                    </li>
-                  </ul>
-
-                  <ul className="button-wrapper" style={{display: 'flex', alignItems: 'center', gap: '10px', margin: '0 0 0 25px', padding: 0, listStyle: 'none'}}>
-                    <li style={{margin: 0}}>
-                      <a href="#" className="instagram-link" style={{width: '45px', height: '45px', borderRadius: '50%', backgroundColor: '#333333', color: '#FFF', display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none', transition: 'all 0.3s'}}>
-                        <i className="fab fa-instagram" style={{fontSize: '20px'}}></i>
-                      </a>
-                    </li>
-                    <li style={{margin: 0}}>
-                      <a href="#" className="miwlo-btn-pill download-app-btn" style={{backgroundColor: '#F2F0E6', color: '#000', padding: '10px 20px', borderRadius: '50px', textDecoration: 'none', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '8px', transition: 'all 0.3s', whiteSpace: 'nowrap', border: 'none', outline: 'none'}}>
-                        <img src="/shellist/images/Shellist-logo.png" alt="Shellist" style={{width: '26px', height: '26px'}} />
-                        Download App
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </nav>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      {/* Mobile Menu */}
-      <div className="miwlo-header-area-mobile">
-        <div className="miwlo-header-mobile">
-          <div className="container-fluid">
-            <div className="row">
-              <div className="col">
-                <ul className="active">
-                  <li>
-                    <a className="mobile-logo" href="#"><img src="/shellist/images/Shellist-logo.png" alt="Shellist" /></a>
-                  </li>
-                  <li className="mobile-header-btn-wrapper">
-                    <a href="#" className="instagram-link" style={{width: '45px', height: '45px', borderRadius: '50%', backgroundColor: '#333333', color: '#FFF', display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none'}}>
-                      <i className="fab fa-instagram" style={{fontSize: '20px'}}></i>
-                    </a>
-                  </li>
-                  <li className="mobile-header-btn-wrapper">
-                    <a href="#" className="miwlo-btn-pill download-app-btn" style={{backgroundColor: '#F2F0E6', color: '#000', padding: '8px 16px', borderRadius: '50px', textDecoration: 'none', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '6px', fontSize: '13px', whiteSpace: 'nowrap'}}>
-                      <img src="/shellist/images/Shellist-logo.png" alt="Shellist" style={{width: '24px', height: '24px'}} />
-                      Download App
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <span>
-                        <span className="bar"></span>
-                        <span className="bar"></span>
-                        <span className="bar"></span>
-                      </span>
-                    </a>
-                    <ul>
-                      <li><a href="#">Home</a></li>
-                      <li><Link to="/support">Support</Link></li>
-                    </ul>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
+    <div style={{ paddingTop: '80px' }}>
       {/* Banner */}
       <div className="miwlo-app-landing-banner-wrap">
         <div className="container-fluid">
@@ -252,6 +172,6 @@ export default function ShellistOriginal() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   )
 }
