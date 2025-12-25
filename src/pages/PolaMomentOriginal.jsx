@@ -185,6 +185,28 @@ export default function PolaMomentOriginal() {
           </p>
         </div>
       </section>
+
+      {/* Footer */}
+      <footer className="pola-footer">
+        <div className="pola-container">
+          <div className="pola-footer-content">
+            <div className="pola-footer-brand">
+              <div className="pola-footer-logo">
+                PolaMoment<span className="pola-dot">.</span>
+              </div>
+              <p className="pola-footer-tagline">Vintage Polaroid camera for your iPhone</p>
+            </div>
+            <div className="pola-footer-links">
+              <Link to="/privacy" className="pola-footer-link">Privacy Policy</Link>
+              <a href="mailto:privacy@polamoment.app" className="pola-footer-link">Contact</a>
+            </div>
+          </div>
+          <div className="pola-footer-bottom">
+            <p>© 2025 PolaMoment<span className="pola-dot">.</span> All rights reserved.</p>
+            <p className="pola-footer-quote">Making memories instant again, one photo at a time.</p>
+          </div>
+        </div>
+      </footer>
     </div>
   )
 }
