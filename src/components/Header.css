@@ -29,9 +29,8 @@
 }
 
 .logo-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 0;
+  position: relative;
+  display: inline-block;
 }
 
 .logo {
@@ -52,12 +51,13 @@
 }
 
 .logo-app-section {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 0;
   font-family: var(--font-display);
   font-size: 1.5rem;
   font-weight: 800;
+  margin-left: 0.5rem;
 }
 
 .logo-app-icon {
