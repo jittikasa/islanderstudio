@@ -31,10 +31,16 @@ export default function Header() {
             <span className="logo-text">Islander</span>
             <span className="logo-accent">Studio</span>
             {isShellistPage && (
-              <span className="logo-app-name">Shellist</span>
+              <>
+                <span className="logo-separator">×</span>
+                <span className="logo-app-name">Shellist</span>
+              </>
             )}
             {isPolaMomentPage && (
-              <span className="logo-app-name">PolaMoment</span>
+              <>
+                <span className="logo-separator">×</span>
+                <span className="logo-app-name">PolaMoment</span>
+              </>
             )}
           </Link>
 

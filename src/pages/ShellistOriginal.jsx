@@ -86,6 +86,15 @@ export default function ShellistOriginal() {
 
   return (
     <div style={{ paddingTop: '100px' }}>
+      {/* Hide any Shellist header elements */}
+      <style>{`
+        .header-area-desktop,
+        .header-area,
+        .miwlo-header-area-mobile {
+          display: none !important;
+        }
+      `}</style>
+
       {/* Banner */}
       <div className="miwlo-app-landing-banner-wrap">
         <div className="container-fluid">
