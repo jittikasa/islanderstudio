@@ -20,11 +20,20 @@ export default function Header() {
     setMenuOpen(false)
   }, [location])
 
+  const isShellistPage = location.pathname === '/shellist'
+  const isPolaMomentPage = location.pathname === '/polamoment'
+
   return (
     <header className={`header ${scrolled ? 'scrolled' : ''}`}>
       <div className="container">
         <nav className="nav">
           <Link to="/" className="logo">
+            {isShellistPage && (
+              <img src="/shellist/images/Shellist-logo.png" alt="Shellist" className="logo-app-icon" />
+            )}
+            {isPolaMomentPage && (
+              <img src="/polamoment/Icon-1024.png" alt="PolaMoment" className="logo-app-icon" />
+            )}
             <span className="logo-text">Islander</span>
             <span className="logo-accent">Studio</span>
           </Link>
