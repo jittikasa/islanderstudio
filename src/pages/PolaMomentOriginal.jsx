@@ -51,13 +51,6 @@ export default function PolaMomentOriginal() {
 
   return (
     <div className="min-h-screen bg-[#FAFAF5] text-stone-800 selection:bg-pola-red selection:text-white">
-      {/* Hide Islander Studio header */}
-      <style>{`
-        .header { display: none !important; }
-        .footer { display: none !important; }
-        body { padding-top: 0 !important; }
-      `}</style>
-
       {/* Navigation */}
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-[#FAFAF5]/90 backdrop-blur-md shadow-sm py-4' : 'bg-transparent py-6'}`}>
         <div className="container mx-auto px-6 flex justify-between items-center">

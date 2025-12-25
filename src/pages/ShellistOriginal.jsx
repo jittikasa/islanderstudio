@@ -86,13 +86,6 @@ export default function ShellistOriginal() {
 
   return (
     <>
-      {/* Hide Islander Studio header on this page */}
-      <style>{`
-        .header { display: none !important; }
-        .footer { display: none !important; }
-        body { padding-top: 0 !important; }
-      `}</style>
-
       {/* Shellist Header */}
       <header className="header-area-desktop miwlo-white-bg miwlo-header-black">
         <div className="container">
