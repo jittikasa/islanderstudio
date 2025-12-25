@@ -252,33 +252,6 @@ export default function ShellistOriginal() {
           </div>
         </div>
       </div>
-
-      {/* Footer */}
-      <div className="miwlo-footer-wrap">
-        <div className="footer-triangle-shape-top miwlo-parallax">
-          <div className="layer" data-depth="1">
-            <div>
-              <img data-parallax='{"y" : 30}' src="/shellist/images/icons/Shell-Light.svg" alt="Decorative shell icon" aria-hidden="true" />
-            </div>
-          </div>
-        </div>
-        <div className="container">
-          <div className="row">
-            <div className="col-12">
-              <div className="miwlo-footer-text text-center">
-                <h3>Shellist</h3>
-                <ul className="miwlo-footer-social" aria-label="Social media links">
-                  <li><a href="#" className="instagram-link" aria-label="Follow Shellist on Instagram"><i className="fab fa-instagram" aria-hidden="true"></i></a></li>
-                </ul>
-                <nav className="miwlo-footer-nav" role="navigation" aria-label="Footer navigation">
-                  <h4><Link to="/">Home</Link></h4> | <h4><Link to="/support">Support</Link></h4> | <h4><Link to="/privacy">Privacy Policy</Link></h4>
-                </nav>
-                <p>© 2025 Shellist. All rights reserved.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </>
   )
 }
