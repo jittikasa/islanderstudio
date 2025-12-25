@@ -85,7 +85,7 @@ export default function ShellistOriginal() {
   }, [])
 
   return (
-    <div style={{ paddingTop: '80px' }}>
+    <div style={{ paddingTop: '100px' }}>
       {/* Banner */}
       <div className="miwlo-app-landing-banner-wrap">
         <div className="container-fluid">

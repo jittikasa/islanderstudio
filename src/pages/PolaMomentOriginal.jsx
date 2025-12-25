@@ -28,9 +28,9 @@ export default function PolaMomentOriginal() {
   }
 
   return (
-    <div className="min-h-screen bg-[#FAFAF5] text-stone-800 selection:bg-pola-red selection:text-white pt-20">
+    <div className="min-h-screen bg-[#FAFAF5] text-stone-800 selection:bg-pola-red selection:text-white" style={{ paddingTop: '100px' }}>
       {/* Hero Section */}
-      <header className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+      <header className="relative min-h-screen flex items-center justify-center overflow-hidden">
         {/* Decorative Background */}
         <div className="absolute inset-0 overflow-hidden opacity-40">
           <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-pola-red rounded-full blur-[120px] opacity-20"></div>
