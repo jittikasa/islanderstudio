@@ -1,0 +1,42 @@
+/* Page Transition Styles */
+.page-transition {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.page-transition.fadeOut {
+  animation: fadeOutAnimation 0.3s cubic-bezier(0.4, 0, 1, 1) forwards;
+}
+
+.page-transition.fadeIn {
+  animation: fadeInAnimation 0.4s cubic-bezier(0, 0, 0.2, 1) forwards;
+}
+
+@keyframes fadeOutAnimation {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes fadeInAnimation {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-transition.fadeOut,
+  .page-transition.fadeIn {
+    animation: none !important;
+  }
+}
