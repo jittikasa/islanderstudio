@@ -55,7 +55,7 @@
   vertical-align: middle;
   font-family: var(--font-display);
   font-size: 1.5rem;
-  font-weight: 800;
+  font-weight: 400;
   margin-left: 0.5rem;
 }
 
@@ -72,21 +72,23 @@
 
 .logo-separator {
   color: var(--stone-gray);
-  font-size: 3.75rem;
+  font-size: 1.5rem;
   font-weight: 400;
   margin: 0 0.25rem;
+  line-height: 1;
+  vertical-align: middle;
 }
 
 .logo-app-name {
   color: var(--ink-black);
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: 400;
 }
 
 .logo-app-dot {
   color: #D93025;
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: 400;
   font-size: 1.5rem;
 }
 
