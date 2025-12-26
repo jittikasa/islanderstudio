@@ -8,10 +8,15 @@
   NODE_VERSION = "18"
 
 # Redirect all routes to index.html for client-side routing
+# This is critical for SPA (Single Page Application) routing
+# Without this, refreshing on any route besides / will show a 404
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
+  force = false
+  # Don't redirect if the file exists (like CSS, JS, images)
+  conditions = {Role = ["*"]}
 
 # Headers for security and performance
 [[headers]]
