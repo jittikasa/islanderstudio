@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useState, useEffect, useRef } from 'react'
+import SEO, { StructuredData, organizationSchema, websiteSchema } from '../components/SEO'
 import './Home.css'
 
 export default function Home() {
@@ -39,8 +40,17 @@ export default function Home() {
   }, [])
 
   return (
-    <div className="home">
-      {/* Hero Section */}
+    <>
+      <SEO
+        title="Islander Studio - Crafting Beautiful iOS Apps"
+        description="Islander Studio creates thoughtfully designed mobile experiences that blend artistry with functionality. Discover Shellist for habit tracking and PolaMoment for vintage photography."
+        url="https://islanderstudio.app"
+        keywords="iOS apps, mobile apps, Shellist, habit tracker, PolaMoment, polaroid camera, indie apps, app development"
+      />
+      <StructuredData data={[organizationSchema, websiteSchema]} />
+
+      <div className="home">
+        {/* Hero Section */}
       <section className="hero">
         <div
           className="hero-background"
@@ -278,6 +288,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-    </div>
+      </div>
+    </>
   )
 }

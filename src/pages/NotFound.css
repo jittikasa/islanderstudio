@@ -1,0 +1,318 @@
+/* ============================================
+   404 NOT FOUND PAGE
+   ============================================ */
+
+.not-found {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-2xl) var(--space-md);
+  overflow: hidden;
+  background: linear-gradient(
+    135deg,
+    var(--shell-white) 0%,
+    var(--sand-warm) 40%,
+    var(--mist-blue) 100%
+  );
+}
+
+.not-found::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image:
+    radial-gradient(circle at 20% 80%, rgba(74, 144, 164, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(233, 93, 84, 0.08) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+/* Floating Islands Background */
+.not-found-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.floating-island {
+  position: absolute;
+  font-size: 4rem;
+  opacity: 0.15;
+  animation: float 6s ease-in-out infinite;
+  filter: drop-shadow(0 4px 12px rgba(45, 95, 63, 0.2));
+  transition: transform 0.3s ease-out;
+}
+
+.island-1 {
+  top: 15%;
+  left: 10%;
+  font-size: 5rem;
+  animation-delay: 0s;
+}
+
+.island-2 {
+  top: 60%;
+  right: 15%;
+  font-size: 4rem;
+  animation-delay: 1s;
+}
+
+.island-3 {
+  bottom: 20%;
+  left: 20%;
+  font-size: 3.5rem;
+  animation-delay: 2s;
+}
+
+/* Content */
+.not-found-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 700px;
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Error Code */
+.error-code {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: var(--space-lg);
+}
+
+.digit {
+  font-family: var(--font-display);
+  font-size: clamp(5rem, 15vw, 10rem);
+  font-weight: 800;
+  line-height: 1;
+  color: var(--palm-green);
+  text-shadow:
+    0 4px 8px rgba(45, 95, 63, 0.2),
+    0 8px 16px rgba(45, 95, 63, 0.1);
+  animation: bounceIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.digit:nth-child(1) {
+  animation-delay: 0.1s;
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+
+.digit:nth-child(2) {
+  animation-delay: 0.2s;
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+
+.digit:nth-child(3) {
+  animation-delay: 0.3s;
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+
+.digit-special {
+  position: relative;
+  color: var(--lagoon-teal);
+}
+
+.digit-special::before {
+  content: '🏝️';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 0.4em;
+  animation: spin 3s linear infinite;
+}
+
+/* Error Text */
+.error-title {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-family: var(--font-heading);
+  color: var(--ink-black);
+  margin-bottom: var(--space-md);
+  animation: fadeIn 0.8s ease-out 0.4s backwards;
+}
+
+.error-description {
+  font-size: clamp(1.125rem, 2vw, 1.375rem);
+  line-height: 1.6;
+  color: var(--stone-gray);
+  margin-bottom: var(--space-xl);
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  animation: fadeIn 0.8s ease-out 0.5s backwards;
+}
+
+/* Error Actions */
+.error-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: var(--space-2xl);
+  animation: fadeIn 0.8s ease-out 0.6s backwards;
+}
+
+/* Quick Links */
+.quick-links {
+  animation: fadeIn 0.8s ease-out 0.7s backwards;
+}
+
+.quick-links-label {
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--stone-gray);
+  margin-bottom: var(--space-md);
+}
+
+.quick-links-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1rem;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.quick-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1.25rem 1rem;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(45, 95, 63, 0.1);
+  border-radius: var(--radius-md);
+  color: var(--ink-black);
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all var(--transition-base);
+  box-shadow:
+    0 2px 8px rgba(45, 95, 63, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.quick-link:hover {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: var(--palm-green);
+  transform: translateY(-4px);
+  box-shadow:
+    0 8px 24px rgba(45, 95, 63, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 1);
+}
+
+.quick-link-icon {
+  font-size: 1.75rem;
+  filter: drop-shadow(0 2px 4px rgba(45, 95, 63, 0.1));
+}
+
+/* Animations */
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .not-found {
+    padding: var(--space-xl) var(--space-md);
+  }
+
+  .error-code {
+    gap: 0.5rem;
+  }
+
+  .floating-island {
+    font-size: 3rem;
+  }
+
+  .island-1 {
+    font-size: 3.5rem;
+  }
+
+  .island-2 {
+    font-size: 3rem;
+  }
+
+  .island-3 {
+    font-size: 2.5rem;
+  }
+
+  .error-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .error-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .quick-links-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .floating-island,
+  .digit,
+  .error-title,
+  .error-description,
+  .error-actions,
+  .quick-links {
+    animation: none !important;
+  }
+
+  .digit {
+    opacity: 1 !important;
+  }
+
+  .digit-special::before {
+    animation: none !important;
+  }
+
+  .floating-island {
+    transform: none !important;
+  }
+}
