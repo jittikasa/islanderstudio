@@ -258,6 +258,33 @@
   margin-top: var(--space-xl);
 }
 
+/* FAQ Sections with Accordion */
+.faq-section {
+  margin-bottom: var(--space-2xl);
+}
+
+.faq-section:last-of-type {
+  margin-bottom: 0;
+}
+
+.faq-section-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--ink-black);
+  margin-bottom: var(--space-lg);
+  padding-bottom: var(--space-sm);
+  border-bottom: 2px solid rgba(45, 95, 63, 0.1);
+}
+
+.faq-section-icon {
+  font-size: 1.75rem;
+  filter: drop-shadow(0 2px 4px rgba(45, 95, 63, 0.1));
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .legal-page {

@@ -7,6 +7,7 @@ import ShellistOriginal from './pages/ShellistOriginal'
 import PolaMomentOriginal from './pages/PolaMomentOriginal'
 import Privacy from './pages/Privacy'
 import Support from './pages/Support'
+import NotFound from './pages/NotFound'
 
 function App() {
   const location = useLocation()
@@ -26,6 +27,7 @@ function App() {
           <Route path="/polamoment" element={<PolaMomentOriginal />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/support" element={<Support />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
       <Footer />
