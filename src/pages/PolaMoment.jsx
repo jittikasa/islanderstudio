@@ -428,7 +428,7 @@ export default function PolaMoment() {
 
             <div style={styles.cameraWrapper} className="camera-wrapper">
               <img
-                src="/polamoment/Cam.svg"
+                src="/pola-assets/Cam.svg"
                 alt="PolaMoment Camera"
                 style={styles.cameraImg}
                 onError={() => handleImageError('camera')}
@@ -439,7 +439,7 @@ export default function PolaMoment() {
                     <div style={styles.polaroidFrame}>
                       <div style={styles.polaroidPhoto}>
                         {!imageErrors.img1 ? (
-                          <img src="/polamoment/Image-1.jpeg" alt="" style={styles.polaroidImg} onError={() => handleImageError('img1')} />
+                          <img src="/pola-assets/Image-1.jpeg" alt="" style={styles.polaroidImg} onError={() => handleImageError('img1')} />
                         ) : (
                           <div style={{width: '100%', height: '100%', background: 'linear-gradient(135deg, #f5f5f4, #e7e5e4)'}}></div>
                         )}
@@ -453,7 +453,7 @@ export default function PolaMoment() {
                     <div style={styles.polaroidFrame}>
                       <div style={styles.polaroidPhoto}>
                         {!imageErrors.img2 ? (
-                          <img src="/polamoment/Image-2.jpeg" alt="" style={styles.polaroidImg} onError={() => handleImageError('img2')} />
+                          <img src="/pola-assets/Image-2.jpeg" alt="" style={styles.polaroidImg} onError={() => handleImageError('img2')} />
                         ) : (
                           <div style={{width: '100%', height: '100%', background: 'linear-gradient(135deg, #f5f5f4, #e7e5e4)'}}></div>
                         )}
@@ -467,7 +467,7 @@ export default function PolaMoment() {
                     <div style={styles.polaroidFrame}>
                       <div style={styles.polaroidPhoto}>
                         {!imageErrors.img3 ? (
-                          <img src="/polamoment/Image-3.jpeg" alt="" style={styles.polaroidImg} onError={() => handleImageError('img3')} />
+                          <img src="/pola-assets/Image-3.jpeg" alt="" style={styles.polaroidImg} onError={() => handleImageError('img3')} />
                         ) : (
                           <div style={{width: '100%', height: '100%', background: 'linear-gradient(135deg, #f5f5f4, #e7e5e4)'}}></div>
                         )}
