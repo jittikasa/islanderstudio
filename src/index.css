@@ -295,49 +295,49 @@ img {
 }
 
 .btn-primary {
-  background: var(--palm-green);
+  background: var(--sunset-glow);
   color: white;
   box-shadow: var(--shadow-md);
 }
 
 .btn-primary:hover {
-  background: var(--ocean-deep);
+  background: #E68E5F;
   transform: translateY(-2px);
   box-shadow: var(--shadow-lg);
 }
 
 .btn-outline {
   background: transparent;
-  color: var(--ink-black);
-  border: 2px solid var(--ink-black);
+  color: var(--midnight-sky);
+  border: 2px solid var(--coconut-shell);
 }
 
 .btn-outline:hover {
-  background: var(--ink-black);
+  background: var(--coconut-shell);
   color: white;
 }
 
 .btn-secondary {
-  background: var(--sunset-coral);
+  background: var(--coconut-shell);
   color: white;
   box-shadow: var(--shadow-md);
 }
 
 .btn-secondary:hover {
-  background: var(--terracotta);
+  background: #96785A;
   transform: translateY(-2px);
   box-shadow: var(--shadow-lg);
 }
 
 /* Custom Selection */
 ::selection {
-  background: var(--lagoon-teal);
-  color: white;
+  background: var(--golden-hour);
+  color: var(--midnight-sky);
 }
 
 ::-moz-selection {
-  background: var(--lagoon-teal);
-  color: white;
+  background: var(--golden-hour);
+  color: var(--midnight-sky);
 }
 
 /* Scrollbar Styling */
@@ -346,22 +346,22 @@ img {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--sand-warm);
+  background: var(--sea-salt);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--palm-green);
+  background: var(--coconut-shell);
   border-radius: var(--radius-full);
-  border: 3px solid var(--sand-warm);
+  border: 3px solid var(--sea-salt);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--ocean-deep);
+  background: #96785A;
 }
 
 /* Focus Styles */
 *:focus-visible {
-  outline: 3px solid var(--lagoon-teal);
+  outline: 3px solid var(--sunset-glow);
   outline-offset: 3px;
 }
 
