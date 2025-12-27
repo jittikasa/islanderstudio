@@ -19,7 +19,7 @@ export default function Home() {
       tagline: 'Build habits like pearls',
       category: 'Productivity',
       year: '2024',
-      color: '#4A90A4',
+      color: '#A78A6A', // Coconut Shell - warm, earthy, on-brand
       graphic: 'shell.png',
       description: 'A habit tracker that visualizes your progress as a growing pearl chain. Beautiful, private, and designed to make building habits feel like collecting treasures.',
       appStoreUrl: 'https://apps.apple.com/us/app/shellist/id6755242144'
@@ -30,7 +30,7 @@ export default function Home() {
       tagline: 'Capture vintage memories',
       category: 'Photography',
       year: '2025',
-      color: '#D93025',
+      color: '#F7A173', // Sunset Glow - warm, nostalgic, on-brand
       graphic: 'moon.png',
       description: 'Turn your iPhone into a vintage Polaroid camera. Instant photos with that distinctive retro charm, complete with shake-to-develop animations.',
       appStoreUrl: null
