@@ -3,28 +3,38 @@
    ============================================ */
 
 :root {
-  /* Color Palette - Tropical Modernism */
-  --palm-green: #2D5F3F;
-  --ocean-deep: #1A3A52;
-  --sunset-coral: #E85D54;
-  --sand-warm: #F4EDE4;
+  /* Color Palette - New Islander Studio Branding */
+  /* Primary Colors */
+  --coconut-shell: #A78A6A;
+  --sea-salt: #F7F0E6;
+  --midnight-sky: #333333;
+
+  /* Accent Colors */
+  --golden-hour: #FDDE86;
+  --sunset-glow: #F7A173;
+
+  /* Legacy color mappings for compatibility */
+  --palm-green: #A78A6A;
+  --ocean-deep: #333333;
+  --sunset-coral: #F7A173;
+  --sand-warm: #F7F0E6;
   --shell-white: #FDFBF7;
-  --ink-black: #1A1A1A;
-  --stone-gray: #6B7280;
-  --mist-blue: #D4E4ED;
-  --lagoon-teal: #4A90A4;
-  --terracotta: #D97856;
+  --ink-black: #333333;
+  --stone-gray: #666666;
+  --mist-blue: #F7F0E6;
+  --lagoon-teal: #A78A6A;
+  --terracotta: #F7A173;
 
   /* PolaMoment Colors */
   --pola-red: #D93025;
   --pola-black: #121212;
   --pola-cream: #FAFAF5;
 
-  /* Typography Scale */
+  /* Typography Scale - New Brand Fonts */
   --font-display: 'Syne', sans-serif;
-  --font-serif: 'Crimson Pro', serif;
-  --font-heading: 'DM Serif Display', serif;
-  --font-body: 'Crimson Pro', serif;
+  --font-heading: 'Syne', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-serif: 'DM Sans', sans-serif;
 
   /* Spacing System (8px base) */
   --space-xs: 0.5rem;    /* 8px */
@@ -260,7 +270,7 @@ img {
 }
 
 .text-gradient {
-  background: linear-gradient(135deg, var(--palm-green), var(--lagoon-teal), var(--sunset-coral));
+  background: linear-gradient(135deg, var(--coconut-shell), var(--golden-hour), var(--sunset-glow));
   background-size: 200% 200%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;

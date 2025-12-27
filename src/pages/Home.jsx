@@ -42,10 +42,10 @@ export default function Home() {
   return (
     <>
       <SEO
-        title="Islander Studio - Crafting Beautiful iOS Apps"
-        description="Islander Studio creates thoughtfully designed mobile experiences that blend artistry with functionality. Discover Shellist for habit tracking and PolaMoment for vintage photography."
+        title="Islander Studio - Crafted with soul for everyday moments"
+        description="Thoughtfully designed iOS apps that blend artistry with functionality. Discover Shellist for habit tracking and PolaMoment for vintage photography."
         url="https://islanderstudio.app"
-        keywords="iOS apps, mobile apps, Shellist, habit tracker, PolaMoment, polaroid camera, indie apps, app development"
+        keywords="iOS apps, mobile apps, Shellist, habit tracker, PolaMoment, polaroid camera, indie apps, boutique app studio, thoughtful design"
       />
       <StructuredData data={[organizationSchema, websiteSchema]} />
 
@@ -62,7 +62,7 @@ export default function Home() {
           <div className="hero-content">
             <div className="hero-badge fade-in">
               <span className="hero-badge-icon">🏝️</span>
-              <span>Crafting Beautiful iOS Apps</span>
+              <span>Crafted with soul for everyday moments</span>
             </div>
             <h1 className="hero-title fade-in-up">
               Where Design
@@ -70,9 +70,9 @@ export default function Home() {
               Meets <span className="text-gradient">Delight</span>
             </h1>
             <p className="hero-description fade-in-up" style={{ animationDelay: '0.2s' }}>
-              Islander Studio creates thoughtfully designed mobile experiences
+              Islander Studio creates thoughtfully designed iOS apps
               that blend artistry with functionality. Each app is a journey,
-              crafted with care and built to inspire.
+              crafted with care and built to inspire everyday moments.
             </p>
             <div className="hero-cta fade-in-up" style={{ animationDelay: '0.3s' }}>
               <Link to="/shellist" className="btn btn-primary btn-elevated">
