@@ -1,16 +1,43 @@
 /* ============================================
-   ISLANDER STUDIO - Tropical Modernism
-   With Animation & Soul
+   ISLANDER STUDIO - Editorial Tropical Luxe
+   Bold, Warm, Unforgettable
    ============================================ */
 
 .home-container {
   min-height: 100vh;
-  background: var(--sea-salt);
+  background:
+    linear-gradient(135deg,
+      #FDFBF7 0%,
+      #F7F0E6 40%,
+      #FDDE86 100%
+    );
   position: relative;
   overflow-x: hidden;
 }
 
-/* ===== TROPICAL BACKGROUND GRAPHICS ===== */
+/* Add subtle grain texture for tactile feel */
+.home-container::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(167, 138, 106, 0.03) 2px,
+      rgba(167, 138, 106, 0.03) 4px
+    );
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.4;
+  mix-blend-mode: overlay;
+}
+
+/* ===== TROPICAL BACKGROUND GRAPHICS - BOLD & PROMINENT ===== */
 .tropical-bg {
   position: fixed;
   top: 0;
@@ -19,65 +46,88 @@
   height: 100%;
   pointer-events: none;
   z-index: 0;
-  opacity: 0.08;
+  opacity: 1;
   transition: transform 0.1s ease-out;
   will-change: transform;
 }
 
 .bg-tree {
   position: absolute;
-  top: 5%;
-  right: -5%;
-  width: 400px;
-  height: 400px;
+  top: -10%;
+  right: -8%;
+  width: 600px;
+  height: 600px;
   object-fit: contain;
-  animation: float 20s ease-in-out infinite;
+  opacity: 0.25;
+  animation: sway 12s ease-in-out infinite;
   will-change: transform;
+  filter: drop-shadow(0 20px 40px rgba(167, 138, 106, 0.3));
 }
 
 .bg-star {
   position: absolute;
-  bottom: 15%;
-  left: 5%;
-  width: 200px;
-  height: 200px;
+  bottom: 10%;
+  left: -5%;
+  width: 350px;
+  height: 350px;
   object-fit: contain;
-  animation: float 15s ease-in-out infinite reverse;
+  opacity: 0.35;
+  animation: spin 40s linear infinite;
   will-change: transform;
+  filter: drop-shadow(0 15px 30px rgba(253, 222, 134, 0.4));
 }
 
 .bg-sun {
   position: absolute;
-  top: 20%;
-  left: 10%;
-  width: 250px;
-  height: 250px;
+  top: 15%;
+  left: 5%;
+  width: 400px;
+  height: 400px;
   object-fit: contain;
+  opacity: 0.2;
+  animation: pulse 8s ease-in-out infinite;
   will-change: transform;
+  filter: drop-shadow(0 0 60px rgba(253, 222, 134, 0.6));
 }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-30px) rotate(5deg); }
+@keyframes sway {
+  0%, 100% { transform: translateY(0) rotate(-3deg); }
+  50% { transform: translateY(-20px) rotate(3deg); }
 }
 
-/* ===== HEADER ===== */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.2;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.3;
+  }
+}
+
+/* ===== HEADER - Minimal, elegant ===== */
 .site-header {
   position: relative;
   z-index: 10;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 2rem 4rem;
-  max-width: 1400px;
+  padding: 3rem 5%;
+  max-width: 1600px;
   margin: 0 auto;
-  animation: slideDown 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: slideDown 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @keyframes slideDown {
   from {
     opacity: 0;
-    transform: translateY(-20px);
+    transform: translateY(-30px);
   }
   to {
     opacity: 1;
@@ -86,45 +136,52 @@
 }
 
 .logo {
-  height: 40px;
+  height: 48px;
   width: auto;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  filter: drop-shadow(0 4px 12px rgba(167, 138, 106, 0.2));
 }
 
 .logo:hover {
-  transform: scale(1.05) rotate(-2deg);
+  transform: scale(1.08) rotate(-3deg);
+  filter: drop-shadow(0 8px 20px rgba(167, 138, 106, 0.35));
 }
 
 .main-nav {
   display: flex;
-  gap: 2rem;
+  gap: 3rem;
+  align-items: center;
 }
 
 .nav-item {
-  font-family: var(--font-body);
-  font-size: 1rem;
+  font-family: var(--font-heading);
+  font-size: 1.125rem;
+  font-weight: 600;
   color: var(--midnight-sky);
   text-decoration: none;
-  opacity: 0.6;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 0.7;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
+  letter-spacing: -0.01em;
 }
 
 .nav-item::after {
   content: '';
   position: absolute;
-  bottom: -4px;
+  bottom: -6px;
   left: 0;
   right: 0;
-  height: 2px;
-  background: var(--coconut-shell);
+  height: 3px;
+  background: linear-gradient(90deg, var(--sunset-glow), var(--golden-hour));
   transform: scaleX(0);
   transform-origin: right;
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: 2px;
 }
 
 .nav-item:hover {
   opacity: 1;
+  transform: translateY(-2px);
 }
 
 .nav-item:hover::after {
@@ -132,16 +189,16 @@
   transform-origin: left;
 }
 
-/* ===== HERO SECTION ===== */
+/* ===== HERO SECTION - Editorial Bold ===== */
 .hero-section {
   position: relative;
   z-index: 5;
-  max-width: 1400px;
+  max-width: 1600px;
   margin: 0 auto;
-  padding: 4rem 4rem 6rem;
+  padding: 2rem 5% 8rem;
   opacity: 0;
-  transform: translateY(40px);
-  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(60px);
+  transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .hero-section.visible {
@@ -150,124 +207,59 @@
 }
 
 .hero-content {
-  margin-bottom: 4rem;
+  margin-bottom: 6rem;
+  position: relative;
 }
 
-/* Brand Guide: H2 = 96pt */
+/* DRAMATIC OVERSIZED TYPOGRAPHY */
 .hero-title {
   font-family: var(--font-heading);
-  font-size: clamp(3.5rem, 8vw, 6rem);
+  font-size: clamp(4rem, 12vw, 9rem);
   font-weight: 800;
-  line-height: 1.1;
-  letter-spacing: -0.03em;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
   color: var(--midnight-sky);
-  margin: 0 0 1.5rem 0;
+  margin: 0;
+  position: relative;
+  mix-blend-mode: multiply;
 }
 
 .title-line {
   display: block;
-  overflow: hidden;
+  overflow: visible;
+  position: relative;
 }
 
 .title-line:first-child {
-  animation: slideInLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s backwards;
+  animation: slideInLeft 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s backwards;
+  padding-left: 0.5rem;
 }
 
 .title-line:last-child {
-  animation: slideInLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s backwards;
+  animation: slideInLeft 1s cubic-bezier(0.16, 1, 0.3, 1) 0.5s backwards;
+  margin-left: 8%;
 }
 
 @keyframes slideInLeft {
   from {
     opacity: 0;
-    transform: translateX(-30px);
+    transform: translateX(-60px) translateY(20px);
   }
   to {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateX(0) translateY(0);
   }
 }
 
 .highlight-text {
-  color: var(--coconut-shell);
+  color: var(--sunset-glow);
   position: relative;
   display: inline-block;
-  animation: highlight 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.8s backwards;
+  animation: highlight 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1s backwards;
+  text-shadow: 0 4px 20px rgba(247, 161, 115, 0.4);
 }
 
 @keyframes highlight {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-.highlight-text::after {
-  content: '';
-  position: absolute;
-  bottom: 0.1em;
-  left: -0.1em;
-  right: -0.1em;
-  height: 0.3em;
-  background: var(--golden-hour);
-  opacity: 0.5;
-  z-index: -1;
-  border-radius: 4px;
-  animation: expandHighlight 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1s backwards;
-}
-
-@keyframes expandHighlight {
-  from {
-    transform: scaleX(0);
-    transform-origin: left;
-  }
-  to {
-    transform: scaleX(1);
-  }
-}
-
-/* Brand Guide: B1 = 28pt */
-.hero-subtitle {
-  font-family: var(--font-body);
-  font-size: clamp(1.25rem, 2.5vw, 1.75rem);
-  line-height: 1.6;
-  color: var(--midnight-sky);
-  opacity: 0.7;
-  margin: 0;
-  animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.6s backwards;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 0.7;
-    transform: translateY(0);
-  }
-}
-
-/* ===== FEATURED APP ===== */
-.featured-app {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 6rem;
-  align-items: center;
-  margin-bottom: 4rem;
-}
-
-/* Phone display */
-.app-phone {
-  position: relative;
-  max-width: 420px;
-  margin: 0 auto;
-  animation: fadeInScale 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.8s backwards;
-}
-
-@keyframes fadeInScale {
   from {
     opacity: 0;
     transform: scale(0.9);
@@ -278,48 +270,182 @@
   }
 }
 
+/* Bold background shape behind "soul" */
+.highlight-text::before {
+  content: '';
+  position: absolute;
+  top: -15%;
+  left: -8%;
+  right: -8%;
+  bottom: -15%;
+  background: linear-gradient(135deg, var(--golden-hour) 0%, var(--sunset-glow) 100%);
+  opacity: 0.25;
+  z-index: -1;
+  border-radius: 20px;
+  transform: rotate(-2deg);
+  animation: expandHighlight 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1.2s backwards;
+}
+
+@keyframes expandHighlight {
+  from {
+    transform: rotate(-2deg) scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: rotate(-2deg) scale(1);
+    opacity: 0.25;
+  }
+}
+
+/* Decorative scribble accent */
+.highlight-text::after {
+  content: '';
+  position: absolute;
+  bottom: -0.1em;
+  left: 0;
+  right: 0;
+  height: 0.15em;
+  background: var(--sunset-glow);
+  opacity: 0.6;
+  z-index: -1;
+  border-radius: 4px;
+  animation: drawLine 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.4s backwards;
+}
+
+@keyframes drawLine {
+  from {
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Elegant subtitle with breathing room */
+.hero-subtitle {
+  font-family: var(--font-body);
+  font-size: clamp(1.375rem, 3vw, 2.25rem);
+  line-height: 1.5;
+  color: var(--midnight-sky);
+  opacity: 0.65;
+  margin: 3rem 0 0 10%;
+  max-width: 600px;
+  font-weight: 400;
+  animation: fadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.8s backwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 0.65;
+    transform: translateY(0);
+  }
+}
+
+/* ===== FEATURED APP - Editorial Asymmetric Layout ===== */
+.featured-app {
+  display: grid;
+  grid-template-columns: 45% 55%;
+  gap: 4rem;
+  align-items: start;
+  margin-bottom: 6rem;
+  position: relative;
+}
+
+/* Phone display with dramatic shadow */
+.app-phone {
+  position: relative;
+  max-width: 500px;
+  margin: 0 0 0 auto;
+  transform-origin: center;
+  animation: fadeInScale 1s cubic-bezier(0.16, 1, 0.3, 1) 1s backwards;
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.85) rotate(-5deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
 .phone-frame {
   width: 100%;
   aspect-ratio: 9/16;
-  border-radius: 40px;
+  border-radius: 48px;
   overflow: hidden;
   background: white;
   box-shadow:
-    0 0 0 1px rgba(0, 0, 0, 0.05),
-    0 30px 80px rgba(0, 0, 0, 0.15),
-    0 50px 100px rgba(0, 0, 0, 0.1);
-  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    0 0 0 1px rgba(0, 0, 0, 0.06),
+    0 40px 100px rgba(167, 138, 106, 0.25),
+    0 80px 150px rgba(167, 138, 106, 0.15),
+    0 0 80px rgba(253, 222, 134, 0.1);
+  transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform;
-  perspective: 1000px;
+  perspective: 1200px;
+  position: relative;
+}
+
+/* Glowing aura effect */
+.phone-frame::before {
+  content: '';
+  position: absolute;
+  inset: -40px;
+  background: radial-gradient(
+    circle at center,
+    rgba(253, 222, 134, 0.2) 0%,
+    transparent 70%
+  );
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.phone-frame:hover::before {
+  opacity: 1;
 }
 
 .phone-frame:hover {
   box-shadow:
-    0 0 0 1px rgba(0, 0, 0, 0.05),
-    0 40px 100px rgba(0, 0, 0, 0.2),
-    0 60px 120px rgba(0, 0, 0, 0.15);
+    0 0 0 1px rgba(0, 0, 0, 0.06),
+    0 50px 120px rgba(167, 138, 106, 0.3),
+    0 100px 180px rgba(167, 138, 106, 0.2),
+    0 0 120px rgba(253, 222, 134, 0.15);
+  transform: translateY(-8px) scale(1.02);
 }
 
 .phone-icon {
   position: absolute;
-  bottom: -25px;
-  right: -25px;
-  width: 72px;
-  height: 72px;
-  border-radius: 18px;
+  bottom: -30px;
+  right: -30px;
+  width: 88px;
+  height: 88px;
+  border-radius: 22px;
   overflow: hidden;
   box-shadow:
-    0 0 0 6px var(--sea-salt),
-    0 10px 40px rgba(0, 0, 0, 0.2);
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    0 0 0 8px rgba(253, 251, 247, 0.95),
+    0 12px 48px rgba(0, 0, 0, 0.25),
+    0 0 0 1px rgba(0, 0, 0, 0.08);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform;
-  animation: bounceIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1.2s backwards;
+  animation: bounceIn 1s cubic-bezier(0.16, 1, 0.3, 1) 1.4s backwards;
+  background: white;
 }
 
 @keyframes bounceIn {
   from {
     opacity: 0;
-    transform: scale(0) rotate(-45deg);
+    transform: scale(0) rotate(-90deg);
+  }
+  60% {
+    transform: scale(1.1) rotate(5deg);
   }
   to {
     opacity: 1;
@@ -328,13 +454,14 @@
 }
 
 .phone-icon:hover {
-  transform: rotate(-8deg) scale(1.15);
+  transform: rotate(-12deg) scale(1.2);
   box-shadow:
-    0 0 0 6px var(--sea-salt),
-    0 15px 50px rgba(0, 0, 0, 0.3);
+    0 0 0 8px rgba(253, 251, 247, 0.95),
+    0 20px 60px rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(0, 0, 0, 0.08);
 }
 
-/* Floating particles */
+/* Floating particles - more magical */
 .particles {
   position: absolute;
   top: 0;
@@ -343,79 +470,143 @@
   height: 100%;
   pointer-events: none;
   z-index: 10;
+  overflow: visible;
 }
 
 .particle {
   position: absolute;
-  width: 8px;
-  height: 8px;
-  background: var(--golden-hour);
+  width: 12px;
+  height: 12px;
+  background: radial-gradient(
+    circle,
+    var(--golden-hour) 0%,
+    var(--sunset-glow) 100%
+  );
   border-radius: 50%;
-  opacity: 0.4;
-  animation: particleFloat 4s ease-in-out infinite;
+  opacity: 0;
+  animation: particleFloat 5s ease-in-out infinite;
+  box-shadow: 0 0 20px rgba(253, 222, 134, 0.6);
+}
+
+.particle:nth-child(2n) {
+  background: radial-gradient(
+    circle,
+    var(--sunset-glow) 0%,
+    var(--golden-hour) 100%
+  );
 }
 
 @keyframes particleFloat {
   0%, 100% {
-    transform: translateY(0) scale(1);
+    transform: translateY(0) scale(0.5) rotate(0deg);
     opacity: 0;
   }
+  10% {
+    opacity: 0.8;
+  }
   50% {
-    transform: translateY(-100px) scale(1.5);
-    opacity: 0.6;
+    transform: translateY(-120px) scale(1.2) rotate(180deg);
+    opacity: 0.9;
+  }
+  90% {
+    opacity: 0.5;
   }
 }
 
-/* App info card */
+/* App info card - Rich editorial style */
 .app-info-card {
-  background: white;
-  border-radius: 32px;
-  padding: 3rem;
+  background: linear-gradient(
+    160deg,
+    rgba(255, 255, 255, 0.98) 0%,
+    rgba(247, 240, 230, 0.95) 100%
+  );
+  border-radius: 40px;
+  padding: 4rem;
   position: relative;
   overflow: hidden;
   box-shadow:
-    0 0 0 1px rgba(0, 0, 0, 0.04),
-    0 20px 60px rgba(167, 138, 106, 0.12);
-  animation: fadeInRight 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1s backwards;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    0 0 0 1px rgba(167, 138, 106, 0.15),
+    0 30px 80px rgba(167, 138, 106, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  animation: fadeInRight 1s cubic-bezier(0.16, 1, 0.3, 1) 1.2s backwards;
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  backdrop-filter: blur(20px);
+}
+
+/* Subtle inner glow */
+.app-info-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 200px;
+  background: radial-gradient(
+    ellipse at top,
+    rgba(253, 222, 134, 0.15) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
 }
 
 @keyframes fadeInRight {
   from {
     opacity: 0;
-    transform: translateX(30px);
+    transform: translateX(60px) translateY(20px);
   }
   to {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateX(0) translateY(0);
   }
 }
 
 .app-info-card:hover {
   box-shadow:
-    0 0 0 1px rgba(0, 0, 0, 0.04),
-    0 30px 80px rgba(167, 138, 106, 0.18);
-  transform: translateY(-4px);
+    0 0 0 1px rgba(167, 138, 106, 0.2),
+    0 40px 100px rgba(167, 138, 106, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  transform: translateY(-6px);
 }
 
 .app-category {
   display: inline-block;
-  padding: 0.5rem 1.25rem;
-  border-radius: 8px;
+  padding: 0.75rem 1.75rem;
+  border-radius: 12px;
   font-family: var(--font-heading);
-  font-size: 0.75rem;
+  font-size: 0.875rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   color: white;
-  margin-bottom: 2rem;
-  animation: slideInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.2s backwards;
+  margin-bottom: 2.5rem;
+  animation: slideInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1.4s backwards;
+  position: relative;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+/* Shimmer effect on category badge */
+.app-category::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    110deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.3) 50%,
+    transparent 70%
+  );
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0%, 100% { transform: translateX(-100%); }
+  50% { transform: translateX(100%); }
 }
 
 @keyframes slideInUp {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
@@ -423,84 +614,110 @@
   }
 }
 
-/* Brand Guide: H3 = 72pt */
+/* Bold app title */
 .app-title {
   font-family: var(--font-heading);
-  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-size: clamp(3rem, 6vw, 5.5rem);
   font-weight: 800;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
+  line-height: 1;
+  letter-spacing: -0.03em;
   color: var(--midnight-sky);
-  margin: 0 0 1rem 0;
+  margin: 0 0 1.5rem 0;
+  position: relative;
+  display: inline-block;
 }
 
-/* Brand Guide: B2 = 24pt */
+/* Stylish underline */
+.app-title::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 60px;
+  height: 6px;
+  background: linear-gradient(90deg, var(--sunset-glow), var(--golden-hour));
+  border-radius: 3px;
+}
+
+/* Elegant tagline */
 .app-tagline {
   font-family: var(--font-body);
-  font-size: 1.5rem;
-  line-height: 1.6;
-  color: var(--midnight-sky);
-  opacity: 0.6;
+  font-size: 1.75rem;
+  line-height: 1.5;
+  color: var(--coconut-shell);
+  opacity: 0.75;
   font-style: italic;
-  margin: 0 0 2rem 0;
+  font-weight: 500;
+  margin: 0 0 2.5rem 0;
 }
 
-/* Brand Guide: B3 = 20pt */
+/* Rich description */
 .app-description {
   font-family: var(--font-body);
-  font-size: 1.125rem;
-  line-height: 1.7;
+  font-size: 1.25rem;
+  line-height: 1.75;
   color: var(--midnight-sky);
-  opacity: 0.75;
-  margin: 0 0 2.5rem 0;
+  opacity: 0.7;
+  margin: 0 0 3rem 0;
+  max-width: 540px;
 }
 
 .app-actions {
   display: flex;
-  gap: 1rem;
+  gap: 1.5rem;
   align-items: center;
   flex-wrap: wrap;
+  position: relative;
+  z-index: 2;
 }
 
 .cta-primary,
 .cta-secondary {
   display: inline-flex;
   align-items: center;
-  gap: 0.75rem;
-  padding: 1rem 2rem;
+  gap: 0.875rem;
+  padding: 1.25rem 2.5rem;
   font-family: var(--font-heading);
-  font-size: 1rem;
-  font-weight: 600;
+  font-size: 1.125rem;
+  font-weight: 700;
   text-decoration: none;
-  border-radius: 12px;
+  border-radius: 16px;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
   overflow: hidden;
+  letter-spacing: -0.01em;
 }
 
 .cta-primary {
-  background: var(--sunset-glow);
+  background: linear-gradient(135deg, var(--sunset-glow) 0%, #FF8A5B 100%);
   color: white;
   border: none;
-  box-shadow: 0 4px 16px rgba(247, 161, 115, 0.3);
+  box-shadow:
+    0 8px 32px rgba(247, 161, 115, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.2) inset;
 }
 
+/* Animated gradient overlay */
 .cta-primary::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), transparent);
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.3) 0%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.1) 100%
+  );
   opacity: 0;
-  transition: opacity 0.3s;
+  transition: opacity 0.5s;
 }
 
 .cta-primary:hover {
-  transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 8px 24px rgba(247, 161, 115, 0.4);
+  transform: translateY(-3px) scale(1.03);
+  box-shadow:
+    0 16px 48px rgba(247, 161, 115, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.3) inset;
 }
 
 .cta-primary:hover::before {
@@ -508,52 +725,55 @@
 }
 
 .cta-primary:active {
-  transform: translateY(0) scale(0.98);
+  transform: translateY(-1px) scale(1);
 }
 
 .cta-primary svg {
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .cta-primary:hover svg {
-  transform: translateY(2px);
+  transform: translateY(3px);
 }
 
 .cta-secondary {
-  background: transparent;
+  background: rgba(255, 255, 255, 0.5);
   color: var(--midnight-sky);
   border: 2px solid var(--coconut-shell);
-  opacity: 0.5;
+  opacity: 0.6;
+  backdrop-filter: blur(10px);
 }
 
 .cta-secondary:hover:not(:disabled) {
   background: var(--coconut-shell);
   color: white;
   opacity: 1;
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(167, 138, 106, 0.3);
 }
 
 .cta-link {
-  font-family: var(--font-body);
-  font-size: 1rem;
+  font-family: var(--font-heading);
+  font-size: 1.125rem;
   color: var(--coconut-shell);
   text-decoration: none;
   font-weight: 600;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
 }
 
 .cta-link::after {
   content: '';
   position: absolute;
-  bottom: -2px;
+  bottom: -3px;
   left: 0;
   right: 0;
-  height: 2px;
-  background: var(--coconut-shell);
+  height: 3px;
+  background: linear-gradient(90deg, var(--coconut-shell), var(--sunset-glow));
   transform: scaleX(0);
   transform-origin: right;
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: 2px;
 }
 
 .cta-link:hover::after {
@@ -562,20 +782,22 @@
 }
 
 .cta-link:hover {
-  transform: translateX(4px);
+  transform: translateX(6px);
+  color: var(--sunset-glow);
 }
 
-/* Decorative graphic in card */
+/* Decorative graphic in card - bolder presence */
 .card-graphic {
   position: absolute;
-  bottom: -40px;
-  right: -40px;
-  width: 240px;
-  height: 240px;
-  opacity: 0.05;
+  bottom: -60px;
+  right: -60px;
+  width: 320px;
+  height: 320px;
+  opacity: 0.12;
   pointer-events: none;
   will-change: transform;
-  transition: all 0.3s ease-out;
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  filter: drop-shadow(0 10px 40px rgba(253, 222, 134, 0.3));
 }
 
 .card-graphic img {
@@ -585,60 +807,80 @@
 }
 
 .app-info-card:hover .card-graphic {
-  opacity: 0.08;
-  transform: scale(1.1);
+  opacity: 0.18;
+  transform: scale(1.15) rotate(8deg);
+  filter: drop-shadow(0 15px 60px rgba(253, 222, 134, 0.4));
 }
 
-/* ===== APP SWITCHER ===== */
+/* ===== APP SWITCHER - Luxe Pill Design ===== */
 .app-switcher {
   display: flex;
-  gap: 1.5rem;
+  gap: 2rem;
   justify-content: center;
-  padding: 2rem;
-  background: white;
-  border-radius: 24px;
-  box-shadow: 0 8px 32px rgba(167, 138, 106, 0.08);
-  max-width: 600px;
+  padding: 1.5rem 2.5rem;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(247, 240, 230, 0.9) 100%
+  );
+  border-radius: 28px;
+  box-shadow:
+    0 0 0 1px rgba(167, 138, 106, 0.2),
+    0 12px 48px rgba(167, 138, 106, 0.15);
+  max-width: 700px;
   margin: 0 auto;
-  animation: fadeInScale 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1.4s backwards;
+  animation: fadeInScale 1s cubic-bezier(0.16, 1, 0.3, 1) 1.6s backwards;
+  backdrop-filter: blur(20px);
 }
 
 .app-tab {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  padding: 1rem 2rem;
+  gap: 1.25rem;
+  padding: 1.25rem 2.25rem;
   background: transparent;
   border: 2px solid transparent;
-  border-radius: 16px;
+  border-radius: 20px;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   font-family: var(--font-heading);
-  font-size: 1.125rem;
-  font-weight: 600;
+  font-size: 1.25rem;
+  font-weight: 700;
   color: var(--midnight-sky);
-  opacity: 0.5;
+  opacity: 0.45;
   position: relative;
+  letter-spacing: -0.01em;
 }
 
 .tab-icon {
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 .app-tab:hover .tab-icon {
-  transform: scale(1.1) rotate(-5deg);
+  transform: scale(1.15) rotate(-8deg);
 }
 
 .app-tab:hover {
-  opacity: 0.8;
-  background: rgba(167, 138, 106, 0.05);
-  transform: translateY(-2px);
+  opacity: 0.75;
+  background: rgba(253, 222, 134, 0.15);
+  transform: translateY(-3px);
 }
 
 .app-tab.active {
   opacity: 1;
   border-color: var(--tab-color);
-  background: rgba(167, 138, 106, 0.08);
+  background: linear-gradient(
+    135deg,
+    rgba(253, 222, 134, 0.25) 0%,
+    rgba(247, 161, 115, 0.15) 100%
+  );
+  box-shadow: 0 8px 24px rgba(var(--tab-color), 0.2);
+}
+
+.app-tab.active .tab-icon {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .tab-indicator {
@@ -646,73 +888,87 @@
   bottom: -2px;
   left: 50%;
   transform: translateX(-50%);
-  width: 60%;
-  height: 3px;
-  border-radius: 3px 3px 0 0;
-  animation: slideInIndicator 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  width: 70%;
+  height: 4px;
+  border-radius: 4px 4px 0 0;
+  animation: slideInIndicator 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
 }
 
 @keyframes slideInIndicator {
   from {
     width: 0;
+    opacity: 0;
   }
   to {
-    width: 60%;
+    width: 70%;
+    opacity: 1;
   }
 }
 
-/* ===== FOOTER ===== */
+/* ===== FOOTER - Warm & Inviting ===== */
 .site-footer {
   position: relative;
   z-index: 5;
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 4rem 4rem 3rem;
+  max-width: 1600px;
+  margin: 6rem auto 0;
+  padding: 5rem 5% 4rem;
   text-align: center;
-  border-top: 1px solid rgba(167, 138, 106, 0.15);
+  border-top: 2px solid rgba(167, 138, 106, 0.2);
+  background: linear-gradient(
+    to top,
+    rgba(253, 222, 134, 0.1) 0%,
+    transparent 100%
+  );
 }
 
 .footer-tagline {
   font-family: var(--font-body);
-  font-size: 1rem;
-  color: var(--midnight-sky);
-  opacity: 0.4;
+  font-size: 1.25rem;
+  color: var(--coconut-shell);
+  opacity: 0.6;
   font-style: italic;
-  margin: 0 0 1.5rem 0;
+  font-weight: 500;
+  margin: 0 0 2rem 0;
+  letter-spacing: 0.01em;
 }
 
 .footer-links {
   display: flex;
-  gap: 2rem;
+  gap: 3rem;
   justify-content: center;
+  align-items: center;
 }
 
 .footer-links a {
-  font-family: var(--font-body);
-  font-size: 0.9375rem;
+  font-family: var(--font-heading);
+  font-size: 1.0625rem;
+  font-weight: 600;
   color: var(--midnight-sky);
   text-decoration: none;
-  opacity: 0.5;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 0.55;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
 }
 
 .footer-links a::after {
   content: '';
   position: absolute;
-  bottom: -4px;
+  bottom: -5px;
   left: 0;
   right: 0;
-  height: 1px;
-  background: var(--midnight-sky);
+  height: 2px;
+  background: linear-gradient(90deg, var(--coconut-shell), var(--sunset-glow));
   transform: scaleX(0);
   transform-origin: right;
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: 2px;
 }
 
 .footer-links a:hover {
   opacity: 1;
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+  color: var(--sunset-glow);
 }
 
 .footer-links a:hover::after {
@@ -720,79 +976,157 @@
   transform-origin: left;
 }
 
-/* ===== RESPONSIVE ===== */
+/* ===== RESPONSIVE - Maintain Visual Impact ===== */
 @media (max-width: 1200px) {
   .featured-app {
     grid-template-columns: 1fr;
-    gap: 4rem;
+    gap: 5rem;
   }
 
   .app-phone {
-    max-width: 360px;
+    max-width: 420px;
+    margin: 0 auto;
+  }
+
+  .app-info-card {
+    max-width: 600px;
+    margin: 0 auto;
   }
 }
 
 @media (max-width: 768px) {
   .site-header {
-    padding: 1.5rem 2rem;
+    padding: 2rem 6%;
+  }
+
+  .logo {
+    height: 40px;
+  }
+
+  .main-nav {
+    gap: 2rem;
+  }
+
+  .nav-item {
+    font-size: 1rem;
   }
 
   .hero-section {
-    padding: 2rem 2rem 4rem;
+    padding: 1rem 6% 5rem;
   }
 
   .hero-title {
-    font-size: clamp(2.5rem, 10vw, 3.5rem);
+    font-size: clamp(3rem, 12vw, 4.5rem);
+    line-height: 1;
+  }
+
+  .title-line:first-child {
+    padding-left: 0;
+  }
+
+  .title-line:last-child {
+    margin-left: 5%;
   }
 
   .hero-subtitle {
-    font-size: 1.125rem;
+    font-size: clamp(1.125rem, 4vw, 1.5rem);
+    margin-left: 5%;
   }
 
   .featured-app {
-    gap: 3rem;
+    gap: 4rem;
+  }
+
+  .app-phone {
+    max-width: 340px;
+  }
+
+  .phone-icon {
+    width: 72px;
+    height: 72px;
+    bottom: -24px;
+    right: -24px;
   }
 
   .app-info-card {
-    padding: 2rem;
+    padding: 2.5rem;
   }
 
   .app-title {
-    font-size: clamp(2rem, 8vw, 2.5rem);
+    font-size: clamp(2.5rem, 9vw, 3.5rem);
   }
 
   .app-tagline {
-    font-size: 1.125rem;
+    font-size: 1.375rem;
   }
 
   .app-description {
+    font-size: 1.125rem;
+  }
+
+  .cta-primary,
+  .cta-secondary {
+    padding: 1.125rem 2rem;
     font-size: 1rem;
   }
 
   .app-switcher {
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.25rem;
+    padding: 1.5rem 2rem;
   }
 
   .app-tab {
     width: 100%;
     justify-content: flex-start;
+    font-size: 1.125rem;
+  }
+
+  .card-graphic {
+    width: 240px;
+    height: 240px;
+    bottom: -40px;
+    right: -40px;
   }
 
   .bg-tree,
   .bg-star,
   .bg-sun {
-    width: 150px;
-    height: 150px;
+    width: 200px;
+    height: 200px;
   }
 
   .site-footer {
-    padding: 3rem 2rem 2rem;
+    padding: 4rem 6% 3rem;
+  }
+
+  .footer-tagline {
+    font-size: 1.125rem;
   }
 
   .footer-links {
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: clamp(2.5rem, 14vw, 3.5rem);
+  }
+
+  .app-phone {
+    max-width: 280px;
+  }
+
+  .app-info-card {
+    padding: 2rem 1.75rem;
+  }
+
+  .bg-tree,
+  .bg-star,
+  .bg-sun {
+    opacity: 0.5;
   }
 }
 
