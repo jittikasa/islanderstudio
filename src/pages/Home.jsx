@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import SEO, { StructuredData, organizationSchema, websiteSchema } from '../components/SEO'
+import { AppIconDisplay } from '../components/AppIcon'
+import { AppScreenshotDisplay } from '../components/AppScreenshot'
 import './Home.css'
 
 export default function Home() {
@@ -278,21 +280,16 @@ export default function Home() {
               </div>
               <div className="app-visual">
                 <div className="app-visual-header">
-                  <div className="app-icon-placeholder" style={{ background: currentApp.color }}>
-                    {currentApp.name.charAt(0)}
+                  <div className="app-icon-container">
+                    <AppIconDisplay appId={currentApp.id} size={64} />
                   </div>
                   <div className="app-info">
                     <h2>{currentApp.name}</h2>
                     <p className="app-tagline-large">{currentApp.tagline}</p>
                   </div>
                 </div>
-                <div className="app-screenshot-placeholder" style={{ background: currentApp.secondaryColor }}>
-                  <div className="screenshot-text">
-                    <div className="screenshot-icon" style={{ color: currentApp.color }}>
-                      {currentApp.id === 'shellist' ? '🐚' : '📸'}
-                    </div>
-                    <div className="screenshot-label">{currentApp.category}</div>
-                  </div>
+                <div className="app-screenshot-container">
+                  <AppScreenshotDisplay appId={currentApp.id} />
                 </div>
               </div>
             </div>
@@ -322,7 +319,7 @@ export default function Home() {
             </Link>
             <div className="footer-divider"></div>
             <a href="https://github.com/jittikasa" target="_blank" rel="noopener noreferrer" className="control-link">
-              Made in Phuket 🏝️
+              View on GitHub
             </a>
           </div>
 
