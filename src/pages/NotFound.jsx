@@ -3,13 +3,16 @@ import { useEffect, useState } from 'react'
 import './NotFound.css'
 
 export default function NotFound() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
+  const [isLoaded, setIsLoaded] = useState(false)
 
   useEffect(() => {
+    setIsLoaded(true)
+
     const handleMouseMove = (e) => {
-      setMousePosition({
-        x: (e.clientX / window.innerWidth) * 20 - 10,
-        y: (e.clientY / window.innerHeight) * 20 - 10,
+      setMousePos({
+        x: (e.clientX / window.innerWidth - 0.5) * 20,
+        y: (e.clientY / window.innerHeight - 0.5) * 20,
       })
     }
 
@@ -18,79 +21,50 @@ export default function NotFound() {
   }, [])
 
   return (
-    <div className="not-found">
-      <div className="not-found-background">
-        <div
-          className="floating-island island-1"
-          style={{
-            transform: `translate(${mousePosition.x * 0.5}px, ${mousePosition.y * 0.5}px)`,
-          }}
-        >
-          🏝️
-        </div>
-        <div
-          className="floating-island island-2"
-          style={{
-            transform: `translate(${mousePosition.x * 0.3}px, ${mousePosition.y * 0.3}px)`,
-          }}
-        >
-          🌴
-        </div>
-        <div
-          className="floating-island island-3"
-          style={{
-            transform: `translate(${mousePosition.x * 0.4}px, ${mousePosition.y * 0.4}px)`,
-          }}
-        >
-          🥥
-        </div>
-      </div>
-
-      <div className="not-found-content">
-        <div className="error-code">
-          <span className="digit">4</span>
-          <span className="digit digit-special">0</span>
-          <span className="digit">4</span>
+    <div className={`notfound ${isLoaded ? 'notfound--loaded' : ''}`}>
+      <div className="notfound__content">
+        <div className="notfound__code">
+          <span
+            className="notfound__digit"
+            style={{ transform: `translate(${mousePos.x * 0.3}px, ${mousePos.y * 0.3}px)` }}
+          >
+            4
+          </span>
+          <span
+            className="notfound__digit notfound__digit--accent"
+            style={{ transform: `translate(${mousePos.x * 0.5}px, ${mousePos.y * 0.5}px)` }}
+          >
+            0
+          </span>
+          <span
+            className="notfound__digit"
+            style={{ transform: `translate(${mousePos.x * 0.3}px, ${mousePos.y * 0.3}px)` }}
+          >
+            4
+          </span>
         </div>
 
-        <h1 className="error-title">Lost at Sea</h1>
-
-        <p className="error-description">
-          Looks like you've drifted off course. This page doesn't exist in our
-          archipelago, but we can help you find your way back to shore.
+        <h1 className="notfound__title">Page not found</h1>
+        <p className="notfound__text">
+          The page you're looking for doesn't exist or has been moved.
         </p>
 
-        <div className="error-actions">
-          <Link to="/" className="btn btn-primary btn-elevated">
-            <span>Return Home</span>
-            <svg className="btn-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none">
-              <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
+        <div className="notfound__actions">
+          <Link to="/" className="notfound__btn notfound__btn--primary">
+            Go home <span>→</span>
           </Link>
-          <Link to="/support" className="btn btn-outline btn-elevated">
-            <span>Get Help</span>
+          <Link to="/support" className="notfound__btn notfound__btn--secondary">
+            Get help
           </Link>
         </div>
 
-        <div className="quick-links">
-          <p className="quick-links-label">Popular destinations:</p>
-          <div className="quick-links-grid">
-            <Link to="/shellist" className="quick-link">
-              <span className="quick-link-icon">🐚</span>
-              <span>Shellist</span>
-            </Link>
-            <Link to="/polamoment" className="quick-link">
-              <span className="quick-link-icon">📸</span>
-              <span>PolaMoment</span>
-            </Link>
-            <Link to="/privacy" className="quick-link">
-              <span className="quick-link-icon">🔒</span>
-              <span>Privacy</span>
-            </Link>
-            <Link to="/support" className="quick-link">
-              <span className="quick-link-icon">💬</span>
-              <span>Support</span>
-            </Link>
+        <div className="notfound__links">
+          <span className="notfound__links-label">Quick links</span>
+          <div className="notfound__links-grid">
+            <Link to="/shellist" className="notfound__link">Shellist</Link>
+            <Link to="/polamoment" className="notfound__link">PolaMoment</Link>
+            <Link to="/support" className="notfound__link">Support</Link>
+            <Link to="/privacy" className="notfound__link">Privacy</Link>
           </div>
         </div>
       </div>

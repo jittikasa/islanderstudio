@@ -1,3 +1,5 @@
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import AccordionGroup from '../components/Accordion'
 import './LegalPage.css'
 
@@ -29,8 +31,7 @@ const polamomentFAQs = [
     question: 'When will PolaMoment be available?',
     answer: (
       <>
-        PolaMoment is currently in testing and will be launching soon on the App Store. Join
-        our waitlist at{' '}
+        PolaMoment is currently in testing and will be launching soon on the App Store. Email us at{' '}
         <a href="mailto:support@islanderstudio.app?subject=PolaMoment%20Waitlist">
           support@islanderstudio.app
         </a>{' '}
@@ -40,7 +41,7 @@ const polamomentFAQs = [
   },
   {
     question: 'Will PolaMoment be free?',
-    answer: "We're still finalizing pricing details. We believe in fair pricing and will announce our model before launch. Follow us for updates!",
+    answer: "We're still finalizing pricing details. We believe in fair pricing and will announce our model before launch.",
   },
   {
     question: 'What devices will PolaMoment support?',
@@ -59,7 +60,7 @@ const generalFAQs = [
       <>
         Absolutely not. We don't sell, share, or monetize your personal data in any way. Your
         information stays on your device (or in your personal iCloud). See our{' '}
-        <a href="/privacy">Privacy Policy</a> for full details.
+        <Link to="/privacy">Privacy Policy</Link> for full details.
       </>
     ),
   },
@@ -77,7 +78,6 @@ const generalFAQs = [
         <br />• Your device model and iOS version
         <br />• A description of the issue
         <br />• Steps to reproduce (if possible)
-        <br />• Screenshots or screen recordings if helpful
       </>
     ),
   },
@@ -87,92 +87,103 @@ const generalFAQs = [
       <>
         Yes! We love hearing from our users. Email your feature suggestions to{' '}
         <a href="mailto:support@islanderstudio.app">support@islanderstudio.app</a>. While we
-        can't implement every request, we carefully consider all feedback when planning
-        updates.
+        can't implement every request, we carefully consider all feedback.
       </>
     ),
   },
 ]
 
 export default function Support() {
-  return (
-    <div className="legal-page support-page">
-      <div className="legal-header support-header">
-        <div className="container">
-          <h1 className="legal-title">Support & Contact</h1>
-          <p className="legal-intro">
-            We're here to help! Find answers to common questions or get in touch with our
-            team.
-          </p>
-        </div>
-      </div>
+  const [copiedEmail, setCopiedEmail] = useState(false)
 
-      <div className="legal-content">
-        <div className="container">
-          <div className="contact-box">
-            <h2>Get in Touch</h2>
-            <p>
-              Have a question, feedback, or need assistance? We'd love to hear from you!
+  const handleCopyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText('support@islanderstudio.app')
+      setCopiedEmail(true)
+      setTimeout(() => setCopiedEmail(false), 2000)
+    } catch (err) {
+      window.location.href = 'mailto:support@islanderstudio.app'
+    }
+  }
+
+  return (
+    <div className="legal-page">
+      {/* Header */}
+      <section className="legal-hero">
+        <span className="legal-label">Help</span>
+        <h1 className="legal-title">Support</h1>
+        <p className="legal-intro">
+          Find answers to common questions or get in touch with our team.
+        </p>
+      </section>
+
+      {/* Contact */}
+      <section className="legal-section">
+        <div className="legal-container">
+          <div className="contact-card">
+            <h2 className="contact-card-title">Get in touch</h2>
+            <p className="contact-card-text">
+              Have a question, feedback, or need assistance?
             </p>
-            <div className="contact-info">
-              <div className="contact-item">
-                <span className="contact-label">Email:</span>
-                <a href="mailto:support@islanderstudio.app" className="contact-link">
-                  support@islanderstudio.app
-                </a>
-              </div>
-              <div className="contact-item">
-                <span className="contact-label">Response Time:</span>
-                <span>Typically within 24-48 hours</span>
-              </div>
-            </div>
+            <button className="contact-email-btn" onClick={handleCopyEmail}>
+              <span className="contact-email-text">support@islanderstudio.app</span>
+              <span className="contact-email-action">
+                {copiedEmail ? 'Copied!' : 'Copy'}
+              </span>
+            </button>
+            <p className="contact-response">Typically responds within 24-48 hours</p>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQs */}
+      <section className="legal-section">
+        <div className="legal-container">
+          <div className="section-header">
+            <h2 className="section-title">FAQs</h2>
+            <span className="section-count">3 categories</span>
           </div>
 
-          <section className="legal-section">
-            <h2>Frequently Asked Questions</h2>
+          <div className="faq-category">
+            <h3 className="faq-category-title">
+              <span className="faq-category-number">01</span>
+              Shellist
+            </h3>
+            <AccordionGroup items={shellistFAQs} allowMultiple={false} />
+          </div>
 
-            <div className="faq-section">
-              <h3 className="faq-section-title">
-                <span className="faq-section-icon">🐚</span>
-                Shellist
-              </h3>
-              <AccordionGroup items={shellistFAQs} allowMultiple={false} />
-            </div>
+          <div className="faq-category">
+            <h3 className="faq-category-title">
+              <span className="faq-category-number">02</span>
+              PolaMoment
+            </h3>
+            <AccordionGroup items={polamomentFAQs} allowMultiple={false} />
+          </div>
 
-            <div className="faq-section">
-              <h3 className="faq-section-title">
-                <span className="faq-section-icon">📸</span>
-                PolaMoment
-              </h3>
-              <AccordionGroup items={polamomentFAQs} allowMultiple={false} />
-            </div>
-
-            <div className="faq-section">
-              <h3 className="faq-section-title">
-                <span className="faq-section-icon">🏝️</span>
-                General
-              </h3>
-              <AccordionGroup items={generalFAQs} allowMultiple={false} />
-            </div>
-          </section>
-
-          <section className="legal-section">
-            <h2>Still Have Questions?</h2>
-            <p>
-              If you didn't find what you're looking for, please don't hesitate to reach out.
-              We're here to help!
-            </p>
-            <div className="support-cta">
-              <a href="mailto:support@islanderstudio.app" className="btn btn-primary btn-elevated">
-                <span>Contact Support</span>
-                <svg className="btn-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                  <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </a>
-            </div>
-          </section>
+          <div className="faq-category">
+            <h3 className="faq-category-title">
+              <span className="faq-category-number">03</span>
+              General
+            </h3>
+            <AccordionGroup items={generalFAQs} allowMultiple={false} />
+          </div>
         </div>
-      </div>
+      </section>
+
+      {/* CTA */}
+      <section className="legal-section legal-section--cta">
+        <div className="legal-container">
+          <div className="cta-card">
+            <h2 className="cta-title">Still have questions?</h2>
+            <p className="cta-text">
+              If you didn't find what you're looking for, don't hesitate to reach out.
+            </p>
+            <a href="mailto:support@islanderstudio.app" className="cta-btn">
+              Contact support <span>→</span>
+            </a>
+          </div>
+        </div>
+      </section>
     </div>
   )
 }

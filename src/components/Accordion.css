@@ -1,36 +1,27 @@
 /* ============================================
-   ACCORDION COMPONENT
+   ACCORDION COMPONENT - Clean, Minimal
    ============================================ */
 
 .accordion-group {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: var(--space-2);
 }
 
 .accordion-item {
-  background: white;
-  border: 1px solid rgba(45, 95, 63, 0.1);
+  background: var(--white);
+  border: 1px solid var(--cloud);
   border-radius: var(--radius-md);
   overflow: hidden;
-  transition: all var(--transition-base);
-  box-shadow:
-    0 2px 8px rgba(45, 95, 63, 0.04),
-    0 1px 3px rgba(45, 95, 63, 0.02);
+  transition: all var(--duration-fast) var(--ease-out);
 }
 
 .accordion-item:hover {
-  border-color: rgba(45, 95, 63, 0.2);
-  box-shadow:
-    0 4px 16px rgba(45, 95, 63, 0.08),
-    0 2px 6px rgba(45, 95, 63, 0.04);
+  border-color: var(--fog);
 }
 
 .accordion-item.is-open {
-  border-color: var(--palm-green);
-  box-shadow:
-    0 4px 16px rgba(45, 95, 63, 0.12),
-    0 2px 6px rgba(45, 95, 63, 0.06);
+  border-color: var(--ink);
 }
 
 /* Accordion Trigger */
@@ -38,54 +29,53 @@
   width: 100%;
   display: flex;
   align-items: center;
-  gap: 1rem;
-  padding: 1.25rem 1.5rem;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-5);
   background: transparent;
   border: none;
   cursor: pointer;
   text-align: left;
-  transition: all var(--transition-base);
+  transition: background var(--duration-fast) var(--ease-out);
 }
 
 .accordion-trigger:hover {
-  background: rgba(45, 95, 63, 0.02);
+  background: var(--snow);
 }
 
 .accordion-trigger:focus-visible {
-  outline: 3px solid var(--lagoon-teal);
-  outline-offset: -3px;
+  outline: 2px solid var(--ink);
+  outline-offset: -2px;
 }
 
 .accordion-icon {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   flex-shrink: 0;
-  filter: drop-shadow(0 2px 4px rgba(45, 95, 63, 0.1));
 }
 
 .accordion-question {
   flex: 1;
-  font-family: var(--font-display);
-  font-size: 1.125rem;
-  font-weight: 600;
-  color: var(--ink-black);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
   line-height: 1.4;
 }
 
 .accordion-chevron {
   flex-shrink: 0;
-  color: var(--palm-green);
-  transition: transform var(--transition-base);
+  color: var(--fog);
+  transition: transform var(--duration-base) var(--ease-out);
 }
 
 .accordion-item.is-open .accordion-chevron {
   transform: rotate(180deg);
+  color: var(--ink);
 }
 
 /* Accordion Content */
 .accordion-content-wrapper {
   display: grid;
   grid-template-rows: 0fr;
-  transition: grid-template-rows 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: grid-template-rows var(--duration-base) var(--ease-out);
 }
 
 .accordion-item.is-open .accordion-content-wrapper {
@@ -97,27 +87,27 @@
 }
 
 .accordion-content p {
-  padding: 0 1.5rem 1.5rem 1.5rem;
+  padding: 0 var(--space-5) var(--space-5) var(--space-5);
   margin: 0;
-  font-size: 1rem;
+  font-size: 14px;
   line-height: 1.7;
-  color: var(--stone-gray);
+  color: var(--stone);
 }
 
 .accordion-content a {
-  color: var(--palm-green);
+  color: var(--ink);
   text-decoration: underline;
   text-underline-offset: 2px;
-  transition: color var(--transition-base);
+  transition: opacity var(--duration-fast) var(--ease-out);
 }
 
 .accordion-content a:hover {
-  color: var(--ocean-deep);
+  opacity: 0.7;
 }
 
-/* When accordion has icon */
-.accordion-trigger:has(.accordion-icon) .accordion-question {
-  padding-left: 0;
+/* When accordion has icon, adjust padding */
+.accordion-trigger:has(.accordion-icon) + .accordion-content-wrapper .accordion-content p {
+  padding-left: calc(var(--space-5) + 1.25rem + var(--space-4));
 }
 
 /* Reduced Motion */
@@ -128,29 +118,17 @@
   .accordion-content-wrapper {
     transition: none !important;
   }
-
-  .accordion-content-wrapper {
-    transition: grid-template-rows 0.1s linear !important;
-  }
 }
 
 /* Responsive */
-@media (max-width: 768px) {
+@media (max-width: 640px) {
   .accordion-trigger {
-    padding: 1rem 1.25rem;
-    gap: 0.75rem;
-  }
-
-  .accordion-question {
-    font-size: 1rem;
-  }
-
-  .accordion-icon {
-    font-size: 1.25rem;
+    padding: var(--space-4);
+    gap: var(--space-3);
   }
 
   .accordion-content p {
-    padding: 0 1.25rem 1.25rem 1.25rem;
-    font-size: 0.9375rem;
+    padding: 0 var(--space-4) var(--space-4) var(--space-4);
+    font-size: 13px;
   }
 }
