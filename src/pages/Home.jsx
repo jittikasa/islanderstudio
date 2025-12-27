@@ -67,7 +67,7 @@ export default function Home() {
             <h1 className="hero-title fade-in-up">
               Where Design
               <br />
-              Meets <span className="text-gradient">Delight</span>
+              Meets Delight
             </h1>
             <p className="hero-description fade-in-up" style={{ animationDelay: '0.2s' }}>
               Islander Studio creates thoughtfully designed iOS apps

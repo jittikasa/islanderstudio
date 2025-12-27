@@ -29,8 +29,11 @@ export default function Header() {
         <nav className="nav">
           <div className="logo-wrapper">
             <Link to="/" className="logo">
-              <span className="logo-text">Islander</span>
-              <span className="logo-accent">Studio</span>
+              <img
+                src="/branding/Logos/Logo-primary.png"
+                alt="Islander Studio"
+                className="logo-image"
+              />
             </Link>
             {isShellistPage && (
               <div className="logo-app-section">
