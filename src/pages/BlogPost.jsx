@@ -1,0 +1,209 @@
+import { useState, useEffect } from 'react'
+import { useParams, Link, useNavigate } from 'react-router-dom'
+import { ArrowLeft } from 'lucide-react'
+import SEO from '../components/SEO'
+import LoadingSpinner from '../components/LoadingSpinner'
+import { getBlogPost, urlFor } from '../lib/sanity'
+import './BlogPost.css'
+
+// Portable Text renderer for Sanity rich text
+function PortableText({ blocks }) {
+  if (!blocks || !Array.isArray(blocks)) return null
+
+  return blocks.map((block, index) => {
+    // Handle text blocks
+    if (block._type === 'block') {
+      const style = block.style || 'normal'
+      const children = block.children?.map((child, childIndex) => {
+        if (child.marks?.includes('strong')) {
+          return <strong key={childIndex}>{child.text}</strong>
+        }
+        if (child.marks?.includes('em')) {
+          return <em key={childIndex}>{child.text}</em>
+        }
+        if (child.marks?.includes('code')) {
+          return <code key={childIndex}>{child.text}</code>
+        }
+        return child.text
+      })
+
+      switch (style) {
+        case 'h1':
+          return <h1 key={index}>{children}</h1>
+        case 'h2':
+          return <h2 key={index}>{children}</h2>
+        case 'h3':
+          return <h3 key={index}>{children}</h3>
+        case 'h4':
+          return <h4 key={index}>{children}</h4>
+        case 'blockquote':
+          return <blockquote key={index}>{children}</blockquote>
+        default:
+          return <p key={index}>{children}</p>
+      }
+    }
+
+    // Handle images
+    if (block._type === 'image') {
+      return (
+        <div key={index} className="post-image">
+          <img
+            src={urlFor(block).width(1200).url()}
+            alt={block.alt || 'Blog post image'}
+          />
+          {block.alt && <p className="image-caption">{block.alt}</p>}
+        </div>
+      )
+    }
+
+    return null
+  })
+}
+
+export default function BlogPost() {
+  const { slug } = useParams()
+  const navigate = useNavigate()
+  const [post, setPost] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+
+  useEffect(() => {
+    async function fetchPost() {
+      try {
+        const data = await getBlogPost(slug)
+        if (!data) {
+          setError('Post not found')
+        } else {
+          setPost(data)
+        }
+      } catch (err) {
+        console.error('Error fetching blog post:', err)
+        setError('Unable to load blog post')
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchPost()
+  }, [slug])
+
+  function formatDate(dateString) {
+    const date = new Date(dateString)
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    })
+  }
+
+  if (loading) {
+    return (
+      <div className="blog-post-page">
+        <SEO title="Loading... - Islander Studio Blog" path={`/blog/${slug}`} />
+        <div className="post-loading">
+          <LoadingSpinner />
+          <p>Loading post...</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (error || !post) {
+    return (
+      <div className="blog-post-page">
+        <SEO title="Post Not Found - Islander Studio Blog" path={`/blog/${slug}`} />
+        <div className="post-error">
+          <h1>Post Not Found</h1>
+          <p>Sorry, we couldn't find the post you're looking for.</p>
+          <Link to="/blog" className="back-link">
+            <ArrowLeft size={20} />
+            Back to Blog
+          </Link>
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div className="blog-post-page">
+      <SEO
+        title={`${post.title} - Islander Studio Blog`}
+        description={post.excerpt || post.title}
+        path={`/blog/${slug}`}
+        image={post.mainImage ? urlFor(post.mainImage).width(1200).height(630).url() : undefined}
+      />
+
+      <div className="post-container">
+        <Link to="/blog" className="back-link">
+          <ArrowLeft size={20} />
+          Back to Blog
+        </Link>
+
+        <article className="post-article">
+          <header className="post-header">
+            {post.categories && post.categories.length > 0 && (
+              <div className="post-categories">
+                {post.categories.map((category, index) => (
+                  <span key={index} className="post-category">
+                    {category}
+                  </span>
+                ))}
+              </div>
+            )}
+
+            <h1 className="post-title">{post.title}</h1>
+
+            <div className="post-meta">
+              <time dateTime={post.publishedAt}>
+                {formatDate(post.publishedAt)}
+              </time>
+              {post.authorName && (
+                <>
+                  <span className="meta-separator">•</span>
+                  <span className="post-author">by {post.authorName}</span>
+                </>
+              )}
+            </div>
+
+            {post.mainImage && (
+              <div className="post-featured-image">
+                <img
+                  src={urlFor(post.mainImage).width(1200).url()}
+                  alt={post.mainImage.alt || post.title}
+                />
+              </div>
+            )}
+          </header>
+
+          <div className="post-content">
+            {post.excerpt && (
+              <p className="post-excerpt">{post.excerpt}</p>
+            )}
+
+            <PortableText blocks={post.body} />
+          </div>
+
+          {post.authorName && (
+            <footer className="post-footer">
+              <div className="author-info">
+                {post.authorImage && (
+                  <img
+                    src={urlFor(post.authorImage).width(80).height(80).url()}
+                    alt={post.authorName}
+                    className="author-avatar"
+                  />
+                )}
+                <div className="author-details">
+                  <p className="author-name">{post.authorName}</p>
+                  {post.authorBio && (
+                    <p className="author-bio">{post.authorBio}</p>
+                  )}
+                </div>
+              </div>
+            </footer>
+          )}
+        </article>
+      </div>
+    </div>
+  )
+}

@@ -36,6 +36,7 @@ export default function Header() {
     { path: '/', label: 'Home' },
     { path: '/shellist', label: 'Shellist' },
     { path: '/polamoment', label: 'PolaMoment' },
+    { path: '/blog', label: 'Blog' },
     { path: '/support', label: 'Support' },
   ]
 
@@ -59,18 +60,24 @@ export default function Header() {
 
         <nav className="header__nav">
           <ul className="header__nav-list">
-            {navLinks.map((link) => (
-              <li key={link.path}>
-                <Link
-                  to={link.path}
-                  className={`header__nav-link ${
-                    location.pathname === link.path ? 'header__nav-link--active' : ''
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              </li>
-            ))}
+            {navLinks.map((link) => {
+              const isActive = link.path === '/'
+                ? location.pathname === link.path
+                : location.pathname.startsWith(link.path)
+
+              return (
+                <li key={link.path}>
+                  <Link
+                    to={link.path}
+                    className={`header__nav-link ${
+                      isActive ? 'header__nav-link--active' : ''
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              )
+            })}
           </ul>
         </nav>
 
@@ -115,19 +122,25 @@ export default function Header() {
         </div>
 
         <nav className="header__mobile-nav">
-          {navLinks.map((link, index) => (
-            <Link
-              key={link.path}
-              to={link.path}
-              className={`header__mobile-link ${
-                location.pathname === link.path ? 'header__mobile-link--active' : ''
-              }`}
-              style={{ animationDelay: `${index * 50}ms` }}
-            >
-              <span className="header__mobile-link-text">{link.label}</span>
-              <span className="header__mobile-link-arrow">→</span>
-            </Link>
-          ))}
+          {navLinks.map((link, index) => {
+            const isActive = link.path === '/'
+              ? location.pathname === link.path
+              : location.pathname.startsWith(link.path)
+
+            return (
+              <Link
+                key={link.path}
+                to={link.path}
+                className={`header__mobile-link ${
+                  isActive ? 'header__mobile-link--active' : ''
+                }`}
+                style={{ animationDelay: `${index * 50}ms` }}
+              >
+                <span className="header__mobile-link-text">{link.label}</span>
+                <span className="header__mobile-link-arrow">→</span>
+              </Link>
+            )
+          })}
         </nav>
 
         <div className="header__mobile-footer">
