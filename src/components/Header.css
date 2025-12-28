@@ -57,35 +57,68 @@
 .header__logo-i {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   position: relative;
-  width: 20px;
+  width: 14px;
   height: 24px;
-  margin-right: -2px;
+}
+
+.header__logo-letter {
+  display: inline-block;
+  transition: opacity var(--duration-fast) var(--ease-out),
+              transform var(--duration-fast) var(--ease-out);
 }
 
 .header__logo-mark {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   height: 22px;
   width: auto;
-  transition: transform var(--duration-base) var(--ease-spring);
+  opacity: 0;
+  transition: opacity var(--duration-fast) var(--ease-out),
+              transform var(--duration-base) var(--ease-spring);
+}
+
+/* Hover: hide letter, show logomark */
+.header__logo:hover .header__logo-letter {
+  opacity: 0;
+  transform: scale(0.8);
 }
 
 .header__logo:hover .header__logo-mark {
-  transform: rotate(-8deg) scale(1.1);
+  opacity: 1;
+  transform: translate(-50%, -50%) rotate(-8deg) scale(1.1);
 }
 
 .header__logo-slander {
   transition: letter-spacing var(--duration-base) var(--ease-out);
 }
 
+/* Round dot using pseudo-element */
 .header__logo-dot {
   display: inline-block;
-  color: var(--sunset-glow);
-  font-weight: 900;
+  position: relative;
+  width: 8px;
+  height: 24px;
+  margin-left: 1px;
+}
+
+.header__logo-dot::after {
+  content: '';
+  position: absolute;
+  bottom: 3px;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  background: var(--sunset-glow);
+  border-radius: 50%;
   transition: transform var(--duration-base) var(--ease-spring);
   transform-origin: top center;
 }
 
-.header__logo:hover .header__logo-dot {
+.header__logo:hover .header__logo-dot::after {
   animation: dotDrop 0.5s var(--ease-spring) forwards;
 }
 
@@ -113,12 +146,21 @@
   }
 
   .header__logo-i {
-    width: 22px;
+    width: 16px;
     height: 26px;
   }
 
   .header__logo-mark {
     height: 24px;
+  }
+
+  .header__logo-dot {
+    width: 9px;
+  }
+
+  .header__logo-dot::after {
+    width: 9px;
+    height: 9px;
   }
 }
 
@@ -421,8 +463,10 @@
   .header__mobile-link,
   .header__mobile-link-arrow,
   .header__mobile-email,
+  .header__logo-letter,
   .header__logo-mark,
-  .header__logo-dot {
+  .header__logo-dot,
+  .header__logo-dot::after {
     transition: none !important;
     animation: none !important;
   }

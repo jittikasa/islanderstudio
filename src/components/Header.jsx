@@ -45,6 +45,7 @@ export default function Header() {
         <Link to="/" className="header__logo">
           <span className="header__logo-text">
             <span className="header__logo-i">
+              <span className="header__logo-letter">i</span>
               <img
                 src="/branding/Logomark-dark.png"
                 alt=""
@@ -52,7 +53,7 @@ export default function Header() {
               />
             </span>
             <span className="header__logo-slander">slander</span>
-            <span className="header__logo-dot">.</span>
+            <span className="header__logo-dot"></span>
           </span>
         </Link>
 
@@ -101,6 +102,7 @@ export default function Header() {
         <div className="header__mobile-header">
           <span className="header__logo-text header__logo-text--mobile">
             <span className="header__logo-i">
+              <span className="header__logo-letter">i</span>
               <img
                 src="/branding/Logomark-dark.png"
                 alt=""
@@ -108,7 +110,7 @@ export default function Header() {
               />
             </span>
             <span className="header__logo-slander">slander</span>
-            <span className="header__logo-dot">.</span>
+            <span className="header__logo-dot"></span>
           </span>
         </div>
 
