@@ -4,7 +4,7 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import ProtectedRoute from './components/ProtectedRoute'
 import Home from './pages/Home'
-import ShellistOriginal from './pages/ShellistOriginal'
+import Shellist from './pages/Shellist'
 import PolaMoment from './pages/PolaMoment'
 import Blog from './pages/Blog'
 import BlogPost from './pages/BlogPost'
@@ -29,7 +29,7 @@ function App() {
       <main className="main-content">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/shellist" element={<ShellistOriginal />} />
+          <Route path="/shellist" element={<Shellist />} />
           <Route path="/polamoment" element={<PolaMoment />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
