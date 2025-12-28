@@ -56,11 +56,12 @@
 
 .header__logo-i {
   display: inline-flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   position: relative;
-  width: 14px;
+  width: 10px;
   height: 24px;
+  margin-right: -1px;
 }
 
 .header__logo-letter {
@@ -72,9 +73,9 @@
 .header__logo-mark {
   position: absolute;
   left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  height: 22px;
+  top: 0;
+  transform: translateX(-50%);
+  height: 20px;
   width: auto;
   opacity: 0;
   transition: opacity var(--duration-fast) var(--ease-out),
@@ -89,7 +90,7 @@
 
 .header__logo:hover .header__logo-mark {
   opacity: 1;
-  transform: translate(-50%, -50%) rotate(-8deg) scale(1.1);
+  transform: translateX(-50%) rotate(-8deg);
 }
 
 .header__logo-slander {
@@ -100,7 +101,7 @@
 .header__logo-dot {
   display: inline-block;
   position: relative;
-  width: 8px;
+  width: 5px;
   height: 24px;
   margin-left: 1px;
 }
@@ -108,10 +109,10 @@
 .header__logo-dot::after {
   content: '';
   position: absolute;
-  bottom: 3px;
+  bottom: 4px;
   left: 0;
-  width: 8px;
-  height: 8px;
+  width: 5px;
+  height: 5px;
   background: var(--sunset-glow);
   border-radius: 50%;
   transition: transform var(--duration-base) var(--ease-spring);
@@ -146,21 +147,21 @@
   }
 
   .header__logo-i {
-    width: 16px;
+    width: 11px;
     height: 26px;
   }
 
   .header__logo-mark {
-    height: 24px;
+    height: 22px;
   }
 
   .header__logo-dot {
-    width: 9px;
+    width: 5px;
   }
 
   .header__logo-dot::after {
-    width: 9px;
-    height: 9px;
+    width: 5px;
+    height: 5px;
   }
 }
 
