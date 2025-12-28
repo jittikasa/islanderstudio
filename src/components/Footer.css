@@ -1,11 +1,12 @@
 /* ============================================
-   FOOTER - Islander Studio Tropical Modernism
+   FOOTER - Islander Studio Scrapbook Style
    ============================================ */
 
 .footer {
   margin-top: var(--space-24);
   padding: var(--space-16) 0 var(--space-8);
-  background: var(--sea-salt);
+  background: var(--white);
+  border-top: 3px solid var(--midnight-sky);
 }
 
 .footer__container {
@@ -43,11 +44,11 @@
 .footer__logo {
   display: inline-block;
   margin-bottom: var(--space-4);
-  transition: opacity var(--duration-fast) var(--ease-out);
+  transition: transform var(--duration-base) var(--ease-spring);
 }
 
 .footer__logo:hover {
-  opacity: 0.8;
+  transform: rotate(-3deg);
 }
 
 .footer__logo-img {
@@ -57,7 +58,7 @@
 
 .footer__tagline {
   font-family: var(--font-body);
-  font-size: 15px;
+  font-size: 14px;
   font-style: italic;
   color: var(--stone);
   margin: 0;
@@ -82,12 +83,12 @@
 }
 
 .footer__heading {
-  font-family: var(--font-display);
-  font-size: 13px;
-  font-weight: 600;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--coconut-shell);
+  letter-spacing: 0.1em;
+  color: var(--fog);
   margin-bottom: var(--space-4);
 }
 
@@ -103,8 +104,9 @@
   align-items: center;
   gap: var(--space-2);
   font-family: var(--font-body);
-  font-size: 15px;
-  color: var(--stone);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--midnight-sky);
   transition: color var(--duration-fast) var(--ease-out);
   background: none;
   border: none;
@@ -114,57 +116,70 @@
 }
 
 .footer__link:hover {
-  color: var(--midnight-sky);
+  color: var(--sunset-glow);
 }
 
 /* Link Badges */
 .footer__link-badge {
-  font-size: 10px;
-  font-weight: 600;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  padding: 3px 8px;
-  border-radius: var(--radius-full);
+  padding: 3px 6px;
+  border: 1px solid currentColor;
+  border-radius: var(--radius-sm);
 }
 
 .footer__link-badge--live {
-  background: rgba(72, 187, 120, 0.15);
-  color: #22543d;
+  color: #2d7a4f;
 }
 
 .footer__link-badge--soon {
-  background: rgba(253, 222, 134, 0.4);
-  color: #8b6914;
+  color: #9a7b1a;
 }
 
 /* Copy Email Button */
 .footer__link--copy {
   width: 100%;
   justify-content: space-between;
+  padding: var(--space-3);
+  background: var(--sea-salt);
+  border: 2px solid var(--cloud);
+  border-radius: var(--radius-md);
+  transition: all var(--duration-fast) var(--ease-out);
+}
+
+.footer__link--copy:hover {
+  border-color: var(--coconut-shell);
+  background: var(--white);
 }
 
 .footer__link-email {
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 11px;
+  color: var(--midnight-sky);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .footer__link-copy-text {
-  font-size: 11px;
-  font-weight: 600;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
   color: var(--coconut-shell);
-  padding: 4px 10px;
+  padding: 3px 8px;
   background: var(--white);
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-sm);
   transition: all var(--duration-fast) var(--ease-out);
   flex-shrink: 0;
 }
 
 .footer__link--copy:hover .footer__link-copy-text {
-  background: var(--sunset-glow);
-  color: var(--midnight-sky);
+  background: var(--midnight-sky);
+  color: var(--white);
 }
 
 .footer__link-copy-text--copied {
@@ -178,7 +193,7 @@
   flex-direction: column;
   gap: var(--space-2);
   padding-top: var(--space-8);
-  border-top: 1px solid var(--cloud);
+  border-top: 2px dashed var(--cloud);
 }
 
 @media (min-width: 640px) {
@@ -190,9 +205,12 @@
 }
 
 .footer__copyright {
-  font-family: var(--font-body);
-  font-size: 13px;
-  color: var(--stone);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--fog);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
   margin: 0;
 }
 
@@ -204,7 +222,8 @@
 
 .footer__made {
   font-family: var(--font-body);
-  font-size: 13px;
+  font-size: 12px;
+  font-style: italic;
   color: var(--fog);
   margin: 0;
 }
@@ -213,6 +232,7 @@
 @media (prefers-reduced-motion: reduce) {
   .footer__logo,
   .footer__link,
+  .footer__link--copy,
   .footer__link-copy-text {
     transition: none !important;
   }
