@@ -16,8 +16,17 @@ export function urlFor(source) {
   return builder.image(source)
 }
 
+// Check if Sanity is configured
+function checkSanityConfig() {
+  if (!import.meta.env.VITE_SANITY_PROJECT_ID) {
+    throw new Error('VITE_SANITY_PROJECT_ID is not configured. Please set up your Sanity project and add environment variables.')
+  }
+}
+
 // Query helper for blog posts
 export async function getBlogPosts() {
+  checkSanityConfig()
+
   const query = `*[_type == "post"] | order(publishedAt desc) {
     _id,
     title,
@@ -36,6 +45,8 @@ export async function getBlogPosts() {
 
 // Query helper for a single blog post by slug
 export async function getBlogPost(slug) {
+  checkSanityConfig()
+
   const query = `*[_type == "post" && slug.current == $slug][0] {
     _id,
     title,
@@ -55,6 +66,8 @@ export async function getBlogPost(slug) {
 
 // Query helper for recent posts (for homepage or sidebar)
 export async function getRecentPosts(limit = 3) {
+  checkSanityConfig()
+
   const query = `*[_type == "post"] | order(publishedAt desc) [0...${limit}] {
     _id,
     title,
