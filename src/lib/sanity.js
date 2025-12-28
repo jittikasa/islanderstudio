@@ -79,3 +79,20 @@ export async function getRecentPosts(limit = 3) {
 
   return await client.fetch(query)
 }
+
+// Query helper for posts related to a specific app
+export async function getPostsByApp(appName, limit = 2) {
+  checkSanityConfig()
+
+  const query = `*[_type == "post" && $appName in relatedApps] | order(publishedAt desc) [0...${limit}] {
+    _id,
+    title,
+    slug,
+    publishedAt,
+    excerpt,
+    "categories": categories[]->title,
+    mainImage
+  }`
+
+  return await client.fetch(query, { appName })
+}

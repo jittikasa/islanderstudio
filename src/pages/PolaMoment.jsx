@@ -1,13 +1,27 @@
 import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
+import { getPostsByApp, urlFor } from '../lib/sanity'
 import './PolaMoment.css'
 
 export default function PolaMoment() {
   const [isLoaded, setIsLoaded] = useState(false)
   const [imageErrors, setImageErrors] = useState({})
+  const [blogPosts, setBlogPosts] = useState([])
 
   useEffect(() => {
     setIsLoaded(true)
+
+    // Fetch related blog posts
+    async function fetchBlogPosts() {
+      try {
+        const posts = await getPostsByApp('polamoment', 2)
+        setBlogPosts(posts)
+      } catch (error) {
+        console.error('Error fetching blog posts:', error)
+      }
+    }
+
+    fetchBlogPosts()
   }, [])
 
   const handleImageError = (id) => {
@@ -137,45 +151,50 @@ export default function PolaMoment() {
       </section>
 
       {/* Blog Section */}
-      <section className="pola__blog">
-        <div className="pola__section-header">
-          <div className="pola__section-title">
-            <span className="pola__section-number">№</span>
-            <h2>Related Reading</h2>
+      {blogPosts.length > 0 && (
+        <section className="pola__blog">
+          <div className="pola__section-header">
+            <div className="pola__section-title">
+              <span className="pola__section-number">№</span>
+              <h2>Related Reading</h2>
+            </div>
+            <Link to="/blog" className="pola__blog-view-all">
+              View all <span>→</span>
+            </Link>
           </div>
-          <Link to="/blog" className="pola__blog-view-all">
-            View all <span>→</span>
-          </Link>
-        </div>
 
-        <div className="pola__blog-grid">
-          <Link to="/blog/instant-photography-nostalgia" className="pola__blog-card">
-            <div className="pola__blog-image">
-              <img src="/pola-assets/Image-1.jpeg" alt="Instant photography aesthetic" />
-            </div>
-            <div className="pola__blog-content">
-              <span className="pola__blog-category">Photography</span>
-              <h3 className="pola__blog-title">The Art of Instant Photography</h3>
-              <p className="pola__blog-excerpt">
-                Why the vintage Polaroid aesthetic continues to captivate in our digital age.
-              </p>
-            </div>
-          </Link>
-
-          <Link to="/blog/capturing-authentic-moments" className="pola__blog-card">
-            <div className="pola__blog-image">
-              <img src="/pola-assets/Image-2.jpeg" alt="Capturing authentic moments" />
-            </div>
-            <div className="pola__blog-content">
-              <span className="pola__blog-category">Creativity</span>
-              <h3 className="pola__blog-title">Capturing Authentic Moments</h3>
-              <p className="pola__blog-excerpt">
-                How to embrace imperfection and find beauty in everyday photography.
-              </p>
-            </div>
-          </Link>
-        </div>
-      </section>
+          <div className="pola__blog-grid">
+            {blogPosts.map((post) => (
+              <Link
+                key={post._id}
+                to={`/blog/${post.slug.current}`}
+                className="pola__blog-card"
+              >
+                {post.mainImage && (
+                  <div className="pola__blog-image">
+                    <img
+                      src={urlFor(post.mainImage).width(600).height(400).url()}
+                      alt={post.mainImage.alt || post.title}
+                      loading="lazy"
+                    />
+                  </div>
+                )}
+                <div className="pola__blog-content">
+                  {post.categories && post.categories.length > 0 && (
+                    <span className="pola__blog-category">
+                      {post.categories[0]}
+                    </span>
+                  )}
+                  <h3 className="pola__blog-title">{post.title}</h3>
+                  {post.excerpt && (
+                    <p className="pola__blog-excerpt">{post.excerpt}</p>
+                  )}
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* Privacy Section */}
       <section className="pola__privacy">

@@ -1,12 +1,26 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { getPostsByApp, urlFor } from '../lib/sanity'
 import './Shellist.css'
 
 export default function Shellist() {
   const [isLoaded, setIsLoaded] = useState(false)
+  const [blogPosts, setBlogPosts] = useState([])
 
   useEffect(() => {
     setIsLoaded(true)
+
+    // Fetch related blog posts
+    async function fetchBlogPosts() {
+      try {
+        const posts = await getPostsByApp('shellist', 2)
+        setBlogPosts(posts)
+      } catch (error) {
+        console.error('Error fetching blog posts:', error)
+      }
+    }
+
+    fetchBlogPosts()
   }, [])
 
   const features = [
@@ -155,45 +169,50 @@ export default function Shellist() {
       </section>
 
       {/* Blog Section */}
-      <section className="shellist__blog">
-        <div className="shellist__section-header">
-          <div className="shellist__section-title">
-            <span className="shellist__section-number">№</span>
-            <h2>Related Reading</h2>
+      {blogPosts.length > 0 && (
+        <section className="shellist__blog">
+          <div className="shellist__section-header">
+            <div className="shellist__section-title">
+              <span className="shellist__section-number">№</span>
+              <h2>Related Reading</h2>
+            </div>
+            <Link to="/blog" className="shellist__blog-view-all">
+              View all <span>→</span>
+            </Link>
           </div>
-          <Link to="/blog" className="shellist__blog-view-all">
-            View all <span>→</span>
-          </Link>
-        </div>
 
-        <div className="shellist__blog-grid">
-          <Link to="/blog/vision-meets-daily-action" className="shellist__blog-card">
-            <div className="shellist__blog-image">
-              <img src="/shellist/images/screenshots/Screens-4.png" alt="Vision board in Shellist app" />
-            </div>
-            <div className="shellist__blog-content">
-              <span className="shellist__blog-category">Mindset</span>
-              <h3 className="shellist__blog-title">Vision Meets Daily Action</h3>
-              <p className="shellist__blog-excerpt">
-                How to bridge the gap between your aspirations and daily habits using vision boards and micro-commitments.
-              </p>
-            </div>
-          </Link>
-
-          <Link to="/blog/setting-intentions-2026" className="shellist__blog-card">
-            <div className="shellist__blog-image">
-              <img src="/shellist/images/screenshots/Screens-2.png" alt="Setting intentions with Shellist" />
-            </div>
-            <div className="shellist__blog-content">
-              <span className="shellist__blog-category">Growth</span>
-              <h3 className="shellist__blog-title">Setting the Right Intentions for 2026</h3>
-              <p className="shellist__blog-excerpt">
-                Start the new year with clarity and purpose. A guide to defining meaningful goals and building habits that stick.
-              </p>
-            </div>
-          </Link>
-        </div>
-      </section>
+          <div className="shellist__blog-grid">
+            {blogPosts.map((post) => (
+              <Link
+                key={post._id}
+                to={`/blog/${post.slug.current}`}
+                className="shellist__blog-card"
+              >
+                {post.mainImage && (
+                  <div className="shellist__blog-image">
+                    <img
+                      src={urlFor(post.mainImage).width(600).height(400).url()}
+                      alt={post.mainImage.alt || post.title}
+                      loading="lazy"
+                    />
+                  </div>
+                )}
+                <div className="shellist__blog-content">
+                  {post.categories && post.categories.length > 0 && (
+                    <span className="shellist__blog-category">
+                      {post.categories[0]}
+                    </span>
+                  )}
+                  <h3 className="shellist__blog-title">{post.title}</h3>
+                  {post.excerpt && (
+                    <p className="shellist__blog-excerpt">{post.excerpt}</p>
+                  )}
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* Privacy Section */}
       <section className="shellist__privacy">
