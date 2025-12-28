@@ -1,0 +1,3 @@
+#!/bin/bash
+export SANITY_AUTH_TOKEN="sklxlRMRhE2hFeEWJiVxEELSTwUkqwtJqKuYRYVjkXEguFWCd0la1u0LwG9Q3vvpxlogmptXZFBq5frZrLlz3HzKKHBq2Jn4oxg8C0TdnDjZOp5zMJ23Wnav853XTgx2A4WTFVPgtltbB3zDm9sgsl6GveFAm90H8LP655HujCbeEGXyyB11"
+echo "islanderstudio" | npx sanity deploy
