@@ -93,7 +93,7 @@ export default function Home() {
   return (
     <>
       <SEO
-        title="islander. — Apps crafted with soul"
+        title="Islander Studio — Apps crafted with soul"
         description="A boutique iOS studio creating thoughtfully designed mobile experiences. Discover Shellist and PolaMoment."
         url="https://islanderstudio.app"
       />
@@ -246,7 +246,7 @@ export default function Home() {
             {/* About Widget */}
             <div className="widget home__widget home__widget--about">
               <span className="widget__label">Who we are</span>
-              <h3 className="widget__title">islander.</h3>
+              <h3 className="widget__title">Islander Studio</h3>
               <p className="widget__content">
                 A tiny studio creating iOS apps that respect your privacy
                 and delight in use. Based in Phuket, Thailand.

@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
 
 export default function SEO({
-  title = 'islander. — Crafting Beautiful iOS Apps',
-  description = 'islander. creates beautifully crafted iOS apps that blend functionality with artistry. Discover Shellist, PolaMoment, and more.',
+  title = 'Islander Studio - Crafting Beautiful iOS Apps',
+  description = 'Islander Studio creates beautifully crafted iOS apps that blend functionality with artistry. Discover Shellist, PolaMoment, and more.',
   image = 'https://islanderstudio.app/branding/Logo-primary.png',
   url = 'https://islanderstudio.app',
   type = 'website',
@@ -45,7 +45,7 @@ export default function SEO({
     updateMetaTag('og:image', image)
     updateMetaTag('og:url', url)
     updateMetaTag('og:type', type)
-    updateMetaTag('og:site_name', 'islander. studio')
+    updateMetaTag('og:site_name', 'Islander Studio')
 
     // Twitter Card
     updateMetaTag('twitter:card', 'summary_large_image', true)
@@ -54,7 +54,7 @@ export default function SEO({
     updateMetaTag('twitter:image', image, true)
 
     // Additional SEO tags
-    updateMetaTag('author', 'islander.', true)
+    updateMetaTag('author', 'Islander Studio', true)
     updateMetaTag('robots', 'index, follow', true)
 
   }, [title, description, image, url, type, keywords])
