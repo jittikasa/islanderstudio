@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { getPostsByApp, urlFor } from '../lib/sanity'
+import SEO, { StructuredData, shellistAppSchema } from '../components/SEO'
 import './Shellist.css'
 
 export default function Shellist() {
@@ -75,7 +76,17 @@ export default function Shellist() {
   ]
 
   return (
-    <div className={`shellist ${isLoaded ? 'shellist--loaded' : ''}`}>
+    <>
+      <SEO
+        title="Shellist - Habit Tracker with Pearl Visualizations | Islander Studio"
+        description="Build habits like pearls. Transform your life one habit at a time with beautiful pearl visualizations, powerful analytics, vision boards, and motivational tools. Available on iOS."
+        url="https://islanderstudio.app/shellist"
+        image="https://islanderstudio.app/shellist/images/App Icon.png"
+        keywords="habit tracker, habit app, pearl chain, habit tracking, productivity app, iOS habits, daily habits, goal tracking, streak tracker, habit builder"
+      />
+      <StructuredData data={shellistAppSchema} />
+
+      <div className={`shellist ${isLoaded ? 'shellist--loaded' : ''}`}>
       {/* Hero Section */}
       <section className="shellist__hero">
         <div className="shellist__hero-content">
@@ -245,6 +256,7 @@ export default function Shellist() {
           </p>
         </div>
       </section>
-    </div>
+      </div>
+    </>
   )
 }

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import AccordionGroup from '../components/Accordion'
+import SEO from '../components/SEO'
 import './LegalPage.css'
 
 const shellistFAQs = [
@@ -107,7 +108,14 @@ export default function Support() {
   }
 
   return (
-    <div className="legal-page">
+    <>
+      <SEO
+        title="Support & FAQs - Islander Studio"
+        description="Get help with Shellist and PolaMoment. Find answers to common questions about features, privacy, data storage, and more. Contact our support team."
+        url="https://islanderstudio.app/support"
+        keywords="app support, FAQ, help center, customer support, Shellist help, PolaMoment support, iOS app help"
+      />
+      <div className="legal-page">
       {/* Header */}
       <section className="legal-hero">
         <span className="legal-label">Help</span>
@@ -184,6 +192,7 @@ export default function Support() {
           </div>
         </div>
       </section>
-    </div>
+      </div>
+    </>
   )
 }

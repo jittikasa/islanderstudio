@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { getPostsByApp, urlFor } from '../lib/sanity'
+import SEO, { StructuredData, polamomentAppSchema } from '../components/SEO'
 import './PolaMoment.css'
 
 export default function PolaMoment() {
@@ -62,7 +63,17 @@ export default function PolaMoment() {
   ]
 
   return (
-    <div className={`pola ${isLoaded ? 'pola--loaded' : ''}`}>
+    <>
+      <SEO
+        title="PolaMoment - Vintage Polaroid Camera for iPhone | Islander Studio"
+        description="Transform your iPhone into a vintage Polaroid camera. Create instant memories with authentic retro filters, classic frames, and that iconic aesthetic we all love."
+        url="https://islanderstudio.app/polamoment"
+        image="https://islanderstudio.app/pola-assets/Icon-1024.png"
+        keywords="polaroid camera app, vintage camera, instant photography, retro photo filters, polaroid frames, iOS camera app, vintage photos, nostalgic photography"
+      />
+      <StructuredData data={polamomentAppSchema} />
+
+      <div className={`pola ${isLoaded ? 'pola--loaded' : ''}`}>
       {/* Hero Section */}
       <section className="pola__hero">
         <div className="pola__hero-content">
@@ -230,6 +241,7 @@ export default function PolaMoment() {
           </p>
         </div>
       </section>
-    </div>
+      </div>
+    </>
   )
 }
