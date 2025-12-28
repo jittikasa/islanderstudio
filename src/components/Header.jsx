@@ -5,7 +5,6 @@ import './Header.css'
 export default function Header() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
-  const [time, setTime] = useState('')
   const location = useLocation()
 
   useEffect(() => {
@@ -15,21 +14,6 @@ export default function Header() {
 
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
-  // Live clock - quirky touch
-  useEffect(() => {
-    const updateTime = () => {
-      const now = new Date()
-      setTime(now.toLocaleTimeString('en-US', {
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: false
-      }))
-    }
-    updateTime()
-    const interval = setInterval(updateTime, 1000)
-    return () => clearInterval(interval)
   }, [])
 
   useEffect(() => {
@@ -59,8 +43,11 @@ export default function Header() {
     <header className={`header ${scrolled ? 'header--scrolled' : ''}`}>
       <div className="header__container">
         <Link to="/" className="header__logo">
-          <span className="header__logo-text">islander</span>
-          <span className="header__logo-dot">.</span>
+          <img
+            src="/branding/Logo-primary.png"
+            alt="Islander Studio"
+            className="header__logo-img"
+          />
         </Link>
 
         <nav className="header__nav">
@@ -81,7 +68,9 @@ export default function Header() {
         </nav>
 
         <div className="header__right">
-          <span className="header__time">{time}</span>
+          <a href="mailto:support@islanderstudio.app" className="header__contact-btn">
+            Say Hello
+          </a>
 
           <button
             className={`header__menu-btn ${menuOpen ? 'header__menu-btn--open' : ''}`}
@@ -103,6 +92,14 @@ export default function Header() {
 
       {/* Mobile Menu */}
       <div className={`header__mobile-menu ${menuOpen ? 'header__mobile-menu--open' : ''}`}>
+        <div className="header__mobile-header">
+          <img
+            src="/branding/Logo-primary.png"
+            alt="Islander Studio"
+            className="header__mobile-logo"
+          />
+        </div>
+
         <nav className="header__mobile-nav">
           {navLinks.map((link, index) => (
             <Link
@@ -123,8 +120,8 @@ export default function Header() {
           <a href="mailto:support@islanderstudio.app" className="header__mobile-email">
             support@islanderstudio.app
           </a>
-          <p className="header__mobile-copyright">
-            islander studio, 2025
+          <p className="header__mobile-tagline">
+            Crafted with soul for everyday moments
           </p>
         </div>
       </div>

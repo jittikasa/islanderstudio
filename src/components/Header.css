@@ -1,5 +1,5 @@
 /* ============================================
-   HEADER - Minimal, Clean, Interactive
+   HEADER - Islander Studio Tropical Modernism
    ============================================ */
 
 .header {
@@ -8,11 +8,13 @@
   left: 0;
   right: 0;
   z-index: 1000;
-  background: var(--white);
+  background: var(--off-white);
   transition: all var(--duration-base) var(--ease-out);
 }
 
 .header--scrolled {
+  background: rgba(253, 251, 247, 0.95);
+  backdrop-filter: blur(8px);
   box-shadow: 0 1px 0 var(--cloud);
 }
 
@@ -22,7 +24,7 @@
   justify-content: space-between;
   max-width: 1200px;
   margin: 0 auto;
-  padding: var(--space-5) var(--space-6);
+  padding: var(--space-4) var(--space-6);
 }
 
 @media (min-width: 768px) {
@@ -34,30 +36,23 @@
 /* Logo */
 .header__logo {
   display: flex;
-  align-items: baseline;
-  font-size: 1.25rem;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  color: var(--ink);
+  align-items: center;
   transition: opacity var(--duration-fast) var(--ease-out);
 }
 
 .header__logo:hover {
-  opacity: 0.7;
+  opacity: 0.8;
 }
 
-.header__logo-text {
-  color: var(--ink);
+.header__logo-img {
+  height: 32px;
+  width: auto;
 }
 
-.header__logo-dot {
-  color: var(--coral);
-  font-weight: 700;
-  transition: transform var(--duration-base) var(--ease-spring);
-}
-
-.header__logo:hover .header__logo-dot {
-  transform: scale(1.3);
+@media (min-width: 768px) {
+  .header__logo-img {
+    height: 36px;
+  }
 }
 
 /* Desktop Nav */
@@ -80,33 +75,35 @@
 
 .header__nav-link {
   display: block;
-  padding: var(--space-2) var(--space-4);
-  font-size: 14px;
+  padding: var(--space-3) var(--space-4);
+  font-family: var(--font-body);
+  font-size: 15px;
   font-weight: 500;
   color: var(--stone);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
   transition: all var(--duration-fast) var(--ease-out);
   position: relative;
 }
 
 .header__nav-link:hover {
-  color: var(--ink);
-  background: var(--snow);
+  color: var(--midnight-sky);
+  background: var(--sea-salt);
 }
 
 .header__nav-link--active {
-  color: var(--ink);
+  color: var(--midnight-sky);
+  background: var(--sea-salt);
 }
 
 .header__nav-link--active::after {
   content: '';
   position: absolute;
-  bottom: 4px;
+  bottom: 8px;
   left: 50%;
   transform: translateX(-50%);
   width: 4px;
   height: 4px;
-  background: var(--coral);
+  background: var(--coconut-shell);
   border-radius: 50%;
 }
 
@@ -117,19 +114,27 @@
   gap: var(--space-4);
 }
 
-/* Time Display - Quirky detail */
-.header__time {
+/* Contact Button */
+.header__contact-btn {
   display: none;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  color: var(--fog);
-  padding: var(--space-1) var(--space-2);
-  background: var(--snow);
-  border-radius: var(--radius-sm);
+  padding: var(--space-3) var(--space-5);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--midnight-sky);
+  background: var(--golden-hour);
+  border-radius: var(--radius-full);
+  transition: all var(--duration-base) var(--ease-out);
+}
+
+.header__contact-btn:hover {
+  background: var(--sunset-glow);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
 }
 
 @media (min-width: 768px) {
-  .header__time {
+  .header__contact-btn {
     display: block;
   }
 }
@@ -139,14 +144,19 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 5px;
-  width: 32px;
-  height: 32px;
-  padding: 6px;
-  background: transparent;
+  gap: 6px;
+  width: 40px;
+  height: 40px;
+  padding: 8px;
+  background: var(--sea-salt);
   border: none;
+  border-radius: var(--radius-md);
   cursor: pointer;
   transition: all var(--duration-base) var(--ease-out);
+}
+
+.header__menu-btn:hover {
+  background: var(--cloud);
 }
 
 @media (min-width: 768px) {
@@ -159,18 +169,18 @@
   display: block;
   width: 100%;
   height: 2px;
-  background: var(--ink);
+  background: var(--midnight-sky);
   border-radius: 1px;
   transition: all var(--duration-base) var(--ease-out);
   transform-origin: center;
 }
 
 .header__menu-btn--open .header__menu-line:first-child {
-  transform: translateY(3.5px) rotate(45deg);
+  transform: translateY(4px) rotate(45deg);
 }
 
 .header__menu-btn--open .header__menu-line:last-child {
-  transform: translateY(-3.5px) rotate(-45deg);
+  transform: translateY(-4px) rotate(-45deg);
 }
 
 /* Overlay */
@@ -180,7 +190,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(51, 51, 51, 0.3);
   opacity: 0;
   visibility: hidden;
   transition: all var(--duration-base) var(--ease-out);
@@ -200,13 +210,13 @@
   width: 100%;
   max-width: 320px;
   height: 100vh;
-  background: var(--white);
+  background: var(--off-white);
   transform: translateX(100%);
   transition: transform var(--duration-slow) var(--ease-out);
   z-index: 1001;
   display: flex;
   flex-direction: column;
-  padding: var(--space-20) var(--space-8) var(--space-8);
+  padding: var(--space-6);
 }
 
 .header__mobile-menu--open {
@@ -217,6 +227,17 @@
   .header__mobile-menu {
     display: none;
   }
+}
+
+.header__mobile-header {
+  padding-bottom: var(--space-8);
+  border-bottom: 1px solid var(--cloud);
+  margin-bottom: var(--space-6);
+}
+
+.header__mobile-logo {
+  height: 32px;
+  width: auto;
 }
 
 .header__mobile-nav {
@@ -231,6 +252,7 @@
   align-items: center;
   justify-content: space-between;
   padding: var(--space-4) 0;
+  font-family: var(--font-display);
   font-size: 1.5rem;
   font-weight: 500;
   color: var(--stone);
@@ -246,7 +268,7 @@
 
 .header__mobile-link:hover,
 .header__mobile-link--active {
-  color: var(--ink);
+  color: var(--midnight-sky);
 }
 
 .header__mobile-link--active .header__mobile-link-text {
@@ -256,45 +278,51 @@
 .header__mobile-link--active .header__mobile-link-text::after {
   content: '';
   position: absolute;
-  bottom: -2px;
+  bottom: -4px;
   left: 0;
   right: 0;
-  height: 2px;
-  background: var(--coral);
+  height: 3px;
+  background: var(--sunset-glow);
+  border-radius: 2px;
 }
 
 .header__mobile-link-arrow {
-  font-family: var(--font-mono);
-  font-size: 14px;
+  font-size: 16px;
   color: var(--fog);
-  transition: transform var(--duration-base) var(--ease-out);
+  transition: all var(--duration-base) var(--ease-out);
 }
 
 .header__mobile-link:hover .header__mobile-link-arrow {
   transform: translateX(4px);
-  color: var(--coral);
+  color: var(--sunset-glow);
 }
 
 .header__mobile-footer {
-  padding-top: var(--space-8);
+  padding-top: var(--space-6);
   border-top: 1px solid var(--cloud);
 }
 
 .header__mobile-email {
-  display: block;
-  font-family: var(--font-mono);
-  font-size: 13px;
-  color: var(--stone);
-  margin-bottom: var(--space-2);
-  transition: color var(--duration-fast) var(--ease-out);
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--coconut-shell);
+  padding: var(--space-2) var(--space-4);
+  background: var(--sea-salt);
+  border-radius: var(--radius-full);
+  margin-bottom: var(--space-4);
+  transition: all var(--duration-fast) var(--ease-out);
 }
 
 .header__mobile-email:hover {
-  color: var(--ink);
+  background: var(--golden-hour);
+  color: var(--midnight-sky);
 }
 
-.header__mobile-copyright {
-  font-size: 12px;
+.header__mobile-tagline {
+  font-size: 13px;
+  font-style: italic;
   color: var(--fog);
 }
 
@@ -313,14 +341,15 @@
 /* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
   .header,
-  .header__logo-dot,
   .header__nav-link,
+  .header__contact-btn,
   .header__menu-btn,
   .header__menu-line,
   .header__overlay,
   .header__mobile-menu,
   .header__mobile-link,
-  .header__mobile-link-arrow {
+  .header__mobile-link-arrow,
+  .header__mobile-email {
     transition: none !important;
     animation: none !important;
   }

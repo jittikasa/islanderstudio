@@ -1,5 +1,5 @@
 /* ============================================
-   ACCORDION COMPONENT - Clean, Minimal
+   ACCORDION COMPONENT - Islander Studio Branding
    ============================================ */
 
 .accordion-group {
@@ -11,17 +11,18 @@
 .accordion-item {
   background: var(--white);
   border: 1px solid var(--cloud);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
   overflow: hidden;
   transition: all var(--duration-fast) var(--ease-out);
 }
 
 .accordion-item:hover {
-  border-color: var(--fog);
+  border-color: var(--coconut-shell);
 }
 
 .accordion-item.is-open {
-  border-color: var(--ink);
+  border-color: var(--coconut-shell);
+  box-shadow: var(--shadow-sm);
 }
 
 /* Accordion Trigger */
@@ -39,11 +40,11 @@
 }
 
 .accordion-trigger:hover {
-  background: var(--snow);
+  background: var(--sea-salt);
 }
 
 .accordion-trigger:focus-visible {
-  outline: 2px solid var(--ink);
+  outline: 2px solid var(--coconut-shell);
   outline-offset: -2px;
 }
 
@@ -54,9 +55,10 @@
 
 .accordion-question {
   flex: 1;
-  font-size: 14px;
+  font-family: var(--font-body);
+  font-size: 15px;
   font-weight: 500;
-  color: var(--ink);
+  color: var(--midnight-sky);
   line-height: 1.4;
 }
 
@@ -68,7 +70,7 @@
 
 .accordion-item.is-open .accordion-chevron {
   transform: rotate(180deg);
-  color: var(--ink);
+  color: var(--sunset-glow);
 }
 
 /* Accordion Content */
@@ -89,20 +91,21 @@
 .accordion-content p {
   padding: 0 var(--space-5) var(--space-5) var(--space-5);
   margin: 0;
+  font-family: var(--font-body);
   font-size: 14px;
   line-height: 1.7;
   color: var(--stone);
 }
 
 .accordion-content a {
-  color: var(--ink);
+  color: var(--coconut-shell);
   text-decoration: underline;
   text-underline-offset: 2px;
-  transition: opacity var(--duration-fast) var(--ease-out);
+  transition: color var(--duration-fast) var(--ease-out);
 }
 
 .accordion-content a:hover {
-  opacity: 0.7;
+  color: var(--sunset-glow);
 }
 
 /* When accordion has icon, adjust padding */
