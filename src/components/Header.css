@@ -69,8 +69,8 @@
 .header__logo-mark {
   position: absolute;
   left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  top: 0;
+  transform: translateX(-50%);
   height: 1em;
   width: auto;
   opacity: 0;
@@ -86,7 +86,7 @@
 
 .header__logo:hover .header__logo-mark {
   opacity: 1;
-  transform: translate(-50%, -50%) rotate(-8deg);
+  transform: translateX(-50%) rotate(-8deg);
 }
 
 .header__logo-slander {
