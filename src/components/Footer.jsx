@@ -12,7 +12,6 @@ export default function Footer() {
       setCopied(true)
       setTimeout(() => setCopied(false), 2000)
     } catch (err) {
-      // Fallback for older browsers
       window.location.href = 'mailto:support@islanderstudio.app'
     }
   }
@@ -23,11 +22,14 @@ export default function Footer() {
         <div className="footer__top">
           <div className="footer__brand">
             <Link to="/" className="footer__logo">
-              <span className="footer__logo-text">islander</span>
-              <span className="footer__logo-dot">.</span>
+              <img
+                src="/branding/Logo-primary.png"
+                alt="Islander Studio"
+                className="footer__logo-img"
+              />
             </Link>
             <p className="footer__tagline">
-              Crafting apps with soul.
+              Crafted with soul for everyday moments.
             </p>
           </div>
 
@@ -38,7 +40,7 @@ export default function Footer() {
                 <li>
                   <Link to="/shellist" className="footer__link">
                     Shellist
-                    <span className="footer__link-badge">Live</span>
+                    <span className="footer__link-badge footer__link-badge--live">Live</span>
                   </Link>
                 </li>
                 <li>
@@ -71,7 +73,7 @@ export default function Footer() {
                     onClick={handleCopyEmail}
                   >
                     <span className="footer__link-email">support@islanderstudio.app</span>
-                    <span className="footer__link-copy-text">
+                    <span className={`footer__link-copy-text ${copied ? 'footer__link-copy-text--copied' : ''}`}>
                       {copied ? 'Copied!' : 'Copy'}
                     </span>
                   </button>
@@ -83,11 +85,13 @@ export default function Footer() {
 
         <div className="footer__bottom">
           <p className="footer__copyright">
-            {currentYear} islander studio
+            {currentYear} Islander Studio
           </p>
-          <p className="footer__made">
-            Made in <span className="footer__location">Thailand</span>
-          </p>
+          <div className="footer__bottom-right">
+            <p className="footer__made">
+              Made with care in Phuket, Thailand
+            </p>
+          </div>
         </div>
       </div>
     </footer>

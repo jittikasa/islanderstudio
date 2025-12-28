@@ -1,5 +1,5 @@
 /* ============================================
-   404 NOT FOUND - Clean, Interactive
+   404 NOT FOUND - Islander Studio Branding
    ============================================ */
 
 .notfound {
@@ -8,7 +8,7 @@
   align-items: center;
   justify-content: center;
   padding: var(--space-8);
-  background: var(--white);
+  background: var(--off-white);
   opacity: 0;
   transform: translateY(20px);
   transition: all 0.6s var(--ease-out);
@@ -34,26 +34,29 @@
 }
 
 .notfound__digit {
+  font-family: var(--font-display);
   font-size: clamp(4rem, 15vw, 8rem);
   font-weight: 700;
   line-height: 1;
-  color: var(--ink);
+  color: var(--midnight-sky);
   transition: transform 0.1s ease-out;
 }
 
 .notfound__digit--accent {
-  color: var(--coral);
+  color: var(--sunset-glow);
 }
 
 /* Text */
 .notfound__title {
+  font-family: var(--font-display);
   font-size: 1.5rem;
   font-weight: 600;
-  color: var(--ink);
+  color: var(--midnight-sky);
   margin: 0 0 var(--space-3) 0;
 }
 
 .notfound__text {
+  font-family: var(--font-body);
   font-size: 1rem;
   color: var(--stone);
   margin: 0 0 var(--space-8) 0;
@@ -80,24 +83,25 @@
   justify-content: center;
   gap: var(--space-2);
   padding: var(--space-3) var(--space-6);
+  font-family: var(--font-body);
   font-size: 14px;
-  font-weight: 500;
-  border-radius: var(--radius-md);
+  font-weight: 600;
+  border-radius: var(--radius-full);
   transition: all var(--duration-base) var(--ease-out);
 }
 
 .notfound__btn--primary {
-  background: var(--ink);
-  color: var(--white);
+  background: var(--sunset-glow);
+  color: var(--midnight-sky);
 }
 
 .notfound__btn--primary:hover {
+  background: #e8916a;
   transform: translateY(-2px);
-  box-shadow: var(--shadow-hover);
+  box-shadow: var(--shadow-lg);
 }
 
 .notfound__btn--primary span {
-  font-family: var(--font-mono);
   transition: transform var(--duration-base) var(--ease-out);
 }
 
@@ -106,12 +110,14 @@
 }
 
 .notfound__btn--secondary {
-  background: var(--snow);
-  color: var(--ink);
+  background: var(--sea-salt);
+  color: var(--coconut-shell);
+  border: 1px solid var(--cloud);
 }
 
 .notfound__btn--secondary:hover {
-  background: var(--cloud);
+  border-color: var(--coconut-shell);
+  background: var(--white);
 }
 
 /* Quick Links */
@@ -122,6 +128,7 @@
 
 .notfound__links-label {
   display: block;
+  font-family: var(--font-body);
   font-size: 11px;
   font-weight: 600;
   text-transform: uppercase;
@@ -139,16 +146,17 @@
 
 .notfound__link {
   padding: var(--space-2) var(--space-4);
+  font-family: var(--font-body);
   font-size: 14px;
   color: var(--stone);
-  background: var(--snow);
-  border-radius: var(--radius-md);
+  background: var(--sea-salt);
+  border-radius: var(--radius-full);
   transition: all var(--duration-fast) var(--ease-out);
 }
 
 .notfound__link:hover {
-  color: var(--ink);
-  background: var(--cloud);
+  color: var(--midnight-sky);
+  background: var(--golden-hour);
 }
 
 /* Reduced Motion */

@@ -1,11 +1,11 @@
 /* ============================================
-   FOOTER - Simple, No Gradient, Quirky Touches
+   FOOTER - Islander Studio Tropical Modernism
    ============================================ */
 
 .footer {
   margin-top: var(--space-24);
   padding: var(--space-16) 0 var(--space-8);
-  border-top: 1px solid var(--cloud);
+  background: var(--sea-salt);
 }
 
 .footer__container {
@@ -41,34 +41,27 @@
 }
 
 .footer__logo {
-  display: inline-flex;
-  align-items: baseline;
-  font-size: 1.25rem;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  color: var(--ink);
+  display: inline-block;
+  margin-bottom: var(--space-4);
   transition: opacity var(--duration-fast) var(--ease-out);
-  margin-bottom: var(--space-3);
 }
 
 .footer__logo:hover {
-  opacity: 0.7;
+  opacity: 0.8;
 }
 
-.footer__logo-text {
-  color: var(--ink);
-}
-
-.footer__logo-dot {
-  color: var(--coral);
-  font-weight: 700;
+.footer__logo-img {
+  height: 28px;
+  width: auto;
 }
 
 .footer__tagline {
-  font-size: 14px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-style: italic;
   color: var(--stone);
   margin: 0;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 /* Links Grid */
@@ -89,11 +82,12 @@
 }
 
 .footer__heading {
-  font-size: 12px;
+  font-family: var(--font-display);
+  font-size: 13px;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--fog);
+  letter-spacing: 0.08em;
+  color: var(--coconut-shell);
   margin-bottom: var(--space-4);
 }
 
@@ -108,19 +102,19 @@
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  font-size: 14px;
+  font-family: var(--font-body);
+  font-size: 15px;
   color: var(--stone);
   transition: color var(--duration-fast) var(--ease-out);
   background: none;
   border: none;
   padding: 0;
   cursor: pointer;
-  font-family: inherit;
   text-align: left;
 }
 
 .footer__link:hover {
-  color: var(--ink);
+  color: var(--midnight-sky);
 }
 
 /* Link Badges */
@@ -129,15 +123,18 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  padding: 2px 6px;
-  border-radius: var(--radius-sm);
-  background: var(--snow);
-  color: var(--stone);
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+}
+
+.footer__link-badge--live {
+  background: rgba(72, 187, 120, 0.15);
+  color: #22543d;
 }
 
 .footer__link-badge--soon {
-  background: #fff8e6;
-  color: #b8860b;
+  background: rgba(253, 222, 134, 0.4);
+  color: #8b6914;
 }
 
 /* Copy Email Button */
@@ -156,18 +153,23 @@
 
 .footer__link-copy-text {
   font-size: 11px;
-  font-weight: 500;
-  color: var(--fog);
-  padding: 2px 8px;
-  background: var(--snow);
-  border-radius: var(--radius-sm);
+  font-weight: 600;
+  color: var(--coconut-shell);
+  padding: 4px 10px;
+  background: var(--white);
+  border-radius: var(--radius-full);
   transition: all var(--duration-fast) var(--ease-out);
   flex-shrink: 0;
 }
 
 .footer__link--copy:hover .footer__link-copy-text {
-  background: var(--ink);
-  color: var(--white);
+  background: var(--sunset-glow);
+  color: var(--midnight-sky);
+}
+
+.footer__link-copy-text--copied {
+  background: var(--golden-hour) !important;
+  color: var(--midnight-sky) !important;
 }
 
 /* Bottom Section */
@@ -188,30 +190,23 @@
 }
 
 .footer__copyright {
+  font-family: var(--font-body);
   font-size: 13px;
-  color: var(--fog);
+  color: var(--stone);
   margin: 0;
+}
+
+.footer__bottom-right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
 }
 
 .footer__made {
+  font-family: var(--font-body);
   font-size: 13px;
   color: var(--fog);
   margin: 0;
-}
-
-.footer__location {
-  color: var(--stone);
-  position: relative;
-}
-
-.footer__location::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: var(--cloud);
 }
 
 /* Reduced Motion */

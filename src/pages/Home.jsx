@@ -43,7 +43,7 @@ export default function Home() {
       category: 'Productivity',
       status: 'Live',
       color: '#4A90A4',
-      icon: '/shellist/images/icons/logo.png',
+      icon: '/shellist/images/App Icon.png',
       description: 'A habit tracker that visualizes your progress as a growing pearl chain. Beautiful, private, and designed to make building habits feel like collecting treasures.',
       appStoreUrl: 'https://apps.apple.com/us/app/shellist/id6755242144'
     },
@@ -63,7 +63,7 @@ export default function Home() {
   return (
     <>
       <SEO
-        title="islander. - Apps crafted with soul"
+        title="Islander Studio - Crafted with soul for everyday moments"
         description="Thoughtfully designed iOS apps that blend artistry with functionality. Discover Shellist for habit tracking and PolaMoment for vintage photography."
         url="https://islanderstudio.app"
       />
@@ -73,31 +73,40 @@ export default function Home() {
         {/* Hero Section */}
         <section className="home__hero">
           <div className="home__hero-content">
-            <span className="home__hero-label">islander studio</span>
             <h1 className="home__hero-title">
-              Apps crafted<br />
-              with <span className="home__hero-highlight">soul</span>
+              Crafted with <span className="home__hero-highlight">soul</span><br />
+              for everyday moments
             </h1>
             <p className="home__hero-subtitle">
-              Thoughtfully designed iOS experiences<br />
-              for everyday moments
+              A boutique iOS studio creating thoughtfully designed<br className="home__hero-break" />
+              mobile experiences that respect your time and spark joy.
             </p>
+            <div className="home__hero-cta">
+              <a href="#apps" className="home__hero-btn home__hero-btn--primary">
+                Explore Apps
+              </a>
+              <a href="mailto:support@islanderstudio.app" className="home__hero-btn home__hero-btn--secondary">
+                Say Hello
+              </a>
+            </div>
           </div>
 
-          <div className="home__hero-meta">
-            <div className="home__hero-stat">
-              <span className="home__hero-stat-number">2</span>
-              <span className="home__hero-stat-label">Apps</span>
-            </div>
-            <div className="home__hero-stat">
-              <span className="home__hero-stat-number">2025</span>
-              <span className="home__hero-stat-label">Thailand</span>
-            </div>
+          <div className="home__hero-visual">
+            <img
+              src="/branding/Graphics/coconuttree.png"
+              alt=""
+              className="home__hero-graphic home__hero-graphic--tree"
+            />
+            <img
+              src="/branding/Graphics/sun.png"
+              alt=""
+              className="home__hero-graphic home__hero-graphic--sun"
+            />
           </div>
         </section>
 
         {/* Apps Grid */}
-        <section className="home__apps">
+        <section className="home__apps" id="apps">
           <div className="home__apps-header">
             <h2 className="home__section-title">Our Apps</h2>
             <span className="home__section-count">{apps.length} projects</span>
@@ -157,51 +166,71 @@ export default function Home() {
           </div>
         </section>
 
-        {/* About Widget */}
-        <section className="home__about">
-          <div className="home__about-grid">
-            <div className="home__widget home__widget--about">
-              <h3 className="home__widget-title">About</h3>
-              <p className="home__widget-text">
-                We're a small studio creating iOS apps that respect your privacy and delight in use.
-                Every app is designed with intention, built with care.
+        {/* Values Section */}
+        <section className="home__values-section">
+          <div className="home__values-header">
+            <h2 className="home__section-title">What We Believe</h2>
+          </div>
+
+          <div className="home__values-grid">
+            <div className="home__value-card">
+              <span className="home__value-icon">
+                <img src="/branding/Graphics/flower.png" alt="" />
+              </span>
+              <h3 className="home__value-title">Design First</h3>
+              <p className="home__value-text">
+                Beautiful design isn't a luxury—it's essential. Form and function are inseparable.
               </p>
             </div>
 
-            <div className="home__widget home__widget--contact">
-              <h3 className="home__widget-title">Contact</h3>
-              <button
-                className="home__email-btn"
-                onClick={handleCopyEmail}
-              >
-                <span className="home__email-text">support@islanderstudio.app</span>
-                <span className="home__email-action">
-                  {copiedEmail ? 'Copied!' : 'Copy'}
-                </span>
-              </button>
+            <div className="home__value-card">
+              <span className="home__value-icon">
+                <img src="/branding/Graphics/starfish.png" alt="" />
+              </span>
+              <h3 className="home__value-title">Delightful Details</h3>
+              <p className="home__value-text">
+                Small moments of joy make ordinary tasks extraordinary. We obsess over the little things.
+              </p>
             </div>
 
-            <div className="home__widget home__widget--links">
-              <h3 className="home__widget-title">Links</h3>
-              <div className="home__quick-links">
-                <Link to="/support" className="home__quick-link">
-                  Support <span>→</span>
-                </Link>
-                <Link to="/privacy" className="home__quick-link">
-                  Privacy <span>→</span>
-                </Link>
-              </div>
+            <div className="home__value-card">
+              <span className="home__value-icon">
+                <img src="/branding/Graphics/shell.png" alt="" />
+              </span>
+              <h3 className="home__value-title">Human-Centered</h3>
+              <p className="home__value-text">
+                We design for humans, not metrics. Apps that respect attention and protect privacy.
+              </p>
             </div>
 
-            <div className="home__widget home__widget--values">
-              <h3 className="home__widget-title">Values</h3>
-              <ul className="home__values-list">
-                <li>Privacy first</li>
-                <li>Thoughtful design</li>
-                <li>No subscriptions*</li>
-              </ul>
-              <span className="home__values-note">*where possible</span>
+            <div className="home__value-card">
+              <span className="home__value-icon">
+                <img src="/branding/Graphics/moon.png" alt="" />
+              </span>
+              <h3 className="home__value-title">Timeless Design</h3>
+              <p className="home__value-text">
+                Trends fade; good design endures. Classic aesthetics with contemporary edge.
+              </p>
             </div>
+          </div>
+        </section>
+
+        {/* Contact Section */}
+        <section className="home__contact">
+          <div className="home__contact-content">
+            <h2 className="home__contact-title">Let's Connect</h2>
+            <p className="home__contact-text">
+              Questions, feedback, or just want to say hello? We'd love to hear from you.
+            </p>
+            <button
+              className="home__contact-btn"
+              onClick={handleCopyEmail}
+            >
+              <span className="home__contact-email">support@islanderstudio.app</span>
+              <span className={`home__contact-action ${copiedEmail ? 'home__contact-action--copied' : ''}`}>
+                {copiedEmail ? 'Copied!' : 'Copy Email'}
+              </span>
+            </button>
           </div>
         </section>
       </div>

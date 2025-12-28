@@ -1,11 +1,11 @@
 /* ============================================
-   POLAMOMENT PAGE - Clean, Minimal Design
+   POLAMOMENT PAGE - Islander Studio + PolaMoment Brand
    ============================================ */
 
 .pola {
   min-height: 100vh;
   padding-top: 80px;
-  background: var(--white);
+  background: var(--off-white);
   opacity: 0;
   transform: translateY(20px);
   transition: all 0.6s var(--ease-out);
@@ -49,23 +49,25 @@
 
 .pola__label {
   display: inline-block;
+  font-family: var(--font-body);
   font-size: 11px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--pola-red);
-  padding: var(--space-1) var(--space-3);
-  background: #fff0f0;
+  padding: var(--space-2) var(--space-3);
+  background: rgba(217, 48, 37, 0.1);
   border-radius: var(--radius-full);
   margin-bottom: var(--space-6);
 }
 
 .pola__title {
+  font-family: var(--font-display);
   font-size: clamp(2.5rem, 8vw, 4rem);
   font-weight: 700;
   line-height: 1.1;
   letter-spacing: -0.03em;
-  color: var(--ink);
+  color: var(--midnight-sky);
   margin-bottom: var(--space-3);
 }
 
@@ -74,6 +76,7 @@
 }
 
 .pola__tagline {
+  font-family: var(--font-body);
   font-size: clamp(1.25rem, 3vw, 1.5rem);
   color: var(--stone);
   font-style: italic;
@@ -81,6 +84,7 @@
 }
 
 .pola__description {
+  font-family: var(--font-body);
   font-size: 1rem;
   line-height: 1.7;
   color: var(--stone);
@@ -144,7 +148,7 @@
 .pola__polaroid-placeholder {
   width: 100%;
   aspect-ratio: 1;
-  background: var(--snow);
+  background: var(--sea-salt);
 }
 
 @keyframes polaroidFloat {
@@ -175,21 +179,22 @@
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  margin-bottom: var(--space-8);
+  margin-bottom: var(--space-10);
   padding-bottom: var(--space-4);
   border-bottom: 1px solid var(--cloud);
 }
 
 .pola__section-title {
-  font-size: 1rem;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
   font-weight: 600;
-  color: var(--ink);
+  color: var(--midnight-sky);
   margin: 0;
 }
 
 .pola__section-count {
-  font-family: var(--font-mono);
-  font-size: 12px;
+  font-family: var(--font-body);
+  font-size: 14px;
   color: var(--fog);
 }
 
@@ -213,33 +218,38 @@
 
 .pola__feature {
   padding: var(--space-6);
-  background: var(--snow);
-  border-radius: var(--radius-lg);
+  background: var(--white);
+  border: 1px solid var(--cloud);
+  border-radius: var(--radius-xl);
   transition: all var(--duration-base) var(--ease-out);
 }
 
 .pola__feature:hover,
 .pola__feature--active {
-  background: var(--white);
+  border-color: var(--pola-red);
   box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
 }
 
 .pola__feature-number {
   display: inline-block;
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: 12px;
+  font-weight: 600;
   color: var(--pola-red);
   margin-bottom: var(--space-4);
 }
 
 .pola__feature-title {
-  font-size: 1rem;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
   font-weight: 600;
-  color: var(--ink);
+  color: var(--midnight-sky);
   margin: 0 0 var(--space-2) 0;
 }
 
 .pola__feature-description {
+  font-family: var(--font-body);
   font-size: 14px;
   line-height: 1.6;
   color: var(--stone);
@@ -260,9 +270,9 @@
 }
 
 .pola__privacy-content {
-  background: var(--ink);
+  background: var(--midnight-sky);
   color: var(--white);
-  border-radius: var(--radius-xl);
+  border-radius: var(--radius-2xl);
   padding: var(--space-12);
   text-align: center;
 }
@@ -275,6 +285,7 @@
 }
 
 .pola__privacy-title {
+  font-family: var(--font-display);
   font-size: clamp(1.5rem, 4vw, 2rem);
   font-weight: 600;
   color: var(--white);
@@ -282,6 +293,7 @@
 }
 
 .pola__privacy-text {
+  font-family: var(--font-body);
   font-size: 1rem;
   line-height: 1.7;
   color: var(--fog);
@@ -293,9 +305,10 @@
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
+  font-family: var(--font-body);
   font-size: 14px;
-  font-weight: 500;
-  color: var(--white);
+  font-weight: 600;
+  color: var(--sea-salt);
   transition: opacity var(--duration-fast) var(--ease-out);
 }
 
@@ -304,7 +317,6 @@
 }
 
 .pola__privacy-link span {
-  font-family: var(--font-mono);
   transition: transform var(--duration-base) var(--ease-out);
 }
 
@@ -328,6 +340,7 @@
 
 .pola__download-label {
   display: inline-block;
+  font-family: var(--font-body);
   font-size: 11px;
   font-weight: 600;
   text-transform: uppercase;
@@ -337,13 +350,15 @@
 }
 
 .pola__download-title {
+  font-family: var(--font-display);
   font-size: clamp(1.5rem, 4vw, 2rem);
   font-weight: 600;
-  color: var(--ink);
+  color: var(--midnight-sky);
   margin: 0 0 var(--space-4) 0;
 }
 
 .pola__download-text {
+  font-family: var(--font-body);
   font-size: 1rem;
   line-height: 1.7;
   color: var(--stone);
@@ -360,10 +375,10 @@
   align-items: center;
   gap: var(--space-3);
   padding: var(--space-4) var(--space-8);
-  background: var(--ink);
+  background: var(--midnight-sky);
   color: var(--white);
   border: none;
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-xl);
   cursor: not-allowed;
   opacity: 0.5;
   font-family: inherit;
@@ -377,16 +392,19 @@
 }
 
 .pola__download-btn-small {
+  font-family: var(--font-body);
   font-size: 11px;
   opacity: 0.8;
 }
 
 .pola__download-btn-large {
+  font-family: var(--font-body);
   font-size: 16px;
   font-weight: 600;
 }
 
 .pola__download-note {
+  font-family: var(--font-body);
   font-size: 13px;
   color: var(--fog);
   margin: 0;
