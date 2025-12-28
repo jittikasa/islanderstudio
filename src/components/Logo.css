@@ -1,0 +1,97 @@
+.logo {
+  display: inline-flex;
+  align-items: baseline;
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.logo:hover {
+  opacity: 0.8;
+}
+
+/* Text styling */
+.logo__text {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.logo__dot {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+/* Size variants */
+.logo--small .logo__text {
+  font-size: 1.25rem; /* 20px */
+}
+
+.logo--small .logo__dot {
+  font-size: 1.25rem;
+}
+
+.logo--medium .logo__text {
+  font-size: 1.75rem; /* 28px */
+}
+
+.logo--medium .logo__dot {
+  font-size: 1.75rem;
+}
+
+.logo--large .logo__text {
+  font-size: 2.5rem; /* 40px */
+}
+
+.logo--large .logo__dot {
+  font-size: 2.5rem;
+}
+
+.logo--xlarge .logo__text {
+  font-size: 3.5rem; /* 56px */
+}
+
+.logo--xlarge .logo__dot {
+  font-size: 3.5rem;
+}
+
+/* Color variants */
+.logo--default .logo__text {
+  color: #2C2416; /* Primary dark */
+}
+
+.logo--default .logo__dot {
+  color: #A78A6A; /* Accent gold */
+}
+
+.logo--light .logo__text {
+  color: #FDFBF7; /* Light cream */
+}
+
+.logo--light .logo__dot {
+  color: #A78A6A; /* Accent gold */
+}
+
+.logo--monochrome .logo__text,
+.logo--monochrome .logo__dot {
+  color: currentColor;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .logo--medium .logo__text,
+  .logo--medium .logo__dot {
+    font-size: 1.5rem;
+  }
+
+  .logo--large .logo__text,
+  .logo--large .logo__dot {
+    font-size: 2rem;
+  }
+
+  .logo--xlarge .logo__text,
+  .logo--xlarge .logo__dot {
+    font-size: 2.75rem;
+  }
+}

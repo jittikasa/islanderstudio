@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import Logo from './Logo'
 import './Header.css'
 
 export default function Header() {
@@ -43,20 +44,7 @@ export default function Header() {
   return (
     <header className={`header ${scrolled ? 'header--scrolled' : ''}`}>
       <div className="header__container">
-        <Link to="/" className="header__logo">
-          <span className="header__logo-text">
-            <span className="header__logo-i">
-              <span className="header__logo-letter">i</span>
-              <img
-                src="/branding/Logomark-dark.png"
-                alt=""
-                className="header__logo-mark"
-              />
-            </span>
-            <span className="header__logo-slander">slander</span>
-            <span className="header__logo-dot"></span>
-          </span>
-        </Link>
+        <Logo size="medium" className="header__logo" />
 
         <nav className="header__nav">
           <ul className="header__nav-list">
@@ -107,18 +95,7 @@ export default function Header() {
       {/* Mobile Menu */}
       <div className={`header__mobile-menu ${menuOpen ? 'header__mobile-menu--open' : ''}`}>
         <div className="header__mobile-header">
-          <span className="header__logo-text header__logo-text--mobile">
-            <span className="header__logo-i">
-              <span className="header__logo-letter">i</span>
-              <img
-                src="/branding/Logomark-dark.png"
-                alt=""
-                className="header__logo-mark"
-              />
-            </span>
-            <span className="header__logo-slander">slander</span>
-            <span className="header__logo-dot"></span>
-          </span>
+          <Logo size="medium" linkTo={null} className="header__logo--mobile" />
         </div>
 
         <nav className="header__mobile-nav">
