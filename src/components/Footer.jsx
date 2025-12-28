@@ -56,6 +56,9 @@ export default function Footer() {
               <h4 className="footer__heading">Resources</h4>
               <ul className="footer__list">
                 <li>
+                  <Link to="/blog" className="footer__link">Blog</Link>
+                </li>
+                <li>
                   <Link to="/support" className="footer__link">Support</Link>
                 </li>
                 <li>
@@ -88,6 +91,9 @@ export default function Footer() {
             {currentYear} Islander Studio
           </p>
           <div className="footer__bottom-right">
+            <Link to="/admin" className="footer__admin-link">
+              Admin
+            </Link>
             <p className="footer__made">
               Made with care in Phuket, Thailand
             </p>
