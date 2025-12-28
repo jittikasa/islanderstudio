@@ -51,7 +51,7 @@ export default function Blog() {
     )
   }
 
-  if (error) {
+  if (error || posts.length === 0) {
     return (
       <div className="blog-page">
         <SEO
@@ -59,15 +59,15 @@ export default function Blog() {
           description="Thoughts, updates, and stories from Islander Studio"
           path="/blog"
         />
-        <div className="blog-error">
-          <h1>Blog</h1>
-          <div className="error-message">
-            <p>{error}</p>
-            <p className="error-hint">
-              Make sure you've set up your Sanity project and added the environment variables.
-              See <code>sanity-schema/README.md</code> for setup instructions.
-            </p>
-          </div>
+        <div className="blog-header">
+          <h1 className="blog-title">Blog</h1>
+          <p className="blog-subtitle">
+            Thoughts, updates, and stories from Islander Studio
+          </p>
+        </div>
+        <div className="blog-empty">
+          <p style={{ fontSize: '1.5rem', fontWeight: '600', marginBottom: '0.5rem' }}>Coming Soon</p>
+          <p>We're preparing something special. Check back soon for updates, stories, and insights from Islander Studio.</p>
         </div>
       </div>
     )
@@ -88,15 +88,7 @@ export default function Blog() {
         </p>
       </div>
 
-      {posts.length === 0 ? (
-        <div className="blog-empty">
-          <p>No blog posts yet. Check back soon!</p>
-          <p className="empty-hint">
-            Create your first post in your Sanity Studio.
-          </p>
-        </div>
-      ) : (
-        <div className="blog-grid">
+      <div className="blog-grid">
           {posts.map((post) => (
             <Link
               key={post._id}
@@ -133,8 +125,7 @@ export default function Blog() {
               </div>
             </Link>
           ))}
-        </div>
-      )}
+      </div>
     </div>
   )
 }
