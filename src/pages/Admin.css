@@ -1,0 +1,99 @@
+/* ============================================
+   Admin Page - Iframe Sanity Studio
+   ============================================ */
+
+.admin-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--cream);
+  z-index: 9999;
+}
+
+.admin-header {
+  background: var(--white);
+  border-bottom: 2px solid var(--cloud);
+  padding: var(--space-4) var(--space-6);
+  text-align: center;
+}
+
+.admin-header h1 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--coconut-shell);
+  margin: 0 0 var(--space-2) 0;
+}
+
+.admin-header p {
+  font-size: 0.875rem;
+  color: var(--stone);
+  margin: 0;
+}
+
+.admin-iframe {
+  flex: 1;
+  width: 100%;
+  border: none;
+  background: white;
+}
+
+.admin-loading {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  color: var(--stone);
+}
+
+.admin-footer {
+  background: var(--white);
+  border-top: 2px solid var(--cloud);
+  padding: var(--space-3) var(--space-6);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.back-to-site {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--coconut-shell);
+  text-decoration: none;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-md);
+  transition: all var(--duration-fast) var(--ease-out);
+}
+
+.back-to-site:hover {
+  background: var(--paper);
+}
+
+.admin-hint {
+  font-size: 0.8125rem;
+  color: var(--fog);
+}
+
+.admin-hint a {
+  color: var(--coconut-shell);
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .admin-footer {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .admin-hint {
+    font-size: 0.75rem;
+  }
+}
