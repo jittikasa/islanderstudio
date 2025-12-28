@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
+import SEO from '../components/SEO'
 import './NotFound.css'
 
 export default function NotFound() {
@@ -21,7 +22,13 @@ export default function NotFound() {
   }, [])
 
   return (
-    <div className={`notfound ${isLoaded ? 'notfound--loaded' : ''}`}>
+    <>
+      <SEO
+        title="404 - Page Not Found | Islander Studio"
+        description="The page you're looking for doesn't exist or has been moved. Return to Islander Studio homepage or explore our apps."
+        url="https://islanderstudio.app/404"
+      />
+      <div className={`notfound ${isLoaded ? 'notfound--loaded' : ''}`}>
       <div className="notfound__content">
         <div className="notfound__code">
           <span
@@ -68,6 +75,7 @@ export default function NotFound() {
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   )
 }
