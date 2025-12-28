@@ -143,7 +143,7 @@
   box-shadow: 3px 4px 0 var(--midnight-sky);
 }
 
-/* Hero Visual - Pearls */
+/* Hero Visual - Screenshots */
 .shellist__hero-visual {
   display: flex;
   justify-content: center;
@@ -151,39 +151,19 @@
   min-height: 300px;
 }
 
-.shellist__pearls {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-6);
-}
-
-.shellist__pearl {
-  border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, var(--white), var(--sea-salt));
-  box-shadow:
-    0 8px 24px rgba(167, 138, 106, 0.2),
-    inset -4px -4px 12px rgba(167, 138, 106, 0.1);
+.shellist__hero-image {
+  max-width: 100%;
+  height: auto;
   animation: float 6s ease-in-out infinite;
 }
 
-.shellist__pearl--1 {
-  width: 100px;
-  height: 100px;
-  animation-delay: 0s;
-}
-
-.shellist__pearl--2 {
-  width: 130px;
-  height: 130px;
-  animation-delay: 1s;
-}
-
-.shellist__pearl--3 {
-  width: 80px;
-  height: 80px;
-  animation-delay: 2s;
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 /* ============================================
@@ -276,10 +256,15 @@
   box-shadow: 3px 4px 0 var(--midnight-sky);
 }
 
-.shellist__feature-icon {
-  display: block;
-  font-size: 2rem;
+.shellist__feature-number {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--coconut-shell);
+  opacity: 0.4;
   margin-bottom: var(--space-4);
+  line-height: 1;
 }
 
 .shellist__feature-title {
@@ -387,6 +372,101 @@
 }
 
 /* ============================================
+   PRIVACY SECTION
+   ============================================ */
+
+.shellist__privacy {
+  padding: var(--space-16) var(--space-6);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .shellist__privacy {
+    padding: var(--space-24) var(--space-10);
+  }
+}
+
+.shellist__privacy-card {
+  background: var(--midnight-sky);
+  color: var(--white);
+  border: 3px solid var(--midnight-sky);
+  padding: var(--space-12);
+  text-align: center;
+  position: relative;
+}
+
+/* Perforated edges */
+.shellist__privacy-card::before,
+.shellist__privacy-card::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 12px;
+  background: radial-gradient(circle at center, var(--cream) 4px, transparent 4px);
+  background-size: 16px 12px;
+  pointer-events: none;
+}
+
+.shellist__privacy-card::before {
+  top: -6px;
+}
+
+.shellist__privacy-card::after {
+  bottom: -6px;
+}
+
+.shellist__privacy-icon {
+  display: block;
+  font-size: 2rem;
+  color: var(--coconut-shell);
+  margin-bottom: var(--space-4);
+}
+
+.shellist__privacy-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-weight: 700;
+  color: var(--white);
+  margin: 0 0 var(--space-4) 0;
+}
+
+.shellist__privacy-text {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--cloud);
+  max-width: 500px;
+  margin: 0 auto var(--space-6) auto;
+}
+
+.shellist__privacy-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--sea-salt);
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.shellist__privacy-link:hover {
+  color: var(--coconut-shell);
+}
+
+.shellist__privacy-link span {
+  transition: transform var(--duration-base) var(--ease-out);
+}
+
+.shellist__privacy-link:hover span {
+  transform: translateX(4px);
+}
+
+/* ============================================
    CTA SECTION
    ============================================ */
 
@@ -464,6 +544,108 @@
 }
 
 /* ============================================
+   SHOWCASE SECTION
+   ============================================ */
+
+.shellist__showcase {
+  padding: var(--space-16) 0;
+  max-width: 100%;
+  overflow: hidden;
+  background: var(--cream);
+}
+
+.shellist__showcase-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ============================================
+   VISION BOARD SECTION
+   ============================================ */
+
+.shellist__vision {
+  padding: var(--space-16) var(--space-6);
+  max-width: 1200px;
+  margin: 0 auto;
+  background: var(--cream);
+}
+
+@media (min-width: 768px) {
+  .shellist__vision {
+    padding: var(--space-24) var(--space-10);
+  }
+}
+
+.shellist__vision-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-12);
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .shellist__vision-content {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-16);
+  }
+}
+
+.shellist__vision-text {
+  max-width: 500px;
+}
+
+.shellist__vision-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--midnight-sky);
+  margin-bottom: var(--space-4);
+}
+
+.shellist__vision-description {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--stone);
+  margin: 0;
+}
+
+.shellist__vision-visual {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.shellist__vision-quote {
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  z-index: 1;
+  opacity: 0.8;
+  animation: float 8s ease-in-out infinite;
+}
+
+@media (min-width: 768px) {
+  .shellist__vision-quote {
+    top: -30px;
+    left: -30px;
+  }
+}
+
+.shellist__vision-image {
+  max-width: 100%;
+  height: auto;
+  position: relative;
+  z-index: 2;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ============================================
    ANIMATIONS
    ============================================ */
 
@@ -496,9 +678,11 @@
 
 @media (prefers-reduced-motion: reduce) {
   .shellist,
-  .shellist__pearl,
+  .shellist__hero-image,
   .shellist__feature,
   .shellist__step,
+  .shellist__vision-quote,
+  .shellist__privacy-link span,
   .shellist__btn {
     animation: none !important;
     transition: none !important;
