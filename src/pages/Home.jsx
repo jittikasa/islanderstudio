@@ -1,29 +1,59 @@
 import { Link } from 'react-router-dom'
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import SEO, { StructuredData, organizationSchema, websiteSchema } from '../components/SEO'
 import './Home.css'
 
 export default function Home() {
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
-  const [activeCard, setActiveCard] = useState(null)
+  const [loaded, setLoaded] = useState(false)
+  const [hoveredApp, setHoveredApp] = useState(null)
   const [copiedEmail, setCopiedEmail] = useState(false)
+  const [stickers, setStickers] = useState([
+    { id: 1, src: '/branding/Graphics/coconuttree.png', x: 85, y: 15, rotation: -8, scale: 1 },
+    { id: 2, src: '/branding/Graphics/sun.png', x: 75, y: 8, rotation: 12, scale: 0.8 },
+    { id: 3, src: '/branding/Graphics/flower.png', x: 5, y: 60, rotation: -15, scale: 0.9 },
+    { id: 4, src: '/branding/Graphics/shell.png', x: 92, y: 75, rotation: 20, scale: 0.85 },
+  ])
+  const [dragging, setDragging] = useState(null)
   const containerRef = useRef(null)
 
-  // Mouse tracking for 3D card effects
   useEffect(() => {
-    const handleMouseMove = (e) => {
-      if (containerRef.current) {
-        const rect = containerRef.current.getBoundingClientRect()
-        setMousePos({
-          x: (e.clientX - rect.left) / rect.width,
-          y: (e.clientY - rect.top) / rect.height
-        })
+    setLoaded(true)
+  }, [])
+
+  // Handle sticker drag
+  const handleStickerMouseDown = useCallback((e, stickerId) => {
+    e.preventDefault()
+    setDragging(stickerId)
+  }, [])
+
+  const handleMouseMove = useCallback((e) => {
+    if (dragging && containerRef.current) {
+      const rect = containerRef.current.getBoundingClientRect()
+      const x = ((e.clientX - rect.left) / rect.width) * 100
+      const y = ((e.clientY - rect.top) / rect.height) * 100
+
+      setStickers(prev => prev.map(s =>
+        s.id === dragging
+          ? { ...s, x: Math.max(0, Math.min(95, x)), y: Math.max(0, Math.min(90, y)) }
+          : s
+      ))
+    }
+  }, [dragging])
+
+  const handleMouseUp = useCallback(() => {
+    setDragging(null)
+  }, [])
+
+  useEffect(() => {
+    if (dragging) {
+      window.addEventListener('mousemove', handleMouseMove)
+      window.addEventListener('mouseup', handleMouseUp)
+      return () => {
+        window.removeEventListener('mousemove', handleMouseMove)
+        window.removeEventListener('mouseup', handleMouseUp)
       }
     }
-
-    window.addEventListener('mousemove', handleMouseMove)
-    return () => window.removeEventListener('mousemove', handleMouseMove)
-  }, [])
+  }, [dragging, handleMouseMove, handleMouseUp])
 
   const handleCopyEmail = async () => {
     try {
@@ -41,124 +71,164 @@ export default function Home() {
       name: 'Shellist',
       tagline: 'Build habits like pearls',
       category: 'Productivity',
-      status: 'Live',
-      color: '#4A90A4',
+      status: 'live',
+      year: '2025',
       icon: '/shellist/images/App Icon.png',
-      description: 'A habit tracker that visualizes your progress as a growing pearl chain. Beautiful, private, and designed to make building habits feel like collecting treasures.',
-      appStoreUrl: 'https://apps.apple.com/us/app/shellist/id6755242144'
+      color: '#4A90A4',
+      description: 'A habit tracker that visualizes your progress as a growing pearl chain.',
     },
     {
       id: 'polamoment',
       name: 'PolaMoment',
       tagline: 'Capture vintage memories',
       category: 'Photography',
-      status: 'Coming Soon',
-      color: '#D93025',
+      status: 'soon',
+      year: '2025',
       icon: '/pola-assets/Icon-1024.png',
-      description: 'Turn your iPhone into a vintage Polaroid camera. Instant photos with that distinctive retro charm.',
-      appStoreUrl: null
+      color: '#D93025',
+      description: 'Turn your iPhone into a vintage Polaroid camera.',
     }
   ]
 
   return (
     <>
       <SEO
-        title="Islander Studio - Crafted with soul for everyday moments"
-        description="Thoughtfully designed iOS apps that blend artistry with functionality. Discover Shellist for habit tracking and PolaMoment for vintage photography."
+        title="Islander Studio — Apps crafted with soul"
+        description="A boutique iOS studio creating thoughtfully designed mobile experiences. Discover Shellist and PolaMoment."
         url="https://islanderstudio.app"
       />
       <StructuredData data={[organizationSchema, websiteSchema]} />
 
-      <div className="home" ref={containerRef}>
+      <div
+        className={`home ${loaded ? 'home--loaded' : ''}`}
+        ref={containerRef}
+      >
+        {/* Floating Stickers */}
+        <div className="home__stickers">
+          {stickers.map((sticker, index) => (
+            <div
+              key={sticker.id}
+              className={`home__sticker ${dragging === sticker.id ? 'home__sticker--dragging' : ''}`}
+              style={{
+                left: `${sticker.x}%`,
+                top: `${sticker.y}%`,
+                '--rotation': `${sticker.rotation}deg`,
+                '--scale': sticker.scale,
+                '--delay': `${index * 0.1}s`,
+              }}
+              onMouseDown={(e) => handleStickerMouseDown(e, sticker.id)}
+              data-tooltip="Drag me!"
+            >
+              <img src={sticker.src} alt="" />
+            </div>
+          ))}
+        </div>
+
         {/* Hero Section */}
         <section className="home__hero">
           <div className="home__hero-content">
+            <div className="home__hero-badge">
+              <span className="home__hero-badge-dot"></span>
+              Studio Collection
+            </div>
+
             <h1 className="home__hero-title">
-              Crafted with <span className="home__hero-highlight">soul</span><br />
-              for everyday moments
+              Apps crafted<br />
+              with <span className="home__hero-accent">soul</span>
             </h1>
-            <p className="home__hero-subtitle">
-              A boutique iOS studio creating thoughtfully designed<br className="home__hero-break" />
-              mobile experiences that respect your time and spark joy.
+
+            <p className="home__hero-text">
+              A boutique iOS studio from Thailand, creating
+              thoughtfully designed mobile experiences that
+              spark joy in everyday moments.
             </p>
-            <div className="home__hero-cta">
-              <a href="#apps" className="home__hero-btn home__hero-btn--primary">
-                Explore Apps
+
+            <div className="home__hero-actions">
+              <a href="#collection" className="btn btn-primary">
+                View Collection
+                <span>↓</span>
               </a>
-              <a href="mailto:support@islanderstudio.app" className="home__hero-btn home__hero-btn--secondary">
-                Say Hello
-              </a>
+              <button
+                className="btn btn-outline"
+                onClick={handleCopyEmail}
+              >
+                {copiedEmail ? 'Copied!' : 'Say Hello'}
+              </button>
             </div>
           </div>
 
-          <div className="home__hero-visual">
-            <img
-              src="/branding/Graphics/coconuttree.png"
-              alt=""
-              className="home__hero-graphic home__hero-graphic--tree"
-            />
-            <img
-              src="/branding/Graphics/sun.png"
-              alt=""
-              className="home__hero-graphic home__hero-graphic--sun"
-            />
+          <div className="home__hero-meta">
+            <div className="home__hero-stat">
+              <span className="home__hero-stat-value">02</span>
+              <span className="home__hero-stat-label">Apps</span>
+            </div>
+            <div className="home__hero-stat">
+              <span className="home__hero-stat-value">TH</span>
+              <span className="home__hero-stat-label">Phuket</span>
+            </div>
+            <div className="home__hero-stat">
+              <span className="home__hero-stat-value">25</span>
+              <span className="home__hero-stat-label">Year</span>
+            </div>
           </div>
         </section>
 
-        {/* Apps Grid */}
-        <section className="home__apps" id="apps">
-          <div className="home__apps-header">
-            <h2 className="home__section-title">Our Apps</h2>
-            <span className="home__section-count">{apps.length} projects</span>
+        {/* App Collection */}
+        <section className="home__collection" id="collection">
+          <div className="home__collection-header">
+            <div className="home__collection-title">
+              <span className="home__collection-number">№</span>
+              <h2>App Collection</h2>
+            </div>
+            <p className="home__collection-count">{apps.length} stamps</p>
           </div>
 
-          <div className="home__apps-grid">
+          <div className="home__stamps">
             {apps.map((app, index) => (
               <Link
                 key={app.id}
                 to={`/${app.id}`}
-                className={`home__app-card ${activeCard === index ? 'home__app-card--active' : ''}`}
-                onMouseEnter={() => setActiveCard(index)}
-                onMouseLeave={() => setActiveCard(null)}
+                className={`home__stamp ${hoveredApp === index ? 'home__stamp--hovered' : ''}`}
+                onMouseEnter={() => setHoveredApp(index)}
+                onMouseLeave={() => setHoveredApp(null)}
                 style={{
-                  '--card-x': mousePos.x,
-                  '--card-y': mousePos.y,
-                  '--app-color': app.color
+                  '--index': index,
+                  '--app-color': app.color,
                 }}
               >
-                <div className="home__app-card-inner">
-                  <div className="home__app-card-header">
-                    <div className="home__app-icon-wrapper">
+                <div className="home__stamp-inner">
+                  {/* Stamp Header */}
+                  <div className="home__stamp-header">
+                    <span className="home__stamp-category">{app.category}</span>
+                    <span className={`home__stamp-status tag tag--${app.status}`}>
+                      {app.status === 'live' ? 'Live' : 'Soon'}
+                    </span>
+                  </div>
+
+                  {/* Stamp Content */}
+                  <div className="home__stamp-content">
+                    <div className="home__stamp-icon">
                       <img
                         src={app.icon}
                         alt={app.name}
-                        className="home__app-icon"
-                        onError={(e) => {
-                          e.target.style.display = 'none'
-                        }}
+                        onError={(e) => { e.target.style.opacity = 0 }}
                       />
                     </div>
-                    <span
-                      className={`home__app-status ${
-                        app.status === 'Live' ? 'home__app-status--live' : 'home__app-status--soon'
-                      }`}
-                    >
-                      {app.status}
+                    <h3 className="home__stamp-name">{app.name}</h3>
+                    <p className="home__stamp-tagline">{app.tagline}</p>
+                  </div>
+
+                  {/* Stamp Footer */}
+                  <div className="home__stamp-footer">
+                    <span className="home__stamp-year">{app.year}</span>
+                    <span className="home__stamp-arrow">
+                      View <span>→</span>
                     </span>
                   </div>
 
-                  <div className="home__app-card-content">
-                    <span className="home__app-category">{app.category}</span>
-                    <h3 className="home__app-name">{app.name}</h3>
-                    <p className="home__app-tagline">{app.tagline}</p>
-                    <p className="home__app-description">{app.description}</p>
-                  </div>
-
-                  <div className="home__app-card-footer">
-                    <span className="home__app-link">
-                      View project
-                      <span className="home__app-arrow">→</span>
-                    </span>
+                  {/* Decorative elements */}
+                  <div className="home__stamp-decoration">
+                    <span className="home__stamp-serial">IS-{String(index + 1).padStart(3, '0')}</span>
                   </div>
                 </div>
               </Link>
@@ -166,71 +236,71 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Values Section */}
-        <section className="home__values-section">
-          <div className="home__values-header">
-            <h2 className="home__section-title">What We Believe</h2>
+        {/* Widget Grid */}
+        <section className="home__widgets">
+          <div className="home__widgets-header">
+            <h2>About the Studio</h2>
           </div>
 
-          <div className="home__values-grid">
-            <div className="home__value-card">
-              <span className="home__value-icon">
-                <img src="/branding/Graphics/flower.png" alt="" />
-              </span>
-              <h3 className="home__value-title">Design First</h3>
-              <p className="home__value-text">
-                Beautiful design isn't a luxury—it's essential. Form and function are inseparable.
+          <div className="home__widgets-grid">
+            {/* About Widget */}
+            <div className="widget home__widget home__widget--about">
+              <span className="widget__label">Who we are</span>
+              <h3 className="widget__title">Islander Studio</h3>
+              <p className="widget__content">
+                A tiny studio creating iOS apps that respect your privacy
+                and delight in use. Based in Phuket, Thailand.
               </p>
             </div>
 
-            <div className="home__value-card">
-              <span className="home__value-icon">
-                <img src="/branding/Graphics/starfish.png" alt="" />
-              </span>
-              <h3 className="home__value-title">Delightful Details</h3>
-              <p className="home__value-text">
-                Small moments of joy make ordinary tasks extraordinary. We obsess over the little things.
-              </p>
+            {/* Philosophy Widget */}
+            <div className="widget home__widget home__widget--philosophy">
+              <span className="widget__label">Philosophy</span>
+              <ul className="home__values-list">
+                <li>
+                  <span className="home__values-marker">+</span>
+                  Design-first approach
+                </li>
+                <li>
+                  <span className="home__values-marker">+</span>
+                  Privacy by default
+                </li>
+                <li>
+                  <span className="home__values-marker">+</span>
+                  No subscriptions*
+                </li>
+              </ul>
+              <span className="home__values-note">*when possible</span>
             </div>
 
-            <div className="home__value-card">
-              <span className="home__value-icon">
-                <img src="/branding/Graphics/shell.png" alt="" />
-              </span>
-              <h3 className="home__value-title">Human-Centered</h3>
-              <p className="home__value-text">
-                We design for humans, not metrics. Apps that respect attention and protect privacy.
-              </p>
+            {/* Contact Widget */}
+            <div className="widget home__widget home__widget--contact">
+              <span className="widget__label">Get in touch</span>
+              <button
+                className="home__contact-btn"
+                onClick={handleCopyEmail}
+              >
+                <span className="home__contact-email">
+                  support@islanderstudio.app
+                </span>
+                <span className={`home__contact-action ${copiedEmail ? 'home__contact-action--copied' : ''}`}>
+                  {copiedEmail ? '✓ Copied' : 'Copy'}
+                </span>
+              </button>
             </div>
 
-            <div className="home__value-card">
-              <span className="home__value-icon">
-                <img src="/branding/Graphics/moon.png" alt="" />
-              </span>
-              <h3 className="home__value-title">Timeless Design</h3>
-              <p className="home__value-text">
-                Trends fade; good design endures. Classic aesthetics with contemporary edge.
-              </p>
+            {/* Links Widget */}
+            <div className="widget home__widget home__widget--links">
+              <span className="widget__label">Quick links</span>
+              <nav className="home__quick-links">
+                <Link to="/support" className="link-arrow">
+                  Support <span>→</span>
+                </Link>
+                <Link to="/privacy" className="link-arrow">
+                  Privacy <span>→</span>
+                </Link>
+              </nav>
             </div>
-          </div>
-        </section>
-
-        {/* Contact Section */}
-        <section className="home__contact">
-          <div className="home__contact-content">
-            <h2 className="home__contact-title">Let's Connect</h2>
-            <p className="home__contact-text">
-              Questions, feedback, or just want to say hello? We'd love to hear from you.
-            </p>
-            <button
-              className="home__contact-btn"
-              onClick={handleCopyEmail}
-            >
-              <span className="home__contact-email">support@islanderstudio.app</span>
-              <span className={`home__contact-action ${copiedEmail ? 'home__contact-action--copied' : ''}`}>
-                {copiedEmail ? 'Copied!' : 'Copy Email'}
-              </span>
-            </button>
           </div>
         </section>
       </div>
