@@ -1,4 +1,0 @@
-#!/bin/bash
-cd studio-islanderstudio
-export SANITY_AUTH_TOKEN="skjDrHcoICRzLIv3ZR9h93i79ZfFuGmJC40LhkE6IW6N4PtyIeCcoOyfDJ5GPIvPrwgvpAmHTDb46iyw8UMSC5Szc4pdgyWAwWeRfITgA8ADmhLhCz5fq8IlPYOHWbGQfn7CoNvM3Pn1wQwUFmo9PI7MJvS1isPNQJPBhGoIiK22kcHPYJxt"
-npx sanity deploy --no-build
