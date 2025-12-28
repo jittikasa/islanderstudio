@@ -17,6 +17,7 @@ Islander Studio is built with a **Tropical Modernism** aesthetic:
 - **Framework:** React 18 + Vite
 - **Routing:** React Router v6
 - **Styling:** Custom CSS with CSS Variables
+- **CMS:** Sanity (Headless CMS for blog)
 - **Deployment:** Netlify
 - **SEO:** Optimized meta tags, semantic HTML
 
@@ -69,11 +70,13 @@ npm run preview
 islanderstudio/
 ├── src/
 │   ├── components/      # Reusable components (Header, Footer)
-│   ├── pages/           # Route pages (Home, Shellist, PolaMoment, etc.)
+│   ├── pages/           # Route pages (Home, Shellist, PolaMoment, Blog, etc.)
+│   ├── lib/             # Utilities (Sanity client)
 │   ├── App.jsx          # Main app component with routing
 │   ├── main.jsx         # App entry point
 │   └── index.css        # Global styles & design system
 ├── public/              # Static assets
+├── sanity-schema/       # Sanity CMS schema files & setup guide
 ├── index.html           # HTML template
 ├── netlify.toml         # Netlify configuration
 └── package.json         # Dependencies & scripts
@@ -109,6 +112,95 @@ Based on 8px grid:
 - 2xl: 96px
 - 3xl: 128px
 
+## 📝 Blog & Content Management
+
+Islander Studio uses **Sanity CMS** (headless CMS) for blog content management.
+
+### Why Sanity?
+
+- ✅ **Generous free tier** (50k documents, 1M API requests/month)
+- ✅ **Cloud-hosted** (no server setup needed)
+- ✅ **Great React integration** (built for modern frameworks)
+- ✅ **Real-time content studio** (nice editing experience)
+- ✅ **Free CDN** for images/assets
+
+### Setting Up the Blog
+
+1. **Create a Sanity Project:**
+
+```bash
+# Install Sanity CLI globally
+npm install -g @sanity/cli
+
+# Create a new Sanity Studio project
+sanity init
+
+# Follow the prompts:
+# - Project name: "Islander Studio Blog"
+# - Dataset: "production"
+# - Template: "Clean project with no predefined schema"
+```
+
+2. **Add the Schemas:**
+
+Copy the schema files from `sanity-schema/` to your Sanity Studio project:
+
+```bash
+# Copy schemas
+cp sanity-schema/*.js path/to/your-sanity-studio/schemas/
+```
+
+Update your Sanity Studio's `schemas/index.js`:
+
+```javascript
+import post from './post'
+import author from './author'
+import category from './category'
+
+export const schemaTypes = [post, author, category]
+```
+
+3. **Deploy Sanity Studio:**
+
+```bash
+# In your Sanity Studio project directory
+sanity deploy
+```
+
+This gives you a URL like: `https://your-project.sanity.studio`
+
+4. **Configure Environment Variables:**
+
+Create a `.env` file in the project root:
+
+```env
+VITE_SANITY_PROJECT_ID=your_project_id_here
+VITE_SANITY_DATASET=production
+```
+
+Get your project ID from:
+- Sanity dashboard: https://sanity.io/manage
+- Or from `sanity.json` in your Sanity Studio project
+
+5. **Create Blog Content:**
+
+- Go to your deployed Sanity Studio URL
+- Create an Author (yourself)
+- Create some Categories (e.g., "Updates", "Tutorials")
+- Create Blog Posts with title, content, images, etc.
+- Click "Publish"
+
+6. **View Your Blog:**
+
+Start the dev server and visit `/blog`:
+
+```bash
+npm run dev
+# Visit http://localhost:5173/blog
+```
+
+For detailed setup instructions, see `sanity-schema/README.md`.
+
 ## 🌐 Deployment
 
 ### Netlify (Recommended)
@@ -118,11 +210,17 @@ Based on 8px grid:
    - Connect your GitHub repo to Netlify
    - Netlify auto-detects build settings from `netlify.toml`
 
-2. **Configure Domain:**
+2. **Configure Environment Variables:**
+   - Go to Site Settings > Environment Variables
+   - Add your Sanity configuration:
+     - `VITE_SANITY_PROJECT_ID`
+     - `VITE_SANITY_DATASET`
+
+3. **Configure Domain:**
    - Add `islanderstudio.app` as custom domain
    - Netlify handles SSL automatically
 
-3. **Deploy:**
+4. **Deploy:**
    - Pushes to `main` branch auto-deploy
    - Build command: `npm run build`
    - Publish directory: `dist`
@@ -142,6 +240,8 @@ npm run build
 - **/** - Homepage with app showcase
 - **/shellist** - Shellist app detail page
 - **/polamoment** - PolaMoment app detail page
+- **/blog** - Blog listing page (powered by Sanity CMS)
+- **/blog/:slug** - Individual blog post page
 - **/privacy** - Privacy Policy
 - **/support** - Support & FAQ
 
