@@ -369,6 +369,124 @@
 }
 
 /* ============================================
+   BLOG SECTION
+   ============================================ */
+
+.shellist__blog {
+  padding: var(--space-16) var(--space-6);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .shellist__blog {
+    padding: var(--space-24) var(--space-10);
+  }
+}
+
+.shellist__blog-view-all {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--coconut-shell);
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.shellist__blog-view-all:hover {
+  color: var(--midnight-sky);
+}
+
+.shellist__blog-view-all span {
+  transition: transform var(--duration-base) var(--ease-out);
+}
+
+.shellist__blog-view-all:hover span {
+  transform: translateX(4px);
+}
+
+.shellist__blog-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+}
+
+@media (min-width: 768px) {
+  .shellist__blog-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.shellist__blog-card {
+  display: block;
+  background: var(--white);
+  border: 2px solid var(--cloud);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: all var(--duration-base) var(--ease-spring);
+}
+
+.shellist__blog-card:hover {
+  border-color: var(--coconut-shell);
+  transform: translateY(-4px);
+  box-shadow: 3px 4px 0 var(--midnight-sky);
+}
+
+.shellist__blog-image {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: var(--sea-salt);
+}
+
+.shellist__blog-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--duration-slow) var(--ease-out);
+}
+
+.shellist__blog-card:hover .shellist__blog-image img {
+  transform: scale(1.05);
+}
+
+.shellist__blog-content {
+  padding: var(--space-6);
+}
+
+.shellist__blog-category {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--coconut-shell);
+  margin-bottom: var(--space-3);
+}
+
+.shellist__blog-title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--midnight-sky);
+  margin: 0 0 var(--space-3) 0;
+  line-height: 1.3;
+}
+
+.shellist__blog-excerpt {
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--stone);
+  margin: 0;
+}
+
+/* ============================================
    PRIVACY SECTION
    ============================================ */
 
@@ -558,90 +676,6 @@
 }
 
 /* ============================================
-   VISION BOARD SECTION
-   ============================================ */
-
-.shellist__vision {
-  padding: var(--space-16) var(--space-6);
-  max-width: 1200px;
-  margin: 0 auto;
-  background: var(--cream);
-}
-
-@media (min-width: 768px) {
-  .shellist__vision {
-    padding: var(--space-24) var(--space-10);
-  }
-}
-
-.shellist__vision-content {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-12);
-  align-items: center;
-}
-
-@media (min-width: 1024px) {
-  .shellist__vision-content {
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-16);
-  }
-}
-
-.shellist__vision-text {
-  max-width: 500px;
-}
-
-.shellist__vision-title {
-  font-family: var(--font-display);
-  font-size: clamp(1.75rem, 4vw, 2.5rem);
-  font-weight: 700;
-  line-height: 1.2;
-  letter-spacing: -0.02em;
-  color: var(--midnight-sky);
-  margin-bottom: var(--space-4);
-}
-
-.shellist__vision-description {
-  font-family: var(--font-body);
-  font-size: 1rem;
-  line-height: 1.7;
-  color: var(--stone);
-  margin: 0;
-}
-
-.shellist__vision-visual {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.shellist__vision-quote {
-  position: absolute;
-  top: -20px;
-  left: -20px;
-  z-index: 1;
-  opacity: 0.8;
-}
-
-@media (min-width: 768px) {
-  .shellist__vision-quote {
-    top: -30px;
-    left: -30px;
-  }
-}
-
-.shellist__vision-image {
-  max-width: 100%;
-  height: auto;
-  position: relative;
-  z-index: 2;
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg);
-}
-
-/* ============================================
    ANIMATIONS
    ============================================ */
 
@@ -677,8 +711,9 @@
   .shellist__hero-image,
   .shellist__feature,
   .shellist__step,
-  .shellist__vision-quote,
   .shellist__privacy-link span,
+  .shellist__blog-view-all span,
+  .shellist__blog-image img,
   .shellist__btn {
     animation: none !important;
     transition: none !important;

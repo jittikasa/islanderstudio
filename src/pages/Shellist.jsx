@@ -154,29 +154,44 @@ export default function Shellist() {
         </div>
       </section>
 
-      {/* Vision Board Section */}
-      <section className="shellist__vision">
-        <div className="shellist__vision-content">
-          <div className="shellist__vision-text">
-            <h2 className="shellist__vision-title">Vision Meets Daily Action</h2>
-            <p className="shellist__vision-description">
-              Connect your aspirations to your actions. Define who you want to become,
-              then build the daily habits that bridge the gap. Your vision board becomes
-              actionable when paired with consistent micro-commitments that compound over time.
-            </p>
+      {/* Blog Section */}
+      <section className="shellist__blog">
+        <div className="shellist__section-header">
+          <div className="shellist__section-title">
+            <span className="shellist__section-number">№</span>
+            <h2>Related Reading</h2>
           </div>
-          <div className="shellist__vision-visual">
-            <div className="shellist__vision-quote">
-              <svg width="60" height="48" viewBox="0 0 60 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 28C12 22.48 14.62 18.44 19.86 15.88C22.42 14.62 23.7 13.36 23.7 12.1C23.7 10.84 22.92 9.58 21.36 8.32C19.8 7.06 18.24 6.42 16.68 6.42C15.12 6.42 13.86 7.06 12.9 8.34C11.94 9.62 11.46 11.32 11.46 13.44C11.46 15.56 12.24 17.26 13.8 18.54C15.36 19.82 17.22 20.46 19.38 20.46C21.54 20.46 23.4 19.82 24.96 18.54C26.52 17.26 27.3 15.56 27.3 13.44C27.3 9.62 25.74 6.42 22.62 3.84C19.5 1.26 15.42 0 10.38 0C5.34 0 1.26 1.26 0 3.84V28C0 35.08 2.94 40.64 8.82 44.68C14.7 48.72 22.32 48 31.68 42.34L28.26 36.76C21.18 40.8 15.72 41.76 11.88 39.64C8.04 37.52 6.12 33.64 6.12 28H12ZM44 28C44 22.48 46.62 18.44 51.86 15.88C54.42 14.62 55.7 13.36 55.7 12.1C55.7 10.84 54.92 9.58 53.36 8.32C51.8 7.06 50.24 6.42 48.68 6.42C47.12 6.42 45.86 7.06 44.9 8.34C43.94 9.62 43.46 11.32 43.46 13.44C43.46 15.56 44.24 17.26 45.8 18.54C47.36 19.82 49.22 20.46 51.38 20.46C53.54 20.46 55.4 19.82 56.96 18.54C58.52 17.26 59.3 15.56 59.3 13.44C59.3 9.62 57.74 6.42 54.62 3.84C51.5 1.26 47.42 0 42.38 0C37.34 0 33.26 1.26 32 3.84V28C32 35.08 34.94 40.64 40.82 44.68C46.7 48.72 54.32 48 63.68 42.34L60.26 36.76C53.18 40.8 47.72 41.76 43.88 39.64C40.04 37.52 38.12 33.64 38.12 28H44Z" fill="var(--coconut-shell)" fillOpacity="0.15"/>
-              </svg>
+          <Link to="/blog" className="shellist__blog-view-all">
+            View all <span>→</span>
+          </Link>
+        </div>
+
+        <div className="shellist__blog-grid">
+          <Link to="/blog/vision-meets-daily-action" className="shellist__blog-card">
+            <div className="shellist__blog-image">
+              <img src="/shellist/images/screenshots/Screens-4.png" alt="Vision board in Shellist app" />
             </div>
-            <img
-              src="/shellist/images/screenshots/Screens-4.png"
-              alt="Shellist vision board feature"
-              className="shellist__vision-image"
-            />
-          </div>
+            <div className="shellist__blog-content">
+              <span className="shellist__blog-category">Mindset</span>
+              <h3 className="shellist__blog-title">Vision Meets Daily Action</h3>
+              <p className="shellist__blog-excerpt">
+                How to bridge the gap between your aspirations and daily habits using vision boards and micro-commitments.
+              </p>
+            </div>
+          </Link>
+
+          <Link to="/blog/setting-intentions-2026" className="shellist__blog-card">
+            <div className="shellist__blog-image">
+              <img src="/shellist/images/screenshots/Screens-2.png" alt="Setting intentions with Shellist" />
+            </div>
+            <div className="shellist__blog-content">
+              <span className="shellist__blog-category">Growth</span>
+              <h3 className="shellist__blog-title">Setting the Right Intentions for 2026</h3>
+              <p className="shellist__blog-excerpt">
+                Start the new year with clarity and purpose. A guide to defining meaningful goals and building habits that stick.
+              </p>
+            </div>
+          </Link>
         </div>
       </section>
 
