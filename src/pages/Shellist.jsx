@@ -180,6 +180,21 @@ export default function Shellist() {
         </div>
       </section>
 
+      {/* Privacy Section */}
+      <section className="shellist__privacy">
+        <div className="shellist__privacy-card">
+          <span className="shellist__privacy-icon">*</span>
+          <h2 className="shellist__privacy-title">Your privacy matters</h2>
+          <p className="shellist__privacy-text">
+            We don't collect, store, or share any of your data. All your habits and progress stay on
+            your device. No cloud storage, no analytics, no tracking.
+          </p>
+          <Link to="/privacy" className="shellist__privacy-link">
+            Read privacy policy <span>→</span>
+          </Link>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="shellist__cta">
         <div className="shellist__cta-card">

@@ -372,6 +372,101 @@
 }
 
 /* ============================================
+   PRIVACY SECTION
+   ============================================ */
+
+.shellist__privacy {
+  padding: var(--space-16) var(--space-6);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .shellist__privacy {
+    padding: var(--space-24) var(--space-10);
+  }
+}
+
+.shellist__privacy-card {
+  background: var(--midnight-sky);
+  color: var(--white);
+  border: 3px solid var(--midnight-sky);
+  padding: var(--space-12);
+  text-align: center;
+  position: relative;
+}
+
+/* Perforated edges */
+.shellist__privacy-card::before,
+.shellist__privacy-card::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 12px;
+  background: radial-gradient(circle at center, var(--cream) 4px, transparent 4px);
+  background-size: 16px 12px;
+  pointer-events: none;
+}
+
+.shellist__privacy-card::before {
+  top: -6px;
+}
+
+.shellist__privacy-card::after {
+  bottom: -6px;
+}
+
+.shellist__privacy-icon {
+  display: block;
+  font-size: 2rem;
+  color: var(--coconut-shell);
+  margin-bottom: var(--space-4);
+}
+
+.shellist__privacy-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-weight: 700;
+  color: var(--white);
+  margin: 0 0 var(--space-4) 0;
+}
+
+.shellist__privacy-text {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--cloud);
+  max-width: 500px;
+  margin: 0 auto var(--space-6) auto;
+}
+
+.shellist__privacy-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--sea-salt);
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.shellist__privacy-link:hover {
+  color: var(--coconut-shell);
+}
+
+.shellist__privacy-link span {
+  transition: transform var(--duration-base) var(--ease-out);
+}
+
+.shellist__privacy-link:hover span {
+  transform: translateX(4px);
+}
+
+/* ============================================
    CTA SECTION
    ============================================ */
 
@@ -587,6 +682,7 @@
   .shellist__feature,
   .shellist__step,
   .shellist__vision-quote,
+  .shellist__privacy-link span,
   .shellist__btn {
     animation: none !important;
     transition: none !important;
