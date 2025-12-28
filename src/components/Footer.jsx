@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
-import Logo from './Logo'
 import './Footer.css'
 
 export default function Footer() {
@@ -22,7 +21,13 @@ export default function Footer() {
       <div className="footer__container">
         <div className="footer__top">
           <div className="footer__brand">
-            <Logo size="large" className="footer__logo" />
+            <Link to="/" className="footer__logo">
+              <img
+                src="/branding/Logo-primary.png"
+                alt="Islander Studio"
+                className="footer__logo-img"
+              />
+            </Link>
             <p className="footer__tagline">
               Crafted with soul for everyday moments.
             </p>
@@ -83,7 +88,7 @@ export default function Footer() {
 
         <div className="footer__bottom">
           <p className="footer__copyright">
-            {currentYear} islander.
+            {currentYear} Islander Studio
           </p>
           <div className="footer__bottom-right">
             <Link to="/admin" className="footer__admin-link">
