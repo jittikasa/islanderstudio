@@ -136,6 +136,47 @@ export default function PolaMoment() {
         </div>
       </section>
 
+      {/* Blog Section */}
+      <section className="pola__blog">
+        <div className="pola__section-header">
+          <div className="pola__section-title">
+            <span className="pola__section-number">№</span>
+            <h2>Related Reading</h2>
+          </div>
+          <Link to="/blog" className="pola__blog-view-all">
+            View all <span>→</span>
+          </Link>
+        </div>
+
+        <div className="pola__blog-grid">
+          <Link to="/blog/instant-photography-nostalgia" className="pola__blog-card">
+            <div className="pola__blog-image">
+              <img src="/pola-assets/Image-1.jpeg" alt="Instant photography aesthetic" />
+            </div>
+            <div className="pola__blog-content">
+              <span className="pola__blog-category">Photography</span>
+              <h3 className="pola__blog-title">The Art of Instant Photography</h3>
+              <p className="pola__blog-excerpt">
+                Why the vintage Polaroid aesthetic continues to captivate in our digital age.
+              </p>
+            </div>
+          </Link>
+
+          <Link to="/blog/capturing-authentic-moments" className="pola__blog-card">
+            <div className="pola__blog-image">
+              <img src="/pola-assets/Image-2.jpeg" alt="Capturing authentic moments" />
+            </div>
+            <div className="pola__blog-content">
+              <span className="pola__blog-category">Creativity</span>
+              <h3 className="pola__blog-title">Capturing Authentic Moments</h3>
+              <p className="pola__blog-excerpt">
+                How to embrace imperfection and find beauty in everyday photography.
+              </p>
+            </div>
+          </Link>
+        </div>
+      </section>
+
       {/* Privacy Section */}
       <section className="pola__privacy">
         <div className="pola__privacy-card">

@@ -26,6 +26,15 @@ export default function SEO({
       element.setAttribute('content', content)
     }
 
+    // Canonical link tag
+    let canonicalLink = document.querySelector('link[rel="canonical"]')
+    if (!canonicalLink) {
+      canonicalLink = document.createElement('link')
+      canonicalLink.setAttribute('rel', 'canonical')
+      document.head.appendChild(canonicalLink)
+    }
+    canonicalLink.setAttribute('href', url)
+
     // Standard meta tags
     updateMetaTag('description', description, true)
     updateMetaTag('keywords', keywords, true)
@@ -102,7 +111,7 @@ export const shellistAppSchema = {
   operatingSystem: 'iOS 17.0 or later',
   offers: {
     '@type': 'Offer',
-    price: '0',
+    price: '2.99',
     priceCurrency: 'USD',
   },
   aggregateRating: {
