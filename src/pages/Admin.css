@@ -87,6 +87,74 @@
   text-decoration: underline;
 }
 
+.admin-redirect {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-12);
+}
+
+.admin-card {
+  background: var(--white);
+  border: 2px solid var(--cloud);
+  border-radius: var(--radius-xl);
+  padding: var(--space-12);
+  max-width: 500px;
+  text-align: center;
+  box-shadow: var(--shadow-md);
+}
+
+.admin-card h2 {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--coconut-shell);
+  margin: 0 0 var(--space-4) 0;
+}
+
+.admin-card > p {
+  color: var(--stone);
+  margin-bottom: var(--space-6);
+  line-height: 1.6;
+}
+
+.admin-button {
+  display: inline-block;
+  background: var(--coconut-shell);
+  color: var(--white);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.125rem;
+  padding: var(--space-4) var(--space-8);
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  transition: all var(--duration-base) var(--ease-out);
+  box-shadow: var(--shadow-sm);
+}
+
+.admin-button:hover {
+  background: var(--midnight-sky);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.admin-features {
+  margin-top: var(--space-8);
+  padding-top: var(--space-6);
+  border-top: 2px dashed var(--cloud);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.admin-features p {
+  color: var(--stone);
+  font-size: 0.9375rem;
+  margin: 0;
+  text-align: left;
+}
+
 @media (max-width: 768px) {
   .admin-footer {
     flex-direction: column;
@@ -95,5 +163,14 @@
 
   .admin-hint {
     font-size: 0.75rem;
+  }
+
+  .admin-card {
+    padding: var(--space-8);
+  }
+
+  .admin-button {
+    font-size: 1rem;
+    padding: var(--space-3) var(--space-6);
   }
 }
