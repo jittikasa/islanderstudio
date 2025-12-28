@@ -43,11 +43,17 @@ export default function Header() {
     <header className={`header ${scrolled ? 'header--scrolled' : ''}`}>
       <div className="header__container">
         <Link to="/" className="header__logo">
-          <img
-            src="/branding/Logo-primary.png"
-            alt="Islander Studio"
-            className="header__logo-img"
-          />
+          <span className="header__logo-text">
+            <span className="header__logo-i">
+              <img
+                src="/branding/Logomark-dark.png"
+                alt=""
+                className="header__logo-mark"
+              />
+            </span>
+            <span className="header__logo-slander">slander</span>
+            <span className="header__logo-dot">.</span>
+          </span>
         </Link>
 
         <nav className="header__nav">
@@ -93,11 +99,17 @@ export default function Header() {
       {/* Mobile Menu */}
       <div className={`header__mobile-menu ${menuOpen ? 'header__mobile-menu--open' : ''}`}>
         <div className="header__mobile-header">
-          <img
-            src="/branding/Logo-primary.png"
-            alt="Islander Studio"
-            className="header__mobile-logo"
-          />
+          <span className="header__logo-text header__logo-text--mobile">
+            <span className="header__logo-i">
+              <img
+                src="/branding/Logomark-dark.png"
+                alt=""
+                className="header__logo-mark"
+              />
+            </span>
+            <span className="header__logo-slander">slander</span>
+            <span className="header__logo-dot">.</span>
+          </span>
         </div>
 
         <nav className="header__mobile-nav">
