@@ -4,7 +4,6 @@ import './PolaMoment.css'
 
 export default function PolaMoment() {
   const [isLoaded, setIsLoaded] = useState(false)
-  const [hoveredFeature, setHoveredFeature] = useState(null)
   const [imageErrors, setImageErrors] = useState({})
 
   useEffect(() => {
@@ -114,8 +113,11 @@ export default function PolaMoment() {
 
       {/* Features Section */}
       <section className="pola__features">
-        <div className="pola__features-header">
-          <h2 className="pola__section-title">Features</h2>
+        <div className="pola__section-header">
+          <div className="pola__section-title">
+            <span className="pola__section-number">№</span>
+            <h2>Features</h2>
+          </div>
           <span className="pola__section-count">{features.length} things we love</span>
         </div>
 
@@ -123,9 +125,8 @@ export default function PolaMoment() {
           {features.map((feature, index) => (
             <div
               key={index}
-              className={`pola__feature ${hoveredFeature === index ? 'pola__feature--active' : ''}`}
-              onMouseEnter={() => setHoveredFeature(index)}
-              onMouseLeave={() => setHoveredFeature(null)}
+              className="pola__feature"
+              style={{ '--index': index }}
             >
               <span className="pola__feature-number">{feature.number}</span>
               <h3 className="pola__feature-title">{feature.title}</h3>
@@ -137,7 +138,7 @@ export default function PolaMoment() {
 
       {/* Privacy Section */}
       <section className="pola__privacy">
-        <div className="pola__privacy-content">
+        <div className="pola__privacy-card">
           <span className="pola__privacy-icon">*</span>
           <h2 className="pola__privacy-title">Your privacy matters</h2>
           <p className="pola__privacy-text">
@@ -152,22 +153,22 @@ export default function PolaMoment() {
 
       {/* Download Section */}
       <section className="pola__download">
-        <span className="pola__download-label">iOS App</span>
-        <h2 className="pola__download-title">Start creating today</h2>
-        <p className="pola__download-text">
-          Download PolaMoment and start capturing vintage-style photos on your iPhone.
-        </p>
-        <div className="pola__download-actions">
+        <div className="pola__download-card">
+          <span className="pola__download-label">iOS App</span>
+          <h2 className="pola__download-title">Start creating today</h2>
+          <p className="pola__download-text">
+            Download PolaMoment and start capturing vintage-style photos on your iPhone.
+          </p>
           <button className="pola__download-btn" disabled>
             <span className="pola__download-btn-text">
               <span className="pola__download-btn-small">Download on the</span>
               <span className="pola__download-btn-large">App Store</span>
             </span>
           </button>
+          <p className="pola__download-note">
+            Requires iOS 14.0 or later
+          </p>
         </div>
-        <p className="pola__download-note">
-          Requires iOS 14.0 or later
-        </p>
       </section>
     </div>
   )

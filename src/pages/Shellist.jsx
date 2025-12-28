@@ -1,172 +1,167 @@
-import './AppPage.css'
+import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import './Shellist.css'
 
 export default function Shellist() {
+  const [isLoaded, setIsLoaded] = useState(false)
+
+  useEffect(() => {
+    setIsLoaded(true)
+  }, [])
+
+  const features = [
+    {
+      icon: '🐚',
+      title: 'Pearl Chain Visualization',
+      description: 'Watch your progress grow like a string of pearls. Each habit completion adds to your beautiful chain.'
+    },
+    {
+      icon: '📊',
+      title: 'Powerful Analytics',
+      description: 'Understand your patterns with comprehensive insights. View heatmap calendars and track streaks.'
+    },
+    {
+      icon: '🎯',
+      title: 'Vision Board',
+      description: 'Bring your dreams to life with customizable vision boards. Add photos and create daily inspiration.'
+    },
+    {
+      icon: '🏷️',
+      title: 'Smart Categories',
+      description: 'Group habits into 8 beautiful color-coded themes: Mindfulness, Fitness, Learning, and more.'
+    },
+    {
+      icon: '🔒',
+      title: 'Privacy First',
+      description: 'All your data stays on your device. Optional iCloud sync, no tracking, no ads.'
+    },
+    {
+      icon: '📱',
+      title: 'Widget Support',
+      description: 'Track progress from your home screen with beautiful iOS widgets showing streaks at a glance.'
+    }
+  ]
+
+  const steps = [
+    {
+      number: '01',
+      title: 'Create Your Habits',
+      description: 'Tap the shell button to add a new habit. Choose a name, category, frequency, and target.'
+    },
+    {
+      number: '02',
+      title: 'Track Your Progress',
+      description: 'Mark habits complete with a tap. Watch your pearl chain grow and earn milestones.'
+    },
+    {
+      number: '03',
+      title: 'Achieve Your Goals',
+      description: 'Review analytics, celebrate achievements, and adjust your approach. Build habits that stick.'
+    }
+  ]
+
   return (
-    <div className="app-page shellist-page">
-      {/* Hero */}
-      <section className="app-hero coastal-gradient">
-        <div className="container">
-          <div className="app-hero-content">
-            <div className="app-hero-text fade-in-up">
-              <div className="app-badge-large" style={{ background: '#4A90A4' }}>
-                Habit Tracking
-              </div>
-              <h1 className="app-hero-title">
-                Build Habits
-                <br />
-                Like Pearls
-              </h1>
-              <p className="app-hero-description">
-                Transform your life one habit at a time. Track your daily progress
-                with beautiful pearl visualizations, powerful analytics, and
-                motivational tools that make habit building feel like a treasure hunt.
-              </p>
-              <div className="app-hero-actions">
-                <a href="#" className="btn btn-primary btn-large">
-                  <svg width="20" height="24" viewBox="0 0 20 24" fill="currentColor">
-                    <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.53 4.08l-.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
-                  </svg>
-                  Download on App Store
-                </a>
-                <a href="https://shellist.netlify.app" className="btn btn-outline btn-large" target="_blank" rel="noopener noreferrer">
-                  Visit Full Website
-                </a>
-              </div>
+    <div className={`shellist ${isLoaded ? 'shellist--loaded' : ''}`}>
+      {/* Hero Section */}
+      <section className="shellist__hero">
+        <div className="shellist__hero-content">
+          <div className="shellist__hero-text">
+            <span className="shellist__label">Habit Tracking</span>
+            <h1 className="shellist__title">
+              Shellist<span className="shellist__dot">.</span>
+            </h1>
+            <p className="shellist__tagline">Build habits like pearls</p>
+            <p className="shellist__description">
+              Transform your life one habit at a time. Track your daily progress
+              with beautiful pearl visualizations and motivational tools.
+            </p>
+            <div className="shellist__hero-actions">
+              <a href="#" className="shellist__btn shellist__btn--primary">
+                <svg width="18" height="22" viewBox="0 0 20 24" fill="currentColor">
+                  <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.53 4.08zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
+                </svg>
+                Download on App Store
+              </a>
+              <a href="https://shellist.netlify.app" className="shellist__btn shellist__btn--outline" target="_blank" rel="noopener noreferrer">
+                Visit Website →
+              </a>
             </div>
-            <div className="app-hero-visual fade-in" style={{ animationDelay: '0.2s' }}>
-              <div className="app-mockup coastal-mockup">
-                <div className="pearl-decoration">
-                  <div className="pearl"></div>
-                  <div className="pearl"></div>
-                  <div className="pearl"></div>
-                </div>
-              </div>
+          </div>
+
+          <div className="shellist__hero-visual">
+            <div className="shellist__pearls">
+              <div className="shellist__pearl shellist__pearl--1"></div>
+              <div className="shellist__pearl shellist__pearl--2"></div>
+              <div className="shellist__pearl shellist__pearl--3"></div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Features */}
-      <section className="section app-features-section">
-        <div className="container">
-          <div className="section-header">
-            <h2 className="section-title">Why Shellist?</h2>
-            <p className="section-subtitle">
-              Everything you need to build lasting habits, beautifully designed for iOS.
-            </p>
+      {/* Features Section */}
+      <section className="shellist__features">
+        <div className="shellist__section-header">
+          <div className="shellist__section-title">
+            <span className="shellist__section-number">№</span>
+            <h2>Features</h2>
           </div>
+          <span className="shellist__section-count">{features.length} things we love</span>
+        </div>
 
-          <div className="features-grid">
-            <div className="feature-card">
-              <div className="feature-icon">🐚</div>
-              <h3 className="feature-title">Pearl Chain Visualization</h3>
-              <p className="feature-description">
-                Watch your progress grow like a string of pearls. Each habit
-                completion adds to your beautiful chain, making your journey
-                tangible and rewarding.
-              </p>
+        <div className="shellist__features-grid">
+          {features.map((feature, index) => (
+            <div
+              key={index}
+              className="shellist__feature"
+              style={{ '--index': index }}
+            >
+              <span className="shellist__feature-icon">{feature.icon}</span>
+              <h3 className="shellist__feature-title">{feature.title}</h3>
+              <p className="shellist__feature-description">{feature.description}</p>
             </div>
-
-            <div className="feature-card">
-              <div className="feature-icon">📊</div>
-              <h3 className="feature-title">Powerful Analytics</h3>
-              <p className="feature-description">
-                Understand your patterns with comprehensive insights. View heatmap
-                calendars, track streaks, and discover what drives your success.
-              </p>
-            </div>
-
-            <div className="feature-card">
-              <div className="feature-icon">🎯</div>
-              <h3 className="feature-title">Vision Board</h3>
-              <p className="feature-description">
-                Bring your dreams to life with customizable vision boards. Add
-                photos, stickers, and create daily inspiration at your fingertips.
-              </p>
-            </div>
-
-            <div className="feature-card">
-              <div className="feature-icon">🏷️</div>
-              <h3 className="feature-title">Smart Categories</h3>
-              <p className="feature-description">
-                Group habits into 8 beautiful color-coded themes: Mindfulness,
-                Fitness, Learning, Health, Creativity, Social, Finance, and Personal.
-              </p>
-            </div>
-
-            <div className="feature-card">
-              <div className="feature-icon">🔒</div>
-              <h3 className="feature-title">Privacy First</h3>
-              <p className="feature-description">
-                All your data stays on your device. Optional iCloud sync, no
-                tracking, no ads. Your journey is yours alone.
-              </p>
-            </div>
-
-            <div className="feature-card">
-              <div className="feature-icon">📱</div>
-              <h3 className="feature-title">Widget Support</h3>
-              <p className="feature-description">
-                Track progress from your home screen with beautiful iOS widgets
-                showing streaks and completion rates at a glance.
-              </p>
-            </div>
-          </div>
+          ))}
         </div>
       </section>
 
       {/* How It Works */}
-      <section className="section how-it-works-section coastal-bg">
-        <div className="container">
-          <h2 className="section-title text-center">Simple to Start, Powerful to Master</h2>
-          <div className="steps-grid">
-            <div className="step-card">
-              <div className="step-number">01</div>
-              <h3 className="step-title">Create Your Habits</h3>
-              <p className="step-description">
-                Tap the shell button to add a new habit. Choose a name, category,
-                frequency, and target. Shellist adapts to your rhythm.
-              </p>
-            </div>
-
-            <div className="step-card">
-              <div className="step-number">02</div>
-              <h3 className="step-title">Track Your Progress</h3>
-              <p className="step-description">
-                Mark habits complete with a tap. Watch your pearl chain grow,
-                earn milestones, and add notes for deeper insights.
-              </p>
-            </div>
-
-            <div className="step-card">
-              <div className="step-number">03</div>
-              <h3 className="step-title">Achieve Your Goals</h3>
-              <p className="step-description">
-                Review analytics, celebrate achievements, and adjust your
-                approach. Build habits that actually stick.
-              </p>
-            </div>
+      <section className="shellist__steps">
+        <div className="shellist__section-header">
+          <div className="shellist__section-title">
+            <span className="shellist__section-number">№</span>
+            <h2>How It Works</h2>
           </div>
+          <span className="shellist__section-count">Simple to start</span>
+        </div>
+
+        <div className="shellist__steps-grid">
+          {steps.map((step, index) => (
+            <div
+              key={index}
+              className="shellist__step"
+              style={{ '--index': index }}
+            >
+              <span className="shellist__step-number">{step.number}</span>
+              <h3 className="shellist__step-title">{step.title}</h3>
+              <p className="shellist__step-description">{step.description}</p>
+            </div>
+          ))}
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="section app-cta-section">
-        <div className="container">
-          <div className="app-cta-card coastal-cta">
-            <h2 className="app-cta-title">Start Building Better Habits Today</h2>
-            <p className="app-cta-description">
-              Download Shellist and watch your transformation unfold, one pearl at a time.
-            </p>
-            <div className="app-cta-actions">
-              <a href="#" className="btn btn-primary btn-large">
-                Download on App Store
-              </a>
-              <p className="app-cta-note">
-                Available for iPhone and iPad • iOS 17.0 or later • Free to use
-              </p>
-            </div>
-          </div>
+      {/* CTA Section */}
+      <section className="shellist__cta">
+        <div className="shellist__cta-card">
+          <span className="shellist__cta-icon">🐚</span>
+          <h2 className="shellist__cta-title">Start Building Better Habits</h2>
+          <p className="shellist__cta-text">
+            Download Shellist and watch your transformation unfold, one pearl at a time.
+          </p>
+          <a href="#" className="shellist__btn shellist__btn--primary">
+            Download on App Store
+          </a>
+          <p className="shellist__cta-note">
+            Available for iPhone and iPad • iOS 17.0 or later • Free to use
+          </p>
         </div>
       </section>
     </div>
