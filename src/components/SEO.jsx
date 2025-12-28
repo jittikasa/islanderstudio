@@ -45,7 +45,7 @@ export default function SEO({
     updateMetaTag('og:image', image)
     updateMetaTag('og:url', url)
     updateMetaTag('og:type', type)
-    updateMetaTag('og:site_name', 'islander.')
+    updateMetaTag('og:site_name', 'islander. studio')
 
     // Twitter Card
     updateMetaTag('twitter:card', 'summary_large_image', true)

@@ -44,7 +44,7 @@ export default function Header() {
   return (
     <header className={`header ${scrolled ? 'header--scrolled' : ''}`}>
       <div className="header__container">
-        <Logo size="medium" className="header__logo" />
+        <Logo size="medium" className="header__logo" animate={true} />
 
         <nav className="header__nav">
           <ul className="header__nav-list">

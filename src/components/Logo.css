@@ -3,11 +3,17 @@
   align-items: baseline;
   text-decoration: none;
   cursor: pointer;
-  transition: opacity 0.2s ease;
+  position: relative;
+  overflow: hidden;
 }
 
-.logo:hover {
-  opacity: 0.8;
+/* Hover effects */
+.logo:hover .logo__text {
+  transform: translateX(-2px);
+}
+
+.logo:hover .logo__dot {
+  animation: dotBounce 0.6s ease;
 }
 
 /* Text styling */
@@ -15,12 +21,15 @@
   font-family: 'Syne', sans-serif;
   font-weight: 700;
   letter-spacing: -0.02em;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .logo__dot {
   font-family: 'DM Sans', sans-serif;
   font-weight: 700;
   letter-spacing: -0.02em;
+  display: inline-block;
+  transform-origin: center bottom;
 }
 
 /* Size variants */
@@ -78,6 +87,65 @@
   color: currentColor;
 }
 
+/* Animations */
+@keyframes dotBounce {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  25% {
+    transform: translateY(-8px) scale(1.1);
+  }
+  50% {
+    transform: translateY(0) scale(1);
+  }
+  75% {
+    transform: translateY(-4px) scale(1.05);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Page load animation */
+.logo--animate-in .logo__text {
+  animation: slideInLeft 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.logo--animate-in .logo__dot {
+  animation: fadeInScale 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s forwards;
+  opacity: 0;
+}
+
+/* Scroll reveal effect */
+.logo--reveal .logo__text {
+  opacity: 0;
+  animation: slideInLeft 0.5s ease 0.1s forwards;
+}
+
+.logo--reveal .logo__dot {
+  opacity: 0;
+  animation: fadeInScale 0.4s ease 0.4s forwards;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .logo--medium .logo__text,
@@ -93,5 +161,15 @@
   .logo--xlarge .logo__text,
   .logo--xlarge .logo__dot {
     font-size: 2.75rem;
+  }
+
+  /* Reduce animation intensity on mobile */
+  @keyframes dotBounce {
+    0%, 100% {
+      transform: translateY(0) scale(1);
+    }
+    50% {
+      transform: translateY(-4px) scale(1.05);
+    }
   }
 }
