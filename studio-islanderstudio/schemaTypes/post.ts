@@ -62,6 +62,20 @@ export default defineType({
       description: 'Short description for blog listing pages',
     }),
     defineField({
+      name: 'relatedApps',
+      title: 'Related Apps',
+      type: 'array',
+      of: [{type: 'string'}],
+      options: {
+        list: [
+          {title: 'PolaMoment', value: 'polamoment'},
+          {title: 'Shellist', value: 'shellist'},
+        ],
+        layout: 'tags',
+      },
+      description: 'Select which app(s) this blog post is related to. Posts will appear in the "Related Reading" section of selected apps.',
+    }),
+    defineField({
       name: 'body',
       title: 'Body',
       type: 'array',

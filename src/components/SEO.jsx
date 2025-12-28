@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 export default function SEO({
   title = 'Islander Studio - Crafting Beautiful iOS Apps',
   description = 'Islander Studio creates beautifully crafted iOS apps that blend functionality with artistry. Discover Shellist, PolaMoment, and more.',
-  image = 'https://islanderstudio.app/og-image.jpg',
+  image = 'https://islanderstudio.app/branding/Logo-primary.png',
   url = 'https://islanderstudio.app',
   type = 'website',
   keywords = 'iOS apps, mobile apps, app studio, Shellist, PolaMoment, habit tracker, polaroid camera, indie apps',
@@ -25,6 +25,15 @@ export default function SEO({
 
       element.setAttribute('content', content)
     }
+
+    // Canonical link tag
+    let canonicalLink = document.querySelector('link[rel="canonical"]')
+    if (!canonicalLink) {
+      canonicalLink = document.createElement('link')
+      canonicalLink.setAttribute('rel', 'canonical')
+      document.head.appendChild(canonicalLink)
+    }
+    canonicalLink.setAttribute('href', url)
 
     // Standard meta tags
     updateMetaTag('description', description, true)
@@ -102,7 +111,7 @@ export const shellistAppSchema = {
   operatingSystem: 'iOS 17.0 or later',
   offers: {
     '@type': 'Offer',
-    price: '0',
+    price: '2.99',
     priceCurrency: 'USD',
   },
   aggregateRating: {
@@ -114,6 +123,26 @@ export const shellistAppSchema = {
   image: 'https://islanderstudio.app/shellist-icon.png',
   screenshot: 'https://islanderstudio.app/shellist-screenshot.png',
   downloadUrl: 'https://apps.apple.com/us/app/shellist/id6755242144',
+  author: {
+    '@type': 'Organization',
+    name: 'Islander Studio',
+  },
+  creator: {
+    '@type': 'Organization',
+    name: 'Islander Studio',
+  },
+}
+
+// Software Application Schema for PolaMoment
+export const polamomentAppSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'PolaMoment',
+  applicationCategory: 'PhotographyApplication',
+  operatingSystem: 'iOS 14.0 or later',
+  description: 'Transform your iPhone into a vintage Polaroid camera. Create instant memories with authentic retro filters, classic frames, and that iconic aesthetic.',
+  image: 'https://islanderstudio.app/pola-assets/Icon-1024.png',
+  screenshot: 'https://islanderstudio.app/pola-assets/Image-1.jpeg',
   author: {
     '@type': 'Organization',
     name: 'Islander Studio',

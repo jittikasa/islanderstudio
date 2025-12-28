@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import { ArrowLeft } from 'lucide-react'
-import SEO from '../components/SEO'
+import SEO, { StructuredData } from '../components/SEO'
 import LoadingSpinner from '../components/LoadingSpinner'
 import { getBlogPost, urlFor } from '../lib/sanity'
 import './BlogPost.css'
@@ -124,14 +124,70 @@ export default function BlogPost() {
     )
   }
 
+  // BlogPosting Schema
+  const blogPostingSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.title,
+    description: post.excerpt || post.title,
+    image: post.mainImage ? urlFor(post.mainImage).width(1200).height(630).url() : undefined,
+    datePublished: post.publishedAt,
+    dateModified: post._updatedAt || post.publishedAt,
+    author: {
+      '@type': 'Person',
+      name: post.authorName || 'Islander Studio',
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Islander Studio',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://islanderstudio.app/branding/Logo-primary.png',
+      },
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `https://islanderstudio.app/blog/${slug}`,
+    },
+  }
+
+  // Breadcrumb Schema
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://islanderstudio.app',
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Blog',
+        item: 'https://islanderstudio.app/blog',
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: post.title,
+        item: `https://islanderstudio.app/blog/${slug}`,
+      },
+    ],
+  }
+
   return (
     <div className="blog-post-page">
       <SEO
         title={`${post.title} - Islander Studio Blog`}
         description={post.excerpt || post.title}
-        path={`/blog/${slug}`}
+        url={`https://islanderstudio.app/blog/${slug}`}
         image={post.mainImage ? urlFor(post.mainImage).width(1200).height(630).url() : undefined}
+        type="article"
       />
+      <StructuredData data={blogPostingSchema} />
+      <StructuredData data={breadcrumbSchema} />
 
       <div className="post-container">
         <Link to="/blog" className="back-link">

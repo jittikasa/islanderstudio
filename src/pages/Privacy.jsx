@@ -1,8 +1,16 @@
+import SEO from '../components/SEO'
 import './LegalPage.css'
 
 export default function Privacy() {
   return (
-    <div className="legal-page">
+    <>
+      <SEO
+        title="Privacy Policy - Islander Studio"
+        description="Your privacy matters to us. Learn how Islander Studio apps protect your data with local storage, optional iCloud sync, and no tracking or analytics."
+        url="https://islanderstudio.app/privacy"
+        keywords="privacy policy, data privacy, iOS app privacy, data protection, user privacy, no tracking"
+      />
+      <div className="legal-page">
       {/* Header */}
       <section className="legal-hero">
         <span className="legal-label">Legal</span>
@@ -152,6 +160,7 @@ export default function Privacy() {
           </div>
         </div>
       </section>
-    </div>
+      </div>
+    </>
   )
 }
