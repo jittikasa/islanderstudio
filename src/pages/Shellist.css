@@ -1,8 +1,8 @@
 /* ============================================
-   POLAMOMENT PAGE - Scrapbook Style
+   SHELLIST PAGE - Scrapbook Style
    ============================================ */
 
-.pola {
+.shellist {
   min-height: 100vh;
   padding-top: 80px;
   background: var(--cream);
@@ -11,7 +11,7 @@
   transition: all 0.6s var(--ease-out);
 }
 
-.pola--loaded {
+.shellist--loaded {
   opacity: 1;
   transform: translateY(0);
 }
@@ -20,19 +20,19 @@
    HERO SECTION
    ============================================ */
 
-.pola__hero {
+.shellist__hero {
   padding: var(--space-16) var(--space-6);
   max-width: 1200px;
   margin: 0 auto;
 }
 
 @media (min-width: 768px) {
-  .pola__hero {
+  .shellist__hero {
     padding: var(--space-24) var(--space-10);
   }
 }
 
-.pola__hero-content {
+.shellist__hero-content {
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--space-12);
@@ -40,32 +40,32 @@
 }
 
 @media (min-width: 1024px) {
-  .pola__hero-content {
+  .shellist__hero-content {
     grid-template-columns: 1fr 1fr;
     gap: var(--space-16);
   }
 }
 
-.pola__hero-text {
+.shellist__hero-text {
   max-width: 500px;
 }
 
-.pola__label {
+.shellist__label {
   display: inline-block;
   font-family: var(--font-mono);
   font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: var(--sunset-glow);
+  color: var(--midnight-sky);
   padding: var(--space-2) var(--space-4);
   background: var(--white);
-  border: 2px solid var(--sunset-glow);
+  border: 2px solid var(--midnight-sky);
   border-radius: var(--radius-sm);
   margin-bottom: var(--space-6);
 }
 
-.pola__title {
+.shellist__title {
   font-family: var(--font-display);
   font-size: clamp(2.5rem, 8vw, 4rem);
   font-weight: 700;
@@ -75,11 +75,11 @@
   margin-bottom: var(--space-3);
 }
 
-.pola__dot {
-  color: var(--sunset-glow);
+.shellist__dot {
+  color: var(--coconut-shell);
 }
 
-.pola__tagline {
+.shellist__tagline {
   font-family: var(--font-body);
   font-size: clamp(1.25rem, 3vw, 1.5rem);
   color: var(--stone);
@@ -87,88 +87,110 @@
   margin: 0 0 var(--space-6) 0;
 }
 
-.pola__description {
+.shellist__description {
   font-family: var(--font-body);
   font-size: 1rem;
   line-height: 1.7;
   color: var(--stone);
-  margin: 0;
+  margin: 0 0 var(--space-8) 0;
 }
 
-/* Hero Visual */
-.pola__hero-visual {
+/* Hero Actions */
+.shellist__hero-actions {
   display: flex;
-  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--space-3);
 }
 
-.pola__camera-wrapper {
-  position: relative;
-  max-width: 400px;
-  width: 100%;
+.shellist__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-5);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-radius: var(--radius-sm);
+  transition: all var(--duration-base) var(--ease-spring);
+  text-decoration: none;
 }
 
-.pola__camera {
-  width: 100%;
-  height: auto;
-}
-
-/* Polaroids */
-.pola__polaroids {
-  position: absolute;
-  top: 15%;
-  left: 50%;
-  transform: translateX(-45%);
-  width: 42%;
-  pointer-events: none;
-}
-
-.pola__polaroid {
-  position: absolute;
-  width: 100%;
-  animation: polaroidFloat 4s ease-in-out infinite;
-}
-
-.pola__polaroid--1 {
-  animation-delay: 0s;
-}
-
-.pola__polaroid--2 {
-  animation-delay: 2s;
-}
-
-.pola__polaroid-inner {
-  background: var(--white);
-  padding: 8px;
+.shellist__btn--primary {
+  background: var(--midnight-sky);
+  color: var(--white);
   border: 2px solid var(--midnight-sky);
+}
+
+.shellist__btn--primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 3px 4px 0 var(--midnight-sky);
+  background: var(--coconut-shell);
+  border-color: var(--coconut-shell);
+}
+
+.shellist__btn--outline {
+  background: var(--white);
+  color: var(--midnight-sky);
+  border: 2px solid var(--midnight-sky);
+}
+
+.shellist__btn--outline:hover {
+  background: var(--midnight-sky);
+  color: var(--white);
+  transform: translateY(-2px);
   box-shadow: 3px 4px 0 var(--midnight-sky);
 }
 
-.pola__polaroid-img {
-  width: 100%;
-  aspect-ratio: 1;
-  object-fit: cover;
+/* Hero Visual - Pearls */
+.shellist__hero-visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
 }
 
-.pola__polaroid-placeholder {
-  width: 100%;
-  aspect-ratio: 1;
-  background: var(--sea-salt);
+.shellist__pearls {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-6);
 }
 
-@keyframes polaroidFloat {
-  0%, 100% {
-    transform: translateY(60px) rotate(-2deg);
-  }
-  50% {
-    transform: translateY(80px) rotate(2deg);
-  }
+.shellist__pearl {
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, var(--white), var(--sea-salt));
+  box-shadow:
+    0 8px 24px rgba(167, 138, 106, 0.2),
+    inset -4px -4px 12px rgba(167, 138, 106, 0.1);
+  animation: float 6s ease-in-out infinite;
+}
+
+.shellist__pearl--1 {
+  width: 100px;
+  height: 100px;
+  animation-delay: 0s;
+}
+
+.shellist__pearl--2 {
+  width: 130px;
+  height: 130px;
+  animation-delay: 1s;
+}
+
+.shellist__pearl--3 {
+  width: 80px;
+  height: 80px;
+  animation-delay: 2s;
 }
 
 /* ============================================
    SECTION HEADER
    ============================================ */
 
-.pola__section-header {
+.shellist__section-header {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
@@ -177,26 +199,26 @@
   border-bottom: 2px solid var(--midnight-sky);
 }
 
-.pola__section-title {
+.shellist__section-title {
   display: flex;
   align-items: baseline;
   gap: var(--space-3);
 }
 
-.pola__section-number {
+.shellist__section-number {
   font-family: var(--font-display);
   font-size: 1.5rem;
   font-weight: 700;
-  color: var(--sunset-glow);
+  color: var(--coconut-shell);
 }
 
-.pola__section-title h2 {
+.shellist__section-title h2 {
   font-size: clamp(1.25rem, 3vw, 1.5rem);
   font-weight: 700;
   margin: 0;
 }
 
-.pola__section-count {
+.shellist__section-count {
   font-family: var(--font-mono);
   font-size: 12px;
   font-weight: 700;
@@ -209,37 +231,37 @@
    FEATURES SECTION
    ============================================ */
 
-.pola__features {
+.shellist__features {
   padding: var(--space-16) var(--space-6);
   max-width: 1200px;
   margin: 0 auto;
 }
 
 @media (min-width: 768px) {
-  .pola__features {
+  .shellist__features {
     padding: var(--space-24) var(--space-10);
   }
 }
 
-.pola__features-grid {
+.shellist__features-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--space-4);
 }
 
 @media (min-width: 640px) {
-  .pola__features-grid {
+  .shellist__features-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (min-width: 1024px) {
-  .pola__features-grid {
+  .shellist__features-grid {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
-.pola__feature {
+.shellist__feature {
   padding: var(--space-6);
   background: var(--white);
   border: 2px solid var(--cloud);
@@ -248,22 +270,19 @@
   animation: stamp-drop 0.5s var(--ease-out) calc(var(--index) * 0.1s + 0.2s) backwards;
 }
 
-.pola__feature:hover {
-  border-color: var(--sunset-glow);
+.shellist__feature:hover {
+  border-color: var(--coconut-shell);
   transform: translateY(-4px) rotate(-1deg);
   box-shadow: 3px 4px 0 var(--midnight-sky);
 }
 
-.pola__feature-number {
-  display: inline-block;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--sunset-glow);
+.shellist__feature-icon {
+  display: block;
+  font-size: 2rem;
   margin-bottom: var(--space-4);
 }
 
-.pola__feature-title {
+.shellist__feature-title {
   font-family: var(--font-display);
   font-size: 1.1rem;
   font-weight: 600;
@@ -271,7 +290,7 @@
   margin: 0 0 var(--space-2) 0;
 }
 
-.pola__feature-description {
+.shellist__feature-description {
   font-family: var(--font-body);
   font-size: 14px;
   line-height: 1.6;
@@ -280,117 +299,110 @@
 }
 
 /* ============================================
-   PRIVACY SECTION
+   STEPS SECTION
    ============================================ */
 
-.pola__privacy {
+.shellist__steps {
   padding: var(--space-16) var(--space-6);
   max-width: 1200px;
   margin: 0 auto;
+  background: var(--sea-salt);
+  border-top: 3px solid var(--midnight-sky);
+  border-bottom: 3px solid var(--midnight-sky);
 }
 
 @media (min-width: 768px) {
-  .pola__privacy {
+  .shellist__steps {
     padding: var(--space-24) var(--space-10);
   }
 }
 
-.pola__privacy-card {
-  background: var(--midnight-sky);
-  color: var(--white);
-  border: 3px solid var(--midnight-sky);
-  padding: var(--space-12);
-  text-align: center;
+.shellist__steps-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+}
+
+@media (min-width: 768px) {
+  .shellist__steps-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.shellist__step {
+  padding: var(--space-6);
+  background: var(--white);
+  border: 2px solid var(--midnight-sky);
   position: relative;
+  animation: stamp-drop 0.5s var(--ease-out) calc(var(--index) * 0.15s + 0.3s) backwards;
 }
 
 /* Perforated edges */
-.pola__privacy-card::before,
-.pola__privacy-card::after {
+.shellist__step::before,
+.shellist__step::after {
   content: '';
   position: absolute;
   left: 0;
   right: 0;
-  height: 12px;
-  background: radial-gradient(circle at center, var(--cream) 4px, transparent 4px);
-  background-size: 16px 12px;
+  height: 10px;
+  background: radial-gradient(circle at center, var(--sea-salt) 3px, transparent 3px);
+  background-size: 14px 10px;
   pointer-events: none;
 }
 
-.pola__privacy-card::before {
-  top: -6px;
+.shellist__step::before {
+  top: -5px;
 }
 
-.pola__privacy-card::after {
-  bottom: -6px;
+.shellist__step::after {
+  bottom: -5px;
 }
 
-.pola__privacy-icon {
-  display: block;
-  font-size: 2rem;
-  color: var(--sunset-glow);
-  margin-bottom: var(--space-4);
-}
-
-.pola__privacy-title {
-  font-family: var(--font-display);
-  font-size: clamp(1.5rem, 4vw, 2rem);
-  font-weight: 700;
-  color: var(--white);
-  margin: 0 0 var(--space-4) 0;
-}
-
-.pola__privacy-text {
-  font-family: var(--font-body);
-  font-size: 1rem;
-  line-height: 1.7;
-  color: var(--cloud);
-  max-width: 500px;
-  margin: 0 auto var(--space-6) auto;
-}
-
-.pola__privacy-link {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2);
+.shellist__step-number {
+  display: inline-block;
   font-family: var(--font-mono);
   font-size: 12px;
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--sea-salt);
-  transition: color var(--duration-fast) var(--ease-out);
+  color: var(--white);
+  background: var(--coconut-shell);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-4);
 }
 
-.pola__privacy-link:hover {
-  color: var(--sunset-glow);
+.shellist__step-title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--midnight-sky);
+  margin: 0 0 var(--space-3) 0;
 }
 
-.pola__privacy-link span {
-  transition: transform var(--duration-base) var(--ease-out);
-}
-
-.pola__privacy-link:hover span {
-  transform: translateX(4px);
+.shellist__step-description {
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--stone);
+  margin: 0;
 }
 
 /* ============================================
-   DOWNLOAD SECTION
+   CTA SECTION
    ============================================ */
 
-.pola__download {
+.shellist__cta {
   padding: var(--space-16) var(--space-6);
   max-width: 1200px;
   margin: 0 auto;
 }
 
 @media (min-width: 768px) {
-  .pola__download {
+  .shellist__cta {
     padding: var(--space-24) var(--space-10);
   }
 }
 
-.pola__download-card {
+.shellist__cta-card {
   background: var(--white);
   border: 3px solid var(--midnight-sky);
   padding: var(--space-12);
@@ -398,9 +410,9 @@
   position: relative;
 }
 
-/* Perforated edges */
-.pola__download-card::before,
-.pola__download-card::after {
+/* Perforated edges for CTA card */
+.shellist__cta-card::before,
+.shellist__cta-card::after {
   content: '';
   position: absolute;
   left: 0;
@@ -411,26 +423,21 @@
   pointer-events: none;
 }
 
-.pola__download-card::before {
+.shellist__cta-card::before {
   top: -6px;
 }
 
-.pola__download-card::after {
+.shellist__cta-card::after {
   bottom: -6px;
 }
 
-.pola__download-label {
-  display: inline-block;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--fog);
+.shellist__cta-icon {
+  display: block;
+  font-size: 3rem;
   margin-bottom: var(--space-4);
 }
 
-.pola__download-title {
+.shellist__cta-title {
   font-family: var(--font-display);
   font-size: clamp(1.5rem, 4vw, 2rem);
   font-weight: 700;
@@ -438,7 +445,7 @@
   margin: 0 0 var(--space-4) 0;
 }
 
-.pola__download-text {
+.shellist__cta-text {
   font-family: var(--font-body);
   font-size: 1rem;
   line-height: 1.7;
@@ -447,42 +454,7 @@
   margin: 0 auto var(--space-8) auto;
 }
 
-.pola__download-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-3);
-  padding: var(--space-4) var(--space-8);
-  background: var(--midnight-sky);
-  color: var(--white);
-  border: 2px solid var(--midnight-sky);
-  border-radius: var(--radius-sm);
-  cursor: not-allowed;
-  opacity: 0.5;
-  font-family: inherit;
-}
-
-.pola__download-btn-text {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  text-align: left;
-}
-
-.pola__download-btn-small {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  opacity: 0.8;
-}
-
-.pola__download-btn-large {
-  font-family: var(--font-display);
-  font-size: 16px;
-  font-weight: 700;
-}
-
-.pola__download-note {
+.shellist__cta-note {
   font-family: var(--font-mono);
   font-size: 11px;
   color: var(--fog);
@@ -494,6 +466,15 @@
 /* ============================================
    ANIMATIONS
    ============================================ */
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
 
 @keyframes stamp-drop {
   0% {
@@ -514,15 +495,16 @@
    ============================================ */
 
 @media (prefers-reduced-motion: reduce) {
-  .pola,
-  .pola__polaroid,
-  .pola__feature,
-  .pola__privacy-link span {
+  .shellist,
+  .shellist__pearl,
+  .shellist__feature,
+  .shellist__step,
+  .shellist__btn {
     animation: none !important;
     transition: none !important;
   }
 
-  .pola--loaded {
+  .shellist--loaded {
     opacity: 1;
     transform: none;
   }
