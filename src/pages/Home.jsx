@@ -219,6 +219,18 @@ export default function Home() {
                     </div>
                   </div>
 
+                  {/* Acorns Decoration */}
+                  <div className="home__postcard-acorns">
+                    <div className="home__postcard-acorn">
+                      <div className="home__postcard-acorn-cap"></div>
+                      <div className="home__postcard-acorn-nut"></div>
+                    </div>
+                    <div className="home__postcard-acorn">
+                      <div className="home__postcard-acorn-cap"></div>
+                      <div className="home__postcard-acorn-nut"></div>
+                    </div>
+                  </div>
+
                   {/* Address Section */}
                   <div className="home__postcard-address">
                     <div className="home__postcard-to">To :</div>
