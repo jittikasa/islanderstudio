@@ -73,8 +73,8 @@ export default defineType({
       title: 'Excerpt',
       type: 'text',
       rows: 4,
-<<<<<<< HEAD
-      description: 'Short description for blog listing pages',
+      description: 'Short description for blog listing pages (used as fallback for meta description)',
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'relatedApps',
@@ -82,10 +82,6 @@ export default defineType({
       type: 'array',
       of: [{type: 'reference', to: [{type: 'app'}]}],
       description: 'Select which app(s) this blog post is related to. Posts will appear in the "Related Reading" section of selected apps.',
-=======
-      description: 'Short description for blog listing pages (used as fallback for meta description)',
-      validation: (Rule) => Rule.required(),
->>>>>>> origin/main
     }),
     defineField({
       name: 'body',
@@ -121,20 +117,6 @@ export default defineType({
       description: 'When this article was last significantly updated',
     }),
     defineField({
-      name: 'relatedApps',
-      title: 'Related Apps',
-      type: 'array',
-      of: [{type: 'string'}],
-      options: {
-        list: [
-          {title: 'PolaMoment', value: 'polamoment'},
-          {title: 'Shellist', value: 'shellist'},
-        ],
-        layout: 'tags',
-      },
-      description: 'Select which app(s) this blog post is related to. Posts will appear in the "Related Reading" section of selected apps.',
-    }),
-    defineField({
       name: 'seo',
       title: 'SEO Settings',
       type: 'seo',
@@ -155,47 +137,6 @@ export default defineType({
       },
       initialValue: 'draft',
       description: 'Track the SEO optimization status of this article',
-    }),
-    // SEO Fields (WordPress-style)
-    defineField({
-      name: 'seo',
-      title: 'SEO Settings',
-      type: 'object',
-      description: 'Override default SEO settings for this post',
-      fields: [
-        {
-          name: 'metaTitle',
-          title: 'Meta Title',
-          type: 'string',
-          description: 'SEO title (50-60 characters recommended). If not set, the main title will be used.',
-          validation: (Rule) => Rule.max(60).warning('Titles over 60 characters may be truncated in search results'),
-        },
-        {
-          name: 'metaDescription',
-          title: 'Meta Description',
-          type: 'text',
-          rows: 3,
-          description: 'SEO description (150-160 characters recommended). If not set, the excerpt will be used.',
-          validation: (Rule) => Rule.max(160).warning('Descriptions over 160 characters may be truncated in search results'),
-        },
-        {
-          name: 'focusKeyword',
-          title: 'Focus Keyword',
-          type: 'string',
-          description: 'Main keyword you want to rank for',
-        },
-        {
-          name: 'noIndex',
-          title: 'No Index',
-          type: 'boolean',
-          description: 'Prevent search engines from indexing this post',
-          initialValue: false,
-        },
-      ],
-      options: {
-        collapsible: true,
-        collapsed: true,
-      },
     }),
   ],
   preview: {
