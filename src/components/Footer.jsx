@@ -97,14 +97,6 @@ export default function Footer() {
           <p className="footer__copyright">
             {currentYear} Islander Studio
           </p>
-          <div className="footer__bottom-right">
-            <Link to="/admin" className="footer__admin-link">
-              Admin
-            </Link>
-            <p className="footer__made">
-              Made with care in Phuket, Thailand
-            </p>
-          </div>
         </div>
       </div>
     </footer>
