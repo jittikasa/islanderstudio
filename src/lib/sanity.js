@@ -57,6 +57,7 @@ export async function getBlogPost(slug) {
     "authorBio": author->bio,
     "authorImage": author->image,
     "categories": categories[]->title,
+    relatedApps,
     mainImage,
     body
   }`

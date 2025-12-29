@@ -207,6 +207,20 @@ export default function BlogPost() {
               </div>
             )}
 
+            {post.relatedApps && post.relatedApps.length > 0 && (
+              <div className="post-related-apps">
+                {post.relatedApps.map((app, index) => (
+                  <Link
+                    key={index}
+                    to={`/${app}`}
+                    className="post-related-app-badge"
+                  >
+                    Related to {app === 'shellist' ? 'Shellist' : 'PolaMoment'}
+                  </Link>
+                ))}
+              </div>
+            )}
+
             <h1 className="post-title">{post.title}</h1>
 
             <div className="post-meta">
