@@ -247,7 +247,7 @@
   background: var(--midnight-sky);
   color: var(--white);
   transform: translateY(-2px);
-  box-shadow: 2px 3px 0 var(--midnight-sky);
+  box-shadow: 2px 3px 0 #F7A173;
 }
 
 @media (min-width: 768px) {
