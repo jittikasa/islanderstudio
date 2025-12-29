@@ -226,6 +226,7 @@ export default function PolaMoment() {
       <section className="pola__download">
         <div className="pola__download-card">
           <span className="pola__download-label">iOS App</span>
+          <span className="pola__download-icon">📷</span>
           <h2 className="pola__download-title">Start creating today</h2>
           <p className="pola__download-text">
             Download PolaMoment and start capturing vintage-style photos on your iPhone.
