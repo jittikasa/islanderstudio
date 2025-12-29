@@ -139,10 +139,12 @@
 }
 
 .pola__polaroid--1 {
+  left: -5%;
   animation-delay: 0s;
 }
 
 .pola__polaroid--2 {
+  right: -5%;
   animation-delay: 2s;
 }
 
