@@ -219,16 +219,11 @@ export default function Home() {
                     </div>
                   </div>
 
-                  {/* Acorns Decoration */}
-                  <div className="home__postcard-acorns">
-                    <div className="home__postcard-acorn">
-                      <div className="home__postcard-acorn-cap"></div>
-                      <div className="home__postcard-acorn-nut"></div>
-                    </div>
-                    <div className="home__postcard-acorn">
-                      <div className="home__postcard-acorn-cap"></div>
-                      <div className="home__postcard-acorn-nut"></div>
-                    </div>
+                  {/* Bow Tie Decoration */}
+                  <div className="home__postcard-bowtie">
+                    <div className="home__postcard-bowtie-left"></div>
+                    <div className="home__postcard-bowtie-center"></div>
+                    <div className="home__postcard-bowtie-right"></div>
                   </div>
 
                   {/* Address Section */}
