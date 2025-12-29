@@ -32,12 +32,15 @@ export async function getBlogPosts() {
     title,
     slug,
     publishedAt,
+    updatedAt,
     excerpt,
+    readingTime,
     "authorName": author->name,
     "authorImage": author->image,
     "categories": categories[]->title,
     mainImage,
-    body
+    body,
+    seo
   }`
 
   return await client.fetch(query)
@@ -52,13 +55,16 @@ export async function getBlogPost(slug) {
     title,
     slug,
     publishedAt,
+    updatedAt,
     excerpt,
+    readingTime,
     "authorName": author->name,
     "authorBio": author->bio,
     "authorImage": author->image,
     "categories": categories[]->title,
     mainImage,
-    body
+    body,
+    seo
   }`
 
   return await client.fetch(query, { slug })
