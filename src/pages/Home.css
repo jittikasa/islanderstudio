@@ -235,45 +235,50 @@
   position: relative;
 }
 
-/* Striped Border Frame */
-.home__postcard-border {
-  padding: 16px;
+/* Back Postcard (layered behind) */
+.home__postcard-back {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  right: -12px;
+  bottom: -12px;
   background:
     repeating-linear-gradient(
       45deg,
-      #C67B5C 0px,
-      #C67B5C 16px,
-      #D4A57A 16px,
-      #D4A57A 32px,
-      #E8C5A8 32px,
-      #E8C5A8 48px
+      #E28463 0px,
+      #E28463 20px,
+      #4A6B7C 20px,
+      #4A6B7C 40px,
+      #F5C9A8 40px,
+      #F5C9A8 60px
     );
-  position: relative;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  z-index: 0;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
 
-.home__postcard-border::before {
-  content: '';
-  position: absolute;
-  inset: 0;
+/* Striped Border Frame */
+.home__postcard-border {
+  padding: 20px;
   background:
     repeating-linear-gradient(
       45deg,
-      transparent 0px,
-      transparent 16px,
-      rgba(106, 134, 147, 0.2) 16px,
-      rgba(106, 134, 147, 0.2) 32px,
-      rgba(229, 172, 172, 0.2) 32px,
-      rgba(229, 172, 172, 0.2) 48px
+      #E28463 0px,
+      #E28463 20px,
+      #4A6B7C 20px,
+      #4A6B7C 40px,
+      #F5C9A8 40px,
+      #F5C9A8 60px
     );
-  pointer-events: none;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
 }
 
 .home__postcard {
   background: #FBF8F3;
   position: relative;
   aspect-ratio: 3 / 2;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: var(--space-6);
 }
 
 /* Twine String */
@@ -435,169 +440,23 @@
   opacity: 0.85;
 }
 
-/* Postcard Content */
-.home__postcard-content {
-  display: flex;
-  height: 100%;
-  position: relative;
-}
-
-.home__postcard-left {
-  flex: 1;
-  position: relative;
-  overflow: hidden;
-}
-
-/* Sky */
-.home__postcard-sky {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to bottom,
-    var(--coconut-shell) 0%,
-    var(--sea-salt) 100%
-  );
-}
-
-/* Sun */
-.home__postcard-sun {
-  position: absolute;
-  top: 18%;
-  right: 22%;
-  width: 32px;
-  height: 32px;
-  background: radial-gradient(circle, #FFD54F 0%, #FFC107 70%, #FFA000 100%);
-  border-radius: 50%;
-  box-shadow:
-    0 0 16px rgba(255, 193, 7, 0.6),
-    0 0 24px rgba(255, 193, 7, 0.3),
-    inset -2px -2px 4px rgba(255, 167, 0, 0.4);
-  animation: sun-float 4s ease-in-out infinite;
-}
-
-.home__postcard-sun::before {
-  content: '';
-  position: absolute;
-  inset: -6px;
-  background:
-    repeating-conic-gradient(
-      from 0deg,
-      transparent 0deg,
-      transparent 20deg,
-      rgba(255, 193, 7, 0.3) 20deg,
-      rgba(255, 193, 7, 0.3) 25deg
-    );
-  border-radius: 50%;
-  animation: sun-rotate 20s linear infinite;
-}
-
-@keyframes sun-float {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-4px);
-  }
-}
-
-@keyframes sun-rotate {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* Hills */
-.home__postcard-hills {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 60%;
-  display: flex;
-  align-items: flex-end;
-}
-
-.home__postcard-hill {
-  position: absolute;
-  bottom: 0;
-  border-radius: 50% 50% 0 0;
-}
-
-.home__postcard-hill--1 {
-  left: -10%;
-  width: 60%;
-  height: 50%;
-  background: var(--sunset-glow);
-  opacity: 0.8;
-}
-
-.home__postcard-hill--2 {
-  left: 30%;
-  width: 50%;
-  height: 65%;
-  background: var(--coconut-shell);
-  opacity: 0.9;
-}
-
-.home__postcard-hill--3 {
-  right: -5%;
-  width: 45%;
-  height: 40%;
-  background: var(--midnight-sky);
-  opacity: 0.7;
-}
-
-/* Right Side - Address */
-.home__postcard-right {
-  flex: 1;
-  padding: var(--space-4);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  background: #FBF8F3;
-}
-
 /* Rabbit Stamp */
 .home__postcard-stamp-rabbit {
-  align-self: flex-end;
-  margin-bottom: auto;
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-6);
+  z-index: 5;
 }
 
 .home__postcard-stamp-perforated {
-  background:
-    linear-gradient(90deg, #D4A57A 0%, #E8B888 50%, #D4A57A 100%);
-  padding: 6px;
+  background: #E28463;
+  padding: 8px;
   position: relative;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-}
-
-/* Perforated edges for stamp */
-.home__postcard-stamp-perforated::before,
-.home__postcard-stamp-perforated::after {
-  content: '';
-  position: absolute;
-  background:
-    radial-gradient(circle at center, #FBF8F3 2.5px, transparent 2.5px);
-  background-size: 8px 8px;
-  background-position: 0 0;
-  z-index: 1;
-}
-
-.home__postcard-stamp-perforated::before {
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 8px;
-}
-
-.home__postcard-stamp-perforated::after {
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 8px;
+  border-top: 2px dashed rgba(255, 255, 255, 0.5);
+  border-bottom: 2px dashed rgba(255, 255, 255, 0.5);
+  border-left: 2px dashed rgba(255, 255, 255, 0.5);
+  border-right: 2px dashed rgba(255, 255, 255, 0.5);
 }
 
 .home__postcard-rabbit {
@@ -717,8 +576,10 @@
 
 /* Address Section */
 .home__postcard-address {
-  margin-top: auto;
-  padding-top: var(--space-2);
+  position: absolute;
+  bottom: var(--space-6);
+  right: var(--space-8);
+  z-index: 5;
 }
 
 .home__postcard-to {
