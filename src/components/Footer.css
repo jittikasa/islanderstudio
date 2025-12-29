@@ -44,16 +44,131 @@
 .footer__logo {
   display: inline-block;
   margin-bottom: var(--space-4);
+}
+
+.footer__logo-text {
+  display: flex;
+  align-items: baseline;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--midnight-sky);
+  letter-spacing: -0.02em;
+  text-decoration: none;
+}
+
+.footer__logo-i {
+  display: inline-flex;
+  align-items: flex-start;
+  justify-content: center;
+  position: relative;
+  width: 18px;
+  height: 24px;
+  margin-right: -5px;
+}
+
+.footer__logo-letter {
+  display: inline-block;
+  transition: opacity var(--duration-fast) var(--ease-out),
+              transform var(--duration-fast) var(--ease-out);
+}
+
+.footer__logo-mark {
+  position: absolute;
+  left: 50%;
+  top: 4px;
+  transform: translateX(-50%);
+  height: 20px;
+  width: 20px;
+  opacity: 0;
+  transition: opacity var(--duration-fast) var(--ease-out),
+              transform var(--duration-base) var(--ease-spring);
+}
+
+/* Hover: hide letter, show logomark */
+.footer__logo:hover .footer__logo-letter {
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+.footer__logo:hover .footer__logo-mark {
+  opacity: 1;
+  transform: translateX(-50%) translateY(2px);
+}
+
+.footer__logo-slander {
+  transition: letter-spacing var(--duration-base) var(--ease-out);
+}
+
+/* Round dot using pseudo-element */
+.footer__logo-dot {
+  display: inline-block;
+  position: relative;
+  width: 5px;
+  height: 24px;
+  margin-left: 1px;
+}
+
+.footer__logo-dot::after {
+  content: '';
+  position: absolute;
+  bottom: 0px;
+  left: 0;
+  width: 5px;
+  height: 5px;
+  background: var(--sunset-glow);
+  border-radius: 50%;
   transition: transform var(--duration-base) var(--ease-spring);
+  transform-origin: top center;
 }
 
-.footer__logo:hover {
-  transform: rotate(-3deg);
+.footer__logo:hover .footer__logo-dot::after {
+  animation: footerDotDrop 0.5s var(--ease-spring) forwards;
 }
 
-.footer__logo-img {
-  height: 28px;
-  width: auto;
+@keyframes footerDotDrop {
+  0% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(8px);
+  }
+  60% {
+    transform: translateY(4px);
+  }
+  80% {
+    transform: translateY(6px);
+  }
+  100% {
+    transform: translateY(5px);
+  }
+}
+
+@media (min-width: 768px) {
+  .footer__logo-text {
+    font-size: 1.625rem;
+  }
+
+  .footer__logo-i {
+    width: 20px;
+    height: 26px;
+    margin-right: -6px;
+  }
+
+  .footer__logo-mark {
+    height: 22px;
+    width: 22px;
+    top: 5px;
+  }
+
+  .footer__logo-dot {
+    width: 5px;
+  }
+
+  .footer__logo-dot::after {
+    width: 5px;
+    height: 5px;
+  }
 }
 
 .footer__tagline {
@@ -251,10 +366,15 @@
 /* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
   .footer__logo,
+  .footer__logo-letter,
+  .footer__logo-mark,
+  .footer__logo-dot,
+  .footer__logo-dot::after,
   .footer__link,
   .footer__link--copy,
   .footer__link-copy-text,
   .footer__admin-link {
     transition: none !important;
+    animation: none !important;
   }
 }

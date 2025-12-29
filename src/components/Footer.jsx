@@ -22,11 +22,18 @@ export default function Footer() {
         <div className="footer__top">
           <div className="footer__brand">
             <Link to="/" className="footer__logo">
-              <img
-                src="/branding/Logo-primary.png"
-                alt="Islander Studio"
-                className="footer__logo-img"
-              />
+              <span className="footer__logo-text">
+                <span className="footer__logo-i">
+                  <span className="footer__logo-letter">i</span>
+                  <img
+                    src="/branding/Logomark-dark.png"
+                    alt=""
+                    className="footer__logo-mark"
+                  />
+                </span>
+                <span className="footer__logo-slander">slander</span>
+                <span className="footer__logo-dot"></span>
+              </span>
             </Link>
             <p className="footer__tagline">
               Crafted with soul for everyday moments.
