@@ -159,7 +159,13 @@ export default function Home() {
 
           <div className="home__hero-meta">
             {/* Postcard Illustration */}
-            <div className="home__postcard-wrapper">
+            <Link to="/postcard-studio" className="home__postcard-wrapper">
+              <div className="home__postcard-overlay">
+                <span className="home__postcard-cta">
+                  <span className="home__postcard-cta-icon">✨</span>
+                  <span className="home__postcard-cta-text">Create Your Own!</span>
+                </span>
+              </div>
               {/* Striped Border Frame */}
               <div className="home__postcard-border">
                 <div className="home__postcard">
@@ -181,11 +187,11 @@ export default function Home() {
                       <div className="home__postcard-postmark-text home__postcard-postmark-text--bottom">DES 01</div>
                     </div>
                     <div className="home__postcard-postmark-waves">
-                      <svg width="60" height="20" viewBox="0 0 60 20" fill="none">
-                        <path d="M0 4 Q3 0, 6 4 T12 4 T18 4 T24 4 T30 4 T36 4 T42 4 T48 4 T54 4 T60 4" stroke="currentColor" strokeWidth="1.5" fill="none"/>
-                        <path d="M0 8 Q3 4, 6 8 T12 8 T18 8 T24 8 T30 8 T36 8 T42 8 T48 8 T54 8 T60 8" stroke="currentColor" strokeWidth="1.5" fill="none"/>
-                        <path d="M0 12 Q3 8, 6 12 T12 12 T18 12 T24 12 T30 12 T36 12 T42 12 T48 12 T54 12 T60 12" stroke="currentColor" strokeWidth="1.5" fill="none"/>
-                        <path d="M0 16 Q3 12, 6 16 T12 16 T18 16 T24 16 T30 16 T36 16 T42 16 T48 16 T54 16 T60 16" stroke="currentColor" strokeWidth="1.5" fill="none"/>
+                      <svg width="75" height="24" viewBox="0 0 75 24" fill="none">
+                        <path d="M0 5 Q3.5 1, 7 5 T14 5 T21 5 T28 5 T35 5 T42 5 T49 5 T56 5 T63 5 T70 5 T75 5" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round"/>
+                        <path d="M0 10 Q3.5 6, 7 10 T14 10 T21 10 T28 10 T35 10 T42 10 T49 10 T56 10 T63 10 T70 10 T75 10" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round"/>
+                        <path d="M0 15 Q3.5 11, 7 15 T14 15 T21 15 T28 15 T35 15 T42 15 T49 15 T56 15 T63 15 T70 15 T75 15" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round"/>
+                        <path d="M0 20 Q3.5 16, 7 20 T14 20 T21 20 T28 20 T35 20 T42 20 T49 20 T56 20 T63 20 T70 20 T75 20" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round"/>
                       </svg>
                     </div>
                   </div>
@@ -229,7 +235,7 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-            </div>
+            </Link>
 
             <div className="home__hero-stat">
               <span className="home__hero-stat-value">02</span>
