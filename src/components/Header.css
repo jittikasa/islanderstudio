@@ -59,9 +59,9 @@
   align-items: flex-start;
   justify-content: center;
   position: relative;
-  width: 10px;
+  width: 18px;
   height: 24px;
-  margin-right: -1px;
+  margin-right: -8px;
 }
 
 .header__logo-letter {
@@ -73,9 +73,9 @@
 .header__logo-mark {
   position: absolute;
   left: 50%;
-  top: 0;
+  top: -2px;
   transform: translateX(-50%);
-  height: 20px;
+  height: 24px;
   width: auto;
   opacity: 0;
   transition: opacity var(--duration-fast) var(--ease-out),
@@ -147,12 +147,13 @@
   }
 
   .header__logo-i {
-    width: 11px;
+    width: 20px;
     height: 26px;
+    margin-right: -9px;
   }
 
   .header__logo-mark {
-    height: 22px;
+    height: 26px;
   }
 
   .header__logo-dot {
