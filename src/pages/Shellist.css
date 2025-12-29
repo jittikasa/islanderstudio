@@ -112,11 +112,13 @@
   max-width: 400px;
   margin: 0 auto;
   width: 100%;
+  overflow: visible;
 }
 
 .shellist__hero-image {
-  max-width: 100%;
+  max-width: 120%;
   height: auto;
+  margin: -10% 0;
 }
 
 @keyframes float {
