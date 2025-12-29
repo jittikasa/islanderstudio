@@ -159,29 +159,73 @@ export default function Home() {
 
           <div className="home__hero-meta">
             {/* Postcard Illustration */}
-            <div className="home__postcard">
-              <div className="home__postcard-left">
-                {/* Landscape Scene */}
-                <div className="home__postcard-sky"></div>
-                <div className="home__postcard-sun"></div>
-                <div className="home__postcard-hills">
-                  <div className="home__postcard-hill home__postcard-hill--1"></div>
-                  <div className="home__postcard-hill home__postcard-hill--2"></div>
-                  <div className="home__postcard-hill home__postcard-hill--3"></div>
-                </div>
-              </div>
-              <div className="home__postcard-right">
-                {/* Address Lines */}
-                <div className="home__postcard-lines">
-                  <div className="home__postcard-line"></div>
-                  <div className="home__postcard-line"></div>
-                  <div className="home__postcard-line"></div>
-                  <div className="home__postcard-line"></div>
-                </div>
-                {/* Stamp */}
-                <div className="home__postcard-stamp">
-                  <div className="home__postcard-stamp-inner">
-                    <span className="home__postcard-stamp-icon">🏝️</span>
+            <div className="home__postcard-wrapper">
+              {/* Striped Border Frame */}
+              <div className="home__postcard-border">
+                <div className="home__postcard">
+                  {/* Twine String */}
+                  <div className="home__postcard-twine">
+                    <div className="home__postcard-twine-vertical"></div>
+                    <div className="home__postcard-twine-bow">
+                      <div className="home__postcard-twine-bow-left"></div>
+                      <div className="home__postcard-twine-bow-right"></div>
+                      <div className="home__postcard-twine-bow-knot"></div>
+                    </div>
+                  </div>
+
+                  {/* Postmark Stamp */}
+                  <div className="home__postcard-postmark">
+                    <div className="home__postcard-postmark-circle">
+                      <div className="home__postcard-postmark-star">★</div>
+                      <div className="home__postcard-postmark-text">POST</div>
+                      <div className="home__postcard-postmark-text home__postcard-postmark-text--bottom">DES 01</div>
+                    </div>
+                    <div className="home__postcard-postmark-waves">
+                      <svg width="60" height="20" viewBox="0 0 60 20" fill="none">
+                        <path d="M0 4 Q3 0, 6 4 T12 4 T18 4 T24 4 T30 4 T36 4 T42 4 T48 4 T54 4 T60 4" stroke="currentColor" strokeWidth="1.5" fill="none"/>
+                        <path d="M0 8 Q3 4, 6 8 T12 8 T18 8 T24 8 T30 8 T36 8 T42 8 T48 8 T54 8 T60 8" stroke="currentColor" strokeWidth="1.5" fill="none"/>
+                        <path d="M0 12 Q3 8, 6 12 T12 12 T18 12 T24 12 T30 12 T36 12 T42 12 T48 12 T54 12 T60 12" stroke="currentColor" strokeWidth="1.5" fill="none"/>
+                        <path d="M0 16 Q3 12, 6 16 T12 16 T18 16 T24 16 T30 16 T36 16 T42 16 T48 16 T54 16 T60 16" stroke="currentColor" strokeWidth="1.5" fill="none"/>
+                      </svg>
+                    </div>
+                  </div>
+
+                  <div className="home__postcard-content">
+                    <div className="home__postcard-left">
+                      {/* Landscape Scene */}
+                      <div className="home__postcard-sky"></div>
+                      <div className="home__postcard-sun"></div>
+                      <div className="home__postcard-hills">
+                        <div className="home__postcard-hill home__postcard-hill--1"></div>
+                        <div className="home__postcard-hill home__postcard-hill--2"></div>
+                        <div className="home__postcard-hill home__postcard-hill--3"></div>
+                      </div>
+                    </div>
+                    <div className="home__postcard-right">
+                      {/* Rabbit Stamp */}
+                      <div className="home__postcard-stamp-rabbit">
+                        <div className="home__postcard-stamp-perforated">
+                          <div className="home__postcard-rabbit">
+                            <div className="home__postcard-rabbit-ear home__postcard-rabbit-ear--left"></div>
+                            <div className="home__postcard-rabbit-ear home__postcard-rabbit-ear--right"></div>
+                            <div className="home__postcard-rabbit-head">
+                              <div className="home__postcard-rabbit-eye home__postcard-rabbit-eye--left"></div>
+                              <div className="home__postcard-rabbit-eye home__postcard-rabbit-eye--right"></div>
+                              <div className="home__postcard-rabbit-nose"></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* "To :" Label and Address Lines */}
+                      <div className="home__postcard-address">
+                        <div className="home__postcard-to">To :</div>
+                        <div className="home__postcard-lines">
+                          <div className="home__postcard-line"></div>
+                          <div className="home__postcard-line"></div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
