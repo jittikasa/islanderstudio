@@ -99,7 +99,11 @@
 .pola__hero-visual {
   display: flex;
   justify-content: center;
+  align-items: center;
   min-height: 300px;
+  max-width: 400px;
+  margin: 0 auto;
+  width: 100%;
 }
 
 .pola__camera-wrapper {
