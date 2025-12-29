@@ -73,7 +73,7 @@
 .header__logo-mark {
   position: absolute;
   left: 50%;
-  top: 2px;
+  top: 4px;
   transform: translateX(-50%);
   height: 20px;
   width: 20px;
@@ -155,7 +155,7 @@
   .header__logo-mark {
     height: 22px;
     width: 22px;
-    top: 3px;
+    top: 5px;
   }
 
   .header__logo-dot {
