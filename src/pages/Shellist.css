@@ -591,6 +591,17 @@
   bottom: -6px;
 }
 
+.shellist__cta-label {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--fog);
+  margin-bottom: var(--space-4);
+}
+
 .shellist__cta-icon {
   display: block;
   font-size: 3rem;

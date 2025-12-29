@@ -243,6 +243,7 @@ export default function Shellist() {
       {/* CTA Section */}
       <section className="shellist__cta">
         <div className="shellist__cta-card">
+          <span className="shellist__cta-label">iOS App</span>
           <span className="shellist__cta-icon">🐚</span>
           <h2 className="shellist__cta-title">Start Building Better Habits</h2>
           <p className="shellist__cta-text">
