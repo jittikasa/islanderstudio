@@ -5,6 +5,7 @@ import Footer from './components/Footer'
 import Home from './pages/Home'
 import Shellist from './pages/Shellist'
 import PolaMoment from './pages/PolaMoment'
+import PostcardStudio from './pages/PostcardStudio'
 import Blog from './pages/Blog'
 import BlogPost from './pages/BlogPost'
 import Privacy from './pages/Privacy'
@@ -27,6 +28,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/shellist" element={<Shellist />} />
           <Route path="/polamoment" element={<PolaMoment />} />
+          <Route path="/postcard-studio" element={<PostcardStudio />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="/privacy" element={<Privacy />} />

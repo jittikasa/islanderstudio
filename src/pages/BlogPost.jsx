@@ -124,15 +124,25 @@ export default function BlogPost() {
     )
   }
 
+  // Get SEO values with fallbacks
+  const seoTitle = post.seo?.metaTitle || post.title
+  const seoDescription = post.seo?.metaDescription || post.excerpt || post.title
+  const seoImage = post.seo?.ogImage
+    ? urlFor(post.seo.ogImage).width(1200).height(630).url()
+    : post.mainImage
+    ? urlFor(post.mainImage).width(1200).height(630).url()
+    : undefined
+  const canonicalUrl = post.seo?.canonicalUrl || `https://islanderstudio.app/blog/${slug}`
+
   // BlogPosting Schema
   const blogPostingSchema = {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
-    headline: post.title,
-    description: post.excerpt || post.title,
-    image: post.mainImage ? urlFor(post.mainImage).width(1200).height(630).url() : undefined,
+    headline: seoTitle,
+    description: seoDescription,
+    image: seoImage,
     datePublished: post.publishedAt,
-    dateModified: post._updatedAt || post.publishedAt,
+    dateModified: post.updatedAt || post.publishedAt,
     author: {
       '@type': 'Person',
       name: post.authorName || 'Islander Studio',
@@ -147,8 +157,10 @@ export default function BlogPost() {
     },
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `https://islanderstudio.app/blog/${slug}`,
+      '@id': canonicalUrl,
     },
+    ...(post.readingTime && { timeRequired: `PT${post.readingTime}M` }),
+    ...(post.seo?.keywords && { keywords: post.seo.keywords.join(', ') }),
   }
 
   // Breadcrumb Schema
@@ -177,20 +189,16 @@ export default function BlogPost() {
     ],
   }
 
-  // Use custom SEO fields if available, otherwise fall back to defaults
-  const seoTitle = post.seo?.metaTitle || `${post.title} - Islander Studio Blog`
-  const seoDescription = post.seo?.metaDescription || post.excerpt || post.title
-  const noIndex = post.seo?.noIndex || false
-
   return (
     <div className="blog-post-page">
       <SEO
-        title={seoTitle}
+        title={`${seoTitle} - Islander Studio Blog`}
         description={seoDescription}
-        url={`https://islanderstudio.app/blog/${slug}`}
-        image={post.mainImage ? urlFor(post.mainImage).width(1200).height(630).url() : undefined}
+        url={canonicalUrl}
+        image={seoImage}
         type="article"
-        noIndex={noIndex}
+        keywords={post.seo?.keywords?.join(', ')}
+        robots={post.seo?.noIndex ? 'noindex, nofollow' : undefined}
       />
       <StructuredData data={blogPostingSchema} />
       <StructuredData data={breadcrumbSchema} />
@@ -243,10 +251,22 @@ export default function BlogPost() {
               <time dateTime={post.publishedAt}>
                 {formatDate(post.publishedAt)}
               </time>
+              {post.updatedAt && post.updatedAt !== post.publishedAt && (
+                <>
+                  <span className="meta-separator">•</span>
+                  <span className="post-updated">Updated {formatDate(post.updatedAt)}</span>
+                </>
+              )}
               {post.authorName && (
                 <>
                   <span className="meta-separator">•</span>
                   <span className="post-author">by {post.authorName}</span>
+                </>
+              )}
+              {post.readingTime && (
+                <>
+                  <span className="meta-separator">•</span>
+                  <span className="post-reading-time">{post.readingTime} min read</span>
                 </>
               )}
             </div>

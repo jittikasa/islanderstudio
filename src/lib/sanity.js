@@ -32,14 +32,17 @@ export async function getBlogPosts() {
     title,
     slug,
     publishedAt,
+    updatedAt,
     excerpt,
     featured,
+    readingTime,
     "authorName": author->name,
     "authorImage": author->image,
     "categories": categories[]->title,
     "tags": tags[]->title,
     mainImage,
-    body
+    body,
+    seo
   }`
 
   return await client.fetch(query)
@@ -54,8 +57,10 @@ export async function getBlogPost(slug) {
     title,
     slug,
     publishedAt,
+    updatedAt,
     excerpt,
     featured,
+    readingTime,
     "authorName": author->name,
     "authorBio": author->bio,
     "authorImage": author->image,
@@ -81,6 +86,7 @@ export async function getRecentPosts(limit = 3) {
     publishedAt,
     excerpt,
     featured,
+    readingTime,
     "tags": tags[]->title,
     mainImage
   }`
@@ -99,6 +105,7 @@ export async function getPostsByApp(appName, limit = 2) {
     publishedAt,
     excerpt,
     featured,
+    readingTime,
     "categories": categories[]->title,
     "tags": tags[]->title,
     mainImage

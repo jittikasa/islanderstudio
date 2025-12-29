@@ -195,6 +195,8 @@
     margin-top: 0;
     flex-direction: column;
     gap: var(--space-6);
+    width: 100%;
+    max-width: 800px;
   }
 }
 
@@ -225,18 +227,220 @@
    POSTCARD ILLUSTRATION
    ============================================ */
 
-.home__postcard {
+.home__postcard-wrapper {
   width: 100%;
-  max-width: 280px;
-  aspect-ratio: 3 / 2;
-  background: var(--white);
-  border: 3px solid var(--midnight-sky);
-  border-radius: var(--radius-sm);
-  display: flex;
-  overflow: hidden;
-  box-shadow: 3px 4px 0 var(--midnight-sky);
-  margin-bottom: var(--space-6);
+  max-width: 800px;
+  margin: 0 auto;
+  margin-top: var(--space-8);
   animation: fadeInUp 0.5s var(--ease-out) 0.45s backwards;
+  position: relative;
+}
+
+/* Striped Border Frame */
+.home__postcard-border {
+  padding: 16px;
+  background:
+    repeating-linear-gradient(
+      45deg,
+      #C67B5C 0px,
+      #C67B5C 16px,
+      #D4A57A 16px,
+      #D4A57A 32px,
+      #E8C5A8 32px,
+      #E8C5A8 48px
+    );
+  position: relative;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.home__postcard-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      45deg,
+      transparent 0px,
+      transparent 16px,
+      rgba(106, 134, 147, 0.2) 16px,
+      rgba(106, 134, 147, 0.2) 32px,
+      rgba(229, 172, 172, 0.2) 32px,
+      rgba(229, 172, 172, 0.2) 48px
+    );
+  pointer-events: none;
+}
+
+.home__postcard {
+  background: #FBF8F3;
+  position: relative;
+  aspect-ratio: 3 / 2;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Twine String */
+.home__postcard-twine {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  pointer-events: none;
+}
+
+.home__postcard-twine-vertical {
+  position: absolute;
+  width: 5px;
+  height: 160%;
+  background: linear-gradient(
+    to bottom,
+    #8B7355 0%,
+    #A0866F 20%,
+    #8B7355 40%,
+    #A0866F 60%,
+    #8B7355 80%,
+    #A0866F 100%
+  );
+  left: 50%;
+  top: -30%;
+  transform: translateX(-50%);
+  box-shadow:
+    inset -2px 0 2px rgba(0, 0, 0, 0.4),
+    2px 0 2px rgba(255, 255, 255, 0.3),
+    0 0 8px rgba(139, 115, 85, 0.3);
+  border-radius: 2px;
+}
+
+.home__postcard-twine-vertical::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    rgba(0, 0, 0, 0.1) 2px,
+    transparent 4px
+  );
+}
+
+.home__postcard-twine-bow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 55px;
+  height: 40px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.home__postcard-twine-bow-left,
+.home__postcard-twine-bow-right {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  background: linear-gradient(135deg, #8B7355 0%, #A0866F 50%, #8B7355 100%);
+  border-radius: 50% 0 50% 50%;
+  top: 8px;
+  box-shadow:
+    inset -1px -1px 2px rgba(0, 0, 0, 0.2),
+    1px 1px 2px rgba(255, 255, 255, 0.2);
+}
+
+.home__postcard-twine-bow-left {
+  left: -4px;
+  transform: rotate(-45deg);
+}
+
+.home__postcard-twine-bow-right {
+  right: -4px;
+  transform: rotate(135deg);
+}
+
+.home__postcard-twine-bow-knot {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: radial-gradient(circle at 30% 30%, #A0866F, #8B7355);
+  border-radius: 50%;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.4),
+    inset -1px -1px 2px rgba(0, 0, 0, 0.2),
+    inset 1px 1px 1px rgba(255, 255, 255, 0.3);
+}
+
+/* Postmark Stamp */
+.home__postcard-postmark {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  z-index: 5;
+  color: #A67C52;
+  opacity: 0.85;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+}
+
+.home__postcard-postmark-circle {
+  width: 65px;
+  height: 65px;
+  border: 2.5px solid currentColor;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  position: relative;
+  background: rgba(251, 248, 243, 0.6);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.home__postcard-postmark-circle::before {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  opacity: 0.4;
+}
+
+.home__postcard-postmark-star {
+  font-size: 14px;
+  line-height: 1;
+  margin-bottom: -1px;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.home__postcard-postmark-text {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+.home__postcard-postmark-text--bottom {
+  font-size: 7.5px;
+  margin-top: 1px;
+}
+
+.home__postcard-postmark-waves {
+  position: absolute;
+  top: 22px;
+  left: 72px;
+  width: 75px;
+  height: 24px;
+  color: #A67C52;
+  opacity: 0.85;
+}
+
+/* Postcard Content */
+.home__postcard-content {
+  display: flex;
+  height: 100%;
+  position: relative;
 }
 
 .home__postcard-left {
@@ -259,14 +463,33 @@
 /* Sun */
 .home__postcard-sun {
   position: absolute;
-  top: 20%;
-  right: 20%;
-  width: 24px;
-  height: 24px;
-  background: var(--golden-hour);
+  top: 18%;
+  right: 22%;
+  width: 32px;
+  height: 32px;
+  background: radial-gradient(circle, #FFD54F 0%, #FFC107 70%, #FFA000 100%);
   border-radius: 50%;
-  box-shadow: 0 0 12px rgba(255, 193, 7, 0.4);
+  box-shadow:
+    0 0 16px rgba(255, 193, 7, 0.6),
+    0 0 24px rgba(255, 193, 7, 0.3),
+    inset -2px -2px 4px rgba(255, 167, 0, 0.4);
   animation: sun-float 4s ease-in-out infinite;
+}
+
+.home__postcard-sun::before {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  background:
+    repeating-conic-gradient(
+      from 0deg,
+      transparent 0deg,
+      transparent 20deg,
+      rgba(255, 193, 7, 0.3) 20deg,
+      rgba(255, 193, 7, 0.3) 25deg
+    );
+  border-radius: 50%;
+  animation: sun-rotate 20s linear infinite;
 }
 
 @keyframes sun-float {
@@ -275,6 +498,15 @@
   }
   50% {
     transform: translateY(-4px);
+  }
+}
+
+@keyframes sun-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }
 
@@ -326,61 +558,318 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background: var(--cream);
-  border-left: 2px solid var(--cloud);
+  background: #FBF8F3;
+}
+
+/* Rabbit Stamp */
+.home__postcard-stamp-rabbit {
+  align-self: flex-end;
+  margin-bottom: auto;
+}
+
+.home__postcard-stamp-perforated {
+  background:
+    linear-gradient(90deg, #D4A57A 0%, #E8B888 50%, #D4A57A 100%);
+  padding: 6px;
+  position: relative;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* Perforated edges for stamp */
+.home__postcard-stamp-perforated::before,
+.home__postcard-stamp-perforated::after {
+  content: '';
+  position: absolute;
+  background:
+    radial-gradient(circle at center, #FBF8F3 2.5px, transparent 2.5px);
+  background-size: 8px 8px;
+  background-position: 0 0;
+  z-index: 1;
+}
+
+.home__postcard-stamp-perforated::before {
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 8px;
+}
+
+.home__postcard-stamp-perforated::after {
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 8px;
+}
+
+.home__postcard-rabbit {
+  width: 60px;
+  height: 68px;
+  background: linear-gradient(135deg, #FBF8F3 0%, #F5EFE6 100%);
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* Rabbit Ears */
+.home__postcard-rabbit-ear {
+  position: absolute;
+  width: 11px;
+  height: 22px;
+  background: linear-gradient(to bottom, #F5B5B5 0%, #E5A5A5 50%, #D98B8B 100%);
+  border-radius: 50% 50% 30% 30%;
+  top: 0px;
+  box-shadow:
+    inset -1px -1px 2px rgba(0, 0, 0, 0.1),
+    0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.home__postcard-rabbit-ear::before {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 2px;
+  right: 2px;
+  bottom: 5px;
+  background: linear-gradient(to bottom, #FFD5D5 0%, #F5B5B5 100%);
+  border-radius: 50% 50% 20% 20%;
+}
+
+.home__postcard-rabbit-ear--left {
+  left: 12px;
+  transform: rotate(-15deg);
+}
+
+.home__postcard-rabbit-ear--right {
+  right: 12px;
+  transform: rotate(15deg);
+}
+
+/* Rabbit Head */
+.home__postcard-rabbit-head {
+  width: 30px;
+  height: 35px;
+  background: linear-gradient(135deg, #FFD5D5 0%, #F5B5B5 50%, #E5A5A5 100%);
+  border-radius: 45% 45% 50% 50%;
+  position: relative;
+  margin-top: 12px;
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.1),
+    inset -2px -2px 4px rgba(229, 165, 165, 0.4),
+    inset 2px 2px 4px rgba(255, 255, 255, 0.6);
+}
+
+/* Rabbit Eyes */
+.home__postcard-rabbit-eye {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: radial-gradient(circle, #3A2A2A 0%, #5A4A4A 100%);
+  border-radius: 50%;
+  top: 13px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.home__postcard-rabbit-eye::before {
+  content: '';
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  width: 1.5px;
+  height: 1.5px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+}
+
+.home__postcard-rabbit-eye--left {
+  left: 8px;
+}
+
+.home__postcard-rabbit-eye--right {
+  right: 8px;
+}
+
+/* Rabbit Nose */
+.home__postcard-rabbit-nose {
+  position: absolute;
+  width: 5px;
+  height: 4px;
+  background: linear-gradient(to bottom, #E58B8B 0%, #D98B8B 100%);
+  border-radius: 0 0 50% 50%;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+}
+
+.home__postcard-rabbit-nose::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 4px;
+  background: rgba(217, 139, 139, 0.5);
+}
+
+/* Address Section */
+.home__postcard-address {
+  margin-top: auto;
+  padding-top: var(--space-2);
+}
+
+.home__postcard-to {
+  font-family: 'Brush Script MT', 'Lucida Handwriting', cursive, var(--font-body);
+  font-size: 26px;
+  color: #8B7355;
+  margin-bottom: var(--space-3);
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  font-style: italic;
 }
 
 .home__postcard-lines {
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
-  padding-top: var(--space-2);
+  gap: var(--space-4);
+  padding-left: var(--space-1);
 }
 
 .home__postcard-line {
-  height: 2px;
-  background: var(--cloud);
+  height: 2.5px;
+  background: linear-gradient(to right, #B8977A 0%, #B8977A 95%, transparent 100%);
   border-radius: 1px;
+  opacity: 0.7;
+  position: relative;
+}
+
+.home__postcard-line::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.05) 50%, transparent 100%);
 }
 
 .home__postcard-line:nth-child(1) {
-  width: 90%;
+  width: 92%;
 }
 
 .home__postcard-line:nth-child(2) {
-  width: 75%;
+  width: 88%;
 }
 
-.home__postcard-line:nth-child(3) {
-  width: 85%;
+/* Placed Stamps on Postcard */
+.home__postcard-stamp-placed {
+  position: absolute;
+  cursor: pointer;
+  z-index: 15;
+  transition: filter 0.2s ease;
+  pointer-events: auto;
 }
 
-.home__postcard-line:nth-child(4) {
-  width: 60%;
+.home__postcard-stamp-placed img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  pointer-events: none;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.2));
 }
 
-/* Stamp */
-.home__postcard-stamp {
-  align-self: flex-end;
-  padding: 2px;
-  background: var(--white);
-  border: 2px dashed var(--midnight-sky);
-  border-radius: 3px;
+.home__postcard-stamp-placed:hover {
+  filter: brightness(1.1);
+  z-index: 20;
 }
 
-.home__postcard-stamp-inner {
-  width: 32px;
-  height: 32px;
+.home__postcard-stamp-placed.selected {
+  filter: drop-shadow(0 0 0 3px var(--golden-hour));
+  z-index: 25;
+}
+
+/* Drop Hint */
+.home__postcard-hint {
+  position: absolute;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--sea-salt);
-  border: 1px solid var(--cloud);
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  animation: hintPulse 2s ease-in-out infinite;
 }
 
-.home__postcard-stamp-icon {
+@keyframes hintPulse {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+.home__postcard-hint span {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--stone);
+  background: rgba(255, 255, 255, 0.95);
+  padding: var(--space-3) var(--space-4);
+  border: 2px dashed var(--cloud);
+  border-radius: var(--radius-md);
+  text-align: center;
+}
+
+/* Postcard Controls */
+.home__postcard-controls {
+  display: flex;
+  gap: var(--space-2);
+  justify-content: center;
+  margin-top: var(--space-4);
+  padding: var(--space-3);
+  background: var(--sea-salt);
+  border: 2px solid var(--cloud);
+  border-radius: var(--radius-md);
+  animation: fadeInUp 0.3s var(--ease-out);
+}
+
+.home__postcard-controls button {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 2px solid var(--midnight-sky);
+  background: var(--white);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
   font-size: 16px;
-  line-height: 1;
+  font-weight: 700;
+  color: var(--midnight-sky);
+  transition: all 0.2s var(--ease-spring);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.home__postcard-controls button:hover {
+  background: var(--sunset-glow);
+  color: var(--white);
+  transform: translateY(-2px);
+}
+
+.home__postcard-controls button.delete {
+  background: #FF6B6B;
+  color: var(--white);
+  border-color: #FF5252;
+}
+
+.home__postcard-controls button.delete:hover {
+  background: #FF5252;
 }
 
 /* ============================================
@@ -796,8 +1285,12 @@
 @media (prefers-reduced-motion: reduce) {
   .home,
   .home__sticker,
+  .home__postcard-wrapper,
   .home__postcard,
   .home__postcard-sun,
+  .home__postcard-sun::before,
+  .home__postcard-hint,
+  .home__postcard-controls,
   .home__stamp,
   .home__stamp-icon,
   .home__stamp-arrow span,
@@ -805,6 +1298,10 @@
   .home__contact-action {
     animation: none !important;
     transition: none !important;
+  }
+
+  .home__postcard-hint {
+    opacity: 0.5;
   }
 
   .home--loaded {

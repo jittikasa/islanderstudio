@@ -73,6 +73,7 @@ export default defineType({
       title: 'Excerpt',
       type: 'text',
       rows: 4,
+<<<<<<< HEAD
       description: 'Short description for blog listing pages',
     }),
     defineField({
@@ -81,6 +82,10 @@ export default defineType({
       type: 'array',
       of: [{type: 'reference', to: [{type: 'app'}]}],
       description: 'Select which app(s) this blog post is related to. Posts will appear in the "Related Reading" section of selected apps.',
+=======
+      description: 'Short description for blog listing pages (used as fallback for meta description)',
+      validation: (Rule) => Rule.required(),
+>>>>>>> origin/main
     }),
     defineField({
       name: 'body',
@@ -101,6 +106,55 @@ export default defineType({
           ],
         },
       ],
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'readingTime',
+      title: 'Reading Time (minutes)',
+      type: 'number',
+      description: 'Estimated reading time in minutes (optional, can be auto-calculated)',
+    }),
+    defineField({
+      name: 'updatedAt',
+      title: 'Last Updated',
+      type: 'datetime',
+      description: 'When this article was last significantly updated',
+    }),
+    defineField({
+      name: 'relatedApps',
+      title: 'Related Apps',
+      type: 'array',
+      of: [{type: 'string'}],
+      options: {
+        list: [
+          {title: 'PolaMoment', value: 'polamoment'},
+          {title: 'Shellist', value: 'shellist'},
+        ],
+        layout: 'tags',
+      },
+      description: 'Select which app(s) this blog post is related to. Posts will appear in the "Related Reading" section of selected apps.',
+    }),
+    defineField({
+      name: 'seo',
+      title: 'SEO Settings',
+      type: 'seo',
+      description: 'Override default SEO settings for this article',
+    }),
+    defineField({
+      name: 'contentStatus',
+      title: 'Content Status',
+      type: 'string',
+      options: {
+        list: [
+          {title: 'Draft', value: 'draft'},
+          {title: 'In Review', value: 'review'},
+          {title: 'SEO Optimized', value: 'optimized'},
+          {title: 'Published', value: 'published'},
+        ],
+        layout: 'radio',
+      },
+      initialValue: 'draft',
+      description: 'Track the SEO optimization status of this article',
     }),
     // SEO Fields (WordPress-style)
     defineField({
