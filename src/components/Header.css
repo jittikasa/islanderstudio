@@ -90,7 +90,7 @@
 
 .header__logo:hover .header__logo-mark {
   opacity: 1;
-  transform: translateX(-50%) rotate(-8deg);
+  transform: translateX(-50%);
 }
 
 .header__logo-slander {
