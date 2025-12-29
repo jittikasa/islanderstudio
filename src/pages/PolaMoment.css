@@ -118,7 +118,7 @@
 /* Polaroids */
 .pola__polaroids {
   position: absolute;
-  top: 15%;
+  top: 35%;
   left: 50%;
   transform: translateX(-45%);
   width: 42%;
@@ -165,7 +165,7 @@
     transform: translateY(60px) rotate(-2deg);
   }
   50% {
-    transform: translateY(210px) rotate(2deg);
+    transform: translateY(130px) rotate(2deg);
   }
 }
 
