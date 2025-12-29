@@ -49,10 +49,24 @@ export default defineType({
       of: [{type: 'reference', to: [{type: 'category'}]}],
     }),
     defineField({
+      name: 'tags',
+      title: 'Tags',
+      type: 'array',
+      of: [{type: 'reference', to: [{type: 'tag'}]}],
+      description: 'Add tags to help readers find related content',
+    }),
+    defineField({
       name: 'publishedAt',
       title: 'Published At',
       type: 'datetime',
       validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'featured',
+      title: 'Featured Post',
+      type: 'boolean',
+      description: 'Mark this post as featured to highlight it on the blog page',
+      initialValue: false,
     }),
     defineField({
       name: 'excerpt',
@@ -87,6 +101,47 @@ export default defineType({
           ],
         },
       ],
+    }),
+    // SEO Fields (WordPress-style)
+    defineField({
+      name: 'seo',
+      title: 'SEO Settings',
+      type: 'object',
+      description: 'Override default SEO settings for this post',
+      fields: [
+        {
+          name: 'metaTitle',
+          title: 'Meta Title',
+          type: 'string',
+          description: 'SEO title (50-60 characters recommended). If not set, the main title will be used.',
+          validation: (Rule) => Rule.max(60).warning('Titles over 60 characters may be truncated in search results'),
+        },
+        {
+          name: 'metaDescription',
+          title: 'Meta Description',
+          type: 'text',
+          rows: 3,
+          description: 'SEO description (150-160 characters recommended). If not set, the excerpt will be used.',
+          validation: (Rule) => Rule.max(160).warning('Descriptions over 160 characters may be truncated in search results'),
+        },
+        {
+          name: 'focusKeyword',
+          title: 'Focus Keyword',
+          type: 'string',
+          description: 'Main keyword you want to rank for',
+        },
+        {
+          name: 'noIndex',
+          title: 'No Index',
+          type: 'boolean',
+          description: 'Prevent search engines from indexing this post',
+          initialValue: false,
+        },
+      ],
+      options: {
+        collapsible: true,
+        collapsed: true,
+      },
     }),
   ],
   preview: {

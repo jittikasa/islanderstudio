@@ -33,9 +33,11 @@ export async function getBlogPosts() {
     slug,
     publishedAt,
     excerpt,
+    featured,
     "authorName": author->name,
     "authorImage": author->image,
     "categories": categories[]->title,
+    "tags": tags[]->title,
     mainImage,
     body
   }`
@@ -53,11 +55,14 @@ export async function getBlogPost(slug) {
     slug,
     publishedAt,
     excerpt,
+    featured,
     "authorName": author->name,
     "authorBio": author->bio,
     "authorImage": author->image,
     "categories": categories[]->title,
+    "tags": tags[]->title,
     "relatedApps": relatedApps[]->slug.current,
+    seo,
     mainImage,
     body
   }`
@@ -75,6 +80,8 @@ export async function getRecentPosts(limit = 3) {
     slug,
     publishedAt,
     excerpt,
+    featured,
+    "tags": tags[]->title,
     mainImage
   }`
 
@@ -91,7 +98,9 @@ export async function getPostsByApp(appName, limit = 2) {
     slug,
     publishedAt,
     excerpt,
+    featured,
     "categories": categories[]->title,
+    "tags": tags[]->title,
     mainImage
   }`
 

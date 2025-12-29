@@ -177,14 +177,20 @@ export default function BlogPost() {
     ],
   }
 
+  // Use custom SEO fields if available, otherwise fall back to defaults
+  const seoTitle = post.seo?.metaTitle || `${post.title} - Islander Studio Blog`
+  const seoDescription = post.seo?.metaDescription || post.excerpt || post.title
+  const noIndex = post.seo?.noIndex || false
+
   return (
     <div className="blog-post-page">
       <SEO
-        title={`${post.title} - Islander Studio Blog`}
-        description={post.excerpt || post.title}
+        title={seoTitle}
+        description={seoDescription}
         url={`https://islanderstudio.app/blog/${slug}`}
         image={post.mainImage ? urlFor(post.mainImage).width(1200).height(630).url() : undefined}
         type="article"
+        noIndex={noIndex}
       />
       <StructuredData data={blogPostingSchema} />
       <StructuredData data={breadcrumbSchema} />
@@ -222,6 +228,16 @@ export default function BlogPost() {
             )}
 
             <h1 className="post-title">{post.title}</h1>
+
+            {post.tags && post.tags.length > 0 && (
+              <div className="post-tags">
+                {post.tags.map((tag, index) => (
+                  <span key={index} className="post-tag">
+                    #{tag}
+                  </span>
+                ))}
+              </div>
+            )}
 
             <div className="post-meta">
               <time dateTime={post.publishedAt}>
