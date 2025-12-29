@@ -159,7 +159,13 @@ export default function Home() {
 
           <div className="home__hero-meta">
             {/* Postcard Illustration */}
-            <div className="home__postcard-wrapper">
+            <Link to="/postcard-studio" className="home__postcard-wrapper">
+              <div className="home__postcard-overlay">
+                <span className="home__postcard-cta">
+                  <span className="home__postcard-cta-icon">✨</span>
+                  <span className="home__postcard-cta-text">Create Your Own!</span>
+                </span>
+              </div>
               {/* Striped Border Frame */}
               <div className="home__postcard-border">
                 <div className="home__postcard">
@@ -229,7 +235,7 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-            </div>
+            </Link>
 
             <div className="home__hero-stat">
               <span className="home__hero-stat-value">02</span>

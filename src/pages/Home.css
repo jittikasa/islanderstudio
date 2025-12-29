@@ -230,6 +230,83 @@
   max-width: 400px;
   margin-bottom: var(--space-6);
   animation: fadeInUp 0.5s var(--ease-out) 0.45s backwards;
+  position: relative;
+  display: block;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s var(--ease-spring);
+}
+
+.home__postcard-wrapper:hover {
+  transform: translateY(-4px);
+}
+
+.home__postcard-wrapper:hover .home__postcard-border {
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+}
+
+.home__postcard-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(226, 132, 99, 0.95) 0%, rgba(255, 193, 7, 0.95) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s var(--ease-out);
+  z-index: 20;
+  border-radius: var(--radius-sm);
+  pointer-events: none;
+}
+
+.home__postcard-wrapper:hover .home__postcard-overlay {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.home__postcard-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-6);
+  background: var(--white);
+  border: 3px solid var(--midnight-sky);
+  border-radius: var(--radius-lg);
+  box-shadow: 4px 4px 0 var(--midnight-sky);
+  transform: scale(0.9);
+  transition: transform 0.3s var(--ease-spring);
+}
+
+.home__postcard-wrapper:hover .home__postcard-cta {
+  transform: scale(1);
+}
+
+.home__postcard-cta-icon {
+  font-size: 2.5rem;
+  line-height: 1;
+  animation: sparkle 1.5s ease-in-out infinite;
+}
+
+@keyframes sparkle {
+  0%, 100% {
+    transform: rotate(0deg) scale(1);
+  }
+  25% {
+    transform: rotate(-10deg) scale(1.1);
+  }
+  75% {
+    transform: rotate(10deg) scale(1.1);
+  }
+}
+
+.home__postcard-cta-text {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--midnight-sky);
+  text-align: center;
+  line-height: 1.2;
 }
 
 /* Striped Border Frame */
