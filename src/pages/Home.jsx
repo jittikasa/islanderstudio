@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom'
 import { useState, useEffect, useRef, useCallback } from 'react'
 import SEO, { StructuredData, organizationSchema, websiteSchema } from '../components/SEO'
 import './Home.css'
-import './Shellist.css'
 
 export default function Home() {
   const [loaded, setLoaded] = useState(false)
@@ -145,7 +144,7 @@ export default function Home() {
             </p>
 
             <div className="home__hero-actions">
-              <a href="#collection" className="shellist__btn shellist__btn--primary">
+              <a href="#collection" className="btn btn-primary">
                 View Collection
                 <span>↓</span>
               </a>
