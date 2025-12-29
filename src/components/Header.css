@@ -76,7 +76,7 @@
   top: 2px;
   transform: translateX(-50%);
   height: 20px;
-  width: auto;
+  width: 20px;
   opacity: 0;
   transition: opacity var(--duration-fast) var(--ease-out),
               transform var(--duration-base) var(--ease-spring);
@@ -154,6 +154,7 @@
 
   .header__logo-mark {
     height: 22px;
+    width: 22px;
     top: 3px;
   }
 
