@@ -14,7 +14,10 @@ export default function Home() {
     { id: 4, src: '/branding/Graphics/shell.png', x: 92, y: 75, rotation: 20, scale: 0.85 },
   ])
   const [dragging, setDragging] = useState(null)
+  const [postcardStamps, setPostcardStamps] = useState([])
+  const [selectedStamp, setSelectedStamp] = useState(null)
   const containerRef = useRef(null)
+  const postcardRef = useRef(null)
 
   useEffect(() => {
     setLoaded(true)
@@ -23,26 +26,80 @@ export default function Home() {
   // Handle sticker drag
   const handleStickerMouseDown = useCallback((e, stickerId) => {
     e.preventDefault()
-    setDragging(stickerId)
-  }, [])
+    const sticker = stickers.find(s => s.id === stickerId)
+    setDragging({ type: 'sticker', id: stickerId, sticker })
+  }, [stickers])
 
   const handleMouseMove = useCallback((e) => {
-    if (dragging && containerRef.current) {
+    if (dragging && dragging.type === 'sticker' && containerRef.current) {
       const rect = containerRef.current.getBoundingClientRect()
       const x = ((e.clientX - rect.left) / rect.width) * 100
       const y = ((e.clientY - rect.top) / rect.height) * 100
 
       setStickers(prev => prev.map(s =>
-        s.id === dragging
+        s.id === dragging.id
           ? { ...s, x: Math.max(0, Math.min(95, x)), y: Math.max(0, Math.min(90, y)) }
           : s
       ))
     }
   }, [dragging])
 
-  const handleMouseUp = useCallback(() => {
+  const handleMouseUp = useCallback((e) => {
+    if (dragging && dragging.type === 'sticker' && postcardRef.current) {
+      const postcardRect = postcardRef.current.getBoundingClientRect()
+      const isOverPostcard =
+        e.clientX >= postcardRect.left &&
+        e.clientX <= postcardRect.right &&
+        e.clientY >= postcardRect.top &&
+        e.clientY <= postcardRect.bottom
+
+      if (isOverPostcard) {
+        const x = ((e.clientX - postcardRect.left) / postcardRect.width) * 100
+        const y = ((e.clientY - postcardRect.top) / postcardRect.height) * 100
+
+        const newStamp = {
+          uniqueId: `stamp-${Date.now()}`,
+          src: dragging.sticker.src,
+          x: Math.max(0, Math.min(90, x)),
+          y: Math.max(0, Math.min(90, y)),
+          rotation: Math.random() * 30 - 15,
+          scale: 0.4,
+        }
+
+        setPostcardStamps(prev => [...prev, newStamp])
+      }
+    }
     setDragging(null)
-  }, [])
+  }, [dragging])
+
+  const handleStampClick = (e, uniqueId) => {
+    e.stopPropagation()
+    setSelectedStamp(uniqueId)
+  }
+
+  const handleRotateStamp = (direction) => {
+    if (!selectedStamp) return
+    setPostcardStamps(prev => prev.map(stamp =>
+      stamp.uniqueId === selectedStamp
+        ? { ...stamp, rotation: stamp.rotation + (direction === 'left' ? -15 : 15) }
+        : stamp
+    ))
+  }
+
+  const handleScaleStamp = (direction) => {
+    if (!selectedStamp) return
+    setPostcardStamps(prev => prev.map(stamp =>
+      stamp.uniqueId === selectedStamp
+        ? { ...stamp, scale: Math.max(0.2, Math.min(1, stamp.scale + (direction === 'up' ? 0.1 : -0.1))) }
+        : stamp
+    ))
+  }
+
+  const handleDeleteStamp = () => {
+    if (!selectedStamp) return
+    setPostcardStamps(prev => prev.filter(stamp => stamp.uniqueId !== selectedStamp))
+    setSelectedStamp(null)
+  }
 
   useEffect(() => {
     if (dragging) {
@@ -158,16 +215,14 @@ export default function Home() {
           </div>
 
           <div className="home__hero-meta">
-            {/* Postcard Illustration */}
-            <Link to="/postcard-studio" className="home__postcard-wrapper">
-              <div className="home__postcard-overlay">
-                <span className="home__postcard-cta">
-                  <span className="home__postcard-cta-icon">✨</span>
-                  <span className="home__postcard-cta-text">Create Your Own!</span>
-                </span>
-              </div>
+            {/* Interactive Postcard */}
+            <div className="home__postcard-wrapper">
               {/* Striped Border Frame */}
-              <div className="home__postcard-border">
+              <div
+                ref={postcardRef}
+                className="home__postcard-border"
+                onClick={() => setSelectedStamp(null)}
+              >
                 <div className="home__postcard">
                   {/* Twine String */}
                   <div className="home__postcard-twine">
@@ -233,9 +288,43 @@ export default function Home() {
                       </div>
                     </div>
                   </div>
+
+                  {/* Placed Stamps on Postcard */}
+                  {postcardStamps.map(stamp => (
+                    <div
+                      key={stamp.uniqueId}
+                      className={`home__postcard-stamp-placed ${selectedStamp === stamp.uniqueId ? 'selected' : ''}`}
+                      style={{
+                        left: `${stamp.x}%`,
+                        top: `${stamp.y}%`,
+                        transform: `translate(-50%, -50%) rotate(${stamp.rotation}deg) scale(${stamp.scale})`,
+                      }}
+                      onClick={(e) => handleStampClick(e, stamp.uniqueId)}
+                    >
+                      <img src={stamp.src} alt="stamp" draggable={false} />
+                    </div>
+                  ))}
+
+                  {/* Drop zone hint */}
+                  {postcardStamps.length === 0 && (
+                    <div className="home__postcard-hint">
+                      <span>Drag floating stickers here!</span>
+                    </div>
+                  )}
                 </div>
               </div>
-            </Link>
+            </div>
+
+            {/* Stamp Controls */}
+            {selectedStamp && (
+              <div className="home__postcard-controls">
+                <button onClick={() => handleRotateStamp('left')} title="Rotate left">↺</button>
+                <button onClick={() => handleRotateStamp('right')} title="Rotate right">↻</button>
+                <button onClick={() => handleScaleStamp('down')} title="Smaller">−</button>
+                <button onClick={() => handleScaleStamp('up')} title="Bigger">+</button>
+                <button onClick={handleDeleteStamp} className="delete" title="Delete">🗑️</button>
+              </div>
+            )}
 
             <div className="home__hero-stat">
               <span className="home__hero-stat-value">02</span>
