@@ -23,7 +23,7 @@ const shellistFAQs = [
   },
   {
     question: 'What iOS version do I need?',
-    answer: 'Shellist requires iOS 17.0 or later. This lets us deliver smooth animations, beautiful widgets, and reliable performance using Apple's latest technologies.',
+    answer: 'Shellist requires iOS 17.0 or later. This lets us deliver smooth animations, beautiful widgets, and reliable performance using Apple\'s latest technologies.',
   },
   {
     question: 'Can I use Shellist offline?',
