@@ -227,6 +227,7 @@
 
 .home__postcard-wrapper {
   width: 100%;
+  max-width: 600px;
   margin-top: var(--space-8);
   animation: fadeInUp 0.5s var(--ease-out) 0.45s backwards;
   position: relative;
