@@ -222,6 +222,168 @@
 }
 
 /* ============================================
+   POSTCARD ILLUSTRATION
+   ============================================ */
+
+.home__postcard {
+  width: 100%;
+  max-width: 280px;
+  aspect-ratio: 3 / 2;
+  background: var(--white);
+  border: 3px solid var(--midnight-sky);
+  border-radius: var(--radius-sm);
+  display: flex;
+  overflow: hidden;
+  box-shadow: 3px 4px 0 var(--midnight-sky);
+  margin-bottom: var(--space-6);
+  animation: fadeInUp 0.5s var(--ease-out) 0.45s backwards;
+}
+
+.home__postcard-left {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Sky */
+.home__postcard-sky {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    var(--coconut-shell) 0%,
+    var(--sea-salt) 100%
+  );
+}
+
+/* Sun */
+.home__postcard-sun {
+  position: absolute;
+  top: 20%;
+  right: 20%;
+  width: 24px;
+  height: 24px;
+  background: var(--golden-hour);
+  border-radius: 50%;
+  box-shadow: 0 0 12px rgba(255, 193, 7, 0.4);
+  animation: sun-float 4s ease-in-out infinite;
+}
+
+@keyframes sun-float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+/* Hills */
+.home__postcard-hills {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60%;
+  display: flex;
+  align-items: flex-end;
+}
+
+.home__postcard-hill {
+  position: absolute;
+  bottom: 0;
+  border-radius: 50% 50% 0 0;
+}
+
+.home__postcard-hill--1 {
+  left: -10%;
+  width: 60%;
+  height: 50%;
+  background: var(--sunset-glow);
+  opacity: 0.8;
+}
+
+.home__postcard-hill--2 {
+  left: 30%;
+  width: 50%;
+  height: 65%;
+  background: var(--coconut-shell);
+  opacity: 0.9;
+}
+
+.home__postcard-hill--3 {
+  right: -5%;
+  width: 45%;
+  height: 40%;
+  background: var(--midnight-sky);
+  opacity: 0.7;
+}
+
+/* Right Side - Address */
+.home__postcard-right {
+  flex: 1;
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: var(--cream);
+  border-left: 2px solid var(--cloud);
+}
+
+.home__postcard-lines {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding-top: var(--space-2);
+}
+
+.home__postcard-line {
+  height: 2px;
+  background: var(--cloud);
+  border-radius: 1px;
+}
+
+.home__postcard-line:nth-child(1) {
+  width: 90%;
+}
+
+.home__postcard-line:nth-child(2) {
+  width: 75%;
+}
+
+.home__postcard-line:nth-child(3) {
+  width: 85%;
+}
+
+.home__postcard-line:nth-child(4) {
+  width: 60%;
+}
+
+/* Stamp */
+.home__postcard-stamp {
+  align-self: flex-end;
+  padding: 2px;
+  background: var(--white);
+  border: 2px dashed var(--midnight-sky);
+  border-radius: 3px;
+}
+
+.home__postcard-stamp-inner {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--sea-salt);
+  border: 1px solid var(--cloud);
+}
+
+.home__postcard-stamp-icon {
+  font-size: 16px;
+  line-height: 1;
+}
+
+/* ============================================
    APP COLLECTION (STAMPS)
    ============================================ */
 
@@ -634,6 +796,8 @@
 @media (prefers-reduced-motion: reduce) {
   .home,
   .home__sticker,
+  .home__postcard,
+  .home__postcard-sun,
   .home__stamp,
   .home__stamp-icon,
   .home__stamp-arrow span,

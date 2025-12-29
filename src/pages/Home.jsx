@@ -158,6 +158,35 @@ export default function Home() {
           </div>
 
           <div className="home__hero-meta">
+            {/* Postcard Illustration */}
+            <div className="home__postcard">
+              <div className="home__postcard-left">
+                {/* Landscape Scene */}
+                <div className="home__postcard-sky"></div>
+                <div className="home__postcard-sun"></div>
+                <div className="home__postcard-hills">
+                  <div className="home__postcard-hill home__postcard-hill--1"></div>
+                  <div className="home__postcard-hill home__postcard-hill--2"></div>
+                  <div className="home__postcard-hill home__postcard-hill--3"></div>
+                </div>
+              </div>
+              <div className="home__postcard-right">
+                {/* Address Lines */}
+                <div className="home__postcard-lines">
+                  <div className="home__postcard-line"></div>
+                  <div className="home__postcard-line"></div>
+                  <div className="home__postcard-line"></div>
+                  <div className="home__postcard-line"></div>
+                </div>
+                {/* Stamp */}
+                <div className="home__postcard-stamp">
+                  <div className="home__postcard-stamp-inner">
+                    <span className="home__postcard-stamp-icon">🏝️</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <div className="home__hero-stat">
               <span className="home__hero-stat-value">02</span>
               <span className="home__hero-stat-label">Apps</span>
