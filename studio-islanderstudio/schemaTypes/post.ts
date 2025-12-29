@@ -49,10 +49,24 @@ export default defineType({
       of: [{type: 'reference', to: [{type: 'category'}]}],
     }),
     defineField({
+      name: 'tags',
+      title: 'Tags',
+      type: 'array',
+      of: [{type: 'reference', to: [{type: 'tag'}]}],
+      description: 'Add tags to help readers find related content',
+    }),
+    defineField({
       name: 'publishedAt',
       title: 'Published At',
       type: 'datetime',
       validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'featured',
+      title: 'Featured Post',
+      type: 'boolean',
+      description: 'Mark this post as featured to highlight it on the blog page',
+      initialValue: false,
     }),
     defineField({
       name: 'excerpt',
@@ -61,6 +75,13 @@ export default defineType({
       rows: 4,
       description: 'Short description for blog listing pages (used as fallback for meta description)',
       validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'relatedApps',
+      title: 'Related Apps',
+      type: 'array',
+      of: [{type: 'reference', to: [{type: 'app'}]}],
+      description: 'Select which app(s) this blog post is related to. Posts will appear in the "Related Reading" section of selected apps.',
     }),
     defineField({
       name: 'body',
@@ -94,20 +115,6 @@ export default defineType({
       title: 'Last Updated',
       type: 'datetime',
       description: 'When this article was last significantly updated',
-    }),
-    defineField({
-      name: 'relatedApps',
-      title: 'Related Apps',
-      type: 'array',
-      of: [{type: 'string'}],
-      options: {
-        list: [
-          {title: 'PolaMoment', value: 'polamoment'},
-          {title: 'Shellist', value: 'shellist'},
-        ],
-        layout: 'tags',
-      },
-      description: 'Select which app(s) this blog post is related to. Posts will appear in the "Related Reading" section of selected apps.',
     }),
     defineField({
       name: 'seo',

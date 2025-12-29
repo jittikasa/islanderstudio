@@ -237,6 +237,16 @@ export default function BlogPost() {
 
             <h1 className="post-title">{post.title}</h1>
 
+            {post.tags && post.tags.length > 0 && (
+              <div className="post-tags">
+                {post.tags.map((tag, index) => (
+                  <span key={index} className="post-tag">
+                    #{tag}
+                  </span>
+                ))}
+              </div>
+            )}
+
             <div className="post-meta">
               <time dateTime={post.publishedAt}>
                 {formatDate(post.publishedAt)}

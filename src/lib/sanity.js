@@ -34,10 +34,12 @@ export async function getBlogPosts() {
     publishedAt,
     updatedAt,
     excerpt,
+    featured,
     readingTime,
     "authorName": author->name,
     "authorImage": author->image,
     "categories": categories[]->title,
+    "tags": tags[]->title,
     mainImage,
     body,
     seo
@@ -57,15 +59,17 @@ export async function getBlogPost(slug) {
     publishedAt,
     updatedAt,
     excerpt,
+    featured,
     readingTime,
     "authorName": author->name,
     "authorBio": author->bio,
     "authorImage": author->image,
     "categories": categories[]->title,
-    relatedApps,
+    "tags": tags[]->title,
+    "relatedApps": relatedApps[]->slug.current,
+    seo,
     mainImage,
-    body,
-    seo
+    body
   }`
 
   return await client.fetch(query, { slug })
@@ -81,6 +85,9 @@ export async function getRecentPosts(limit = 3) {
     slug,
     publishedAt,
     excerpt,
+    featured,
+    readingTime,
+    "tags": tags[]->title,
     mainImage
   }`
 
@@ -91,13 +98,16 @@ export async function getRecentPosts(limit = 3) {
 export async function getPostsByApp(appName, limit = 2) {
   checkSanityConfig()
 
-  const query = `*[_type == "post" && $appName in relatedApps] | order(publishedAt desc) [0...${limit}] {
+  const query = `*[_type == "post" && $appName in relatedApps[]->slug.current] | order(publishedAt desc) [0...${limit}] {
     _id,
     title,
     slug,
     publishedAt,
     excerpt,
+    featured,
+    readingTime,
     "categories": categories[]->title,
+    "tags": tags[]->title,
     mainImage
   }`
 
