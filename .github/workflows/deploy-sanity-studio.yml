@@ -1,0 +1,39 @@
+name: Deploy Sanity Studio
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'studio-islanderstudio/**'
+  workflow_dispatch: # Allows manual triggering
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: studio-islanderstudio/package-lock.json
+
+      - name: Install dependencies
+        working-directory: studio-islanderstudio
+        run: npm ci
+
+      - name: Build Sanity Studio
+        working-directory: studio-islanderstudio
+        run: npm run build
+
+      - name: Deploy to Sanity
+        working-directory: studio-islanderstudio
+        env:
+          SANITY_AUTH_TOKEN: ${{ secrets.SANITY_AUTH_TOKEN }}
+        run: |
+          echo "islanderstudio" | npx sanity deploy --no-build
