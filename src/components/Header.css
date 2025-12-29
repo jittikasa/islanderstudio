@@ -55,12 +55,8 @@
 }
 
 .header__logo-i {
-  display: inline-flex;
-  align-items: flex-start;
-  justify-content: center;
+  display: inline-block;
   position: relative;
-  width: 10px;
-  height: 24px;
   margin-right: -1px;
 }
 
@@ -75,7 +71,7 @@
   left: 50%;
   top: 0;
   transform: translateX(-50%);
-  height: 20px;
+  height: 1em;
   width: auto;
   opacity: 0;
   transition: opacity var(--duration-fast) var(--ease-out),
@@ -144,15 +140,6 @@
 @media (min-width: 768px) {
   .header__logo-text {
     font-size: 1.625rem;
-  }
-
-  .header__logo-i {
-    width: 11px;
-    height: 26px;
-  }
-
-  .header__logo-mark {
-    height: 22px;
   }
 
   .header__logo-dot {
