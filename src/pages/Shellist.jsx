@@ -93,7 +93,7 @@ export default function Shellist() {
           <div className="shellist__hero-text">
             <span className="shellist__label">Habit Tracking</span>
             <h1 className="shellist__title">
-              Shellist<span className="shellist__dot">.</span>
+              Shellist
             </h1>
             <p className="shellist__tagline">Build habits like pearls</p>
             <p className="shellist__description">
