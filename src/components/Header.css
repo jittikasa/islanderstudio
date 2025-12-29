@@ -73,9 +73,9 @@
 .header__logo-mark {
   position: absolute;
   left: 50%;
-  top: -2px;
+  top: 2px;
   transform: translateX(-50%);
-  height: 24px;
+  height: 20px;
   width: auto;
   opacity: 0;
   transition: opacity var(--duration-fast) var(--ease-out),
@@ -153,7 +153,8 @@
   }
 
   .header__logo-mark {
-    height: 26px;
+    height: 22px;
+    top: 3px;
   }
 
   .header__logo-dot {
