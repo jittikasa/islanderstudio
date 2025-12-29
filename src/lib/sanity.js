@@ -57,7 +57,7 @@ export async function getBlogPost(slug) {
     "authorBio": author->bio,
     "authorImage": author->image,
     "categories": categories[]->title,
-    relatedApps,
+    "relatedApps": relatedApps[]->slug.current,
     mainImage,
     body
   }`
@@ -85,7 +85,7 @@ export async function getRecentPosts(limit = 3) {
 export async function getPostsByApp(appName, limit = 2) {
   checkSanityConfig()
 
-  const query = `*[_type == "post" && $appName in relatedApps] | order(publishedAt desc) [0...${limit}] {
+  const query = `*[_type == "post" && $appName in relatedApps[]->slug.current] | order(publishedAt desc) [0...${limit}] {
     _id,
     title,
     slug,
