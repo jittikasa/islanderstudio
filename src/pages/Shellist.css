@@ -631,7 +631,7 @@
   padding: var(--space-16) 0;
   max-width: 100%;
   overflow: hidden;
-  background: var(--cream);
+  background: var(--white);
 }
 
 .shellist__showcase-image {
