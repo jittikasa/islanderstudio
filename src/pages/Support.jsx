@@ -6,24 +6,28 @@ import './LegalPage.css'
 
 const shellistFAQs = [
   {
-    question: 'Is Shellist really free?',
-    answer: 'Yes! Shellist is currently completely free with all features unlocked. There are no subscriptions, no in-app purchases, and no advertisements. We may introduce optional premium features in the future, but core habit tracking will always remain accessible.',
+    question: 'How much does Shellist cost?',
+    answer: 'Shellist is available for a one-time purchase of $2.99 USD. No subscriptions, no recurring fees, no ads—just pay once and own it forever. All features included, all future updates free.',
+  },
+  {
+    question: 'What makes Shellist worth it?',
+    answer: 'Shellist transforms habit tracking into a visual journey with unique pearl chain visualizations, comprehensive analytics, vision boards, and beautiful widgets. Unlike free apps cluttered with ads and paywalls, you get the complete experience upfront—designed to actually help you build lasting habits.',
   },
   {
     question: 'How is my data stored?',
-    answer: "All your habit data is stored locally on your device using Apple's Core Data framework. If you enable iCloud in your device settings, your data will sync across your personal Apple devices using Apple's encrypted CloudKit infrastructure. We never have access to your data.",
+    answer: "All your habit data stays on your device using Apple's Core Data. Enable iCloud in settings to sync across your Apple devices. Your data belongs to you—we never see it, never sell it, never use it for ads.",
   },
   {
     question: 'Can I export my habit data?',
-    answer: 'Absolutely! You can export all your habits and completion history as CSV or PDF files at any time from the Profile tab. Your data is yours—we make it easy to take it with you or back it up.',
+    answer: 'Yes! Export all your habits and completion history as CSV or PDF files anytime from the Profile tab. Your data is yours—take it with you or back it up whenever you want.',
   },
   {
     question: 'What iOS version do I need?',
-    answer: 'Shellist requires iOS 17.0 or later. This allows us to use the latest Apple technologies to deliver the best possible experience with smooth animations, widgets, and reliable performance.',
+    answer: 'Shellist requires iOS 17.0 or later. This lets us deliver smooth animations, beautiful widgets, and reliable performance using Apple's latest technologies.',
   },
   {
     question: 'Can I use Shellist offline?',
-    answer: "Yes! Shellist works entirely offline. All features are available without an internet connection. iCloud sync (if enabled) happens automatically in the background when you're connected.",
+    answer: "Absolutely! Shellist works entirely offline. All features available without internet. iCloud sync (if enabled) happens automatically in the background when you're connected.",
   },
 ]
 
