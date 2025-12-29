@@ -227,86 +227,10 @@
 
 .home__postcard-wrapper {
   width: 100%;
-  max-width: 400px;
+  max-width: 300px;
   margin-bottom: var(--space-6);
   animation: fadeInUp 0.5s var(--ease-out) 0.45s backwards;
   position: relative;
-  display: block;
-  text-decoration: none;
-  cursor: pointer;
-  transition: all 0.3s var(--ease-spring);
-}
-
-.home__postcard-wrapper:hover {
-  transform: translateY(-4px);
-}
-
-.home__postcard-wrapper:hover .home__postcard-border {
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
-}
-
-.home__postcard-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(226, 132, 99, 0.95) 0%, rgba(255, 193, 7, 0.95) 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  transition: opacity 0.3s var(--ease-out);
-  z-index: 20;
-  border-radius: var(--radius-sm);
-  pointer-events: none;
-}
-
-.home__postcard-wrapper:hover .home__postcard-overlay {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.home__postcard-cta {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-2);
-  padding: var(--space-6);
-  background: var(--white);
-  border: 3px solid var(--midnight-sky);
-  border-radius: var(--radius-lg);
-  box-shadow: 4px 4px 0 var(--midnight-sky);
-  transform: scale(0.9);
-  transition: transform 0.3s var(--ease-spring);
-}
-
-.home__postcard-wrapper:hover .home__postcard-cta {
-  transform: scale(1);
-}
-
-.home__postcard-cta-icon {
-  font-size: 2.5rem;
-  line-height: 1;
-  animation: sparkle 1.5s ease-in-out infinite;
-}
-
-@keyframes sparkle {
-  0%, 100% {
-    transform: rotate(0deg) scale(1);
-  }
-  25% {
-    transform: rotate(-10deg) scale(1.1);
-  }
-  75% {
-    transform: rotate(10deg) scale(1.1);
-  }
-}
-
-.home__postcard-cta-text {
-  font-family: var(--font-display);
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: var(--midnight-sky);
-  text-align: center;
-  line-height: 1.2;
 }
 
 /* Striped Border Frame */
@@ -839,6 +763,112 @@
   width: 88%;
 }
 
+/* Placed Stamps on Postcard */
+.home__postcard-stamp-placed {
+  position: absolute;
+  cursor: pointer;
+  z-index: 15;
+  transition: filter 0.2s ease;
+  pointer-events: auto;
+}
+
+.home__postcard-stamp-placed img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  pointer-events: none;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.2));
+}
+
+.home__postcard-stamp-placed:hover {
+  filter: brightness(1.1);
+  z-index: 20;
+}
+
+.home__postcard-stamp-placed.selected {
+  filter: drop-shadow(0 0 0 3px var(--golden-hour));
+  z-index: 25;
+}
+
+/* Drop Hint */
+.home__postcard-hint {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  animation: hintPulse 2s ease-in-out infinite;
+}
+
+@keyframes hintPulse {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+.home__postcard-hint span {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--stone);
+  background: rgba(255, 255, 255, 0.95);
+  padding: var(--space-3) var(--space-4);
+  border: 2px dashed var(--cloud);
+  border-radius: var(--radius-md);
+  text-align: center;
+}
+
+/* Postcard Controls */
+.home__postcard-controls {
+  display: flex;
+  gap: var(--space-2);
+  justify-content: center;
+  margin-top: var(--space-4);
+  padding: var(--space-3);
+  background: var(--sea-salt);
+  border: 2px solid var(--cloud);
+  border-radius: var(--radius-md);
+  animation: fadeInUp 0.3s var(--ease-out);
+}
+
+.home__postcard-controls button {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 2px solid var(--midnight-sky);
+  background: var(--white);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--midnight-sky);
+  transition: all 0.2s var(--ease-spring);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.home__postcard-controls button:hover {
+  background: var(--sunset-glow);
+  color: var(--white);
+  transform: translateY(-2px);
+}
+
+.home__postcard-controls button.delete {
+  background: #FF6B6B;
+  color: var(--white);
+  border-color: #FF5252;
+}
+
+.home__postcard-controls button.delete:hover {
+  background: #FF5252;
+}
+
 /* ============================================
    APP COLLECTION (STAMPS)
    ============================================ */
@@ -1256,6 +1286,8 @@
   .home__postcard,
   .home__postcard-sun,
   .home__postcard-sun::before,
+  .home__postcard-hint,
+  .home__postcard-controls,
   .home__stamp,
   .home__stamp-icon,
   .home__stamp-arrow span,
@@ -1263,6 +1295,10 @@
   .home__contact-action {
     animation: none !important;
     transition: none !important;
+  }
+
+  .home__postcard-hint {
+    opacity: 0.5;
   }
 
   .home--loaded {

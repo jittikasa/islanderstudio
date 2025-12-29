@@ -14,7 +14,10 @@ export default function Home() {
     { id: 4, src: '/branding/Graphics/shell.png', x: 92, y: 75, rotation: 20, scale: 0.85 },
   ])
   const [dragging, setDragging] = useState(null)
+  const [postcardStamps, setPostcardStamps] = useState([])
+  const [selectedStamp, setSelectedStamp] = useState(null)
   const containerRef = useRef(null)
+  const postcardRef = useRef(null)
 
   useEffect(() => {
     setLoaded(true)
@@ -23,26 +26,80 @@ export default function Home() {
   // Handle sticker drag
   const handleStickerMouseDown = useCallback((e, stickerId) => {
     e.preventDefault()
-    setDragging(stickerId)
-  }, [])
+    const sticker = stickers.find(s => s.id === stickerId)
+    setDragging({ type: 'sticker', id: stickerId, sticker })
+  }, [stickers])
 
   const handleMouseMove = useCallback((e) => {
-    if (dragging && containerRef.current) {
+    if (dragging && dragging.type === 'sticker' && containerRef.current) {
       const rect = containerRef.current.getBoundingClientRect()
       const x = ((e.clientX - rect.left) / rect.width) * 100
       const y = ((e.clientY - rect.top) / rect.height) * 100
 
       setStickers(prev => prev.map(s =>
-        s.id === dragging
+        s.id === dragging.id
           ? { ...s, x: Math.max(0, Math.min(95, x)), y: Math.max(0, Math.min(90, y)) }
           : s
       ))
     }
   }, [dragging])
 
-  const handleMouseUp = useCallback(() => {
+  const handleMouseUp = useCallback((e) => {
+    if (dragging && dragging.type === 'sticker' && postcardRef.current) {
+      const postcardRect = postcardRef.current.getBoundingClientRect()
+      const isOverPostcard =
+        e.clientX >= postcardRect.left &&
+        e.clientX <= postcardRect.right &&
+        e.clientY >= postcardRect.top &&
+        e.clientY <= postcardRect.bottom
+
+      if (isOverPostcard) {
+        const x = ((e.clientX - postcardRect.left) / postcardRect.width) * 100
+        const y = ((e.clientY - postcardRect.top) / postcardRect.height) * 100
+
+        const newStamp = {
+          uniqueId: `stamp-${Date.now()}`,
+          src: dragging.sticker.src,
+          x: Math.max(0, Math.min(90, x)),
+          y: Math.max(0, Math.min(90, y)),
+          rotation: Math.random() * 30 - 15,
+          scale: 0.4,
+        }
+
+        setPostcardStamps(prev => [...prev, newStamp])
+      }
+    }
     setDragging(null)
-  }, [])
+  }, [dragging])
+
+  const handleStampClick = (e, uniqueId) => {
+    e.stopPropagation()
+    setSelectedStamp(uniqueId)
+  }
+
+  const handleRotateStamp = (direction) => {
+    if (!selectedStamp) return
+    setPostcardStamps(prev => prev.map(stamp =>
+      stamp.uniqueId === selectedStamp
+        ? { ...stamp, rotation: stamp.rotation + (direction === 'left' ? -15 : 15) }
+        : stamp
+    ))
+  }
+
+  const handleScaleStamp = (direction) => {
+    if (!selectedStamp) return
+    setPostcardStamps(prev => prev.map(stamp =>
+      stamp.uniqueId === selectedStamp
+        ? { ...stamp, scale: Math.max(0.2, Math.min(1, stamp.scale + (direction === 'up' ? 0.1 : -0.1))) }
+        : stamp
+    ))
+  }
+
+  const handleDeleteStamp = () => {
+    if (!selectedStamp) return
+    setPostcardStamps(prev => prev.filter(stamp => stamp.uniqueId !== selectedStamp))
+    setSelectedStamp(null)
+  }
 
   useEffect(() => {
     if (dragging) {
@@ -158,17 +215,23 @@ export default function Home() {
           </div>
 
           <div className="home__hero-meta">
-            {/* Postcard Illustration */}
-            <Link to="/postcard-studio" className="home__postcard-wrapper">
-              <div className="home__postcard-overlay">
-                <span className="home__postcard-cta">
-                  <span className="home__postcard-cta-icon">✨</span>
-                  <span className="home__postcard-cta-text">Create Your Own!</span>
-                </span>
-              </div>
-              {/* Striped Border Frame */}
+            <div className="home__hero-stat">
+              <span className="home__hero-stat-value">02</span>
+              <span className="home__hero-stat-label">Apps</span>
+            </div>
+            <div className="home__hero-stat">
+              <span className="home__hero-stat-value">TH</span>
+              <span className="home__hero-stat-label">Phuket</span>
+            </div>
+            <div className="home__hero-stat">
+              <span className="home__hero-stat-value">25</span>
+              <span className="home__hero-stat-label">Year</span>
+            </div>
+
+            {/* Interactive Postcard */}
+            <div className="home__postcard-wrapper">
               <div className="home__postcard-border">
-                <div className="home__postcard">
+                <div className="home__postcard" ref={postcardRef} onClick={() => setSelectedStamp(null)}>
                   {/* Twine String */}
                   <div className="home__postcard-twine">
                     <div className="home__postcard-twine-vertical"></div>
@@ -182,23 +245,21 @@ export default function Home() {
                   {/* Postmark Stamp */}
                   <div className="home__postcard-postmark">
                     <div className="home__postcard-postmark-circle">
-                      <div className="home__postcard-postmark-star">★</div>
-                      <div className="home__postcard-postmark-text">POST</div>
-                      <div className="home__postcard-postmark-text home__postcard-postmark-text--bottom">DES 01</div>
-                    </div>
-                    <div className="home__postcard-postmark-waves">
-                      <svg width="75" height="24" viewBox="0 0 75 24" fill="none">
-                        <path d="M0 5 Q3.5 1, 7 5 T14 5 T21 5 T28 5 T35 5 T42 5 T49 5 T56 5 T63 5 T70 5 T75 5" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round"/>
-                        <path d="M0 10 Q3.5 6, 7 10 T14 10 T21 10 T28 10 T35 10 T42 10 T49 10 T56 10 T63 10 T70 10 T75 10" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round"/>
-                        <path d="M0 15 Q3.5 11, 7 15 T14 15 T21 15 T28 15 T35 15 T42 15 T49 15 T56 15 T63 15 T70 15 T75 15" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round"/>
-                        <path d="M0 20 Q3.5 16, 7 20 T14 20 T21 20 T28 20 T35 20 T42 20 T49 20 T56 20 T63 20 T70 20 T75 20" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round"/>
-                      </svg>
+                      <span className="home__postcard-postmark-star">★</span>
+                      <span className="home__postcard-postmark-text">POST</span>
+                      <span className="home__postcard-postmark-text home__postcard-postmark-text--bottom">DEC 01</span>
                     </div>
                   </div>
 
+                  <svg className="home__postcard-postmark-waves" viewBox="0 0 75 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0 12 Q 3 8, 6 12 T 12 12 T 18 12 T 24 12 T 30 12 T 36 12 T 42 12 T 48 12 T 54 12 T 60 12 T 66 12 T 72 12" stroke="currentColor" strokeWidth="1.5" fill="none"/>
+                    <path d="M0 18 Q 3 14, 6 18 T 12 18 T 18 18 T 24 18 T 30 18 T 36 18 T 42 18 T 48 18 T 54 18 T 60 18 T 66 18 T 72 18" stroke="currentColor" strokeWidth="1.5" fill="none"/>
+                  </svg>
+
+                  {/* Postcard Content */}
                   <div className="home__postcard-content">
+                    {/* Left Side - Landscape Scene */}
                     <div className="home__postcard-left">
-                      {/* Landscape Scene */}
                       <div className="home__postcard-sky"></div>
                       <div className="home__postcard-sun"></div>
                       <div className="home__postcard-hills">
@@ -207,6 +268,8 @@ export default function Home() {
                         <div className="home__postcard-hill home__postcard-hill--3"></div>
                       </div>
                     </div>
+
+                    {/* Right Side - Address */}
                     <div className="home__postcard-right">
                       {/* Rabbit Stamp */}
                       <div className="home__postcard-stamp-rabbit">
@@ -223,7 +286,7 @@ export default function Home() {
                         </div>
                       </div>
 
-                      {/* "To :" Label and Address Lines */}
+                      {/* Address Section */}
                       <div className="home__postcard-address">
                         <div className="home__postcard-to">To :</div>
                         <div className="home__postcard-lines">
@@ -233,21 +296,42 @@ export default function Home() {
                       </div>
                     </div>
                   </div>
+
+                  {/* Placed Stamps */}
+                  {postcardStamps.map(stamp => (
+                    <div
+                      key={stamp.uniqueId}
+                      className={`home__postcard-stamp-placed ${selectedStamp === stamp.uniqueId ? 'selected' : ''}`}
+                      style={{
+                        left: `${stamp.x}%`,
+                        top: `${stamp.y}%`,
+                        transform: `translate(-50%, -50%) rotate(${stamp.rotation}deg) scale(${stamp.scale})`,
+                      }}
+                      onClick={(e) => handleStampClick(e, stamp.uniqueId)}
+                    >
+                      <img src={stamp.src} alt="stamp" draggable={false} />
+                    </div>
+                  ))}
+
+                  {/* Drop Hint */}
+                  {postcardStamps.length === 0 && (
+                    <div className="home__postcard-hint">
+                      <span>Drag stickers here!</span>
+                    </div>
+                  )}
                 </div>
               </div>
-            </Link>
 
-            <div className="home__hero-stat">
-              <span className="home__hero-stat-value">02</span>
-              <span className="home__hero-stat-label">Apps</span>
-            </div>
-            <div className="home__hero-stat">
-              <span className="home__hero-stat-value">TH</span>
-              <span className="home__hero-stat-label">Phuket</span>
-            </div>
-            <div className="home__hero-stat">
-              <span className="home__hero-stat-value">25</span>
-              <span className="home__hero-stat-label">Year</span>
+              {/* Controls */}
+              {selectedStamp && (
+                <div className="home__postcard-controls">
+                  <button onClick={() => handleRotateStamp('left')} title="Rotate Left">↶</button>
+                  <button onClick={() => handleRotateStamp('right')} title="Rotate Right">↷</button>
+                  <button onClick={() => handleScaleStamp('up')} title="Scale Up">+</button>
+                  <button onClick={() => handleScaleStamp('down')} title="Scale Down">−</button>
+                  <button className="delete" onClick={handleDeleteStamp} title="Delete">✕</button>
+                </div>
+              )}
             </div>
           </div>
         </section>
