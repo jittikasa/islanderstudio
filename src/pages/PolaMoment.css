@@ -111,6 +111,8 @@
 .pola__camera {
   width: 100%;
   height: auto;
+  opacity: 0;
+  animation: fadeIn 0.3s ease-out 0.1s forwards;
 }
 
 /* Polaroids */
@@ -121,6 +123,8 @@
   transform: translateX(-45%);
   width: 42%;
   pointer-events: none;
+  opacity: 0;
+  animation: fadeIn 0.3s ease-out 0.4s forwards;
 }
 
 .pola__polaroid {
@@ -161,7 +165,16 @@
     transform: translateY(60px) rotate(-2deg);
   }
   50% {
-    transform: translateY(80px) rotate(2deg);
+    transform: translateY(130px) rotate(2deg);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 
