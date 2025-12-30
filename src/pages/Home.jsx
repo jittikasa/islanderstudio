@@ -219,6 +219,12 @@ export default function Home() {
                     </div>
                   </div>
 
+                  {/* Center Decorative Elements */}
+                  <div className="home__postcard-decorative">
+                    <div className="home__postcard-decorative-shape"></div>
+                    <div className="home__postcard-decorative-shape"></div>
+                  </div>
+
                   {/* Address Section */}
                   <div className="home__postcard-address">
                     <div className="home__postcard-to">To :</div>
