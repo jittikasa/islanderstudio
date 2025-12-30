@@ -658,41 +658,6 @@
   width: 88%;
 }
 
-/* Center Decorative Elements */
-.home__postcard-decorative {
-  position: absolute;
-  left: 40%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  z-index: 5;
-}
-
-.home__postcard-decorative-shape {
-  width: 24px;
-  height: 32px;
-  background: linear-gradient(135deg, #8B7355 0%, #A0866F 50%, #6B5844 100%);
-  border-radius: 50% 50% 50% 50% / 45% 45% 55% 55%;
-  box-shadow:
-    0 3px 8px rgba(0, 0, 0, 0.25),
-    inset -2px -2px 4px rgba(107, 88, 68, 0.4),
-    inset 2px 2px 4px rgba(160, 134, 111, 0.3);
-  position: relative;
-}
-
-.home__postcard-decorative-shape::after {
-  content: '';
-  position: absolute;
-  top: 25%;
-  left: 25%;
-  right: 25%;
-  bottom: 25%;
-  background: radial-gradient(circle at 30% 30%, rgba(160, 134, 111, 0.5), transparent);
-  border-radius: 50%;
-}
-
 /* Placed Stamps on Postcard */
 .home__postcard-stamp-placed {
   position: absolute;
