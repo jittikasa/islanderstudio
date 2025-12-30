@@ -260,7 +260,6 @@
       #F5D06C 40px
     );
   z-index: 0;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
   transform: rotate(5deg);
   transition: transform 0.3s ease;
 }
@@ -278,7 +277,6 @@
     );
   position: relative;
   z-index: 1;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease;
 }
 
