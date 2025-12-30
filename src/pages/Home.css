@@ -260,6 +260,7 @@
       #F5D06C 40px
     );
   z-index: 0;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
   transform: rotate(5deg);
   transition: transform 0.3s ease;
 }
@@ -277,6 +278,7 @@
     );
   position: relative;
   z-index: 1;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease;
 }
 
@@ -410,9 +412,6 @@
   background: #E28463;
   border: 2px solid var(--midnight-sky);
   position: relative;
-  box-shadow:
-    0 4px 12px rgba(0, 0, 0, 0.2),
-    inset 0 0 0 1px rgba(0, 0, 0, 0.05);
 }
 
 /* Perforated edges - top */
@@ -452,14 +451,12 @@
   align-items: center;
   justify-content: center;
   position: relative;
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .home__postcard-stamp-inner img {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
 }
 
 /* Address Section */
