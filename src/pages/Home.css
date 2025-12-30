@@ -356,8 +356,7 @@
   justify-content: center;
   gap: 1px;
   position: relative;
-  background: rgba(251, 248, 243, 0.6);
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  background: transparent;
 }
 
 .home__postcard-postmark-circle::before {
@@ -392,10 +391,10 @@
 
 .home__postcard-postmark-waves {
   position: absolute;
-  top: 22px;
-  left: 72px;
-  width: 75px;
-  height: 24px;
+  top: 28px;
+  left: -65px;
+  width: 80px;
+  height: 40px;
   color: #A67C52;
   opacity: 0.85;
 }
@@ -444,7 +443,7 @@
 
 .home__postcard-stamp-inner {
   width: 70px;
-  height: 70px;
+  height: 90px;
   background: var(--white);
   padding: 12px;
   display: flex;
