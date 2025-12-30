@@ -230,7 +230,7 @@
 
 .home__postcard-wrapper {
   width: 100%;
-  max-width: 750px;
+  max-width: 700px;
   animation: fadeInUp 0.5s var(--ease-out) 0.45s backwards;
   position: relative;
   transition: transform 0.3s ease;
@@ -254,10 +254,10 @@
   background:
     repeating-linear-gradient(
       45deg,
-      #2C4A5A 0px,
-      #2C4A5A 20px,
-      #4A6B7C 20px,
-      #4A6B7C 40px
+      #FDDE86 0px,
+      #FDDE86 20px,
+      #F5D06C 20px,
+      #F5D06C 40px
     );
   z-index: 0;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
@@ -283,7 +283,7 @@
 }
 
 .home__postcard {
-  background: #FBF8F3;
+  background: #FFFFFF;
   position: relative;
   aspect-ratio: 3 / 2;
   padding: var(--space-6);
