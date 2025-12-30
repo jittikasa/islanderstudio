@@ -334,54 +334,6 @@
   );
 }
 
-.home__postcard-twine-bow {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 55px;
-  height: 40px;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
-}
-
-.home__postcard-twine-bow-left,
-.home__postcard-twine-bow-right {
-  position: absolute;
-  width: 24px;
-  height: 24px;
-  background: linear-gradient(135deg, #8B7355 0%, #A0866F 50%, #8B7355 100%);
-  border-radius: 50% 0 50% 50%;
-  top: 8px;
-  box-shadow:
-    inset -1px -1px 2px rgba(0, 0, 0, 0.2),
-    1px 1px 2px rgba(255, 255, 255, 0.2);
-}
-
-.home__postcard-twine-bow-left {
-  left: -4px;
-  transform: rotate(-45deg);
-}
-
-.home__postcard-twine-bow-right {
-  right: -4px;
-  transform: rotate(135deg);
-}
-
-.home__postcard-twine-bow-knot {
-  position: absolute;
-  width: 12px;
-  height: 12px;
-  background: radial-gradient(circle at 30% 30%, #A0866F, #8B7355);
-  border-radius: 50%;
-  top: 14px;
-  left: 50%;
-  transform: translateX(-50%);
-  box-shadow:
-    0 2px 4px rgba(0, 0, 0, 0.4),
-    inset -1px -1px 2px rgba(0, 0, 0, 0.2),
-    inset 1px 1px 1px rgba(255, 255, 255, 0.3);
-}
-
 /* Postmark Stamp */
 .home__postcard-postmark {
   position: absolute;
@@ -448,8 +400,8 @@
   opacity: 0.85;
 }
 
-/* Rabbit Stamp */
-.home__postcard-stamp-rabbit {
+/* Coconut Tree Stamp */
+.home__postcard-stamp {
   position: absolute;
   top: var(--space-4);
   right: var(--space-6);
@@ -458,152 +410,58 @@
 
 .home__postcard-stamp-perforated {
   background: #E28463;
-  padding: 12px;
+  border: 2px solid var(--midnight-sky);
   position: relative;
   box-shadow:
     0 4px 12px rgba(0, 0, 0, 0.2),
-    inset 0 0 0 1px rgba(0, 0, 0, 0.1);
-
-  /* Perforations on all sides using box-shadow technique */
-  --perforation-size: 3px;
-  --perforation-spacing: 8px;
-
-  /* Top edge perforations */
-  background-image:
-    radial-gradient(circle at center, #FBF8F3 var(--perforation-size), transparent var(--perforation-size)),
-    radial-gradient(circle at center, #FBF8F3 var(--perforation-size), transparent var(--perforation-size)),
-    radial-gradient(circle at center, #FBF8F3 var(--perforation-size), transparent var(--perforation-size)),
-    radial-gradient(circle at center, #FBF8F3 var(--perforation-size), transparent var(--perforation-size));
-  background-size:
-    var(--perforation-spacing) var(--perforation-spacing),
-    var(--perforation-spacing) var(--perforation-spacing),
-    var(--perforation-spacing) var(--perforation-spacing),
-    var(--perforation-spacing) var(--perforation-spacing);
-  background-position:
-    4px 0,
-    0 4px,
-    4px 100%,
-    100% 4px;
-  background-repeat:
-    repeat-x,
-    repeat-y,
-    repeat-x,
-    repeat-y;
+    inset 0 0 0 1px rgba(0, 0, 0, 0.05);
 }
 
-.home__postcard-rabbit {
-  width: 60px;
-  height: 68px;
-  background: linear-gradient(135deg, #FBF8F3 0%, #F5EFE6 100%);
-  padding: 8px;
+/* Perforated edges - top */
+.home__postcard-stamp-perforated::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -4px;
+  height: 8px;
+  background: radial-gradient(circle at center, var(--cream) 3px, transparent 3px);
+  background-size: 12px 8px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Perforated edges - bottom */
+.home__postcard-stamp-perforated::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;
+  height: 8px;
+  background: radial-gradient(circle at center, var(--cream) 3px, transparent 3px);
+  background-size: 12px 8px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.home__postcard-stamp-inner {
+  width: 70px;
+  height: 70px;
+  background: var(--white);
+  padding: 12px;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
   position: relative;
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
-/* Rabbit Ears */
-.home__postcard-rabbit-ear {
-  position: absolute;
-  width: 11px;
-  height: 22px;
-  background: linear-gradient(to bottom, #F5B5B5 0%, #E5A5A5 50%, #D98B8B 100%);
-  border-radius: 50% 50% 30% 30%;
-  top: 0px;
-  box-shadow:
-    inset -1px -1px 2px rgba(0, 0, 0, 0.1),
-    0 1px 2px rgba(0, 0, 0, 0.1);
-}
-
-.home__postcard-rabbit-ear::before {
-  content: '';
-  position: absolute;
-  top: 3px;
-  left: 2px;
-  right: 2px;
-  bottom: 5px;
-  background: linear-gradient(to bottom, #FFD5D5 0%, #F5B5B5 100%);
-  border-radius: 50% 50% 20% 20%;
-}
-
-.home__postcard-rabbit-ear--left {
-  left: 12px;
-  transform: rotate(-15deg);
-}
-
-.home__postcard-rabbit-ear--right {
-  right: 12px;
-  transform: rotate(15deg);
-}
-
-/* Rabbit Head */
-.home__postcard-rabbit-head {
-  width: 30px;
-  height: 35px;
-  background: linear-gradient(135deg, #FFD5D5 0%, #F5B5B5 50%, #E5A5A5 100%);
-  border-radius: 45% 45% 50% 50%;
-  position: relative;
-  margin-top: 12px;
-  box-shadow:
-    0 2px 4px rgba(0, 0, 0, 0.1),
-    inset -2px -2px 4px rgba(229, 165, 165, 0.4),
-    inset 2px 2px 4px rgba(255, 255, 255, 0.6);
-}
-
-/* Rabbit Eyes */
-.home__postcard-rabbit-eye {
-  position: absolute;
-  width: 4px;
-  height: 4px;
-  background: radial-gradient(circle, #3A2A2A 0%, #5A4A4A 100%);
-  border-radius: 50%;
-  top: 13px;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-}
-
-.home__postcard-rabbit-eye::before {
-  content: '';
-  position: absolute;
-  top: 1px;
-  left: 1px;
-  width: 1.5px;
-  height: 1.5px;
-  background: rgba(255, 255, 255, 0.6);
-  border-radius: 50%;
-}
-
-.home__postcard-rabbit-eye--left {
-  left: 8px;
-}
-
-.home__postcard-rabbit-eye--right {
-  right: 8px;
-}
-
-/* Rabbit Nose */
-.home__postcard-rabbit-nose {
-  position: absolute;
-  width: 5px;
-  height: 4px;
-  background: linear-gradient(to bottom, #E58B8B 0%, #D98B8B 100%);
-  border-radius: 0 0 50% 50%;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
-}
-
-.home__postcard-rabbit-nose::after {
-  content: '';
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 1px;
-  height: 4px;
-  background: rgba(217, 139, 139, 0.5);
+.home__postcard-stamp-inner img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
 }
 
 /* Address Section */

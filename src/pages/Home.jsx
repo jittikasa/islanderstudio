@@ -183,11 +183,6 @@ export default function Home() {
                   {/* Twine String */}
                   <div className="home__postcard-twine">
                     <div className="home__postcard-twine-vertical"></div>
-                    <div className="home__postcard-twine-bow">
-                      <div className="home__postcard-twine-bow-left"></div>
-                      <div className="home__postcard-twine-bow-right"></div>
-                      <div className="home__postcard-twine-bow-knot"></div>
-                    </div>
                   </div>
 
                   {/* Postmark Stamp */}
@@ -204,17 +199,11 @@ export default function Home() {
                     <path d="M0 18 Q 3 14, 6 18 T 12 18 T 18 18 T 24 18 T 30 18 T 36 18 T 42 18 T 48 18 T 54 18 T 60 18 T 66 18 T 72 18" stroke="currentColor" strokeWidth="1.5" fill="none"/>
                   </svg>
 
-                  {/* Rabbit Stamp */}
-                  <div className="home__postcard-stamp-rabbit">
+                  {/* Coconut Tree Stamp */}
+                  <div className="home__postcard-stamp">
                     <div className="home__postcard-stamp-perforated">
-                      <div className="home__postcard-rabbit">
-                        <div className="home__postcard-rabbit-ear home__postcard-rabbit-ear--left"></div>
-                        <div className="home__postcard-rabbit-ear home__postcard-rabbit-ear--right"></div>
-                        <div className="home__postcard-rabbit-head">
-                          <div className="home__postcard-rabbit-eye home__postcard-rabbit-eye--left"></div>
-                          <div className="home__postcard-rabbit-eye home__postcard-rabbit-eye--right"></div>
-                          <div className="home__postcard-rabbit-nose"></div>
-                        </div>
+                      <div className="home__postcard-stamp-inner">
+                        <img src="/branding/Graphics/coconuttree.png" alt="Coconut Tree" />
                       </div>
                     </div>
                   </div>
