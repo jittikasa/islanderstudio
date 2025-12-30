@@ -183,11 +183,6 @@ export default function Home() {
                   {/* Twine String */}
                   <div className="home__postcard-twine">
                     <div className="home__postcard-twine-vertical"></div>
-                    <div className="home__postcard-twine-bow">
-                      <div className="home__postcard-twine-bow-left"></div>
-                      <div className="home__postcard-twine-bow-right"></div>
-                      <div className="home__postcard-twine-bow-knot"></div>
-                    </div>
                   </div>
 
                   {/* Postmark Stamp */}
