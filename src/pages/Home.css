@@ -458,29 +458,37 @@
 
 .home__postcard-stamp-perforated {
   background: #E28463;
-  padding: 10px;
+  padding: 12px;
   position: relative;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-}
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.2),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.1);
 
-.home__postcard-stamp-perforated::before,
-.home__postcard-stamp-perforated::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  height: 5px;
-  background-image: radial-gradient(circle, #FBF8F3 2px, transparent 2px);
-  background-size: 8px 8px;
-  background-position: 4px 0;
-}
+  /* Perforations on all sides using box-shadow technique */
+  --perforation-size: 3px;
+  --perforation-spacing: 8px;
 
-.home__postcard-stamp-perforated::before {
-  top: 0;
-}
-
-.home__postcard-stamp-perforated::after {
-  bottom: 0;
+  /* Top edge perforations */
+  background-image:
+    radial-gradient(circle at center, #FBF8F3 var(--perforation-size), transparent var(--perforation-size)),
+    radial-gradient(circle at center, #FBF8F3 var(--perforation-size), transparent var(--perforation-size)),
+    radial-gradient(circle at center, #FBF8F3 var(--perforation-size), transparent var(--perforation-size)),
+    radial-gradient(circle at center, #FBF8F3 var(--perforation-size), transparent var(--perforation-size));
+  background-size:
+    var(--perforation-spacing) var(--perforation-spacing),
+    var(--perforation-spacing) var(--perforation-spacing),
+    var(--perforation-spacing) var(--perforation-spacing),
+    var(--perforation-spacing) var(--perforation-spacing);
+  background-position:
+    4px 0,
+    0 4px,
+    4px 100%,
+    100% 4px;
+  background-repeat:
+    repeat-x,
+    repeat-y,
+    repeat-x,
+    repeat-y;
 }
 
 .home__postcard-rabbit {
@@ -648,49 +656,6 @@
 
 .home__postcard-line:nth-child(2) {
   width: 88%;
-}
-
-/* Bow Tie Decoration */
-.home__postcard-bowtie {
-  position: absolute;
-  left: calc(50% - 60px);
-  top: 50%;
-  transform: translateY(-50%);
-  display: flex;
-  align-items: center;
-  gap: 0;
-  z-index: 5;
-}
-
-.home__postcard-bowtie-left,
-.home__postcard-bowtie-right {
-  width: 0;
-  height: 0;
-  border-top: 18px solid transparent;
-  border-bottom: 18px solid transparent;
-}
-
-.home__postcard-bowtie-left {
-  border-right: 32px solid #8B7355;
-  filter: drop-shadow(-2px 0 3px rgba(0, 0, 0, 0.2));
-}
-
-.home__postcard-bowtie-right {
-  border-left: 32px solid #8B7355;
-  filter: drop-shadow(2px 0 3px rgba(0, 0, 0, 0.2));
-}
-
-.home__postcard-bowtie-center {
-  width: 16px;
-  height: 24px;
-  background: linear-gradient(135deg, #6B5844 0%, #8B7355 50%, #A0866F 100%);
-  border-radius: 3px;
-  box-shadow:
-    0 2px 4px rgba(0, 0, 0, 0.2),
-    inset -1px -1px 2px rgba(0, 0, 0, 0.3),
-    inset 1px 1px 2px rgba(255, 255, 255, 0.2);
-  position: relative;
-  z-index: 1;
 }
 
 /* Placed Stamps on Postcard */
