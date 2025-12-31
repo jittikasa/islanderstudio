@@ -118,6 +118,8 @@
   height: auto;
   opacity: 0;
   animation: fadeIn 0.3s ease-out 0.1s forwards;
+  position: relative;
+  z-index: 1;
 }
 
 /* Polaroids */
@@ -130,6 +132,7 @@
   pointer-events: none;
   opacity: 0;
   animation: fadeIn 0.3s ease-out 0.5s forwards;
+  z-index: 10;
 }
 
 .pola__polaroid {
