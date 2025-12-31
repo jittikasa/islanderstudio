@@ -188,6 +188,7 @@
   gap: var(--space-8);
   margin-top: var(--space-12);
   animation: fadeInUp 0.5s var(--ease-out) 0.5s backwards;
+  position: relative;
 }
 
 @media (min-width: 768px) {
@@ -196,7 +197,7 @@
     flex-direction: column;
     gap: var(--space-6);
     width: 100%;
-    max-width: 750px;
+    max-width: 700px;
     align-items: flex-end;
   }
 }
@@ -205,6 +206,26 @@
   display: flex;
   flex-direction: column;
   gap: 2px;
+}
+
+@media (min-width: 768px) {
+  .home__hero-stat {
+    position: fixed;
+    right: var(--space-10);
+    z-index: 50;
+  }
+
+  .home__hero-stat:nth-child(1) {
+    top: 120px;
+  }
+
+  .home__hero-stat:nth-child(2) {
+    top: 190px;
+  }
+
+  .home__hero-stat:nth-child(3) {
+    top: 260px;
+  }
 }
 
 .home__hero-stat-value {
