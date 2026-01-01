@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { getPostsByApp, urlFor } from '../lib/sanity'
+import { getPostsByApp, urlFor } from '../lib/api'
 import SEO, { StructuredData, shellistAppSchema } from '../components/SEO'
 import './Shellist.css'
 

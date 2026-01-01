@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import SEO from '../components/SEO'
 import LoadingSpinner from '../components/LoadingSpinner'
-import { getBlogPosts, urlFor } from '../lib/sanity'
+import { getBlogPosts, urlFor } from '../lib/api'
 import './Blog.css'
 
 export default function Blog() {
@@ -17,7 +17,7 @@ export default function Blog() {
         setPosts(data)
       } catch (err) {
         console.error('Error fetching blog posts:', err)
-        setError('Unable to load blog posts. Please check your Sanity configuration.')
+        setError('Unable to load blog posts. Please try again later.')
       } finally {
         setLoading(false)
       }

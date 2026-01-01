@@ -3,7 +3,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom'
 import { ArrowLeft } from 'lucide-react'
 import SEO, { StructuredData } from '../components/SEO'
 import LoadingSpinner from '../components/LoadingSpinner'
-import { getBlogPost, urlFor } from '../lib/sanity'
+import { getBlogPost, urlFor } from '../lib/api'
 import './BlogPost.css'
 
 // Portable Text renderer for Sanity rich text

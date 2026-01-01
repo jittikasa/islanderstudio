@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
-import { getPostsByApp, urlFor } from '../lib/sanity'
+import { getPostsByApp, urlFor } from '../lib/api'
 import SEO, { StructuredData, polamomentAppSchema } from '../components/SEO'
 import './PolaMoment.css'
 

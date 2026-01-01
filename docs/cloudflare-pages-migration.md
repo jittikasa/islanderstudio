@@ -48,12 +48,10 @@ dist
 **Environment variables:**
 ```
 NODE_VERSION=18
-VITE_SANITY_PROJECT_ID=8hngvmaz
-VITE_SANITY_DATASET=production
 VITE_API_URL=https://api.islanderstudio.com
 ```
 
-> Note: You'll add `VITE_API_URL` later once Workers API is deployed
+> Note: You'll set `VITE_API_URL` to your Workers API URL once deployed (e.g., `https://islanderstudio-blog-api.your-subdomain.workers.dev`)
 
 ### 3. Deploy!
 
