@@ -10,7 +10,7 @@ compatibility_date = "2024-01-01"
 [[d1_databases]]
 binding = "DB"
 database_name = "blog-database"
-database_id = "" # Will be filled when you create the database
+database_id = "7a69bf73-d4df-494b-a025-5d549c98164d"
 
 # R2 Storage binding for images
 [[r2_buckets]]
