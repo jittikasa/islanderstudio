@@ -35,7 +35,6 @@ CREATE TABLE posts (
 
   -- Foreign key to author
   author_id TEXT,
-  FOREIGN KEY (author_id) REFERENCES authors(id) ON DELETE SET NULL,
 
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
@@ -111,18 +110,14 @@ CREATE INDEX idx_sessions_expires ON sessions(expires_at);
 CREATE TABLE post_categories (
   post_id TEXT NOT NULL,
   category_id TEXT NOT NULL,
-  PRIMARY KEY (post_id, category_id),
-  FOREIGN KEY (post_id) REFERENCES posts(id) ON DELETE CASCADE,
-  FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE CASCADE
+  PRIMARY KEY (post_id, category_id)
 );
 
 -- Many-to-Many: Posts <-> Tags
 CREATE TABLE post_tags (
   post_id TEXT NOT NULL,
   tag_id TEXT NOT NULL,
-  PRIMARY KEY (post_id, tag_id),
-  FOREIGN KEY (post_id) REFERENCES posts(id) ON DELETE CASCADE,
-  FOREIGN KEY (tag_id) REFERENCES tags(id) ON DELETE CASCADE
+  PRIMARY KEY (post_id, tag_id)
 );
 
 -- Many-to-Many: Posts <-> Apps (THIS IS YOUR APP RELATION!)
@@ -130,9 +125,7 @@ CREATE TABLE post_apps (
   post_id TEXT NOT NULL,
   app_id TEXT NOT NULL,
   display_order INTEGER DEFAULT 0,  -- For sorting if needed
-  PRIMARY KEY (post_id, app_id),
-  FOREIGN KEY (post_id) REFERENCES posts(id) ON DELETE CASCADE,
-  FOREIGN KEY (app_id) REFERENCES apps(id) ON DELETE CASCADE
+  PRIMARY KEY (post_id, app_id)
 );
 
 
