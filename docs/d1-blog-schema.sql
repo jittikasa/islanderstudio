@@ -171,7 +171,7 @@ CREATE TABLE post_apps (
 
 -- INDEXES FOR PERFORMANCE
 -- ============================================================
-CREATE INDEX idx_posts_published_at ON posts(published_at DESC);
+CREATE INDEX idx_posts_published_at ON posts(published_at);
 CREATE INDEX idx_posts_slug ON posts(slug);
 CREATE INDEX idx_posts_author ON posts(author_id);
 CREATE INDEX idx_posts_featured ON posts(featured);
