@@ -130,6 +130,7 @@
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--fog);
+  line-height: 1;
 }
 
 /* Floating Stamp Content */
