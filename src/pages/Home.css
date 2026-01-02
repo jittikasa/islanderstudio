@@ -112,7 +112,7 @@
 }
 
 .home__floating-stamp-inner {
-  padding: 4px 6px;
+  padding: 2px 6px 4px;
   display: flex;
   flex-direction: column;
   min-height: auto;
@@ -120,12 +120,12 @@
 
 /* Floating Stamp Header */
 .home__floating-stamp-header {
-  margin-bottom: 2px;
+  margin-bottom: 0;
 }
 
 .home__floating-stamp-category {
   font-family: var(--font-mono);
-  font-size: 6px;
+  font-size: 5px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -162,7 +162,7 @@
 
 .home__floating-stamp-name {
   font-family: var(--font-display);
-  font-size: 9px;
+  font-size: 8px;
   font-weight: 700;
   color: var(--midnight-sky);
   margin: 0 0 2px 0;
@@ -170,7 +170,7 @@
 }
 
 .home__floating-stamp-tagline {
-  font-size: 6px;
+  font-size: 5px;
   font-style: italic;
   color: var(--stone);
   margin: 0;
@@ -189,7 +189,7 @@
 
 .home__floating-stamp-year {
   font-family: var(--font-mono);
-  font-size: 6px;
+  font-size: 5px;
   font-weight: 700;
   color: var(--fog);
 }
