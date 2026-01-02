@@ -2,6 +2,8 @@ import { createContext, useContext, useState, useEffect } from 'react'
 
 const AuthContext = createContext()
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8787'
+
 export function useAuth() {
   return useContext(AuthContext)
 }
@@ -11,29 +13,83 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // Check if user is already logged in
-    const authStatus = localStorage.getItem('admin_authenticated')
-    if (authStatus === 'true') {
-      setIsAuthenticated(true)
+    // Check if user has a valid token
+    const token = localStorage.getItem('admin_token')
+    if (token) {
+      // Verify token is still valid
+      verifyToken(token)
+    } else {
+      setLoading(false)
     }
-    setLoading(false)
   }, [])
 
-  const login = (password) => {
-    // Simple password check - in production, use proper authentication
-    const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD || 'admin123'
+  async function verifyToken(token) {
+    try {
+      const response = await fetch(`${API_URL}/api/auth/verify`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
 
-    if (password === ADMIN_PASSWORD) {
-      setIsAuthenticated(true)
-      localStorage.setItem('admin_authenticated', 'true')
-      return true
+      if (response.ok) {
+        setIsAuthenticated(true)
+      } else {
+        // Token invalid, clear it
+        localStorage.removeItem('admin_token')
+        setIsAuthenticated(false)
+      }
+    } catch (error) {
+      console.error('Token verification failed:', error)
+      localStorage.removeItem('admin_token')
+      setIsAuthenticated(false)
+    } finally {
+      setLoading(false)
     }
-    return false
   }
 
-  const logout = () => {
+  const login = async (password, rememberMe = false) => {
+    try {
+      const response = await fetch(`${API_URL}/api/auth/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ password, rememberMe })
+      })
+
+      const data = await response.json()
+
+      if (response.ok && data.token) {
+        localStorage.setItem('admin_token', data.token)
+        setIsAuthenticated(true)
+        return true
+      }
+
+      return false
+    } catch (error) {
+      console.error('Login failed:', error)
+      return false
+    }
+  }
+
+  const logout = async () => {
+    const token = localStorage.getItem('admin_token')
+
+    if (token) {
+      try {
+        await fetch(`${API_URL}/api/auth/logout`, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        })
+      } catch (error) {
+        console.error('Logout request failed:', error)
+      }
+    }
+
     setIsAuthenticated(false)
-    localStorage.removeItem('admin_authenticated')
+    localStorage.removeItem('admin_token')
   }
 
   const value = {

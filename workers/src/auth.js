@@ -161,8 +161,39 @@ export async function verifySession(request, env) {
 }
 
 /**
- * Logout endpoint (optional)
- * DELETE /api/auth/logout
+ * Verify token endpoint
+ * GET /api/auth/verify
+ */
+export async function verify(request, env) {
+  try {
+    const session = await verifySession(request, env);
+
+    if (!session) {
+      return new Response(JSON.stringify({ valid: false, error: 'Invalid or expired token' }), {
+        status: 401,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+
+    return new Response(JSON.stringify({
+      valid: true,
+      expiresAt: session.expires_at,
+    }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  } catch (error) {
+    console.error('Token verification error:', error);
+    return new Response(JSON.stringify({ valid: false, error: 'Verification failed' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+}
+
+/**
+ * Logout endpoint
+ * POST /api/auth/logout
  */
 export async function logout(request, env) {
   try {
