@@ -13,8 +13,10 @@ export default function Home() {
     { id: 3, src: '/branding/Graphics/flower.png', x: 5, y: 60, rotation: -15, scale: 0.9 },
     { id: 4, src: '/branding/Graphics/shell.png', x: 92, y: 75, rotation: 20, scale: 0.85 },
   ])
+  const [stampPosition, setStampPosition] = useState({ x: null, y: null })
   const [dragging, setDragging] = useState(null)
   const containerRef = useRef(null)
+  const postcardRef = useRef(null)
 
   useEffect(() => {
     setLoaded(true)
@@ -27,8 +29,16 @@ export default function Home() {
     setDragging({ type: 'sticker', id: stickerId, sticker })
   }, [stickers])
 
+  // Handle stamp drag
+  const handleStampMouseDown = useCallback((e) => {
+    e.preventDefault()
+    setDragging({ type: 'stamp' })
+  }, [])
+
   const handleMouseMove = useCallback((e) => {
-    if (dragging && dragging.type === 'sticker' && containerRef.current) {
+    if (!dragging) return
+
+    if (dragging.type === 'sticker' && containerRef.current) {
       const rect = containerRef.current.getBoundingClientRect()
       const x = ((e.clientX - rect.left) / rect.width) * 100
       const y = ((e.clientY - rect.top) / rect.height) * 100
@@ -38,6 +48,15 @@ export default function Home() {
           ? { ...s, x: Math.max(0, Math.min(95, x)), y: Math.max(0, Math.min(90, y)) }
           : s
       ))
+    } else if (dragging.type === 'stamp' && postcardRef.current) {
+      const rect = postcardRef.current.getBoundingClientRect()
+      const x = ((e.clientX - rect.left) / rect.width) * 100
+      const y = ((e.clientY - rect.top) / rect.height) * 100
+
+      setStampPosition({
+        x: Math.max(0, Math.min(85, x)),
+        y: Math.max(0, Math.min(75, y))
+      })
     }
   }, [dragging])
 
@@ -179,7 +198,7 @@ export default function Home() {
 
               {/* Front postcard */}
               <div className="home__postcard-border">
-                <div className="home__postcard">
+                <div className="home__postcard" ref={postcardRef}>
                   {/* Twine String */}
                   <div className="home__postcard-twine">
                     <div className="home__postcard-twine-vertical"></div>
@@ -201,11 +220,75 @@ export default function Home() {
                     <path d="M0 32 Q 7 27, 14 32 T 28 32 T 42 32 T 56 32 T 70 32 T 84 32" stroke="currentColor" strokeWidth="1.5" fill="none"/>
                   </svg>
 
-                  {/* Coconut Tree Stamp */}
-                  <div className="home__postcard-stamp">
+                  {/* Beach Scene Stamp */}
+                  <div
+                    className={`home__postcard-stamp ${dragging?.type === 'stamp' ? 'home__postcard-stamp--dragging' : ''}`}
+                    onMouseDown={handleStampMouseDown}
+                    style={stampPosition.x !== null ? {
+                      top: `${stampPosition.y}%`,
+                      right: 'auto',
+                      left: `${stampPosition.x}%`
+                    } : {}}
+                  >
                     <div className="home__postcard-stamp-perforated">
                       <div className="home__postcard-stamp-inner">
-                        <img src="/branding/Graphics/coconuttree.png" alt="Coconut Tree" />
+                        <svg viewBox="0 0 100 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          {/* Sky background */}
+                          <rect width="100" height="120" fill="#FFF5E6"/>
+
+                          {/* Clouds */}
+                          <g opacity="0.8">
+                            <ellipse cx="25" cy="20" rx="12" ry="8" fill="#7A9AA8"/>
+                            <ellipse cx="18" cy="22" rx="8" ry="6" fill="#7A9AA8"/>
+                            <ellipse cx="32" cy="22" rx="10" ry="7" fill="#7A9AA8"/>
+
+                            <ellipse cx="70" cy="25" rx="15" ry="10" fill="#7A9AA8"/>
+                            <ellipse cx="62" cy="28" rx="10" ry="7" fill="#7A9AA8"/>
+                            <ellipse cx="80" cy="28" rx="12" ry="8" fill="#7A9AA8"/>
+                          </g>
+
+                          {/* Back hills */}
+                          <ellipse cx="80" cy="100" rx="40" ry="30" fill="#6B8E6F"/>
+                          <ellipse cx="20" cy="105" rx="35" ry="25" fill="#8BA888"/>
+
+                          {/* House */}
+                          <g>
+                            {/* House base */}
+                            <rect x="55" y="65" width="30" height="35" fill="#F4D4B3"/>
+                            <rect x="60" y="65" width="20" height="35" fill="#E8C4A3"/>
+
+                            {/* Roof */}
+                            <path d="M52 65 L70 50 L88 65 Z" fill="#E28463"/>
+                            <path d="M52 65 L70 50 L70 65 Z" fill="#D97555"/>
+
+                            {/* Roof pattern */}
+                            <path d="M54 62 Q 70 52, 86 62" stroke="#C86B50" strokeWidth="1.5" fill="none"/>
+                            <path d="M55 65 Q 70 55, 85 65" stroke="#C86B50" strokeWidth="1.5" fill="none"/>
+
+                            {/* Door */}
+                            <rect x="65" y="80" width="10" height="20" rx="5" fill="#7A9AA8"/>
+                          </g>
+
+                          {/* Coconut Tree (focal point) */}
+                          <g>
+                            {/* Trunk */}
+                            <path d="M28 95 Q 30 75, 28 60 Q 27 45, 29 35" stroke="#7A9AA8" strokeWidth="3.5" fill="none" strokeLinecap="round"/>
+
+                            {/* Palm fronds */}
+                            <ellipse cx="20" cy="32" rx="10" ry="18" fill="#8BA888" transform="rotate(-40 20 32)"/>
+                            <ellipse cx="28" cy="28" rx="10" ry="20" fill="#8BA888" transform="rotate(-10 28 28)"/>
+                            <ellipse cx="36" cy="32" rx="10" ry="18" fill="#8BA888" transform="rotate(40 36 32)"/>
+                            <ellipse cx="25" cy="30" rx="9" ry="16" fill="#9BB89A" transform="rotate(-25 25 30)"/>
+                            <ellipse cx="31" cy="30" rx="9" ry="16" fill="#9BB89A" transform="rotate(25 31 30)"/>
+                          </g>
+
+                          {/* Front hill */}
+                          <ellipse cx="50" cy="115" rx="50" ry="20" fill="#B8C78C"/>
+
+                          {/* Wave suggestions at bottom */}
+                          <path d="M0 108 Q 8 105, 16 108 T 32 108 T 48 108" stroke="#7A9AA8" strokeWidth="2" fill="none" opacity="0.4"/>
+                          <path d="M52 110 Q 60 107, 68 110 T 84 110 T 100 110" stroke="#7A9AA8" strokeWidth="2" fill="none" opacity="0.4"/>
+                        </svg>
                       </div>
                     </div>
                   </div>
@@ -214,6 +297,7 @@ export default function Home() {
                   <div className="home__postcard-address">
                     <div className="home__postcard-to">To :</div>
                     <div className="home__postcard-lines">
+                      <div className="home__postcard-line"></div>
                       <div className="home__postcard-line"></div>
                       <div className="home__postcard-line"></div>
                     </div>
