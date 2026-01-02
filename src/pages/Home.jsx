@@ -12,8 +12,8 @@ export default function Home() {
     { id: 2, src: '/branding/Graphics/sun.png', x: 75, y: 8, rotation: 12, scale: 0.8 },
     { id: 3, src: '/branding/Graphics/flower.png', x: 5, y: 60, rotation: -15, scale: 0.9 },
     { id: 4, src: '/branding/Graphics/shell.png', x: 92, y: 75, rotation: 20, scale: 0.85 },
+    { id: 5, type: 'beach-stamp', x: 70, y: 40, rotation: 5, scale: 1 },
   ])
-  const [stampPosition, setStampPosition] = useState({ x: null, y: null })
   const [dragging, setDragging] = useState(null)
   const containerRef = useRef(null)
   const postcardRef = useRef(null)
@@ -29,12 +29,6 @@ export default function Home() {
     setDragging({ type: 'sticker', id: stickerId, sticker })
   }, [stickers])
 
-  // Handle stamp drag
-  const handleStampMouseDown = useCallback((e) => {
-    e.preventDefault()
-    setDragging({ type: 'stamp' })
-  }, [])
-
   const handleMouseMove = useCallback((e) => {
     if (!dragging) return
 
@@ -48,15 +42,6 @@ export default function Home() {
           ? { ...s, x: Math.max(0, Math.min(95, x)), y: Math.max(0, Math.min(90, y)) }
           : s
       ))
-    } else if (dragging.type === 'stamp' && postcardRef.current) {
-      const rect = postcardRef.current.getBoundingClientRect()
-      const x = ((e.clientX - rect.left) / rect.width) * 100
-      const y = ((e.clientY - rect.top) / rect.height) * 100
-
-      setStampPosition({
-        x: Math.max(0, Math.min(85, x)),
-        y: Math.max(0, Math.min(75, y))
-      })
     }
   }, [dragging])
 
@@ -128,7 +113,7 @@ export default function Home() {
           {stickers.map((sticker, index) => (
             <div
               key={sticker.id}
-              className={`home__sticker ${dragging === sticker.id ? 'home__sticker--dragging' : ''}`}
+              className={`home__sticker ${sticker.type === 'beach-stamp' ? 'home__sticker--stamp' : ''} ${dragging?.id === sticker.id ? 'home__sticker--dragging' : ''}`}
               style={{
                 left: `${sticker.x}%`,
                 top: `${sticker.y}%`,
@@ -139,7 +124,109 @@ export default function Home() {
               onMouseDown={(e) => handleStickerMouseDown(e, sticker.id)}
               data-tooltip="Drag me!"
             >
-              <img src={sticker.src} alt="" />
+              {sticker.type === 'beach-stamp' ? (
+                <div className="home__floating-stamp">
+                  <div className="home__floating-stamp-perforated">
+                    <div className="home__floating-stamp-inner">
+                      <svg viewBox="0 0 100 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        {/* Sky - gradient from light to deeper blue */}
+                        <defs>
+                          <linearGradient id="skyGrad2" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stopColor="#87CEEB" />
+                            <stop offset="100%" stopColor="#5BA8C8" />
+                          </linearGradient>
+                          <linearGradient id="oceanGrad2" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stopColor="#1E90FF" />
+                            <stop offset="50%" stopColor="#4169E1" />
+                            <stop offset="100%" stopColor="#0077BE" />
+                          </linearGradient>
+                          <linearGradient id="sandGrad2" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stopColor="#F4E5C2" />
+                            <stop offset="100%" stopColor="#E8D4A0" />
+                          </linearGradient>
+                        </defs>
+
+                        {/* Sky */}
+                        <rect width="100" height="45" fill="url(#skyGrad2)"/>
+
+                        {/* Sun */}
+                        <circle cx="75" cy="15" r="8" fill="#FFD700" opacity="0.9"/>
+                        <circle cx="75" cy="15" r="10" fill="#FFD700" opacity="0.3"/>
+
+                        {/* Fluffy clouds */}
+                        <g opacity="0.85">
+                          <circle cx="18" cy="12" r="5" fill="#FFFFFF"/>
+                          <circle cx="24" cy="11" r="6" fill="#FFFFFF"/>
+                          <circle cx="30" cy="12" r="5" fill="#FFFFFF"/>
+                        </g>
+
+                        {/* Ocean - layered waves */}
+                        <rect y="45" width="100" height="35" fill="url(#oceanGrad2)"/>
+
+                        {/* Wave foam - white caps */}
+                        <path d="M0 58 Q 10 55, 20 58 T 40 58 T 60 58 T 80 58 T 100 58"
+                              stroke="#E0F7FA" strokeWidth="2" fill="none" opacity="0.7"/>
+                        <path d="M0 62 Q 15 59, 30 62 T 60 62 T 90 62 T 100 62"
+                              stroke="#B3E5FC" strokeWidth="2.5" fill="none" opacity="0.6"/>
+                        <path d="M0 68 Q 12 65, 24 68 T 48 68 T 72 68 T 96 68"
+                              stroke="#FFFFFF" strokeWidth="3" fill="none" opacity="0.8"/>
+
+                        {/* Breaking waves at shore */}
+                        <path d="M0 76 Q 8 73, 16 76 T 32 76 T 48 76 T 64 76 T 80 76 T 100 76"
+                              stroke="#FFFFFF" strokeWidth="1.5" fill="none" opacity="0.9"/>
+
+                        {/* Sandy beach */}
+                        <path d="M0 80 Q 25 76, 50 78 T 100 82 L100 120 L0 120 Z" fill="url(#sandGrad2)"/>
+
+                        {/* Beach texture details */}
+                        <ellipse cx="70" cy="95" rx="3" ry="2" fill="#D4C4A0" opacity="0.4"/>
+                        <ellipse cx="85" cy="100" rx="2.5" ry="1.5" fill="#D4C4A0" opacity="0.3"/>
+
+                        {/* Coconut Palm Tree - THE HERO */}
+                        <g>
+                          {/* Trunk with curve */}
+                          <path d="M22 120 Q 24 100, 22 80 Q 21 60, 23 40 Q 24 30, 25 22"
+                                stroke="#8B6F47" strokeWidth="4" fill="none" strokeLinecap="round"/>
+
+                          {/* Trunk texture rings */}
+                          <path d="M20 110 Q 24 110, 25 110" stroke="#6B5437" strokeWidth="0.8" fill="none" opacity="0.5"/>
+                          <path d="M20 95 Q 24 95, 25 95" stroke="#6B5437" strokeWidth="0.8" fill="none" opacity="0.5"/>
+                          <path d="M21 75 Q 24 75, 25 75" stroke="#6B5437" strokeWidth="0.8" fill="none" opacity="0.5"/>
+                          <path d="M21 55 Q 24 55, 25 55" stroke="#6B5437" strokeWidth="0.8" fill="none" opacity="0.5"/>
+
+                          {/* Palm fronds - large and dramatic */}
+                          <ellipse cx="12" cy="18" rx="11" ry="22" fill="#2D5016" transform="rotate(-50 12 18)"/>
+                          <ellipse cx="15" cy="16" rx="10" ry="20" fill="#3A6B2C" transform="rotate(-50 15 16)"/>
+
+                          <ellipse cx="25" cy="12" rx="12" ry="24" fill="#2D5016" transform="rotate(-10 25 12)"/>
+                          <ellipse cx="25" cy="12" rx="10" ry="21" fill="#3A6B2C" transform="rotate(-10 25 12)"/>
+
+                          <ellipse cx="36" cy="16" rx="11" ry="23" fill="#2D5016" transform="rotate(45 36 16)"/>
+                          <ellipse cx="35" cy="15" rx="10" ry="20" fill="#3A6B2C" transform="rotate(45 35 15)"/>
+
+                          <ellipse cx="20" cy="14" rx="9" ry="19" fill="#4A7C3C" transform="rotate(-30 20 14)"/>
+                          <ellipse cx="30" cy="14" rx="9" ry="19" fill="#4A7C3C" transform="rotate(30 30 14)"/>
+
+                          {/* Coconuts */}
+                          <circle cx="24" cy="24" r="2.5" fill="#8B6F47"/>
+                          <circle cx="27" cy="26" r="2.3" fill="#8B6F47"/>
+                        </g>
+
+                        {/* Small beach hut in distance */}
+                        <g opacity="0.85">
+                          <rect x="72" y="68" width="12" height="10" fill="#D4A574"/>
+                          <path d="M70 68 L78 60 L86 68 Z" fill="#C85A3F"/>
+                        </g>
+
+                        {/* Seagull */}
+                        <path d="M50 30 Q 52 28, 54 30" stroke="#FFFFFF" strokeWidth="1.2" fill="none" opacity="0.7"/>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <img src={sticker.src} alt="" />
+              )}
             </div>
           ))}
         </div>
@@ -199,98 +286,22 @@ export default function Home() {
               {/* Front postcard */}
               <div className="home__postcard-border">
                 <div className="home__postcard" ref={postcardRef}>
-                  {/* Twine String */}
-                  <div className="home__postcard-twine">
-                    <div className="home__postcard-twine-vertical"></div>
-                  </div>
-
-                  {/* Postmark Stamp */}
-                  <div className="home__postcard-postmark">
-                    <div className="home__postcard-postmark-circle">
-                      <span className="home__postcard-postmark-star">★</span>
-                      <span className="home__postcard-postmark-text">POST</span>
-                      <span className="home__postcard-postmark-text home__postcard-postmark-text--bottom">DEC 01</span>
-                    </div>
-                  </div>
-
-                  <svg className="home__postcard-postmark-waves" viewBox="0 0 80 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M0 8 Q 7 3, 14 8 T 28 8 T 42 8 T 56 8 T 70 8 T 84 8" stroke="currentColor" strokeWidth="1.5" fill="none"/>
-                    <path d="M0 16 Q 7 11, 14 16 T 28 16 T 42 16 T 56 16 T 70 16 T 84 16" stroke="currentColor" strokeWidth="1.5" fill="none"/>
-                    <path d="M0 24 Q 7 19, 14 24 T 28 24 T 42 24 T 56 24 T 70 24 T 84 24" stroke="currentColor" strokeWidth="1.5" fill="none"/>
-                    <path d="M0 32 Q 7 27, 14 32 T 28 32 T 42 32 T 56 32 T 70 32 T 84 32" stroke="currentColor" strokeWidth="1.5" fill="none"/>
-                  </svg>
-
-                  {/* Beach Scene Stamp */}
-                  <div
-                    className={`home__postcard-stamp ${dragging?.type === 'stamp' ? 'home__postcard-stamp--dragging' : ''}`}
-                    onMouseDown={handleStampMouseDown}
-                    style={stampPosition.x !== null ? {
-                      top: `${stampPosition.y}%`,
-                      right: 'auto',
-                      left: `${stampPosition.x}%`
-                    } : {}}
-                  >
-                    <div className="home__postcard-stamp-perforated">
-                      <div className="home__postcard-stamp-inner">
-                        <svg viewBox="0 0 100 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          {/* Sky background */}
-                          <rect width="100" height="120" fill="#FFF5E6"/>
-
-                          {/* Clouds */}
-                          <g opacity="0.8">
-                            <ellipse cx="25" cy="20" rx="12" ry="8" fill="#7A9AA8"/>
-                            <ellipse cx="18" cy="22" rx="8" ry="6" fill="#7A9AA8"/>
-                            <ellipse cx="32" cy="22" rx="10" ry="7" fill="#7A9AA8"/>
-
-                            <ellipse cx="70" cy="25" rx="15" ry="10" fill="#7A9AA8"/>
-                            <ellipse cx="62" cy="28" rx="10" ry="7" fill="#7A9AA8"/>
-                            <ellipse cx="80" cy="28" rx="12" ry="8" fill="#7A9AA8"/>
-                          </g>
-
-                          {/* Back hills */}
-                          <ellipse cx="80" cy="100" rx="40" ry="30" fill="#6B8E6F"/>
-                          <ellipse cx="20" cy="105" rx="35" ry="25" fill="#8BA888"/>
-
-                          {/* House */}
-                          <g>
-                            {/* House base */}
-                            <rect x="55" y="65" width="30" height="35" fill="#F4D4B3"/>
-                            <rect x="60" y="65" width="20" height="35" fill="#E8C4A3"/>
-
-                            {/* Roof */}
-                            <path d="M52 65 L70 50 L88 65 Z" fill="#E28463"/>
-                            <path d="M52 65 L70 50 L70 65 Z" fill="#D97555"/>
-
-                            {/* Roof pattern */}
-                            <path d="M54 62 Q 70 52, 86 62" stroke="#C86B50" strokeWidth="1.5" fill="none"/>
-                            <path d="M55 65 Q 70 55, 85 65" stroke="#C86B50" strokeWidth="1.5" fill="none"/>
-
-                            {/* Door */}
-                            <rect x="65" y="80" width="10" height="20" rx="5" fill="#7A9AA8"/>
-                          </g>
-
-                          {/* Coconut Tree (focal point) */}
-                          <g>
-                            {/* Trunk */}
-                            <path d="M28 95 Q 30 75, 28 60 Q 27 45, 29 35" stroke="#7A9AA8" strokeWidth="3.5" fill="none" strokeLinecap="round"/>
-
-                            {/* Palm fronds */}
-                            <ellipse cx="20" cy="32" rx="10" ry="18" fill="#8BA888" transform="rotate(-40 20 32)"/>
-                            <ellipse cx="28" cy="28" rx="10" ry="20" fill="#8BA888" transform="rotate(-10 28 28)"/>
-                            <ellipse cx="36" cy="32" rx="10" ry="18" fill="#8BA888" transform="rotate(40 36 32)"/>
-                            <ellipse cx="25" cy="30" rx="9" ry="16" fill="#9BB89A" transform="rotate(-25 25 30)"/>
-                            <ellipse cx="31" cy="30" rx="9" ry="16" fill="#9BB89A" transform="rotate(25 31 30)"/>
-                          </g>
-
-                          {/* Front hill */}
-                          <ellipse cx="50" cy="115" rx="50" ry="20" fill="#B8C78C"/>
-
-                          {/* Wave suggestions at bottom */}
-                          <path d="M0 108 Q 8 105, 16 108 T 32 108 T 48 108" stroke="#7A9AA8" strokeWidth="2" fill="none" opacity="0.4"/>
-                          <path d="M52 110 Q 60 107, 68 110 T 84 110 T 100 110" stroke="#7A9AA8" strokeWidth="2" fill="none" opacity="0.4"/>
-                        </svg>
+                  {/* Postmark Stamp with Wavy Lines */}
+                  <div className="home__postcard-postmark-group">
+                    <div className="home__postcard-postmark">
+                      <div className="home__postcard-postmark-circle">
+                        <span className="home__postcard-postmark-star">★</span>
+                        <span className="home__postcard-postmark-text">POST</span>
+                        <span className="home__postcard-postmark-text home__postcard-postmark-text--bottom">DEC 01</span>
                       </div>
                     </div>
+
+                    <svg className="home__postcard-postmark-waves" viewBox="0 0 80 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M0 8 Q 7 3, 14 8 T 28 8 T 42 8 T 56 8 T 70 8 T 84 8" stroke="currentColor" strokeWidth="1.5" fill="none"/>
+                      <path d="M0 16 Q 7 11, 14 16 T 28 16 T 42 16 T 56 16 T 70 16 T 84 16" stroke="currentColor" strokeWidth="1.5" fill="none"/>
+                      <path d="M0 24 Q 7 19, 14 24 T 28 24 T 42 24 T 56 24 T 70 24 T 84 24" stroke="currentColor" strokeWidth="1.5" fill="none"/>
+                      <path d="M0 32 Q 7 27, 14 32 T 28 32 T 42 32 T 56 32 T 70 32 T 84 32" stroke="currentColor" strokeWidth="1.5" fill="none"/>
+                    </svg>
                   </div>
 
                   {/* Address Section */}
