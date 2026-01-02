@@ -218,18 +218,25 @@ export default function Home() {
 
                   {/* Right side - Postmark & Address */}
                   <div className="home__postcard-right">
-                    {/* Postmark with waves */}
-                    <div className="home__postcard-postmark">
-                      <svg className="home__postcard-postmark-waves" viewBox="0 0 60 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M0 4 Q 5 1, 10 4 T 20 4 T 30 4 T 40 4 T 50 4 T 60 4" stroke="currentColor" strokeWidth="1.5" fill="none"/>
-                        <path d="M0 11 Q 5 8, 10 11 T 20 11 T 30 11 T 40 11 T 50 11 T 60 11" stroke="currentColor" strokeWidth="1.5" fill="none"/>
-                        <path d="M0 18 Q 5 15, 10 18 T 20 18 T 30 18 T 40 18 T 50 18 T 60 18" stroke="currentColor" strokeWidth="1.5" fill="none"/>
-                        <path d="M0 25 Q 5 22, 10 25 T 20 25 T 30 25 T 40 25 T 50 25 T 60 25" stroke="currentColor" strokeWidth="1.5" fill="none"/>
-                      </svg>
-                      <div className="home__postcard-postmark-circle">
-                        <span className="home__postcard-postmark-star">★</span>
-                        <span className="home__postcard-postmark-text">POST</span>
-                        <span className="home__postcard-postmark-text home__postcard-postmark-text--bottom">DEC 01</span>
+                    {/* Stamp placeholder and Postmark */}
+                    <div className="home__postcard-header">
+                      <div className="home__postcard-postmark">
+                        <svg className="home__postcard-postmark-waves" viewBox="0 0 60 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M0 4 Q 5 1, 10 4 T 20 4 T 30 4 T 40 4 T 50 4 T 60 4" stroke="currentColor" strokeWidth="1.5" fill="none"/>
+                          <path d="M0 11 Q 5 8, 10 11 T 20 11 T 30 11 T 40 11 T 50 11 T 60 11" stroke="currentColor" strokeWidth="1.5" fill="none"/>
+                          <path d="M0 18 Q 5 15, 10 18 T 20 18 T 30 18 T 40 18 T 50 18 T 60 18" stroke="currentColor" strokeWidth="1.5" fill="none"/>
+                          <path d="M0 25 Q 5 22, 10 25 T 20 25 T 30 25 T 40 25 T 50 25 T 60 25" stroke="currentColor" strokeWidth="1.5" fill="none"/>
+                        </svg>
+                        <div className="home__postcard-postmark-circle">
+                          <span className="home__postcard-postmark-star">★</span>
+                          <span className="home__postcard-postmark-text">POST</span>
+                          <span className="home__postcard-postmark-text home__postcard-postmark-text--bottom">DEC 01</span>
+                        </div>
+                      </div>
+                      <div className="home__postcard-stamp-placeholder">
+                        <span>PLACE</span>
+                        <span>STAMP</span>
+                        <span>HERE</span>
                       </div>
                     </div>
 
