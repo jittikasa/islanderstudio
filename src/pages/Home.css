@@ -142,15 +142,12 @@
 }
 
 .home__floating-stamp-icon {
-  width: 28px;
-  height: 28px;
-  border-radius: 6px;
-  background: var(--stamp-color, var(--sunset-glow));
+  width: 24px;
+  height: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2px;
   transition: transform 0.3s var(--ease-spring);
 }
 
