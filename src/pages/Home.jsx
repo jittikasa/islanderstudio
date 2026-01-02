@@ -162,8 +162,9 @@ export default function Home() {
             </h1>
 
             <p className="home__hero-text">
-              A small iOS studio, creating mobile experiences that feel personal,
-              considered, and quietly delightful.
+              A boutique iOS studio from Thailand, creating
+              thoughtfully designed mobile experiences that
+              spark joy in everyday moments.
             </p>
 
             <div className="home__hero-actions">
