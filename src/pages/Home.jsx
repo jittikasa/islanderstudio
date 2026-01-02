@@ -205,15 +205,7 @@ export default function Home() {
                   </svg>
 
                   {/* Beach Scene Stamp */}
-                  <div
-                    className={`home__postcard-stamp ${dragging?.type === 'stamp' ? 'home__postcard-stamp--dragging' : ''}`}
-                    onMouseDown={handleStampMouseDown}
-                    style={stampPosition.x !== null ? {
-                      top: `${stampPosition.y}%`,
-                      right: 'auto',
-                      left: `${stampPosition.x}%`
-                    } : {}}
-                  >
+                  <div className="home__postcard-stamp">
                     <div className="home__postcard-stamp-perforated">
                       <div className="home__postcard-stamp-inner">
                         <svg viewBox="0 0 100 120" fill="none" xmlns="http://www.w3.org/2000/svg">
