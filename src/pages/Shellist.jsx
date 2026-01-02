@@ -112,7 +112,7 @@ export default function Shellist() {
 
           <div className="shellist__hero-visual">
             <img
-              src="/shellist/images/screenshots/Screens-2.png"
+              src="/shellist/images/screenshots/Screens-2.webp"
               alt="Shellist app interface showing habit tracking"
               className="shellist__hero-image"
             />
@@ -148,7 +148,7 @@ export default function Shellist() {
       {/* App Showcase */}
       <section className="shellist__showcase">
         <img
-          src="/shellist/images/screenshots/Screens-3.png"
+          src="/shellist/images/screenshots/Screens-3.webp"
           alt="Shellist app features overview"
           className="shellist__showcase-image"
         />
