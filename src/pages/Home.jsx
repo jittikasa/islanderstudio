@@ -8,10 +8,10 @@ export default function Home() {
   const [hoveredApp, setHoveredApp] = useState(null)
   const [copiedEmail, setCopiedEmail] = useState(false)
   const [stickers, setStickers] = useState([
-    { id: 1, x: 85, y: 15, rotation: -8, scale: 1, category: 'Nature', name: 'Palm Tree', tagline: 'Tropical vibes', year: '2025', color: '#4CAF50', icon: '🌴', serial: 'IS-002' },
-    { id: 2, x: 75, y: 8, rotation: 12, scale: 0.8, category: 'Nature', name: 'Sunny Day', tagline: 'Bright & warm', year: '2025', color: '#FFD54F', icon: '☀️', serial: 'IS-001' },
-    { id: 3, x: 5, y: 60, rotation: -15, scale: 0.9, category: 'Nature', name: 'Hibiscus', tagline: 'Island bloom', year: '2025', color: '#E91E63', icon: '🌺', serial: 'IS-003' },
-    { id: 4, x: 92, y: 75, rotation: 20, scale: 0.85, category: 'Ocean', name: 'Seashell', tagline: 'Beach treasure', year: '2025', color: '#FFAB91', icon: '🐚', serial: 'IS-004' },
+    { id: 1, x: 78, y: 12, rotation: 5, scale: 1, category: 'Studio', name: 'islander.', tagline: 'Crafted with soul', year: '2025', color: '#4CAF50', icon: '🌴', serial: 'IS-001' },
+    { id: 2, x: 5, y: 55, rotation: -12, scale: 0.9, category: 'App', name: 'Shellist', tagline: 'Shell notes', year: '2025', color: '#FFAB91', icon: '🐚', serial: 'IS-002' },
+    { id: 3, x: 88, y: 70, rotation: 8, scale: 0.85, category: 'App', name: 'PolaMoment', tagline: 'Capture moments', year: '2026', color: '#78909C', icon: '📷', serial: 'IS-003' },
+    { id: 4, x: 3, y: 25, rotation: -8, scale: 0.9, category: 'App', name: 'Daily Ritual', tagline: 'Mindful habits', year: '2026', color: '#FFB74D', icon: '🕯️', serial: 'IS-004' },
   ])
   const [dragging, setDragging] = useState(null)
   const containerRef = useRef(null)
