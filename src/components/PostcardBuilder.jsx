@@ -7,20 +7,18 @@ export default function PostcardBuilder() {
   const [selectedStamp, setSelectedStamp] = useState(null)
   const canvasRef = useRef(null)
 
-  // Available stamps and stickers
+  // Available stamps - mini stamp card design
   const availableStamps = [
-    { id: 'sun', type: 'sticker', emoji: '☀️', name: 'Sun' },
-    { id: 'palm', type: 'sticker', emoji: '🌴', name: 'Palm Tree' },
-    { id: 'flower', type: 'sticker', emoji: '🌺', name: 'Flower' },
-    { id: 'shell', type: 'sticker', emoji: '🐚', name: 'Shell' },
-    { id: 'wave', type: 'sticker', emoji: '🌊', name: 'Wave' },
-    { id: 'island', type: 'stamp', emoji: '🏝️', name: 'Island' },
-    { id: 'heart', type: 'stamp', emoji: '❤️', name: 'Heart' },
-    { id: 'star', type: 'stamp', emoji: '⭐', name: 'Star' },
-    { id: 'smile', type: 'stamp', emoji: '😊', name: 'Smile' },
-    { id: 'camera', type: 'stamp', emoji: '📷', name: 'Camera' },
-    { id: 'plane', type: 'stamp', emoji: '✈️', name: 'Plane' },
-    { id: 'compass', type: 'stamp', emoji: '🧭', name: 'Compass' },
+    { id: 'sun', category: 'Nature', name: 'Sunny Day', tagline: 'Bright & warm', year: '2025', color: '#FFD54F', icon: '☀️', serial: 'IS-001' },
+    { id: 'palm', category: 'Nature', name: 'Palm Tree', tagline: 'Tropical vibes', year: '2025', color: '#4CAF50', icon: '🌴', serial: 'IS-002' },
+    { id: 'flower', category: 'Nature', name: 'Hibiscus', tagline: 'Island bloom', year: '2025', color: '#E91E63', icon: '🌺', serial: 'IS-003' },
+    { id: 'shell', category: 'Ocean', name: 'Seashell', tagline: 'Beach treasure', year: '2025', color: '#FFAB91', icon: '🐚', serial: 'IS-004' },
+    { id: 'wave', category: 'Ocean', name: 'Wave', tagline: 'Ride the tide', year: '2025', color: '#29B6F6', icon: '🌊', serial: 'IS-005' },
+    { id: 'island', category: 'Travel', name: 'Paradise', tagline: 'Dream escape', year: '2025', color: '#26A69A', icon: '🏝️', serial: 'IS-006' },
+    { id: 'heart', category: 'Love', name: 'With Love', tagline: 'From the heart', year: '2025', color: '#EF5350', icon: '❤️', serial: 'IS-007' },
+    { id: 'star', category: 'Special', name: 'Starlight', tagline: 'Shine bright', year: '2025', color: '#FFC107', icon: '⭐', serial: 'IS-008' },
+    { id: 'camera', category: 'Memory', name: 'Snapshot', tagline: 'Capture moments', year: '2025', color: '#78909C', icon: '📷', serial: 'IS-009' },
+    { id: 'plane', category: 'Travel', name: 'Bon Voyage', tagline: 'Safe travels', year: '2025', color: '#42A5F5', icon: '✈️', serial: 'IS-010' },
   ]
 
   const handleDragStart = (e, stamp) => {
@@ -106,12 +104,32 @@ export default function PostcardBuilder() {
             {availableStamps.map(stamp => (
               <div
                 key={stamp.id}
-                className={`postcard-builder__stamp-item ${stamp.type}`}
+                className="postcard-builder__mini-stamp"
+                style={{ '--stamp-color': stamp.color }}
                 draggable
                 onDragStart={(e) => handleDragStart(e, stamp)}
               >
-                <span className="postcard-builder__stamp-emoji">{stamp.emoji}</span>
-                <span className="postcard-builder__stamp-name">{stamp.name}</span>
+                <div className="mini-stamp__inner">
+                  {/* Stamp Header */}
+                  <div className="mini-stamp__header">
+                    <span className="mini-stamp__category">{stamp.category}</span>
+                  </div>
+
+                  {/* Stamp Content */}
+                  <div className="mini-stamp__content">
+                    <div className="mini-stamp__icon">
+                      <span>{stamp.icon}</span>
+                    </div>
+                    <h4 className="mini-stamp__name">{stamp.name}</h4>
+                    <p className="mini-stamp__tagline">{stamp.tagline}</p>
+                  </div>
+
+                  {/* Stamp Footer */}
+                  <div className="mini-stamp__footer">
+                    <span className="mini-stamp__year">{stamp.year}</span>
+                    <span className="mini-stamp__serial">{stamp.serial}</span>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
@@ -192,13 +210,31 @@ export default function PostcardBuilder() {
                       left: `${stamp.x}%`,
                       top: `${stamp.y}%`,
                       transform: `translate(-50%, -50%) rotate(${stamp.rotation}deg) scale(${stamp.scale})`,
+                      '--stamp-color': stamp.color,
                     }}
                     onClick={(e) => {
                       e.stopPropagation()
                       handleStampClick(stamp.uniqueId)
                     }}
                   >
-                    <span className="stamp-emoji">{stamp.emoji}</span>
+                    <div className="placed-mini-stamp">
+                      <div className="placed-mini-stamp__inner">
+                        <div className="placed-mini-stamp__header">
+                          <span className="placed-mini-stamp__category">{stamp.category}</span>
+                        </div>
+                        <div className="placed-mini-stamp__content">
+                          <div className="placed-mini-stamp__icon">
+                            <span>{stamp.icon}</span>
+                          </div>
+                          <h4 className="placed-mini-stamp__name">{stamp.name}</h4>
+                          <p className="placed-mini-stamp__tagline">{stamp.tagline}</p>
+                        </div>
+                        <div className="placed-mini-stamp__footer">
+                          <span className="placed-mini-stamp__year">{stamp.year}</span>
+                          <span className="placed-mini-stamp__serial">{stamp.serial}</span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 ))}
 
