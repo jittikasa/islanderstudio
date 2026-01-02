@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import SEO from '../components/SEO'
 import AuthorManager from '../components/admin/AuthorManager'
 import CategoryManager from '../components/admin/CategoryManager'
+import TagManager from '../components/admin/TagManager'
 import PostManager from '../components/admin/PostManager'
 import './AdminDashboard.css'
 
@@ -51,12 +52,19 @@ export default function AdminDashboard() {
         >
           Categories
         </button>
+        <button
+          className={`tab-btn ${activeTab === 'tags' ? 'active' : ''}`}
+          onClick={() => setActiveTab('tags')}
+        >
+          Tags
+        </button>
       </div>
 
       <div className="admin-content">
         {activeTab === 'posts' && <PostManager />}
         {activeTab === 'authors' && <AuthorManager />}
         {activeTab === 'categories' && <CategoryManager />}
+        {activeTab === 'tags' && <TagManager />}
       </div>
     </div>
   )

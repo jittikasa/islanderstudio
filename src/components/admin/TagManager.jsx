@@ -3,24 +3,23 @@ import './ContentManager.css'
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8787'
 
-export default function CategoryManager() {
-  const [categories, setCategories] = useState([])
+export default function TagManager() {
+  const [tags, setTags] = useState([])
   const [loading, setLoading] = useState(true)
   const [showForm, setShowForm] = useState(false)
-  const [editingCategory, setEditingCategory] = useState(null)
+  const [editingTag, setEditingTag] = useState(null)
   const [formData, setFormData] = useState({
-    name: '',
-    description: ''
+    name: ''
   })
 
   useEffect(() => {
-    fetchCategories()
+    fetchTags()
   }, [])
 
-  async function fetchCategories() {
+  async function fetchTags() {
     try {
       const token = localStorage.getItem('admin_token')
-      const response = await fetch(`${API_URL}/api/categories`, {
+      const response = await fetch(`${API_URL}/api/tags`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -28,14 +27,14 @@ export default function CategoryManager() {
       })
 
       if (!response.ok) {
-        throw new Error('Failed to fetch categories')
+        throw new Error('Failed to fetch tags')
       }
 
       const data = await response.json()
-      setCategories(data.categories || [])
+      setTags(data.tags || [])
     } catch (error) {
-      console.error('Error fetching categories:', error)
-      alert('Failed to load categories')
+      console.error('Error fetching tags:', error)
+      alert('Failed to load tags')
     } finally {
       setLoading(false)
     }
@@ -50,44 +49,43 @@ export default function CategoryManager() {
       // Generate slug from name
       const slug = formData.name.toLowerCase().replace(/\s+/g, '-')
 
-      const url = editingCategory
-        ? `${API_URL}/api/categories/${editingCategory.id}`
-        : `${API_URL}/api/categories`
+      const url = editingTag
+        ? `${API_URL}/api/tags/${editingTag.id}`
+        : `${API_URL}/api/tags`
 
       const response = await fetch(url, {
-        method: editingCategory ? 'PUT' : 'POST',
+        method: editingTag ? 'PUT' : 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           name: formData.name,
-          slug: slug,
-          description: formData.description
+          slug: slug
         })
       })
 
       if (!response.ok) {
-        throw new Error('Failed to save category')
+        throw new Error('Failed to save tag')
       }
 
-      setFormData({ name: '', description: '' })
+      setFormData({ name: '' })
       setShowForm(false)
-      setEditingCategory(null)
-      fetchCategories()
-      alert(editingCategory ? 'Category updated successfully!' : 'Category created successfully!')
+      setEditingTag(null)
+      fetchTags()
+      alert(editingTag ? 'Tag updated successfully!' : 'Tag created successfully!')
     } catch (error) {
-      console.error('Error saving category:', error)
-      alert('Failed to save category')
+      console.error('Error saving tag:', error)
+      alert('Failed to save tag')
     }
   }
 
   async function handleDelete(id) {
-    if (!confirm('Are you sure you want to delete this category?')) return
+    if (!confirm('Are you sure you want to delete this tag?')) return
 
     try {
       const token = localStorage.getItem('admin_token')
-      const response = await fetch(`${API_URL}/api/categories/${id}`, {
+      const response = await fetch(`${API_URL}/api/tags/${id}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -96,42 +94,41 @@ export default function CategoryManager() {
       })
 
       if (!response.ok) {
-        throw new Error('Failed to delete category')
+        throw new Error('Failed to delete tag')
       }
 
-      fetchCategories()
-      alert('Category deleted successfully!')
+      fetchTags()
+      alert('Tag deleted successfully!')
     } catch (error) {
-      console.error('Error deleting category:', error)
-      alert('Failed to delete category')
+      console.error('Error deleting tag:', error)
+      alert('Failed to delete tag')
     }
   }
 
-  function handleEdit(category) {
+  function handleEdit(tag) {
     setFormData({
-      name: category.name,
-      description: category.description || ''
+      name: tag.name
     })
-    setEditingCategory(category)
+    setEditingTag(tag)
     setShowForm(true)
   }
 
   function handleCancel() {
-    setFormData({ name: '', description: '' })
-    setEditingCategory(null)
+    setFormData({ name: '' })
+    setEditingTag(null)
     setShowForm(false)
   }
 
   if (loading) {
-    return <div className="loading">Loading categories...</div>
+    return <div className="loading">Loading tags...</div>
   }
 
   return (
     <div className="content-manager">
       <div className="manager-header">
-        <h2>Categories</h2>
+        <h2>Tags</h2>
         <button onClick={() => setShowForm(!showForm)} className="add-btn">
-          {showForm ? 'Cancel' : '+ New Category'}
+          {showForm ? 'Cancel' : '+ New Tag'}
         </button>
       </div>
 
@@ -145,23 +142,14 @@ export default function CategoryManager() {
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
               required
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="description">Description</label>
-            <textarea
-              id="description"
-              rows="3"
-              value={formData.description}
-              onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+              placeholder="e.g., React, TypeScript, Web Development"
             />
           </div>
 
           <button type="submit" className="submit-btn">
-            {editingCategory ? 'Update Category' : 'Create Category'}
+            {editingTag ? 'Update Tag' : 'Create Tag'}
           </button>
-          {editingCategory && (
+          {editingTag && (
             <button type="button" onClick={handleCancel} className="cancel-btn" style={{ marginLeft: '1rem' }}>
               Cancel
             </button>
@@ -170,25 +158,24 @@ export default function CategoryManager() {
       )}
 
       <div className="content-list">
-        {categories.length === 0 ? (
-          <p className="empty-state">No categories yet. Create your first category!</p>
+        {tags.length === 0 ? (
+          <p className="empty-state">No tags yet. Create your first tag!</p>
         ) : (
-          categories.map((category) => (
-            <div key={category.id} className="content-item">
+          tags.map((tag) => (
+            <div key={tag.id} className="content-item">
               <div className="item-info">
-                <h3>{category.name}</h3>
-                {category.description && <p>{category.description}</p>}
-                <p className="post-meta">Slug: {category.slug}</p>
+                <h3>{tag.name}</h3>
+                <p className="post-meta">Slug: {tag.slug}</p>
               </div>
               <div className="item-actions">
                 <button
-                  onClick={() => handleEdit(category)}
+                  onClick={() => handleEdit(tag)}
                   className="edit-btn"
                 >
                   Edit
                 </button>
                 <button
-                  onClick={() => handleDelete(category.id)}
+                  onClick={() => handleDelete(tag.id)}
                   className="delete-btn"
                 >
                   Delete
