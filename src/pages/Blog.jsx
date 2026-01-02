@@ -39,8 +39,8 @@ export default function Blog() {
     return (
       <div className="blog-page">
         <SEO
-          title="Blog - Islander Studio"
-          description="Thoughts, updates, and stories from Islander Studio"
+          title="Blog - islander Studio"
+          description="Thoughts, updates, and stories from islander Studio"
           path="/blog"
         />
         <div className="blog-loading">
@@ -55,19 +55,19 @@ export default function Blog() {
     return (
       <div className="blog-page">
         <SEO
-          title="Blog - Islander Studio"
-          description="Thoughts, updates, and stories from Islander Studio"
+          title="Blog - islander Studio"
+          description="Thoughts, updates, and stories from islander Studio"
           path="/blog"
         />
         <div className="blog-header">
           <h1 className="blog-title">Blog</h1>
           <p className="blog-subtitle">
-            Thoughts, updates, and stories from Islander Studio
+            Thoughts, updates, and stories from islander Studio
           </p>
         </div>
         <div className="blog-empty">
           <p style={{ fontSize: '1.5rem', fontWeight: '600', marginBottom: '0.5rem' }}>Coming Soon</p>
-          <p>We're preparing something special. Check back soon for updates, stories, and insights from Islander Studio.</p>
+          <p>We're preparing something special. Check back soon for updates, stories, and insights from islander Studio.</p>
         </div>
       </div>
     )
@@ -76,15 +76,15 @@ export default function Blog() {
   return (
     <div className="blog-page">
       <SEO
-        title="Blog - Islander Studio"
-        description="Thoughts, updates, and stories from Islander Studio. Read about our apps, design philosophy, and everyday moments."
+        title="Blog - islander Studio"
+        description="Thoughts, updates, and stories from islander Studio. Read about our apps, design philosophy, and everyday moments."
         path="/blog"
       />
 
       <div className="blog-header">
         <h1 className="blog-title">Blog</h1>
         <p className="blog-subtitle">
-          Thoughts, updates, and stories from Islander Studio
+          Thoughts, updates, and stories from islander Studio
         </p>
       </div>
 

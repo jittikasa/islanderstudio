@@ -78,7 +78,7 @@ export default function Shellist() {
   return (
     <>
       <SEO
-        title="Shellist - Habit Tracker with Pearl Visualizations | Islander Studio"
+        title="Shellist - Habit Tracker with Pearl Visualizations | islander Studio"
         description="Build habits like pearls. Transform your life one habit at a time with beautiful pearl visualizations, powerful analytics, vision boards, and motivational tools. Available on iOS."
         url="https://islanderstudio.app/shellist"
         image="https://islanderstudio.app/shellist/images/App Icon.png"

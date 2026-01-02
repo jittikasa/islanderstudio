@@ -65,7 +65,7 @@ export default function PolaMoment() {
   return (
     <>
       <SEO
-        title="PolaMoment - Vintage Polaroid Camera for iPhone | Islander Studio"
+        title="PolaMoment - Vintage Polaroid Camera for iPhone | islander Studio"
         description="Transform your iPhone into a vintage Polaroid camera. Create instant memories with authentic retro filters, classic frames, and that iconic aesthetic we all love."
         url="https://islanderstudio.app/polamoment"
         image="https://islanderstudio.app/pola-assets/Icon-1024.png"

@@ -38,7 +38,7 @@ export default function Home() {
 
       setStickers(prev => prev.map(s =>
         s.id === dragging.id
-          ? { ...s, x: Math.max(0, Math.min(95, x)), y: Math.max(0, Math.min(90, y)) }
+          ? { ...s, x: Math.max(0, Math.min(95, x)), y: Math.max(0, Math.min(55, y)) }
           : s
       ))
     }
@@ -97,7 +97,7 @@ export default function Home() {
   return (
     <>
       <SEO
-        title="Islander Studio — Apps crafted with soul"
+        title="islander Studio — Apps crafted with soul"
         description="A boutique iOS studio creating thoughtfully designed mobile experiences. Discover Shellist and PolaMoment."
         url="https://islanderstudio.app"
       />
@@ -312,10 +312,9 @@ export default function Home() {
             {/* About Widget */}
             <div className="widget home__widget home__widget--about">
               <span className="widget__label">Who we are</span>
-              <h3 className="widget__title">Islander Studio</h3>
+              <h3 className="widget__title">islander Studio</h3>
               <p className="widget__content">
-                A tiny studio creating iOS apps that respect your privacy
-                and delight in use. Based in Phuket, Thailand.
+                A tiny studio creating iOS apps that spark joy in everyday moments.
               </p>
             </div>
 

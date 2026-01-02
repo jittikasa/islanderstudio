@@ -99,7 +99,7 @@ export default function BlogPost() {
   if (loading) {
     return (
       <div className="blog-post-page">
-        <SEO title="Loading... - Islander Studio Blog" path={`/blog/${slug}`} />
+        <SEO title="Loading... - islander Studio Blog" path={`/blog/${slug}`} />
         <div className="post-loading">
           <LoadingSpinner />
           <p>Loading post...</p>
@@ -111,7 +111,7 @@ export default function BlogPost() {
   if (error || !post) {
     return (
       <div className="blog-post-page">
-        <SEO title="Post Not Found - Islander Studio Blog" path={`/blog/${slug}`} />
+        <SEO title="Post Not Found - islander Studio Blog" path={`/blog/${slug}`} />
         <div className="post-error">
           <h1>Post Not Found</h1>
           <p>Sorry, we couldn't find the post you're looking for.</p>
@@ -145,11 +145,11 @@ export default function BlogPost() {
     dateModified: post.updatedAt || post.publishedAt,
     author: {
       '@type': 'Person',
-      name: post.authorName || 'Islander Studio',
+      name: post.authorName || 'islander Studio',
     },
     publisher: {
       '@type': 'Organization',
-      name: 'Islander Studio',
+      name: 'islander Studio',
       logo: {
         '@type': 'ImageObject',
         url: 'https://islanderstudio.app/branding/Logo-primary.png',
@@ -192,7 +192,7 @@ export default function BlogPost() {
   return (
     <div className="blog-post-page">
       <SEO
-        title={`${seoTitle} - Islander Studio Blog`}
+        title={`${seoTitle} - islander Studio Blog`}
         description={seoDescription}
         url={canonicalUrl}
         image={seoImage}
