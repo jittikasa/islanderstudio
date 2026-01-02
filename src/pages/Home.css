@@ -891,7 +891,10 @@
 .home__stamp-icon {
   width: 80px;
   height: 80px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
   margin-bottom: var(--space-4);
+  box-shadow: var(--shadow-md);
   transition: transform 0.3s var(--ease-spring);
 }
 
