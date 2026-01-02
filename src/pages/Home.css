@@ -118,21 +118,6 @@
   min-height: auto;
 }
 
-/* Floating Stamp Header */
-.home__floating-stamp-header {
-  margin-bottom: 0;
-}
-
-.home__floating-stamp-category {
-  font-family: var(--font-mono);
-  font-size: 5px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--fog);
-  line-height: 1;
-}
-
 /* Floating Stamp Content */
 .home__floating-stamp-content {
   flex: 1;
@@ -171,11 +156,14 @@
 }
 
 .home__floating-stamp-tagline {
+  font-family: var(--font-mono);
   font-size: 5px;
-  font-style: italic;
-  color: var(--stone);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--fog);
   margin: 0;
-  line-height: 1.2;
+  line-height: 1;
 }
 
 /* Floating Stamp Footer */

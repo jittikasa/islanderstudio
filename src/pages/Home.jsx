@@ -127,15 +127,12 @@ export default function Home() {
               <div className="home__floating-stamp">
                 <div className="home__floating-stamp-perforated">
                   <div className="home__floating-stamp-inner">
-                    <div className="home__floating-stamp-header">
-                      <span className="home__floating-stamp-category">{sticker.category}</span>
-                    </div>
                     <div className="home__floating-stamp-content">
                       <div className="home__floating-stamp-icon">
                         <span>{sticker.icon}</span>
                       </div>
                       <h4 className="home__floating-stamp-name">{sticker.name}</h4>
-                      <p className="home__floating-stamp-tagline">{sticker.tagline}</p>
+                      <p className="home__floating-stamp-tagline">{sticker.category}</p>
                     </div>
                     <div className="home__floating-stamp-footer">
                       <span className="home__floating-stamp-year">{sticker.year}</span>
