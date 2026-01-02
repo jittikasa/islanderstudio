@@ -65,6 +65,68 @@
   pointer-events: none;
 }
 
+/* Floating Beach Stamp */
+.home__sticker--stamp {
+  width: 100px;
+  height: 130px;
+}
+
+.home__floating-stamp {
+  width: 100%;
+  height: 100%;
+}
+
+.home__floating-stamp-perforated {
+  width: 100%;
+  height: 100%;
+  background: #E28463;
+  border: 2px solid var(--midnight-sky);
+  position: relative;
+}
+
+/* Perforated edges for floating stamp */
+.home__floating-stamp-perforated::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -4px;
+  height: 8px;
+  background: radial-gradient(circle at center, transparent 3px, transparent 3px);
+  background-size: 12px 8px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.home__floating-stamp-perforated::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;
+  height: 8px;
+  background: radial-gradient(circle at center, transparent 3px, transparent 3px);
+  background-size: 12px 8px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.home__floating-stamp-inner {
+  width: 100%;
+  height: 100%;
+  background: var(--white);
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.home__floating-stamp-inner svg {
+  width: 100%;
+  height: 100%;
+}
+
 .home__sticker:hover {
   transform: rotate(0deg) scale(calc(var(--scale) * 1.15));
   filter: drop-shadow(0 8px 24px rgba(51, 51, 51, 0.2));
@@ -318,59 +380,20 @@
   padding: var(--space-6);
 }
 
-/* Twine String */
-.home__postcard-twine {
+/* Postmark Group with Waves */
+.home__postcard-postmark-group {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 50;
-  pointer-events: none;
-  width: 100%;
-  height: 100%;
-}
-
-.home__postcard-twine-vertical {
-  position: absolute;
-  width: 6px;
-  height: 180%;
-  background: linear-gradient(
-    to bottom,
-    #8B7355 0%,
-    #A0866F 20%,
-    #8B7355 40%,
-    #A0866F 60%,
-    #8B7355 80%,
-    #A0866F 100%
-  );
-  left: 50%;
-  top: -40%;
-  transform: translateX(-50%);
-  box-shadow:
-    inset -2px 0 3px rgba(0, 0, 0, 0.5),
-    2px 0 3px rgba(255, 255, 255, 0.4),
-    0 0 10px rgba(139, 115, 85, 0.4);
-  border-radius: 3px;
-}
-
-.home__postcard-twine-vertical::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(
-    to bottom,
-    transparent 0px,
-    rgba(0, 0, 0, 0.1) 2px,
-    transparent 4px
-  );
+  top: 24px;
+  left: calc(24px + 10%);
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 /* Postmark Stamp */
 .home__postcard-postmark {
-  position: absolute;
-  top: 24px;
-  left: calc(24px + 20%);
-  z-index: 5;
+  position: relative;
   color: #A67C52;
   opacity: 0.85;
   filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
@@ -421,97 +444,14 @@
 }
 
 .home__postcard-postmark-waves {
-  position: absolute;
-  top: 28px;
-  left: -65px;
+  position: relative;
   width: 80px;
   height: 40px;
   color: #A67C52;
   opacity: 0.85;
+  flex-shrink: 0;
 }
 
-/* Beach Scene Stamp */
-.home__postcard-stamp {
-  position: absolute;
-  top: var(--space-4);
-  right: var(--space-6);
-  z-index: 5;
-  cursor: grab;
-  transition: all 0.3s var(--ease-spring);
-  animation: stamp-drop 0.6s var(--ease-out) 0.6s backwards;
-  filter: drop-shadow(0 4px 12px rgba(51, 51, 51, 0.15));
-}
-
-.home__postcard-stamp:hover {
-  transform: translateY(-4px) rotate(-2deg) scale(1.05);
-  filter: drop-shadow(0 8px 20px rgba(51, 51, 51, 0.25));
-  z-index: 20;
-}
-
-.home__postcard-stamp:active,
-.home__postcard-stamp--dragging {
-  cursor: grabbing;
-  transform: translateY(-2px) rotate(0deg) scale(1.02);
-  z-index: 100;
-}
-
-.home__postcard-stamp-perforated {
-  background: #E28463;
-  border: 2px solid var(--midnight-sky);
-  position: relative;
-  transition: all 0.3s var(--ease-spring);
-}
-
-.home__postcard-stamp:hover .home__postcard-stamp-perforated {
-  box-shadow:
-    3px 4px 0 var(--midnight-sky),
-    0 12px 24px rgba(51, 51, 51, 0.2);
-}
-
-/* Perforated edges - top */
-.home__postcard-stamp-perforated::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: -4px;
-  height: 8px;
-  background: radial-gradient(circle at center, var(--cream) 3px, transparent 3px);
-  background-size: 12px 8px;
-  pointer-events: none;
-  z-index: 2;
-}
-
-/* Perforated edges - bottom */
-.home__postcard-stamp-perforated::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -4px;
-  height: 8px;
-  background: radial-gradient(circle at center, var(--cream) 3px, transparent 3px);
-  background-size: 12px 8px;
-  pointer-events: none;
-  z-index: 2;
-}
-
-.home__postcard-stamp-inner {
-  width: 70px;
-  height: 90px;
-  background: var(--white);
-  padding: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-}
-
-.home__postcard-stamp-inner img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
 
 /* Address Section */
 .home__postcard-address {
