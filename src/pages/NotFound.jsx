@@ -24,8 +24,8 @@ export default function NotFound() {
   return (
     <>
       <SEO
-        title="404 - Page Not Found | Islander Studio"
-        description="The page you're looking for doesn't exist or has been moved. Return to Islander Studio homepage or explore our apps."
+        title="404 - Page Not Found | islander Studio"
+        description="The page you're looking for doesn't exist or has been moved. Return to islander Studio homepage or explore our apps."
         url="https://islanderstudio.app/404"
       />
       <div className={`notfound ${isLoaded ? 'notfound--loaded' : ''}`}>

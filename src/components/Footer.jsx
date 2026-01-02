@@ -95,7 +95,7 @@ export default function Footer() {
 
         <div className="footer__bottom">
           <p className="footer__copyright">
-            {currentYear} Islander Studio
+            {currentYear} islander Studio
           </p>
         </div>
       </div>

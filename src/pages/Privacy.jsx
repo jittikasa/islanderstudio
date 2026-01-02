@@ -5,8 +5,8 @@ export default function Privacy() {
   return (
     <>
       <SEO
-        title="Privacy Policy - Islander Studio | GDPR & CCPA Compliant"
-        description="Comprehensive privacy policy for Islander Studio apps (Shellist, PolaMoment). Local-first data storage, optional iCloud sync, GDPR & CCPA compliant, no tracking, no ads. Learn about your data rights, security measures, and children's privacy protection."
+        title="Privacy Policy - islander Studio | GDPR & CCPA Compliant"
+        description="Comprehensive privacy policy for islander Studio apps (Shellist, PolaMoment). Local-first data storage, optional iCloud sync, GDPR & CCPA compliant, no tracking, no ads. Learn about your data rights, security measures, and children's privacy protection."
         url="https://islanderstudio.app/privacy"
         keywords="privacy policy, GDPR compliant, CCPA compliant, data privacy, iOS app privacy, data protection, user privacy, no tracking, no ads, children's privacy, COPPA, data rights, local storage, iCloud privacy, data security"
       />

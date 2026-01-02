@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
 
 export default function SEO({
-  title = 'Islander Studio - Crafting Beautiful iOS Apps',
-  description = 'Islander Studio creates beautifully crafted iOS apps that blend functionality with artistry. Discover Shellist, PolaMoment, and more.',
+  title = 'islander Studio - Crafting Beautiful iOS Apps',
+  description = 'islander Studio creates beautifully crafted iOS apps that blend functionality with artistry. Discover Shellist, PolaMoment, and more.',
   image = 'https://islanderstudio.app/branding/Logo-primary.png',
   url = 'https://islanderstudio.app',
   type = 'website',

@@ -278,7 +278,7 @@
 }
 
 .home__hero-title {
-  font-size: clamp(2.5rem, 8vw, 4.5rem);
+  font-size: clamp(2.1rem, 6.8vw, 3.8rem);
   font-weight: 800;
   line-height: 1.05;
   letter-spacing: -0.03em;
@@ -343,6 +343,7 @@
 .home__hero-stat {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 2px;
 }
 
@@ -453,32 +454,67 @@
   background: #FFFFFF;
   position: relative;
   aspect-ratio: 3 / 2;
-  padding: var(--space-6);
+  display: flex;
 }
 
-/* Postmark Group with Waves */
-.home__postcard-postmark-group {
-  position: absolute;
-  top: 24px;
-  left: calc(24px + 10%);
-  z-index: 5;
+/* Left Side - Message Area */
+.home__postcard-left {
+  flex: 1;
+  padding: var(--space-6);
   display: flex;
   align-items: center;
-  gap: 8px;
+  justify-content: center;
 }
 
-/* Postmark Stamp */
+.home__postcard-message {
+  text-align: center;
+}
+
+.home__postcard-message-text {
+  font-family: 'Brush Script MT', 'Lucida Handwriting', cursive, var(--font-body);
+  font-size: 24px;
+  color: #8B7355;
+  line-height: 1.5;
+  font-style: italic;
+  margin: 0;
+}
+
+/* Vertical Divider */
+.home__postcard-divider {
+  width: 1px;
+  background: #B8977A;
+  opacity: 0.5;
+  margin: var(--space-4) 0;
+}
+
+/* Right Side */
+.home__postcard-right {
+  flex: 1;
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Postmark with Waves - Horizontal Layout */
 .home__postcard-postmark {
-  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 6px;
   color: #A67C52;
   opacity: 0.85;
-  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+  margin-bottom: auto;
+}
+
+.home__postcard-postmark-waves {
+  width: 50px;
+  height: 28px;
+  flex-shrink: 0;
 }
 
 .home__postcard-postmark-circle {
-  width: 65px;
-  height: 65px;
-  border: 2.5px solid currentColor;
+  width: 50px;
+  height: 50px;
+  border: 2px solid currentColor;
   border-radius: 50%;
   display: flex;
   flex-direction: column;
@@ -487,81 +523,63 @@
   gap: 1px;
   position: relative;
   background: transparent;
+  flex-shrink: 0;
 }
 
 .home__postcard-postmark-circle::before {
   content: '';
   position: absolute;
-  inset: 4px;
+  inset: 3px;
   border: 1px solid currentColor;
   border-radius: 50%;
   opacity: 0.4;
 }
 
 .home__postcard-postmark-star {
-  font-size: 14px;
+  font-size: 10px;
   line-height: 1;
   margin-bottom: -1px;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
 }
 
 .home__postcard-postmark-text {
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: 7px;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.05em;
   line-height: 1;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
 }
 
 .home__postcard-postmark-text--bottom {
-  font-size: 7.5px;
+  font-size: 6px;
   margin-top: 1px;
 }
 
-.home__postcard-postmark-waves {
-  position: relative;
-  width: 80px;
-  height: 40px;
-  color: #A67C52;
-  opacity: 0.85;
-  flex-shrink: 0;
-}
-
-
 /* Address Section */
 .home__postcard-address {
-  position: absolute;
-  bottom: var(--space-8);
-  right: var(--space-10);
-  z-index: 5;
-  transform: scale(1.2);
-  transform-origin: bottom right;
+  margin-top: auto;
 }
 
 .home__postcard-to {
   font-family: 'Brush Script MT', 'Lucida Handwriting', cursive, var(--font-body);
-  font-size: 72px;
+  font-size: 28px;
   color: #8B7355;
-  margin-bottom: var(--space-6);
+  margin-bottom: var(--space-3);
   font-weight: 400;
   letter-spacing: 0.03em;
-  text-shadow: 0 2px 3px rgba(0, 0, 0, 0.15);
   font-style: italic;
 }
 
 .home__postcard-lines {
   display: flex;
   flex-direction: column;
-  gap: var(--space-6);
-  padding-left: var(--space-2);
+  gap: var(--space-3);
 }
 
 .home__postcard-line {
-  height: 4px;
+  height: 2px;
   background: linear-gradient(to right, #B8977A 0%, #B8977A 95%, transparent 100%);
-  border-radius: 2px;
-  opacity: 0.7;
+  border-radius: 1px;
+  opacity: 0.5;
   position: relative;
 }
 
@@ -576,15 +594,15 @@
 }
 
 .home__postcard-line:nth-child(1) {
-  width: 280px;
+  width: 100%;
 }
 
 .home__postcard-line:nth-child(2) {
-  width: 260px;
+  width: 90%;
 }
 
 .home__postcard-line:nth-child(3) {
-  width: 240px;
+  width: 75%;
 }
 
 /* Placed Stamps on Postcard */

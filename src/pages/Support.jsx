@@ -56,8 +56,8 @@ const polamomentFAQs = [
 
 const generalFAQs = [
   {
-    question: 'Who makes Islander Studio apps?',
-    answer: "Islander Studio is an independent app studio focused on creating beautifully designed iOS applications that respect your privacy and delight in use. We're passionate about thoughtful design and user experience.",
+    question: 'Who makes islander Studio apps?',
+    answer: "islander Studio is an independent app studio focused on creating beautifully designed iOS applications. We're passionate about thoughtful design and user experience.",
   },
   {
     question: 'Do you sell my data?',
@@ -114,7 +114,7 @@ export default function Support() {
   return (
     <>
       <SEO
-        title="Support & FAQs - Islander Studio"
+        title="Support & FAQs - islander Studio"
         description="Get help with Shellist and PolaMoment. Find answers to common questions about features, privacy, data storage, and more. Contact our support team."
         url="https://islanderstudio.app/support"
         keywords="app support, FAQ, help center, customer support, Shellist help, PolaMoment support, iOS app help"

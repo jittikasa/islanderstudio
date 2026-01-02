@@ -8,10 +8,10 @@ export default function Home() {
   const [hoveredApp, setHoveredApp] = useState(null)
   const [copiedEmail, setCopiedEmail] = useState(false)
   const [stickers, setStickers] = useState([
-    { id: 1, x: 85, y: 15, rotation: -8, scale: 1, category: 'Nature', name: 'Palm Tree', tagline: 'Tropical vibes', year: '2025', color: '#4CAF50', icon: '🌴', serial: 'IS-002' },
-    { id: 2, x: 75, y: 8, rotation: 12, scale: 0.8, category: 'Nature', name: 'Sunny Day', tagline: 'Bright & warm', year: '2025', color: '#FFD54F', icon: '☀️', serial: 'IS-001' },
-    { id: 3, x: 5, y: 60, rotation: -15, scale: 0.9, category: 'Nature', name: 'Hibiscus', tagline: 'Island bloom', year: '2025', color: '#E91E63', icon: '🌺', serial: 'IS-003' },
-    { id: 4, x: 92, y: 75, rotation: 20, scale: 0.85, category: 'Ocean', name: 'Seashell', tagline: 'Beach treasure', year: '2025', color: '#FFAB91', icon: '🐚', serial: 'IS-004' },
+    { id: 1, x: 78, y: 12, rotation: 5, scale: 1, category: 'Studio', name: 'islander.', tagline: 'Crafted with soul', year: '2025', color: '#4CAF50', icon: '🌴', serial: 'IS-001' },
+    { id: 2, x: 5, y: 55, rotation: -12, scale: 0.9, category: 'App', name: 'Shellist', tagline: 'Shell notes', year: '2025', color: '#FFAB91', icon: '🐚', serial: 'IS-002' },
+    { id: 3, x: 88, y: 70, rotation: 8, scale: 0.85, category: 'App', name: 'PolaMoment', tagline: 'Capture moments', year: '2026', color: '#78909C', icon: '📷', serial: 'IS-003' },
+    { id: 4, x: 3, y: 25, rotation: -8, scale: 0.9, category: 'App', name: 'Daily Ritual', tagline: 'Mindful habits', year: '2026', color: '#FFB74D', icon: '🕯️', serial: 'IS-004' },
   ])
   const [dragging, setDragging] = useState(null)
   const containerRef = useRef(null)
@@ -38,7 +38,7 @@ export default function Home() {
 
       setStickers(prev => prev.map(s =>
         s.id === dragging.id
-          ? { ...s, x: Math.max(0, Math.min(95, x)), y: Math.max(0, Math.min(90, y)) }
+          ? { ...s, x: Math.max(0, Math.min(95, x)), y: Math.max(0, Math.min(55, y)) }
           : s
       ))
     }
@@ -97,7 +97,7 @@ export default function Home() {
   return (
     <>
       <SEO
-        title="Islander Studio — Apps crafted with soul"
+        title="islander Studio — Apps crafted with soul"
         description="A boutique iOS studio creating thoughtfully designed mobile experiences. Discover Shellist and PolaMoment."
         url="https://islanderstudio.app"
       />
@@ -203,34 +203,44 @@ export default function Home() {
               {/* Front postcard */}
               <div className="home__postcard-border">
                 <div className="home__postcard" ref={postcardRef}>
-                  {/* Twine String */}
-                  <div className="home__postcard-twine">
-                    <div className="home__postcard-twine-vertical"></div>
-                  </div>
-
-                  {/* Postmark Stamp */}
-                  <div className="home__postcard-postmark">
-                    <div className="home__postcard-postmark-circle">
-                      <span className="home__postcard-postmark-star">★</span>
-                      <span className="home__postcard-postmark-text">POST</span>
-                      <span className="home__postcard-postmark-text home__postcard-postmark-text--bottom">DEC 01</span>
+                  {/* Left side - Message Area */}
+                  <div className="home__postcard-left">
+                    <div className="home__postcard-message">
+                      <p className="home__postcard-message-text">
+                        Crafting apps with soul,<br />
+                        one pixel at a time.
+                      </p>
                     </div>
                   </div>
 
-                  <svg className="home__postcard-postmark-waves" viewBox="0 0 80 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M0 8 Q 7 3, 14 8 T 28 8 T 42 8 T 56 8 T 70 8 T 84 8" stroke="currentColor" strokeWidth="1.5" fill="none"/>
-                    <path d="M0 16 Q 7 11, 14 16 T 28 16 T 42 16 T 56 16 T 70 16 T 84 16" stroke="currentColor" strokeWidth="1.5" fill="none"/>
-                    <path d="M0 24 Q 7 19, 14 24 T 28 24 T 42 24 T 56 24 T 70 24 T 84 24" stroke="currentColor" strokeWidth="1.5" fill="none"/>
-                    <path d="M0 32 Q 7 27, 14 32 T 28 32 T 42 32 T 56 32 T 70 32 T 84 32" stroke="currentColor" strokeWidth="1.5" fill="none"/>
-                  </svg>
+                  {/* Vertical Divider */}
+                  <div className="home__postcard-divider"></div>
 
-                  {/* Address Section */}
-                  <div className="home__postcard-address">
-                    <div className="home__postcard-to">To :</div>
-                    <div className="home__postcard-lines">
-                      <div className="home__postcard-line"></div>
-                      <div className="home__postcard-line"></div>
-                      <div className="home__postcard-line"></div>
+                  {/* Right side - Postmark & Address */}
+                  <div className="home__postcard-right">
+                    {/* Postmark with waves */}
+                    <div className="home__postcard-postmark">
+                      <svg className="home__postcard-postmark-waves" viewBox="0 0 60 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0 4 Q 5 1, 10 4 T 20 4 T 30 4 T 40 4 T 50 4 T 60 4" stroke="currentColor" strokeWidth="1.5" fill="none"/>
+                        <path d="M0 11 Q 5 8, 10 11 T 20 11 T 30 11 T 40 11 T 50 11 T 60 11" stroke="currentColor" strokeWidth="1.5" fill="none"/>
+                        <path d="M0 18 Q 5 15, 10 18 T 20 18 T 30 18 T 40 18 T 50 18 T 60 18" stroke="currentColor" strokeWidth="1.5" fill="none"/>
+                        <path d="M0 25 Q 5 22, 10 25 T 20 25 T 30 25 T 40 25 T 50 25 T 60 25" stroke="currentColor" strokeWidth="1.5" fill="none"/>
+                      </svg>
+                      <div className="home__postcard-postmark-circle">
+                        <span className="home__postcard-postmark-star">★</span>
+                        <span className="home__postcard-postmark-text">POST</span>
+                        <span className="home__postcard-postmark-text home__postcard-postmark-text--bottom">DEC 01</span>
+                      </div>
+                    </div>
+
+                    {/* Address Section */}
+                    <div className="home__postcard-address">
+                      <div className="home__postcard-to">To :</div>
+                      <div className="home__postcard-lines">
+                        <div className="home__postcard-line"></div>
+                        <div className="home__postcard-line"></div>
+                        <div className="home__postcard-line"></div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -312,10 +322,9 @@ export default function Home() {
             {/* About Widget */}
             <div className="widget home__widget home__widget--about">
               <span className="widget__label">Who we are</span>
-              <h3 className="widget__title">Islander Studio</h3>
+              <h3 className="widget__title">islander Studio</h3>
               <p className="widget__content">
-                A tiny studio creating iOS apps that respect your privacy
-                and delight in use. Based in Phuket, Thailand.
+                A tiny studio creating iOS apps that spark joy in everyday moments.
               </p>
             </div>
 
