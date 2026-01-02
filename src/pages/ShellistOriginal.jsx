@@ -124,7 +124,7 @@ export default function ShellistOriginal() {
             </div>
             <div className="col-sm-5">
               <div className="miwlo-app-landing-banner-right">
-                <img className="mobile" src="/shellist/images/screenshots/Screens-2.png" alt="Shellist app interface" data-aos="fade-up" data-aos-delay="1000" />
+                <img className="mobile" src="/shellist/images/screenshots/Screens-2.webp" alt="Shellist app interface" data-aos="fade-up" data-aos-delay="1000" />
               </div>
             </div>
           </div>
@@ -140,7 +140,7 @@ export default function ShellistOriginal() {
                 <div className="miwlo-feature-img miwlo-parallax">
                   <div className="layer" data-depth="0.1">
                     <div data-aos="fade-up" data-aos-delay="300">
-                      <img data-parallax='{"y" : 30}' className="mobile" src="/shellist/images/screenshots/Screens-1.png" alt="Shellist app showing habit progress tracking" />
+                      <img data-parallax='{"y" : 30}' className="mobile" src="/shellist/images/screenshots/Screens-1.webp" alt="Shellist app showing habit progress tracking" />
                     </div>
                   </div>
                 </div>
@@ -175,7 +175,7 @@ export default function ShellistOriginal() {
                     </div>
                   </div>
                 </div>
-                <img src="/shellist/images/screenshots/Screens-4.png" alt="Shellist vision board feature" />
+                <img src="/shellist/images/screenshots/Screens-4.webp" alt="Shellist vision board feature" />
               </div>
             </div>
           </div>
