@@ -3,7 +3,7 @@
  * Cloudflare Workers backend for D1-powered blog
  */
 
-import { login, verifySession } from './auth.js';
+import { login, verify, logout, verifySession } from './auth.js';
 import { handlePosts, handlePost, createPost, updatePost, deletePost } from './api/posts.js';
 import { handleAuthors } from './api/authors.js';
 import { handleCategories } from './api/categories.js';
@@ -79,6 +79,14 @@ export default {
       // Public routes (no auth required)
       if (path === '/api/auth/login' && method === 'POST') {
         return await login(request, env);
+      }
+
+      if (path === '/api/auth/verify' && method === 'GET') {
+        return await verify(request, env);
+      }
+
+      if (path === '/api/auth/logout' && method === 'POST') {
+        return await logout(request, env);
       }
 
       // Health check
