@@ -65,10 +65,10 @@
   pointer-events: none;
 }
 
-/* Floating Beach Stamp */
+/* Floating Mini Stamp Card */
 .home__sticker--stamp {
-  width: 100px;
-  height: 130px;
+  width: 90px;
+  height: auto;
 }
 
 .home__floating-stamp {
@@ -78,10 +78,10 @@
 
 .home__floating-stamp-perforated {
   width: 100%;
-  height: 100%;
-  background: #E28463;
+  background: var(--white);
   border: 2px solid var(--midnight-sky);
   position: relative;
+  box-shadow: 2px 2px 0 var(--midnight-sky);
 }
 
 /* Perforated edges for floating stamp */
@@ -92,8 +92,8 @@
   right: 0;
   top: -4px;
   height: 8px;
-  background: radial-gradient(circle at center, transparent 3px, transparent 3px);
-  background-size: 12px 8px;
+  background: radial-gradient(circle at center, var(--cream) 3px, transparent 3px);
+  background-size: 10px 8px;
   pointer-events: none;
   z-index: 2;
 }
@@ -105,26 +105,102 @@
   right: 0;
   bottom: -4px;
   height: 8px;
-  background: radial-gradient(circle at center, transparent 3px, transparent 3px);
-  background-size: 12px 8px;
+  background: radial-gradient(circle at center, var(--cream) 3px, transparent 3px);
+  background-size: 10px 8px;
   pointer-events: none;
   z-index: 2;
 }
 
 .home__floating-stamp-inner {
-  width: 100%;
-  height: 100%;
-  background: var(--white);
-  padding: 6px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  min-height: 90px;
+}
+
+/* Floating Stamp Header */
+.home__floating-stamp-header {
+  margin-bottom: 6px;
+}
+
+.home__floating-stamp-category {
+  font-family: var(--font-mono);
+  font-size: 6px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--fog);
+}
+
+/* Floating Stamp Content */
+.home__floating-stamp-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.home__floating-stamp-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: var(--stamp-color, var(--sunset-glow));
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
+  margin-bottom: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s var(--ease-spring);
 }
 
-.home__floating-stamp-inner svg {
-  width: 100%;
-  height: 100%;
+.home__sticker:hover .home__floating-stamp-icon {
+  transform: scale(1.05) rotate(3deg);
+}
+
+.home__floating-stamp-icon span {
+  font-size: 14px;
+  line-height: 1;
+}
+
+.home__floating-stamp-name {
+  font-family: var(--font-display);
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--midnight-sky);
+  margin: 0 0 2px 0;
+  line-height: 1.2;
+}
+
+.home__floating-stamp-tagline {
+  font-size: 6px;
+  font-style: italic;
+  color: var(--stone);
+  margin: 0;
+  line-height: 1.2;
+}
+
+/* Floating Stamp Footer */
+.home__floating-stamp-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 4px;
+  border-top: 1px dashed var(--cloud);
+  margin-top: 6px;
+}
+
+.home__floating-stamp-year {
+  font-family: var(--font-mono);
+  font-size: 6px;
+  font-weight: 700;
+  color: var(--fog);
+}
+
+.home__floating-stamp-serial {
+  font-family: var(--font-mono);
+  font-size: 5px;
+  color: var(--cloud);
 }
 
 .home__sticker:hover {

@@ -8,10 +8,10 @@ export default function Home() {
   const [hoveredApp, setHoveredApp] = useState(null)
   const [copiedEmail, setCopiedEmail] = useState(false)
   const [stickers, setStickers] = useState([
-    { id: 1, src: '/branding/Graphics/coconuttree.png', x: 85, y: 15, rotation: -8, scale: 1 },
-    { id: 2, src: '/branding/Graphics/sun.png', x: 75, y: 8, rotation: 12, scale: 0.8 },
-    { id: 3, src: '/branding/Graphics/flower.png', x: 5, y: 60, rotation: -15, scale: 0.9 },
-    { id: 4, src: '/branding/Graphics/shell.png', x: 92, y: 75, rotation: 20, scale: 0.85 },
+    { id: 1, x: 85, y: 15, rotation: -8, scale: 1, category: 'Nature', name: 'Palm Tree', tagline: 'Tropical vibes', year: '2025', color: '#4CAF50', icon: '🌴', serial: 'IS-002' },
+    { id: 2, x: 75, y: 8, rotation: 12, scale: 0.8, category: 'Nature', name: 'Sunny Day', tagline: 'Bright & warm', year: '2025', color: '#FFD54F', icon: '☀️', serial: 'IS-001' },
+    { id: 3, x: 5, y: 60, rotation: -15, scale: 0.9, category: 'Nature', name: 'Hibiscus', tagline: 'Island bloom', year: '2025', color: '#E91E63', icon: '🌺', serial: 'IS-003' },
+    { id: 4, x: 92, y: 75, rotation: 20, scale: 0.85, category: 'Ocean', name: 'Seashell', tagline: 'Beach treasure', year: '2025', color: '#FFAB91', icon: '🐚', serial: 'IS-004' },
   ])
   const [dragging, setDragging] = useState(null)
   const containerRef = useRef(null)
@@ -107,23 +107,43 @@ export default function Home() {
         className={`home ${loaded ? 'home--loaded' : ''}`}
         ref={containerRef}
       >
-        {/* Floating Stickers */}
+        {/* Floating Mini Stamp Cards */}
         <div className="home__stickers">
           {stickers.map((sticker, index) => (
             <div
               key={sticker.id}
-              className={`home__sticker ${dragging?.id === sticker.id ? 'home__sticker--dragging' : ''}`}
+              className={`home__sticker home__sticker--stamp ${dragging?.id === sticker.id ? 'home__sticker--dragging' : ''}`}
               style={{
                 left: `${sticker.x}%`,
                 top: `${sticker.y}%`,
                 '--rotation': `${sticker.rotation}deg`,
                 '--scale': sticker.scale,
                 '--delay': `${index * 0.1}s`,
+                '--stamp-color': sticker.color,
               }}
               onMouseDown={(e) => handleStickerMouseDown(e, sticker.id)}
               data-tooltip="Drag me!"
             >
-              <img src={sticker.src} alt="" />
+              <div className="home__floating-stamp">
+                <div className="home__floating-stamp-perforated">
+                  <div className="home__floating-stamp-inner">
+                    <div className="home__floating-stamp-header">
+                      <span className="home__floating-stamp-category">{sticker.category}</span>
+                    </div>
+                    <div className="home__floating-stamp-content">
+                      <div className="home__floating-stamp-icon">
+                        <span>{sticker.icon}</span>
+                      </div>
+                      <h4 className="home__floating-stamp-name">{sticker.name}</h4>
+                      <p className="home__floating-stamp-tagline">{sticker.tagline}</p>
+                    </div>
+                    <div className="home__floating-stamp-footer">
+                      <span className="home__floating-stamp-year">{sticker.year}</span>
+                      <span className="home__floating-stamp-serial">{sticker.serial}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           ))}
         </div>
