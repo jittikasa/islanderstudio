@@ -6,6 +6,7 @@ import AuthorManager from '../components/admin/AuthorManager'
 import CategoryManager from '../components/admin/CategoryManager'
 import TagManager from '../components/admin/TagManager'
 import PostManager from '../components/admin/PostManager'
+import MediaLibrary from '../components/admin/MediaLibrary'
 import './AdminDashboard.css'
 
 export default function AdminDashboard() {
@@ -41,6 +42,12 @@ export default function AdminDashboard() {
           Posts
         </button>
         <button
+          className={`tab-btn ${activeTab === 'media' ? 'active' : ''}`}
+          onClick={() => setActiveTab('media')}
+        >
+          Media
+        </button>
+        <button
           className={`tab-btn ${activeTab === 'authors' ? 'active' : ''}`}
           onClick={() => setActiveTab('authors')}
         >
@@ -62,6 +69,7 @@ export default function AdminDashboard() {
 
       <div className="admin-content">
         {activeTab === 'posts' && <PostManager />}
+        {activeTab === 'media' && <MediaLibrary />}
         {activeTab === 'authors' && <AuthorManager />}
         {activeTab === 'categories' && <CategoryManager />}
         {activeTab === 'tags' && <TagManager />}
