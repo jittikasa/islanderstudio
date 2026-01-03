@@ -127,15 +127,12 @@ export default function Home() {
               <div className="home__floating-stamp">
                 <div className="home__floating-stamp-perforated">
                   <div className="home__floating-stamp-inner">
-                    <div className="home__floating-stamp-header">
-                      <span className="home__floating-stamp-category">{sticker.category}</span>
-                    </div>
                     <div className="home__floating-stamp-content">
                       <div className="home__floating-stamp-icon">
                         <span>{sticker.icon}</span>
                       </div>
                       <h4 className="home__floating-stamp-name">{sticker.name}</h4>
-                      <p className="home__floating-stamp-tagline">{sticker.tagline}</p>
+                      <p className="home__floating-stamp-tagline">{sticker.category}</p>
                     </div>
                     <div className="home__floating-stamp-footer">
                       <span className="home__floating-stamp-year">{sticker.year}</span>
@@ -162,9 +159,8 @@ export default function Home() {
             </h1>
 
             <p className="home__hero-text">
-              A boutique iOS studio from Thailand, creating
-              thoughtfully designed mobile experiences that
-              spark joy in everyday moments.
+              A small iOS studio, creating mobile experiences that feel personal,
+              considered, and quietly delightful.
             </p>
 
             <div className="home__hero-actions">
@@ -203,13 +199,20 @@ export default function Home() {
               {/* Front postcard */}
               <div className="home__postcard-border">
                 <div className="home__postcard" ref={postcardRef}>
-                  {/* Left side - Message Area */}
+                  {/* Left side - Studio Notes */}
                   <div className="home__postcard-left">
-                    <div className="home__postcard-message">
-                      <p className="home__postcard-message-text">
-                        Crafting apps with soul,<br />
-                        one pixel at a time.
-                      </p>
+                    <div className="home__postcard-notes">
+                      <p className="home__postcard-notes-label">STUDIO NOTES :</p>
+                      <div className="home__postcard-notes-content">
+                        <p className="home__postcard-notes-line">Been spending time refining small details.</p>
+                        <p className="home__postcard-notes-line">Sketching ideas, testing flows, adjusting pixels.</p>
+                        <p className="home__postcard-notes-line">Slow progress—but it feels right.</p>
+                        <p className="home__postcard-notes-line"></p>
+                      </div>
+                      <div className="home__postcard-from">
+                        <span className="home__postcard-from-label">FROM:</span>
+                        <span className="home__postcard-from-text">Love, islander Studio xx</span>
+                      </div>
                     </div>
                   </div>
 
@@ -242,11 +245,9 @@ export default function Home() {
 
                     {/* Address Section */}
                     <div className="home__postcard-address">
-                      <div className="home__postcard-to">To :</div>
-                      <div className="home__postcard-lines">
-                        <div className="home__postcard-line"></div>
-                        <div className="home__postcard-line"></div>
-                        <div className="home__postcard-line"></div>
+                      <div className="home__postcard-to">
+                        <span className="home__postcard-to-label">TO:</span>
+                        <span className="home__postcard-to-text">Friends of good design</span>
                       </div>
                     </div>
                   </div>

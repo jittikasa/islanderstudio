@@ -67,8 +67,8 @@
 
 /* Floating Mini Stamp Card */
 .home__sticker--stamp {
-  width: 90px;
-  height: auto;
+  width: 67px;
+  height: 75px;
 }
 
 .home__floating-stamp {
@@ -112,24 +112,10 @@
 }
 
 .home__floating-stamp-inner {
-  padding: 8px;
+  padding: 4px 6px 4px;
   display: flex;
   flex-direction: column;
-  min-height: 90px;
-}
-
-/* Floating Stamp Header */
-.home__floating-stamp-header {
-  margin-bottom: 6px;
-}
-
-.home__floating-stamp-category {
-  font-family: var(--font-mono);
-  font-size: 6px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--fog);
+  min-height: auto;
 }
 
 /* Floating Stamp Content */
@@ -142,15 +128,12 @@
 }
 
 .home__floating-stamp-icon {
-  width: 28px;
-  height: 28px;
-  border-radius: 6px;
-  background: var(--stamp-color, var(--sunset-glow));
+  width: 24px;
+  height: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2px;
   transition: transform 0.3s var(--ease-spring);
 }
 
@@ -165,7 +148,7 @@
 
 .home__floating-stamp-name {
   font-family: var(--font-display);
-  font-size: 9px;
+  font-size: 8px;
   font-weight: 700;
   color: var(--midnight-sky);
   margin: 0 0 2px 0;
@@ -173,11 +156,14 @@
 }
 
 .home__floating-stamp-tagline {
-  font-size: 6px;
-  font-style: italic;
-  color: var(--stone);
+  font-family: var(--font-mono);
+  font-size: 5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--fog);
   margin: 0;
-  line-height: 1.2;
+  line-height: 1;
 }
 
 /* Floating Stamp Footer */
@@ -192,7 +178,7 @@
 
 .home__floating-stamp-year {
   font-family: var(--font-mono);
-  font-size: 6px;
+  font-size: 5px;
   font-weight: 700;
   color: var(--fog);
 }
@@ -324,7 +310,7 @@
 .home__hero-meta {
   display: flex;
   gap: var(--space-8);
-  margin-top: var(--space-12);
+  margin-top: var(--space-16);
   animation: fadeInUp 0.5s var(--ease-out) 0.5s backwards;
   position: relative;
 }
@@ -343,7 +329,7 @@
 .home__hero-stat {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-end;
   gap: 2px;
 }
 
@@ -390,7 +376,7 @@
 
 .home__postcard-wrapper {
   width: 100%;
-  max-width: 700px;
+  max-width: 600px;
   animation: fadeInUp 0.5s var(--ease-out) 0.45s backwards;
   position: relative;
   transition: transform 0.3s ease;
@@ -414,10 +400,10 @@
   background:
     repeating-linear-gradient(
       45deg,
-      #FDDE86 0px,
-      #FDDE86 20px,
-      #F5D06C 20px,
-      #F5D06C 40px
+      #A78A6A 0px,
+      #A78A6A 20px,
+      #C4A882 20px,
+      #C4A882 40px
     );
   z-index: 0;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
@@ -439,10 +425,10 @@
   background:
     repeating-linear-gradient(
       45deg,
-      #E28463 0px,
-      #E28463 20px,
-      #F5C9A8 20px,
-      #F5C9A8 40px
+      #7592AA 0px,
+      #7592AA 20px,
+      #AFCAE8 20px,
+      #AFCAE8 40px
     );
   position: relative;
   z-index: 1;
@@ -457,26 +443,65 @@
   display: flex;
 }
 
-/* Left Side - Message Area */
+/* Left Side - Studio Notes */
 .home__postcard-left {
-  flex: 1;
-  padding: var(--space-6);
+  width: 50%;
+  flex-shrink: 0;
+  padding: var(--space-4);
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.home__postcard-message {
-  text-align: center;
+.home__postcard-notes {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
-.home__postcard-message-text {
-  font-family: 'Oooh Baby', cursive;
-  font-size: 24px;
-  color: #8B7355;
-  line-height: 1.5;
-  font-weight: 400;
+.home__postcard-notes-label {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #999;
+  text-transform: uppercase;
+  margin: 0 0 var(--space-3) 0;
+}
+
+.home__postcard-notes-content {
+  flex: 1;
+}
+
+.home__postcard-notes-line {
+  font-family: 'Dawning of a New Day', cursive;
+  font-size: 20px;
+  color: #333333;
   margin: 0;
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid #e0e0e0;
+  min-height: 28px;
+}
+
+.home__postcard-from {
+  margin-top: auto;
+  padding-top: var(--space-3);
+}
+
+.home__postcard-from-label {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #999;
+  text-transform: uppercase;
+  margin-right: var(--space-2);
+}
+
+.home__postcard-from-text {
+  font-family: 'Dawning of a New Day', cursive;
+  font-size: 20px;
+  color: #333333;
 }
 
 /* Vertical Divider */
@@ -489,7 +514,8 @@
 
 /* Right Side */
 .home__postcard-right {
-  flex: 1;
+  width: 50%;
+  flex-shrink: 0;
   padding: var(--space-4);
   display: flex;
   flex-direction: column;
@@ -499,14 +525,14 @@
 .home__postcard-header {
   display: flex;
   align-items: flex-start;
-  justify-content: space-between;
-  gap: var(--space-3);
+  justify-content: flex-end;
+  gap: var(--space-5);
 }
 
 /* Stamp Placeholder */
 .home__postcard-stamp-placeholder {
-  width: 55px;
-  height: 65px;
+  width: 67px;
+  height: 75px;
   border: 1.5px dashed #B8977A;
   display: flex;
   flex-direction: column;
@@ -531,8 +557,8 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  color: #A67C52;
-  opacity: 0.85;
+  color: #B8977A;
+  opacity: 0.7;
 }
 
 .home__postcard-postmark-waves {
@@ -590,47 +616,35 @@
 }
 
 .home__postcard-to {
-  font-family: 'Oooh Baby', cursive;
-  font-size: 28px;
-  color: #8B7355;
-  margin-bottom: var(--space-3);
-  font-weight: 400;
-}
-
-.home__postcard-lines {
   display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
+  align-items: baseline;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
 }
 
-.home__postcard-line {
-  height: 2px;
-  background: linear-gradient(to right, #B8977A 0%, #B8977A 95%, transparent 100%);
-  border-radius: 1px;
-  opacity: 0.5;
-  position: relative;
+.home__postcard-to-label {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #999;
+  text-transform: uppercase;
 }
 
-.home__postcard-line::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 100%;
-  background: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.05) 50%, transparent 100%);
+.home__postcard-to-text {
+  font-family: 'Dawning of a New Day', cursive;
+  font-size: 20px;
+  color: #333333;
 }
 
-.home__postcard-line:nth-child(1) {
-  width: 100%;
-}
-
-.home__postcard-line:nth-child(2) {
-  width: 90%;
-}
-
-.home__postcard-line:nth-child(3) {
-  width: 75%;
+.home__postcard-stamp-text {
+  font-family: var(--font-mono);
+  font-size: 7px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: #B8977A;
+  text-transform: uppercase;
+  margin: 0;
 }
 
 /* Placed Stamps on Postcard */
@@ -774,7 +788,7 @@
   font-family: var(--font-display);
   font-size: 1.5rem;
   font-weight: 700;
-  color: var(--sunset-glow);
+  color: #7A90A8; /* misty morning */
 }
 
 .home__collection-title h2 {
