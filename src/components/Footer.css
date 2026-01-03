@@ -75,7 +75,7 @@
 
 .footer__logo-mark {
   position: absolute;
-  left: 50%;
+  left: calc(50% - 2px);
   top: 4px;
   transform: translateX(-50%);
   height: 20px;
