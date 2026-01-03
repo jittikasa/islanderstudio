@@ -202,7 +202,7 @@ export default function Home() {
                   {/* Left side - Studio Notes */}
                   <div className="home__postcard-left">
                     <div className="home__postcard-notes">
-                      <p className="home__postcard-notes-label">STUDIO NOTES</p>
+                      <p className="home__postcard-notes-label">STUDIO NOTES :</p>
                       <div className="home__postcard-notes-content">
                         <p className="home__postcard-notes-line">Been spending time refining small details.</p>
                         <p className="home__postcard-notes-line">Sketching ideas, testing flows, adjusting pixels.</p>
@@ -246,10 +246,9 @@ export default function Home() {
                     {/* Address Section */}
                     <div className="home__postcard-address">
                       <div className="home__postcard-to">
-                        <span className="home__postcard-to-label">To:</span>
+                        <span className="home__postcard-to-label">TO:</span>
                         <span className="home__postcard-to-text">Friends of good design</span>
                       </div>
-                      <p className="home__postcard-stamp-text">Crafted with soul</p>
                     </div>
                   </div>
                 </div>
