@@ -508,8 +508,7 @@
 .home__postcard-divider {
   width: 1px;
   background: #B8977A;
-  opacity: 0.5;
-  align-self: stretch;
+  flex-shrink: 0;
 }
 
 /* Right Side */
