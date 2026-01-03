@@ -153,7 +153,7 @@
   font-family: var(--font-display);
   font-size: 1.5rem;
   font-weight: 700;
-  color: #7A90A8; /* misty morning */
+  color: var(--sunset-glow);
 }
 
 .shellist__section-title h2 {
