@@ -509,7 +509,7 @@
   width: 1px;
   background: #B8977A;
   opacity: 0.5;
-  margin: var(--space-4) 0;
+  align-self: stretch;
 }
 
 /* Right Side */
