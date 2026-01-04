@@ -44,19 +44,34 @@ export default function Home() {
       ? placedStamp
       : stickers.find(s => s.id === stickerId)
 
-    if (sticker) {
+    if (sticker && containerRef.current) {
+      const rect = containerRef.current.getBoundingClientRect()
+      // Calculate offset from where user clicked to the stamp's current position
+      const stampX = (sticker.x / 100) * rect.width + rect.left
+      const stampY = (sticker.y / 100) * rect.height + rect.top
+      const offsetX = e.clientX - stampX
+      const offsetY = e.clientY - stampY
+
       setDragging({
         type: 'sticker',
         id: stickerId,
         sticker,
         isFromPostcard,
-        startX: e.clientX,
-        startY: e.clientY
+        offsetX,
+        offsetY
       })
 
-      // If dragging from postcard, remove it from placed
+      // If dragging from postcard, remove it from placed and restore to stickers
       if (isFromPostcard) {
         setPlacedStamp(null)
+        // Restore the sticker to current mouse position
+        const x = ((e.clientX - rect.left) / rect.width) * 100
+        const y = ((e.clientY - rect.top) / rect.height) * 100
+        setStickers(prev => prev.map(s =>
+          s.id === stickerId
+            ? { ...s, x: Math.max(0, Math.min(95, x)), y: Math.max(0, Math.min(55, y)) }
+            : s
+        ))
       }
     }
   }, [stickers, placedStamp])
@@ -66,8 +81,9 @@ export default function Home() {
 
     if (dragging.type === 'sticker' && containerRef.current) {
       const rect = containerRef.current.getBoundingClientRect()
-      const x = ((e.clientX - rect.left) / rect.width) * 100
-      const y = ((e.clientY - rect.top) / rect.height) * 100
+      // Use offset to keep stamp position relative to where user grabbed it
+      const x = ((e.clientX - dragging.offsetX - rect.left) / rect.width) * 100
+      const y = ((e.clientY - dragging.offsetY - rect.top) / rect.height) * 100
 
       setStickers(prev => prev.map(s =>
         s.id === dragging.id
