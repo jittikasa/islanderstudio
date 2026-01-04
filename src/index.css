@@ -303,7 +303,7 @@ img {
 
 .tag--new {
   color: var(--misty-morning);
-  background: rgba(247, 161, 115, 0.1);
+  background: rgba(117, 146, 170, 0.1);
 }
 
 /* ============================================
@@ -366,7 +366,7 @@ img {
   background: var(--midnight-sky);
   color: var(--white);
   transform: translateY(-2px);
-  box-shadow: 2px 3px 0 #F7A173;
+  box-shadow: 2px 3px 0 #7592AA;
 }
 
 .btn-ghost {

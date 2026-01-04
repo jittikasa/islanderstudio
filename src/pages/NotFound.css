@@ -96,7 +96,7 @@
 }
 
 .notfound__btn--primary:hover {
-  background: #e8916a;
+  background: #6a8299;
   transform: translateY(-2px);
   box-shadow: var(--shadow-lg);
 }
