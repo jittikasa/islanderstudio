@@ -588,24 +588,10 @@
   transform: translate(-50%, -50%);
   cursor: grab;
   z-index: 10;
-  width: 67px;
-  height: 75px;
-}
-
-.home__postcard-placed-stamp .home__floating-stamp {
-  width: 67px;
-  height: 75px;
 }
 
 .home__postcard-placed-stamp:active {
   cursor: grabbing;
-}
-
-/* Override perforated edges to use white when on postcard */
-.home__postcard-placed-stamp .home__floating-stamp-perforated::before,
-.home__postcard-placed-stamp .home__floating-stamp-perforated::after {
-  background: radial-gradient(circle at center, #FFFFFF 3px, transparent 3px);
-  background-size: 10px 8px;
 }
 
 .home__postcard-placed-stamp--thud {
