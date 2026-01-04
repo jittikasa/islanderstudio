@@ -225,16 +225,16 @@ export default function Home() {
                     {/* Stamp placeholder and Postmark */}
                     <div className="home__postcard-header">
                       <div className="home__postcard-postmark">
-                        <svg className="home__postcard-postmark-waves" viewBox="0 0 60 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M0 4 Q 5 1, 10 4 T 20 4 T 30 4 T 40 4 T 50 4 T 60 4" stroke="currentColor" strokeWidth="1.5" fill="none"/>
-                          <path d="M0 11 Q 5 8, 10 11 T 20 11 T 30 11 T 40 11 T 50 11 T 60 11" stroke="currentColor" strokeWidth="1.5" fill="none"/>
-                          <path d="M0 18 Q 5 15, 10 18 T 20 18 T 30 18 T 40 18 T 50 18 T 60 18" stroke="currentColor" strokeWidth="1.5" fill="none"/>
-                          <path d="M0 25 Q 5 22, 10 25 T 20 25 T 30 25 T 40 25 T 50 25 T 60 25" stroke="currentColor" strokeWidth="1.5" fill="none"/>
+                        <svg className="home__postcard-postmark-waves" viewBox="0 0 70 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M0 5 Q 7 1, 14 5 T 28 5 T 42 5 T 56 5 T 70 5" stroke="currentColor" strokeWidth="1" fill="none"/>
+                          <path d="M0 14 Q 7 10, 14 14 T 28 14 T 42 14 T 56 14 T 70 14" stroke="currentColor" strokeWidth="1" fill="none"/>
+                          <path d="M0 23 Q 7 19, 14 23 T 28 23 T 42 23 T 56 23 T 70 23" stroke="currentColor" strokeWidth="1" fill="none"/>
+                          <path d="M0 32 Q 7 28, 14 32 T 28 32 T 42 32 T 56 32 T 70 32" stroke="currentColor" strokeWidth="1" fill="none"/>
                         </svg>
                         <div className="home__postcard-postmark-circle">
                           <span className="home__postcard-postmark-star">★</span>
                           <span className="home__postcard-postmark-text">POST</span>
-                          <span className="home__postcard-postmark-text home__postcard-postmark-text--bottom">DEC 01</span>
+                          <span className="home__postcard-postmark-text home__postcard-postmark-text--bottom">JUN 30</span>
                         </div>
                       </div>
                       <div className="home__postcard-stamp-placeholder">
