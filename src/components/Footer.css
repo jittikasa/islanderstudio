@@ -5,8 +5,30 @@
 .footer {
   margin-top: var(--space-24);
   padding: var(--space-16) 0 var(--space-8);
-  background: var(--white);
+  background: var(--midnight-sky);
   border-top: 3px solid var(--midnight-sky);
+  position: relative;
+}
+
+/* Perforated edges */
+.footer::before,
+.footer::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 12px;
+  background: radial-gradient(circle at center, var(--cream) 4px, transparent 4px);
+  background-size: 16px 12px;
+  pointer-events: none;
+}
+
+.footer::before {
+  top: -6px;
+}
+
+.footer::after {
+  bottom: -6px;
 }
 
 .footer__container {
@@ -52,7 +74,7 @@
   font-family: var(--font-display);
   font-size: 1.5rem;
   font-weight: 700;
-  color: var(--midnight-sky);
+  color: var(--white);
   letter-spacing: -0.02em;
   text-decoration: none;
 }
@@ -175,7 +197,7 @@
   font-family: var(--font-body);
   font-size: 14px;
   font-style: italic;
-  color: var(--stone);
+  color: var(--cloud);
   margin: 0;
   line-height: 1.6;
 }
@@ -203,7 +225,7 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: var(--fog);
+  color: var(--cloud);
   margin-bottom: var(--space-4);
 }
 
@@ -221,7 +243,7 @@
   font-family: var(--font-body);
   font-size: 14px;
   font-weight: 500;
-  color: var(--midnight-sky);
+  color: var(--sea-salt);
   transition: color var(--duration-fast) var(--ease-out);
   background: none;
   border: none;
@@ -231,7 +253,7 @@
 }
 
 .footer__link:hover {
-  color: var(--sunset-glow);
+  color: var(--golden-hour);
 }
 
 /* Link Badges */
@@ -247,11 +269,11 @@
 }
 
 .footer__link-badge--live {
-  color: #2d7a4f;
+  color: #48bb78;
 }
 
 .footer__link-badge--soon {
-  color: #9a7b1a;
+  color: var(--golden-hour);
 }
 
 /* Copy Email Button */
@@ -259,21 +281,21 @@
   width: 100%;
   justify-content: space-between;
   padding: var(--space-3);
-  background: var(--sea-salt);
-  border: 2px solid var(--cloud);
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.2);
   border-radius: var(--radius-md);
   transition: all var(--duration-fast) var(--ease-out);
 }
 
 .footer__link--copy:hover {
-  border-color: var(--coconut-shell);
-  background: var(--white);
+  border-color: var(--golden-hour);
+  background: rgba(255, 255, 255, 0.15);
 }
 
 .footer__link-email {
   font-family: var(--font-mono);
   font-size: 11px;
-  color: var(--midnight-sky);
+  color: var(--sea-salt);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -284,17 +306,17 @@
   font-size: 10px;
   font-weight: 700;
   text-transform: uppercase;
-  color: var(--coconut-shell);
+  color: var(--midnight-sky);
   padding: 3px 8px;
-  background: var(--white);
+  background: var(--golden-hour);
   border-radius: var(--radius-sm);
   transition: all var(--duration-fast) var(--ease-out);
   flex-shrink: 0;
 }
 
 .footer__link--copy:hover .footer__link-copy-text {
-  background: var(--midnight-sky);
-  color: var(--white);
+  background: var(--white);
+  color: var(--midnight-sky);
 }
 
 .footer__link-copy-text--copied {
@@ -308,7 +330,7 @@
   flex-direction: column;
   gap: var(--space-2);
   padding-top: var(--space-8);
-  border-top: 2px dashed var(--cloud);
+  border-top: 2px dashed rgba(255, 255, 255, 0.2);
 }
 
 @media (min-width: 640px) {
@@ -323,7 +345,7 @@
   font-family: var(--font-mono);
   font-size: 11px;
   font-weight: 700;
-  color: var(--fog);
+  color: var(--cloud);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin: 0;
@@ -339,7 +361,7 @@
   font-family: var(--font-body);
   font-size: 12px;
   font-style: italic;
-  color: var(--fog);
+  color: var(--cloud);
   margin: 0;
 }
 
@@ -349,17 +371,17 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: var(--fog);
+  color: var(--cloud);
   padding: var(--space-1) var(--space-2);
-  border: 1px solid var(--fog);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: var(--radius-sm);
   transition: all var(--duration-fast) var(--ease-out);
   opacity: 0.5;
 }
 
 .footer__admin-link:hover {
-  color: var(--coconut-shell);
-  border-color: var(--coconut-shell);
+  color: var(--golden-hour);
+  border-color: var(--golden-hour);
   opacity: 1;
 }
 

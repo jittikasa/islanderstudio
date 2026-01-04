@@ -351,9 +351,9 @@ img {
 }
 
 .btn-accent:hover {
-  background: #e8916a;
+  background: #7592AA;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(247, 161, 115, 0.4);
+  box-shadow: 0 4px 12px rgba(117, 146, 170, 0.4);
 }
 
 .btn-outline {
@@ -402,9 +402,9 @@ img {
 }
 
 .btn-download-app:hover {
-  background: var(--golden-hour);
-  border-color: var(--golden-hour);
-  color: var(--midnight-sky);
+  background: #7592AA;
+  border-color: #7592AA;
+  color: var(--white);
   transform: translateY(-2px);
   box-shadow: 3px 4px 0 var(--midnight-sky);
 }
