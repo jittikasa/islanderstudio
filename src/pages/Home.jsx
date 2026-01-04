@@ -14,19 +14,52 @@ export default function Home() {
     { id: 4, x: 3, y: 25, rotation: -8, scale: 0.9, category: 'App', name: 'Daily Ritual', tagline: 'Mindful habits', year: '2026', color: '#FFB74D', icon: '🕯️', serial: 'IS-004' },
   ])
   const [dragging, setDragging] = useState(null)
+  const [placedStamp, setPlacedStamp] = useState(null)
+  const [stampJustPlaced, setStampJustPlaced] = useState(false)
   const containerRef = useRef(null)
   const postcardRef = useRef(null)
+  const stampPlaceholderRef = useRef(null)
 
   useEffect(() => {
     setLoaded(true)
   }, [])
 
-  // Handle sticker drag
-  const handleStickerMouseDown = useCallback((e, stickerId) => {
+  // Check if point is inside stamp placeholder
+  const isInsideStampPlaceholder = useCallback((clientX, clientY) => {
+    if (!stampPlaceholderRef.current) return false
+    const rect = stampPlaceholderRef.current.getBoundingClientRect()
+    return (
+      clientX >= rect.left &&
+      clientX <= rect.right &&
+      clientY >= rect.top &&
+      clientY <= rect.bottom
+    )
+  }, [])
+
+  // Handle sticker drag start
+  const handleStickerMouseDown = useCallback((e, stickerId, isFromPostcard = false) => {
     e.preventDefault()
-    const sticker = stickers.find(s => s.id === stickerId)
-    setDragging({ type: 'sticker', id: stickerId, sticker })
-  }, [stickers])
+    e.stopPropagation()
+    const sticker = isFromPostcard
+      ? placedStamp
+      : stickers.find(s => s.id === stickerId)
+
+    if (sticker) {
+      setDragging({
+        type: 'sticker',
+        id: stickerId,
+        sticker,
+        isFromPostcard,
+        startX: e.clientX,
+        startY: e.clientY
+      })
+
+      // If dragging from postcard, remove it from placed
+      if (isFromPostcard) {
+        setPlacedStamp(null)
+      }
+    }
+  }, [stickers, placedStamp])
 
   const handleMouseMove = useCallback((e) => {
     if (!dragging) return
@@ -44,9 +77,29 @@ export default function Home() {
     }
   }, [dragging])
 
-  const handleMouseUp = useCallback(() => {
+  const handleMouseUp = useCallback((e) => {
+    if (!dragging) return
+
+    // Check if dropped on stamp placeholder
+    if (isInsideStampPlaceholder(e.clientX, e.clientY)) {
+      const sticker = stickers.find(s => s.id === dragging.id) || dragging.sticker
+      if (sticker) {
+        // Place stamp on postcard
+        setPlacedStamp(sticker)
+        setStampJustPlaced(true)
+        setTimeout(() => setStampJustPlaced(false), 300)
+
+        // Hide the floating sticker (move it off-screen)
+        setStickers(prev => prev.map(s =>
+          s.id === dragging.id
+            ? { ...s, x: -100, y: -100 }
+            : s
+        ))
+      }
+    }
+
     setDragging(null)
-  }, [])
+  }, [dragging, isInsideStampPlaceholder, stickers])
 
   useEffect(() => {
     if (dragging) {
@@ -237,10 +290,40 @@ export default function Home() {
                           <span className="home__postcard-postmark-text home__postcard-postmark-text--bottom">JUN 30</span>
                         </div>
                       </div>
-                      <div className="home__postcard-stamp-placeholder">
-                        <span>PLACE</span>
-                        <span>STAMP</span>
-                        <span>HERE</span>
+                      <div
+                        className={`home__postcard-stamp-placeholder ${placedStamp ? 'home__postcard-stamp-placeholder--has-stamp' : ''}`}
+                        ref={stampPlaceholderRef}
+                      >
+                        {placedStamp ? (
+                          <div
+                            className={`home__postcard-placed-stamp ${stampJustPlaced ? 'home__postcard-placed-stamp--thud' : ''}`}
+                            onMouseDown={(e) => handleStickerMouseDown(e, placedStamp.id, true)}
+                          >
+                            <div className="home__floating-stamp">
+                              <div className="home__floating-stamp-perforated">
+                                <div className="home__floating-stamp-inner">
+                                  <div className="home__floating-stamp-content">
+                                    <div className="home__floating-stamp-icon">
+                                      <span>{placedStamp.icon}</span>
+                                    </div>
+                                    <h4 className="home__floating-stamp-name">{placedStamp.name}</h4>
+                                    <p className="home__floating-stamp-tagline">{placedStamp.category}</p>
+                                  </div>
+                                  <div className="home__floating-stamp-footer">
+                                    <span className="home__floating-stamp-year">{placedStamp.year}</span>
+                                    <span className="home__floating-stamp-serial">{placedStamp.serial}</span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        ) : (
+                          <>
+                            <span>PLACE</span>
+                            <span>STAMP</span>
+                            <span>HERE</span>
+                          </>
+                        )}
                       </div>
                     </div>
 
