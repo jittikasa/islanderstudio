@@ -149,13 +149,6 @@
   gap: var(--space-3);
 }
 
-.shellist__section-number {
-  font-family: var(--font-display);
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--sunset-glow);
-}
-
 .shellist__section-title h2 {
   font-size: clamp(1.25rem, 3vw, 1.5rem);
   font-weight: 700;

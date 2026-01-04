@@ -365,7 +365,7 @@ export default function Home() {
         <section className="home__collection" id="collection">
           <div className="home__collection-header">
             <div className="home__collection-title">
-              <span className="home__collection-number">№</span>
+              <span className="collection-number">№</span>
               <h2>App Collection</h2>
             </div>
             <p className="home__collection-count">{apps.length} stamps</p>

@@ -633,6 +633,15 @@ img {
 .text-center { text-align: center; }
 .text-mono { font-family: var(--font-mono); }
 
+/* Section & Collection Number (№) */
+.section-number,
+.collection-number {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--misty-morning);
+}
+
 /* ============================================
    REDUCED MOTION
    ============================================ */

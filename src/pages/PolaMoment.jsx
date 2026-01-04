@@ -140,7 +140,7 @@ export default function PolaMoment() {
       <section className="pola__features">
         <div className="pola__section-header">
           <div className="pola__section-title">
-            <span className="pola__section-number">№</span>
+            <span className="section-number">№</span>
             <h2>Features</h2>
           </div>
           <span className="pola__section-count">{features.length} things we love</span>
@@ -166,7 +166,7 @@ export default function PolaMoment() {
         <section className="pola__blog">
           <div className="pola__section-header">
             <div className="pola__section-title">
-              <span className="pola__section-number">№</span>
+              <span className="section-number">№</span>
               <h2>Related Reading</h2>
             </div>
             <Link to="/blog" className="pola__blog-view-all">
