@@ -512,7 +512,9 @@
 .home__postcard-divider {
   width: 1px;
   background: #B8977A;
+  opacity: 0.6;
   flex-shrink: 0;
+  margin: var(--space-4) 0;
 }
 
 /* Right Side */
