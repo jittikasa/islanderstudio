@@ -525,10 +525,10 @@
 /* Vertical Divider */
 .home__postcard-divider {
   width: 1px;
-  background: #999;
+  background: #ddd;
   margin: var(--space-4) 0;
   flex-shrink: 0;
-  align-self: stretch;
+  min-height: 100%;
 }
 
 /* Right Side */
