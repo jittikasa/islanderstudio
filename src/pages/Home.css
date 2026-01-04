@@ -609,20 +609,50 @@
 }
 
 .home__postcard-placed-stamp--thud {
-  animation: stampThud 0.3s ease-out;
+  animation: stampThud 0.35s ease-out;
+}
+
+/* Paper indent effect - appears under stamp */
+.home__postcard-placed-stamp::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 68px;
+  background: transparent;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.08);
+  border-radius: 2px;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.home__postcard-placed-stamp:not(.home__postcard-placed-stamp--thud)::before {
+  opacity: 1;
 }
 
 @keyframes stampThud {
   0% {
-    transform: translate(-50%, -50%) scale(1.1);
-    opacity: 0.8;
+    transform: translate(-50%, -50%) scale(1.15);
+    filter: drop-shadow(0 8px 20px rgba(51, 51, 51, 0.4));
   }
-  50% {
-    transform: translate(-50%, -50%) scale(0.95);
+  40% {
+    transform: translate(-50%, -50%) scale(0.92);
+    filter: drop-shadow(0 2px 4px rgba(51, 51, 51, 0.3));
+  }
+  60% {
+    transform: translate(-50%, -50%) scale(1.02);
+    filter: drop-shadow(0 4px 10px rgba(51, 51, 51, 0.2));
+  }
+  80% {
+    transform: translate(-50%, -50%) scale(0.98);
+    filter: drop-shadow(0 3px 6px rgba(51, 51, 51, 0.15));
   }
   100% {
     transform: translate(-50%, -50%) scale(1);
-    opacity: 1;
+    filter: drop-shadow(0 2px 4px rgba(51, 51, 51, 0.1));
   }
 }
 
