@@ -10,7 +10,7 @@
   --coconut-shell: #A78A6A;
   --sea-salt: #F7F0E6;
   --midnight-sky: #333333;
-  --summer-sky: #FDDE86;
+  --summer-sky: #AFCAE8;
   --misty-morning: #7592AA;
 
   /* Extended Palette */
@@ -519,7 +519,7 @@ img {
    ============================================ */
 
 ::selection {
-  background: var(--summer-sky);
+  background: var(--misty-morning);
   color: var(--midnight-sky);
 }
 

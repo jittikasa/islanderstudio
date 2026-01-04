@@ -19,8 +19,8 @@ const BRAND = {
   coconutShell: '#A78A6A',
   seaSalt: '#F7F0E6',
   midnightSky: '#333333',
-  goldenHour: '#FDDE86',
-  sunsetGlow: '#F7A173'
+  summerSky: '#AFCAE8',
+  mistyMorning: '#7592AA'
 }
 
 async function generateImage(prompt, filename, aspectRatio = '1:1', modelName = 'gemini-2.5-flash-image') {

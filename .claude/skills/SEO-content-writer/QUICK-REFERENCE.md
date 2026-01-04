@@ -343,11 +343,11 @@ While HTML content doesn't use colors directly, the brand palette influences ton
 **Midnight Sky** #33333
 → Clear, readable, authoritative
 
-**Golden Hour** #FDDE86
-→ Optimistic, uplifting, joyful
+**Summer Sky** #AFCAE8
+→ Optimistic, uplifting, serene
 
-**Sunset Glow** #F7A173
-→ Energetic, action-oriented, vibrant
+**Misty Morning** #7592AA
+→ Focused, action-oriented, calm
 
 ---
 

@@ -11,7 +11,7 @@ A branded admin interface that brings Islander Studio's warm, scrapbook-inspired
 ### Color Palette
 - **Primary Background:** Cream (`#FAF6ED`) with subtle noise texture
 - **Card Surfaces:** White (`#FFFFFF`) with Cloud borders (`#E8E4DD`)
-- **Accent Elements:** Sunset Glow (`#F7A173`) for CTAs, Golden Hour (`#FDDE86`) for highlights
+- **Accent Elements:** Misty Morning (`#7592AA`) for CTAs, Summer Sky (`#AFCAE8`) for highlights
 - **Text:** Midnight Sky (`#333333`) for headings, Stone (`#666666`) for body
 - **Interactive States:** Coconut Shell (`#A78A6A`) on hover/focus
 
@@ -146,7 +146,7 @@ export default {
 **Styling:**
 - Centered card with Sea Salt background
 - Coconut Shell border on inputs on focus
-- Sunset Glow sign-in button with hover lift
+- Misty Morning sign-in button with hover lift
 - Gentle fade-in animation on load
 
 ---
@@ -317,9 +317,9 @@ Quick Actions
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │ ● Tutorials (12 posts) - #4A90A4                     [Edit] │
-│ ● News (8 posts) - #F7A173                           [Edit] │
+│ ● News (8 posts) - #7592AA                           [Edit] │
 │ ● Case Studies (5 posts) - #A78A6A                   [Edit] │
-│ ● Guides (15 posts) - #FDDE86                        [Edit] │
+│ ● Guides (15 posts) - #AFCAE8                        [Edit] │
 └─────────────────────────────────────────────────────────────┘
 ```
 
