@@ -519,7 +519,7 @@ img {
    ============================================ */
 
 ::selection {
-  background: var(--summer-sky);
+  background: var(--misty-morning);
   color: var(--midnight-sky);
 }
 
