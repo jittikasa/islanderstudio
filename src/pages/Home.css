@@ -528,7 +528,7 @@
   background: #999;
   margin: var(--space-4) 0;
   flex-shrink: 0;
-  align-self: stretch;
+  min-height: 100%;
 }
 
 /* Right Side */
