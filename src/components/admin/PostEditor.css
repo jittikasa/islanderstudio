@@ -37,12 +37,12 @@
 }
 
 .btn-primary {
-  background: #F7A173; /* Sunset Glow */
+  background: #7592AA; /* Sunset Glow */
   color: white;
 }
 
 .btn-primary:hover:not(:disabled) {
-  background: #f58a4d;
+  background: #6a8299;
 }
 
 .btn-primary:disabled {
@@ -86,8 +86,8 @@
 }
 
 .editor-tabs button.active {
-  color: #F7A173;
-  border-bottom-color: #F7A173;
+  color: #7592AA;
+  border-bottom-color: #7592AA;
 }
 
 /* Form Groups */
@@ -121,7 +121,7 @@
 .form-group textarea:focus,
 .form-group select:focus {
   outline: none;
-  border-color: #F7A173;
+  border-color: #7592AA;
 }
 
 .form-group textarea {
@@ -174,9 +174,9 @@
 }
 
 .editor-toolbar button.active {
-  background: #F7A173;
+  background: #7592AA;
   color: white;
-  border-color: #F7A173;
+  border-color: #7592AA;
 }
 
 .tiptap-editor {

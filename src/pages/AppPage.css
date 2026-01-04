@@ -88,7 +88,7 @@
 .status-dot {
   width: 8px;
   height: 8px;
-  background: var(--sunset-coral);
+  background: var(--misty-morning);
   border-radius: 50%;
   animation: pulse 2s ease-in-out infinite;
 }

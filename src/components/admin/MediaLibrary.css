@@ -118,7 +118,7 @@
 .media-item.selected {
   border-color: var(--misty-morning);
   border-width: 3px;
-  box-shadow: 0 0 0 3px rgba(247, 161, 115, 0.2);
+  box-shadow: 0 0 0 3px rgba(117, 146, 170, 0.2);
 }
 
 .media-image-container {

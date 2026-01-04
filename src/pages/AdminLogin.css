@@ -57,7 +57,7 @@
   background: var(--misty-morning);
   margin: var(--space-6) auto;
   border-radius: var(--radius-full);
-  box-shadow: 0 2px 8px rgba(247, 161, 115, 0.3);
+  box-shadow: 0 2px 8px rgba(117, 146, 170, 0.3);
 }
 
 /* Form */
@@ -159,7 +159,7 @@
 }
 
 .admin-login__submit:hover:not(:disabled) {
-  background: #f5935b;
+  background: #6a8299;
   transform: translateY(-2px);
   box-shadow: var(--shadow-lg);
 }
