@@ -461,7 +461,7 @@
 
 .home__postcard-title {
   font-family: 'Tai Heritage Pro', serif;
-  font-size: clamp(10px, 2vw, 16px);
+  font-size: clamp(12px, 2.3vw, 18px);
   font-weight: 400;
   letter-spacing: -0.02em;
   color: var(--midnight-sky);
