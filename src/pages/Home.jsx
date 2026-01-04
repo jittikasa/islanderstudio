@@ -206,7 +206,8 @@ export default function Home() {
                       <p className="home__postcard-notes-label">STUDIO NOTES :</p>
                       <div className="home__postcard-notes-content">
                         <p className="home__postcard-notes-line">Been spending time refining small details.</p>
-                        <p className="home__postcard-notes-line">Sketching ideas, testing flows, adjusting pixels.</p>
+                        <p className="home__postcard-notes-line">Sketching ideas, testing flows,</p>
+                        <p className="home__postcard-notes-line">adjusting pixels.</p>
                         <p className="home__postcard-notes-line">Slow progress—but it feels right.</p>
                       </div>
                     </div>
