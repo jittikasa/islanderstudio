@@ -124,7 +124,7 @@ export default function Shellist() {
       <section className="shellist__features">
         <div className="shellist__section-header">
           <div className="shellist__section-title">
-            <span className="shellist__section-number">№</span>
+            <span className="section-number">№</span>
             <h2>Features</h2>
           </div>
           <span className="shellist__section-count">{features.length} things we love</span>
@@ -158,7 +158,7 @@ export default function Shellist() {
       <section className="shellist__steps">
         <div className="shellist__section-header">
           <div className="shellist__section-title">
-            <span className="shellist__section-number">№</span>
+            <span className="section-number">№</span>
             <h2>How It Works</h2>
           </div>
           <span className="shellist__section-count">Simple to start</span>
@@ -184,7 +184,7 @@ export default function Shellist() {
         <section className="shellist__blog">
           <div className="shellist__section-header">
             <div className="shellist__section-title">
-              <span className="shellist__section-number">№</span>
+              <span className="section-number">№</span>
               <h2>Related Reading</h2>
             </div>
             <Link to="/blog" className="shellist__blog-view-all">

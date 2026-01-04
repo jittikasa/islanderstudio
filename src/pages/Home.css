@@ -880,13 +880,6 @@
   gap: var(--space-3);
 }
 
-.home__collection-number {
-  font-family: var(--font-display);
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #7A90A8; /* misty morning */
-}
-
 .home__collection-title h2 {
   font-size: clamp(1.25rem, 3vw, 1.5rem);
   font-weight: 700;
