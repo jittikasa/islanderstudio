@@ -240,8 +240,8 @@
 }
 
 .cta-btn:hover {
-  background: var(--summer-sky);
-  color: var(--midnight-sky);
+  background: var(--misty-morning);
+  color: var(--white);
   transform: translateY(-2px);
 }
 
