@@ -19,7 +19,7 @@ const BRAND = {
   coconutShell: '#A78A6A',
   seaSalt: '#F7F0E6',
   midnightSky: '#333333',
-  goldenHour: '#FDDE86',
+  goldenHour: '#AFCAE8',
   sunsetGlow: '#F7A173'
 }
 

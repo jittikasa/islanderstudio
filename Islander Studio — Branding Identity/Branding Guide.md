@@ -220,7 +220,7 @@ ABCDEFGHIJKMNOPQRSTUVWXYZ
 
 | Color Name | Hex Code | Usage |
 |------------|----------|-------|
-| **Golden Hour** | #FDDE86 | Accent backgrounds, highlighted sections, call-outs, hover states, optimistic moments |
+| **Golden Hour** | #AFCAE8 | Accent backgrounds, highlighted sections, call-outs, hover states, optimistic moments |
 | **Sunset Glow** | #F7A173 | Buttons/CTAs, important highlights, active states, celebratory moments, visual accents |
 
 #### Color Usage Guidelines
@@ -307,7 +307,7 @@ Warm • Curious • Delightful
 
 ### Colors
 - Primary: Coconut Shell (#A78A6A), Sea Salt (#F7F0E6), Midnight Sky (#33333)
-- Accent: Golden Hour (#FDDE86), Sunset Glow (#F7A173)
+- Accent: Golden Hour (#AFCAE8), Sunset Glow (#F7A173)
 
 ### Typography
 - Headlines: Syne
@@ -336,7 +336,7 @@ Coconut tree • Tropical icons • Celestial elements
       "midnightSky": "#33333"
     },
     "secondary": {
-      "goldenHour": "#FDDE86",
+      "goldenHour": "#AFCAE8",
       "sunsetGlow": "#F7A173"
     }
   },
