@@ -198,10 +198,12 @@
 .home__sticker:active,
 .home__sticker--dragging {
   cursor: grabbing;
-  transform: rotate(0deg) scale(calc(var(--scale) * 1.2));
-  filter: drop-shadow(0 12px 32px rgba(51, 51, 51, 0.25));
+  transform: rotate(0deg) scale(calc(var(--scale) * 0.8));
+  filter: drop-shadow(0 8px 20px rgba(51, 51, 51, 0.3));
   z-index: 1000;
   animation: none;
+  opacity: 1 !important;
+  transition: transform 0.15s ease-out, filter 0.15s ease-out;
 }
 
 @media (max-width: 768px) {
@@ -560,6 +562,13 @@
   gap: 1px;
   opacity: 0.6;
   flex-shrink: 0;
+  position: relative;
+  transition: opacity 0.2s ease, border-color 0.2s ease;
+}
+
+.home__postcard-stamp-placeholder--has-stamp {
+  border-color: transparent;
+  opacity: 1;
 }
 
 .home__postcard-stamp-placeholder span {
@@ -569,6 +578,45 @@
   letter-spacing: 0.05em;
   color: #B8977A;
   text-transform: uppercase;
+}
+
+/* Placed Stamp on Postcard */
+.home__postcard-placed-stamp {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  cursor: grab;
+  z-index: 10;
+}
+
+.home__postcard-placed-stamp:active {
+  cursor: grabbing;
+}
+
+/* Override perforated edges to use white when on postcard */
+.home__postcard-placed-stamp .home__floating-stamp-perforated::before,
+.home__postcard-placed-stamp .home__floating-stamp-perforated::after {
+  background: radial-gradient(circle at center, #FFFFFF 3px, transparent 3px);
+  background-size: 10px 8px;
+}
+
+.home__postcard-placed-stamp--thud {
+  animation: stampThud 0.3s ease-out;
+}
+
+@keyframes stampThud {
+  0% {
+    transform: translate(-50%, -50%) scale(1.1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(0.95);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
 }
 
 /* Postmark with Waves - Horizontal Layout */
