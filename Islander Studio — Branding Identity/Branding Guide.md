@@ -220,8 +220,8 @@ ABCDEFGHIJKMNOPQRSTUVWXYZ
 
 | Color Name | Hex Code | Usage |
 |------------|----------|-------|
-| **Golden Hour** | #AFCAE8 | Accent backgrounds, highlighted sections, call-outs, hover states, optimistic moments |
-| **Sunset Glow** | #F7A173 | Buttons/CTAs, important highlights, active states, celebratory moments, visual accents |
+| **Summer Sky** | #AFCAE8 | Accent backgrounds, highlighted sections, call-outs, hover states, optimistic moments |
+| **Misty Morning** | #7592AA | Buttons/CTAs, important highlights, active states, focus states, visual accents |
 
 #### Color Usage Guidelines
 
@@ -231,10 +231,10 @@ ABCDEFGHIJKMNOPQRSTUVWXYZ
 - Coconut Shell + Sea Salt = calm, grounded foundation
 
 **Secondary Colors:**
-- Bright, joyful accents
+- Cool, serene accents
 - Use sparingly to highlight key elements
-- Add energy and playfulness
-- Golden Hour + Sunset Glow = energy and delight
+- Add calm focus and clarity
+- Summer Sky + Misty Morning = clarity and tranquility
 
 **Best Practices:**
 - Keep text highly legible with sufficient contrast
@@ -266,7 +266,7 @@ Inspired by nature, growth, and imagination. Shapes are soft and organic, illust
 
 #### Color Application for Graphics
 
-- Use brand colors: Coconut Shell, Golden Hour, Sunset Glow
+- Use brand colors: Coconut Shell, Summer Sky, Misty Morning
 - Keep Sea Salt for backgrounds and negative space
 - Elements can be monochromatic or use 2-3 colors
 
@@ -306,8 +306,8 @@ Design First • Delightful Details • Human-Centered • Timeless Design
 Warm • Curious • Delightful
 
 ### Colors
-- Primary: Coconut Shell (#A78A6A), Sea Salt (#F7F0E6), Midnight Sky (#33333)
-- Accent: Golden Hour (#AFCAE8), Sunset Glow (#F7A173)
+- Primary: Coconut Shell (#A78A6A), Sea Salt (#F7F0E6), Midnight Sky (#333333)
+- Accent: Summer Sky (#AFCAE8), Misty Morning (#7592AA)
 
 ### Typography
 - Headlines: Syne
@@ -336,8 +336,8 @@ Coconut tree • Tropical icons • Celestial elements
       "midnightSky": "#33333"
     },
     "secondary": {
-      "goldenHour": "#AFCAE8",
-      "sunsetGlow": "#F7A173"
+      "summerSky": "#AFCAE8",
+      "mistyMorning": "#7592AA"
     }
   },
   "typography": {

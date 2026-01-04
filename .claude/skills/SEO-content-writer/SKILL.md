@@ -567,8 +567,8 @@ While HTML content doesn't directly use brand colors, Claude considers:
 - **Coconut Shell (#A78A6A)**: Warmth, groundedness in tone
 - **Sea Salt (#F7F0E6)**: Clean, spacious writing style
 - **Midnight Sky (#33333)**: Clear, readable typography
-- **Golden Hour (#AFCAE8)**: Optimistic, uplifting moments
-- **Sunset Glow (#F7A173)**: Energy, calls-to-action
+- **Summer Sky (#AFCAE8)**: Optimistic, uplifting moments
+- **Misty Morning (#7592AA)**: Focus, calls-to-action
 
 ### Typography in HTML
 

@@ -385,7 +385,7 @@ Timeline (hover OUT):
   - `--duration-base: 250ms`
   - `--ease-out: cubic-bezier(0.16, 1, 0.3, 1)`
   - `--ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1)`
-  - `--sunset-glow: #F7A173` (dot color)
+  - `--misty-morning: #7592AA` (dot color)
 
 ---
 
