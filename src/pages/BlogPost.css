@@ -55,7 +55,7 @@
 
 .post-category {
   padding: var(--space-2) var(--space-4);
-  background: var(--golden-hour);
+  background: var(--summer-sky);
   color: var(--midnight-sky);
   border-radius: var(--radius-full);
   font-size: 0.75rem;
@@ -94,7 +94,7 @@
   background: var(--midnight-sky);
   color: var(--white);
   transform: translateY(-2px);
-  box-shadow: 2px 3px 0 var(--sunset-glow);
+  box-shadow: 2px 3px 0 var(--misty-morning);
 }
 
 .post-tags {
@@ -240,7 +240,7 @@
   margin: var(--space-8) 0;
   padding: var(--space-6);
   background: var(--paper);
-  border-left: 4px solid var(--sunset-glow);
+  border-left: 4px solid var(--misty-morning);
   border-radius: var(--radius-md);
   font-style: italic;
   color: var(--stone);

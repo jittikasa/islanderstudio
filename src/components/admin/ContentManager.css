@@ -20,7 +20,7 @@
 
 .add-btn {
   padding: 0.75rem 1.5rem;
-  background: var(--sunset-glow);
+  background: var(--misty-morning);
   color: var(--midnight-sky);
   border: none;
   border-radius: var(--radius-md);
@@ -33,7 +33,7 @@
 }
 
 .add-btn:hover {
-  background: var(--golden-hour);
+  background: var(--summer-sky);
   transform: translateY(-1px);
   box-shadow: var(--shadow-md);
 }
@@ -311,7 +311,7 @@
 }
 
 .featured-badge {
-  color: var(--golden-hour);
+  color: var(--summer-sky);
   font-weight: 600;
 }
 
@@ -338,7 +338,7 @@
 
 .edit-btn {
   padding: 0.5rem 1rem;
-  background: var(--sunset-glow);
+  background: var(--misty-morning);
   color: white;
   border: none;
   border-radius: var(--radius-md);
@@ -350,7 +350,7 @@
 }
 
 .edit-btn:hover {
-  background: var(--golden-hour);
+  background: var(--summer-sky);
 }
 
 .list-footer {

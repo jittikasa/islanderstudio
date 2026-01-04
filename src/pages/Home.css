@@ -258,7 +258,7 @@
 .home__hero-badge-dot {
   width: 8px;
   height: 8px;
-  background: var(--sunset-glow);
+  background: var(--misty-morning);
   border-radius: 50%;
   animation: pulse 2s ease-in-out infinite;
 }
@@ -274,7 +274,7 @@
 
 .home__hero-accent {
   position: relative;
-  color: var(--sunset-glow);
+  color: var(--misty-morning);
   display: inline-block;
 }
 
@@ -285,7 +285,7 @@
   left: -0.05em;
   right: -0.05em;
   height: 0.2em;
-  background: var(--golden-hour);
+  background: var(--summer-sky);
   z-index: -1;
   transform: rotate(-1deg);
 }
@@ -690,7 +690,7 @@
 }
 
 .home__postcard-stamp-placed.selected {
-  filter: drop-shadow(0 0 0 3px var(--golden-hour));
+  filter: drop-shadow(0 0 0 3px var(--summer-sky));
   z-index: 25;
 }
 
@@ -758,7 +758,7 @@
 }
 
 .home__postcard-controls button:hover {
-  background: var(--sunset-glow);
+  background: var(--misty-morning);
   color: var(--white);
   transform: translateY(-2px);
 }
@@ -997,7 +997,7 @@
 }
 
 .home__stamp:hover .home__stamp-arrow {
-  color: var(--sunset-glow);
+  color: var(--misty-morning);
 }
 
 /* Stamp Decoration */
@@ -1091,7 +1091,7 @@
 }
 
 .home__values-marker {
-  color: var(--sunset-glow);
+  color: var(--misty-morning);
   font-weight: 700;
 }
 
@@ -1141,12 +1141,12 @@
 }
 
 .home__contact-btn:hover .home__contact-action {
-  background: var(--sunset-glow);
+  background: var(--misty-morning);
   color: var(--midnight-sky);
 }
 
 .home__contact-action--copied {
-  background: var(--golden-hour) !important;
+  background: var(--summer-sky) !important;
   color: var(--midnight-sky) !important;
 }
 

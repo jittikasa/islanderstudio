@@ -57,10 +57,10 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: var(--sunset-glow);
+  color: var(--misty-morning);
   padding: var(--space-2) var(--space-4);
   background: var(--white);
-  border: 2px solid var(--sunset-glow);
+  border: 2px solid var(--misty-morning);
   border-radius: var(--radius-sm);
   margin-bottom: var(--space-6);
 }
@@ -76,7 +76,7 @@
 }
 
 .pola__dot {
-  color: var(--sunset-glow);
+  color: var(--misty-morning);
 }
 
 .pola__tagline {
@@ -273,7 +273,7 @@
 }
 
 .pola__feature:hover {
-  border-color: var(--sunset-glow);
+  border-color: var(--misty-morning);
   transform: translateY(-4px) rotate(-1deg);
   box-shadow: 3px 4px 0 var(--midnight-sky);
 }
@@ -283,7 +283,7 @@
   font-family: var(--font-mono);
   font-size: 11px;
   font-weight: 700;
-  color: var(--sunset-glow);
+  color: var(--misty-morning);
   margin-bottom: var(--space-4);
 }
 
@@ -328,7 +328,7 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: var(--sunset-glow);
+  color: var(--misty-morning);
   transition: color var(--duration-fast) var(--ease-out);
 }
 
@@ -366,7 +366,7 @@
 }
 
 .pola__blog-card:hover {
-  border-color: var(--sunset-glow);
+  border-color: var(--misty-morning);
   transform: translateY(-4px);
   box-shadow: 3px 4px 0 var(--midnight-sky);
 }
@@ -400,7 +400,7 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: var(--sunset-glow);
+  color: var(--misty-morning);
   margin-bottom: var(--space-3);
 }
 
@@ -470,7 +470,7 @@
 .pola__privacy-icon {
   display: block;
   font-size: 2rem;
-  color: var(--sunset-glow);
+  color: var(--summer-sky);
   margin-bottom: var(--space-4);
 }
 
@@ -505,7 +505,7 @@
 }
 
 .pola__privacy-link:hover {
-  color: var(--sunset-glow);
+  color: var(--misty-morning);
 }
 
 .pola__privacy-link span {

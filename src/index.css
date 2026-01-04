@@ -10,8 +10,8 @@
   --coconut-shell: #A78A6A;
   --sea-salt: #F7F0E6;
   --midnight-sky: #333333;
-  --golden-hour: #FDDE86;
-  --sunset-glow: #7A90A8;
+  --summer-sky: #FDDE86;
+  --misty-morning: #7592AA;
 
   /* Extended Palette */
   --white: #FFFFFF;
@@ -302,7 +302,7 @@ img {
 }
 
 .tag--new {
-  color: var(--sunset-glow);
+  color: var(--misty-morning);
   background: rgba(247, 161, 115, 0.1);
 }
 
@@ -345,15 +345,15 @@ img {
 }
 
 .btn-accent {
-  background: var(--sunset-glow);
+  background: var(--misty-morning);
   color: var(--midnight-sky);
-  border-color: var(--sunset-glow);
+  border-color: var(--misty-morning);
 }
 
 .btn-accent:hover {
-  background: #e8916a;
+  background: #7592AA;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(247, 161, 115, 0.4);
+  box-shadow: 0 4px 12px rgba(117, 146, 170, 0.4);
 }
 
 .btn-outline {
@@ -402,9 +402,9 @@ img {
 }
 
 .btn-download-app:hover {
-  background: var(--golden-hour);
-  border-color: var(--golden-hour);
-  color: var(--midnight-sky);
+  background: #7592AA;
+  border-color: #7592AA;
+  color: var(--white);
   transform: translateY(-2px);
   box-shadow: 3px 4px 0 var(--midnight-sky);
 }
@@ -455,7 +455,7 @@ img {
 }
 
 .link-arrow:hover {
-  color: var(--sunset-glow);
+  color: var(--misty-morning);
 }
 
 .link-arrow:hover span {
@@ -519,7 +519,7 @@ img {
    ============================================ */
 
 ::selection {
-  background: var(--golden-hour);
+  background: var(--summer-sky);
   color: var(--midnight-sky);
 }
 

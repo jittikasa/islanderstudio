@@ -26,7 +26,7 @@
 
 .upload-btn {
   padding: 0.75rem 1.5rem;
-  background: var(--sunset-glow);
+  background: var(--misty-morning);
   color: var(--midnight-sky);
   border: none;
   border-radius: var(--radius-md);
@@ -39,7 +39,7 @@
 }
 
 .upload-btn:hover {
-  background: var(--golden-hour);
+  background: var(--summer-sky);
   transform: translateY(-1px);
   box-shadow: var(--shadow-md);
 }
@@ -50,7 +50,7 @@
   align-items: center;
   padding: 1rem 1.5rem;
   background: var(--sea-salt);
-  border: 2px solid var(--sunset-glow);
+  border: 2px solid var(--misty-morning);
   border-radius: var(--radius-lg);
   margin-bottom: 1.5rem;
 }
@@ -116,7 +116,7 @@
 }
 
 .media-item.selected {
-  border-color: var(--sunset-glow);
+  border-color: var(--misty-morning);
   border-width: 3px;
   box-shadow: 0 0 0 3px rgba(247, 161, 115, 0.2);
 }
