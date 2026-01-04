@@ -571,7 +571,7 @@
   opacity: 1;
 }
 
-.home__postcard-stamp-placeholder span {
+.home__postcard-stamp-placeholder > span {
   font-family: var(--font-mono);
   font-size: 6px;
   font-weight: 600;
