@@ -163,7 +163,7 @@
 }
 
 .contact-email-btn:hover .contact-email-action {
-  background: var(--sunset-glow);
+  background: var(--misty-morning);
   color: var(--midnight-sky);
 }
 
@@ -198,7 +198,7 @@
   font-family: var(--font-body);
   font-size: 12px;
   font-weight: 600;
-  color: var(--sunset-glow);
+  color: var(--misty-morning);
 }
 
 /* CTA Card */
@@ -240,7 +240,7 @@
 }
 
 .cta-btn:hover {
-  background: var(--golden-hour);
+  background: var(--summer-sky);
   color: var(--midnight-sky);
   transform: translateY(-2px);
 }
@@ -356,7 +356,7 @@
 }
 
 .content-section a:hover {
-  color: var(--sunset-glow);
+  color: var(--misty-morning);
 }
 
 .emphasis {

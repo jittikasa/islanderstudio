@@ -138,7 +138,7 @@
   left: 0;
   width: 5px;
   height: 5px;
-  background: var(--sunset-glow);
+  background: var(--misty-morning);
   border-radius: 50%;
   transition: transform var(--duration-base) var(--ease-spring);
   transform-origin: top center;
@@ -253,7 +253,7 @@
 }
 
 .footer__link:hover {
-  color: var(--golden-hour);
+  color: var(--summer-sky);
 }
 
 /* Link Badges */
@@ -273,7 +273,7 @@
 }
 
 .footer__link-badge--soon {
-  color: var(--golden-hour);
+  color: var(--summer-sky);
 }
 
 /* Copy Email Button */
@@ -288,7 +288,7 @@
 }
 
 .footer__link--copy:hover {
-  border-color: var(--golden-hour);
+  border-color: var(--summer-sky);
   background: rgba(255, 255, 255, 0.15);
 }
 
@@ -308,7 +308,7 @@
   text-transform: uppercase;
   color: var(--midnight-sky);
   padding: 3px 8px;
-  background: var(--golden-hour);
+  background: var(--summer-sky);
   border-radius: var(--radius-sm);
   transition: all var(--duration-fast) var(--ease-out);
   flex-shrink: 0;
@@ -320,7 +320,7 @@
 }
 
 .footer__link-copy-text--copied {
-  background: var(--golden-hour) !important;
+  background: var(--summer-sky) !important;
   color: var(--midnight-sky) !important;
 }
 
@@ -380,8 +380,8 @@
 }
 
 .footer__admin-link:hover {
-  color: var(--golden-hour);
-  border-color: var(--golden-hour);
+  color: var(--summer-sky);
+  border-color: var(--summer-sky);
   opacity: 1;
 }
 

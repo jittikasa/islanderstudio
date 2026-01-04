@@ -113,7 +113,7 @@
   left: 0;
   width: 5px;
   height: 5px;
-  background: var(--sunset-glow);
+  background: var(--misty-morning);
   border-radius: 50%;
   transition: transform var(--duration-base) var(--ease-spring);
   transform-origin: top center;
@@ -399,7 +399,7 @@
   left: 0;
   right: 0;
   height: 3px;
-  background: var(--sunset-glow);
+  background: var(--misty-morning);
   border-radius: 2px;
 }
 
@@ -411,7 +411,7 @@
 
 .header__mobile-link:hover .header__mobile-link-arrow {
   transform: translateX(4px);
-  color: var(--sunset-glow);
+  color: var(--misty-morning);
 }
 
 .header__mobile-footer {
@@ -433,7 +433,7 @@
 }
 
 .header__mobile-email:hover {
-  background: var(--golden-hour);
+  background: var(--summer-sky);
   color: var(--midnight-sky);
 }
 

@@ -31,7 +31,7 @@
   left: 0;
   width: 80px;
   height: 4px;
-  background: var(--sunset-glow);
+  background: var(--misty-morning);
   border-radius: var(--radius-full);
 }
 
@@ -86,7 +86,7 @@
 
 .tab-btn.active {
   color: var(--midnight-sky);
-  background: var(--golden-hour);
+  background: var(--summer-sky);
   box-shadow: var(--shadow-xs);
 }
 

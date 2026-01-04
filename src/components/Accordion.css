@@ -70,7 +70,7 @@
 
 .accordion-item.is-open .accordion-chevron {
   transform: rotate(180deg);
-  color: var(--sunset-glow);
+  color: var(--misty-morning);
 }
 
 /* Accordion Content */
@@ -105,7 +105,7 @@
 }
 
 .accordion-content a:hover {
-  color: var(--sunset-glow);
+  color: var(--misty-morning);
 }
 
 /* When accordion has icon, adjust padding */

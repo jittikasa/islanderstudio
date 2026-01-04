@@ -60,7 +60,7 @@
   right: 8px;
   width: 40px;
   height: 40px;
-  background: var(--golden-hour);
+  background: var(--summer-sky);
   border-radius: 50%;
   opacity: 0;
   transform: scale(0);
@@ -129,7 +129,7 @@
 
 .blog-card-category {
   padding: var(--space-1) var(--space-3);
-  background: var(--golden-hour);
+  background: var(--summer-sky);
   color: var(--midnight-sky);
   border-radius: var(--radius-full);
   font-size: 0.75rem;
@@ -191,7 +191,7 @@
 
 .error-message {
   background: var(--paper);
-  border: 2px dashed var(--sunset-glow);
+  border: 2px dashed var(--misty-morning);
   border-radius: var(--radius-lg);
   padding: var(--space-8);
   margin-top: var(--space-6);
