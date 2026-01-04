@@ -527,6 +527,8 @@
   width: 1px;
   background: #999;
   margin: var(--space-4) 0;
+  flex-shrink: 0;
+  align-self: stretch;
 }
 
 /* Right Side */
@@ -575,6 +577,7 @@
   align-items: center;
   gap: 6px;
   color: var(--midnight-sky);
+  opacity: 0.8;
 }
 
 .home__postcard-postmark-waves {
