@@ -552,8 +552,8 @@
 
 /* Stamp Placeholder */
 .home__postcard-stamp-placeholder {
-  width: 67px;
-  height: 75px;
+  width: 80px;
+  height: 88px;
   border: 1.5px dashed #B8977A;
   display: flex;
   flex-direction: column;
@@ -588,6 +588,11 @@
   transform: translate(-50%, -50%);
   cursor: grab;
   z-index: 10;
+}
+
+/* Sea salt background when placed */
+.home__postcard-placed-stamp .home__floating-stamp-perforated {
+  background: var(--sea-salt);
 }
 
 .home__postcard-placed-stamp:active {
