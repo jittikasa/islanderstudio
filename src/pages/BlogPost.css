@@ -55,8 +55,8 @@
 
 .post-category {
   padding: var(--space-2) var(--space-4);
-  background: var(--summer-sky);
-  color: var(--midnight-sky);
+  background: var(--misty-morning);
+  color: var(--white);
   border-radius: var(--radius-full);
   font-size: 0.75rem;
   font-weight: 700;
