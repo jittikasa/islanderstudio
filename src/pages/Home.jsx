@@ -202,10 +202,14 @@ export default function Home() {
                   {/* Left side - Studio Notes */}
                   <div className="home__postcard-left">
                     <div className="home__postcard-notes">
-                      <p className="home__postcard-title">POSTCARD FROM THE SEA</p>
+                      <div className="home__postcard-title">
+                        <span>POSTCARD</span>
+                        <span>FROM THE SEA</span>
+                      </div>
                       <p className="home__postcard-notes-label">STUDIO NOTES :</p>
                       <div className="home__postcard-notes-content">
-                        <p className="home__postcard-notes-line">Been spending time refining small details.</p>
+                        <p className="home__postcard-notes-line">Been spending time</p>
+                        <p className="home__postcard-notes-line">refining small details.</p>
                         <p className="home__postcard-notes-line">Sketching ideas, testing flows,</p>
                         <p className="home__postcard-notes-line">adjusting pixels.</p>
                         <p className="home__postcard-notes-line">Slow progress—but it feels right.</p>
