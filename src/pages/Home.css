@@ -475,15 +475,13 @@
 
 .home__postcard-notes-line {
   font-family: 'Oooh Baby', cursive;
-  font-size: clamp(12px, 2.5vw, 20px);
+  font-size: clamp(10px, 1.8vw, 16px);
   color: #333333;
   margin: 0;
-  padding-bottom: var(--space-2);
+  padding-bottom: var(--space-1);
   border-bottom: 1px solid #e0e0e0;
-  min-height: clamp(18px, 3vw, 28px);
+  min-height: clamp(14px, 2.2vw, 22px);
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .home__postcard-from {
@@ -503,7 +501,7 @@
 
 .home__postcard-from-text {
   font-family: 'Oooh Baby', cursive;
-  font-size: clamp(12px, 2.5vw, 20px);
+  font-size: clamp(10px, 1.8vw, 16px);
   color: #333333;
   white-space: nowrap;
 }
@@ -638,7 +636,7 @@
 
 .home__postcard-to-text {
   font-family: 'Oooh Baby', cursive;
-  font-size: clamp(12px, 2.5vw, 20px);
+  font-size: clamp(10px, 1.8vw, 16px);
   color: #333333;
   white-space: nowrap;
 }
