@@ -211,10 +211,10 @@ export default function PolaMoment() {
       <section className="pola__privacy">
         <div className="pola__privacy-card">
           <span className="pola__privacy-icon">*</span>
-          <h2 className="pola__privacy-title">Your privacy matters</h2>
+          <h2 className="pola__privacy-title">Your data stays yours</h2>
           <p className="pola__privacy-text">
-            We don't collect, store, or share any of your data. All photos stay on
-            your device. No cloud storage, no analytics, no tracking.
+            Sync across devices with your own iCloud—we never see it. No third-party
+            analytics, no tracking, no data selling.
           </p>
           <Link to="/privacy" className="pola__privacy-link">
             Read privacy policy <span>→</span>

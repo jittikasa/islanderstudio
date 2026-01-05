@@ -330,7 +330,7 @@ But there's a catch. Many users report that gamification "gets old quick" and ca
 
 This is the most important trend of 2026. People are waking up to what wellness apps actually collect: your wake times, workout schedules, mood patterns, daily routines—incredibly personal behavioral data.
 
-Privacy-first apps like Shellist and Loop store everything locally on your device. No cloud uploads, no analytics tracking, no data selling. In an era of constant surveillance, this matters more than most features.
+Privacy-first apps like Shellist and Loop keep your data yours. Shellist syncs via your own iCloud—the developer never sees your data. No third-party analytics, no tracking, no data selling. In an era of constant surveillance, this matters more than most features.
 
 **Our take:** Habit data is deeply personal. Choose apps that respect your privacy by default.
 
