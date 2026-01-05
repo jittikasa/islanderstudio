@@ -266,7 +266,7 @@
 }
 
 .pola__feature:hover {
-  border-color: var(--misty-morning);
+  border-color: var(--coconut-shell);
   transform: translateY(-4px) rotate(-1deg);
   box-shadow: 3px 4px 0 var(--midnight-sky);
 }
@@ -276,7 +276,7 @@
   font-family: var(--font-mono);
   font-size: 11px;
   font-weight: 700;
-  color: var(--misty-morning);
+  color: var(--coconut-shell);
   margin-bottom: var(--space-4);
 }
 
