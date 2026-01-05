@@ -19,7 +19,7 @@ bucket_name = "blog-media"
 
 # Email Sending binding
 [[send_email]]
-binding = "EMAIL_SEND"
+name = "EMAIL_SEND"
 # This allows your worker to send emails using Cloudflare's email infrastructure
 # No additional configuration needed for the binding itself
 # You'll need to configure allowed sender addresses in Cloudflare dashboard
