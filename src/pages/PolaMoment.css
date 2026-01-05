@@ -321,7 +321,7 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: var(--misty-morning);
+  color: var(--coconut-shell);
   transition: color var(--duration-fast) var(--ease-out);
 }
 
@@ -498,7 +498,7 @@
 }
 
 .pola__privacy-link:hover {
-  color: var(--misty-morning);
+  color: var(--coconut-shell);
 }
 
 .pola__privacy-link span {
