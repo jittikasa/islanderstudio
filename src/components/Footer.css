@@ -253,7 +253,7 @@
 }
 
 .footer__link:hover {
-  color: var(--misty-morning);
+  color: var(--coconut-shell);
 }
 
 /* Link Badges */
@@ -380,8 +380,8 @@
 }
 
 .footer__admin-link:hover {
-  color: var(--summer-sky);
-  border-color: var(--summer-sky);
+  color: var(--coconut-shell);
+  border-color: var(--coconut-shell);
   opacity: 1;
 }
 

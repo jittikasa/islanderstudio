@@ -411,7 +411,7 @@
 
 .header__mobile-link:hover .header__mobile-link-arrow {
   transform: translateX(4px);
-  color: var(--misty-morning);
+  color: var(--coconut-shell);
 }
 
 .header__mobile-footer {
