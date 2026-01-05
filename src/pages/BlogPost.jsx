@@ -6,58 +6,17 @@ import LoadingSpinner from '../components/LoadingSpinner'
 import { getBlogPost, urlFor } from '../lib/api'
 import './BlogPost.css'
 
-// Portable Text renderer for Sanity rich text
-function PortableText({ blocks }) {
-  if (!blocks || !Array.isArray(blocks)) return null
+// HTML content renderer for D1-stored content
+// Note: Content is sanitized server-side before storage
+function HtmlContent({ html }) {
+  if (!html) return null
 
-  return blocks.map((block, index) => {
-    // Handle text blocks
-    if (block._type === 'block') {
-      const style = block.style || 'normal'
-      const children = block.children?.map((child, childIndex) => {
-        if (child.marks?.includes('strong')) {
-          return <strong key={childIndex}>{child.text}</strong>
-        }
-        if (child.marks?.includes('em')) {
-          return <em key={childIndex}>{child.text}</em>
-        }
-        if (child.marks?.includes('code')) {
-          return <code key={childIndex}>{child.text}</code>
-        }
-        return child.text
-      })
-
-      switch (style) {
-        case 'h1':
-          return <h1 key={index}>{children}</h1>
-        case 'h2':
-          return <h2 key={index}>{children}</h2>
-        case 'h3':
-          return <h3 key={index}>{children}</h3>
-        case 'h4':
-          return <h4 key={index}>{children}</h4>
-        case 'blockquote':
-          return <blockquote key={index}>{children}</blockquote>
-        default:
-          return <p key={index}>{children}</p>
-      }
-    }
-
-    // Handle images
-    if (block._type === 'image') {
-      return (
-        <div key={index} className="post-image">
-          <img
-            src={urlFor(block).width(1200).url()}
-            alt={block.alt || 'Blog post image'}
-          />
-          {block.alt && <p className="image-caption">{block.alt}</p>}
-        </div>
-      )
-    }
-
-    return null
-  })
+  return (
+    <div
+      className="blog-html-content"
+      dangerouslySetInnerHTML={{ __html: html }}
+    />
+  )
 }
 
 export default function BlogPost() {
@@ -286,7 +245,7 @@ export default function BlogPost() {
               <p className="post-excerpt">{post.excerpt}</p>
             )}
 
-            <PortableText blocks={post.body} />
+            <HtmlContent html={post.body} />
           </div>
 
           {post.authorName && (
