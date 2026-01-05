@@ -14,7 +14,7 @@ import { handleEmail } from './api/email.js';
 
 /**
  * Get CORS headers for the request origin
- * Supports production (islanderstudio.app) and preview/development environments
+ * Supports production (islanderstudio.app) and Cloudflare Pages preview environments
  */
 function getCorsHeaders(request) {
   const origin = request.headers.get('Origin');
@@ -25,9 +25,8 @@ function getCorsHeaders(request) {
     'http://localhost:3000',
   ];
 
-  // Check if origin is allowed or is a Netlify/Cloudflare preview URL
+  // Check if origin is allowed or is a Cloudflare Pages preview URL
   const isAllowed = allowedOrigins.includes(origin) ||
-    origin?.includes('.netlify.app') ||
     origin?.includes('.pages.dev');
 
   return {
