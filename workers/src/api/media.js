@@ -90,9 +90,12 @@ export async function handleMedia(request, env, method, path) {
       // Get image dimensions (basic implementation)
       const { width, height } = await getImageDimensions(arrayBuffer, file.type);
 
-      // Construct public URL
-      // Note: You'll need to configure R2 public access or use Cloudflare Images
-      const url = `https://media.islanderstudio.app/${key}`;
+      // Construct public URL using configured R2_PUBLIC_URL or default
+      // Configure R2_PUBLIC_URL environment variable in wrangler.toml or dashboard:
+      // - Custom domain: https://media.islanderstudio.app
+      // - R2.dev subdomain: https://pub-<your-id>.r2.dev
+      const baseUrl = env.R2_PUBLIC_URL || 'https://media.islanderstudio.app';
+      const url = `${baseUrl}/${key}`;
 
       // Store metadata in D1
       await env.DB.prepare(
