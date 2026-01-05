@@ -18,10 +18,11 @@
 
 .blog-title {
   font-family: var(--font-display);
-  font-size: 3rem;
+  font-size: clamp(2rem, 6vw, 3rem);
   font-weight: 700;
-  color: var(--coconut-shell);
-  margin-bottom: var(--space-3);
+  line-height: 1.2;
+  color: var(--midnight-sky);
+  margin-bottom: var(--space-4);
   letter-spacing: -0.02em;
 }
 
@@ -247,10 +248,6 @@
     padding: var(--space-12) var(--space-4);
   }
 
-  .blog-title {
-    font-size: 2.25rem;
-  }
-
   .blog-subtitle {
     font-size: 1rem;
   }
@@ -266,10 +263,6 @@
 }
 
 @media (max-width: 480px) {
-  .blog-title {
-    font-size: 2rem;
-  }
-
   .blog-card-content {
     padding: var(--space-5);
   }
