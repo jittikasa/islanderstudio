@@ -17,6 +17,13 @@ database_id = "7a69bf73-d4df-494b-a025-5d549c98164d"
 binding = "MEDIA"
 bucket_name = "blog-media"
 
+# Email Sending binding
+[[send_email]]
+binding = "EMAIL_SEND"
+# This allows your worker to send emails using Cloudflare's email infrastructure
+# No additional configuration needed for the binding itself
+# You'll need to configure allowed sender addresses in Cloudflare dashboard
+
 # CORS configuration
 [env.production]
 routes = [

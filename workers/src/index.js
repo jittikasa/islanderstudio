@@ -10,6 +10,7 @@ import { handleCategories } from './api/categories.js';
 import { handleTags } from './api/tags.js';
 import { handleApps } from './api/apps.js';
 import { handleMedia } from './api/media.js';
+import { handleEmail } from './api/email.js';
 
 /**
  * CORS headers for all responses
@@ -144,6 +145,11 @@ export default {
       // Media (R2)
       if (path.startsWith('/api/media')) {
         return await handleMedia(request, env, method, path);
+      }
+
+      // Email
+      if (path.startsWith('/api/email')) {
+        return await handleEmail(request, env, method, path);
       }
 
       // 404 - Route not found
