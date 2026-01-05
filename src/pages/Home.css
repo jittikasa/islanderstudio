@@ -588,9 +588,15 @@
   transform: translate(-50%, -50%);
   cursor: grab;
   z-index: 10;
+  width: 67px;
+  height: auto;
 }
 
-/* Sea salt background when placed */
+.home__postcard-placed-stamp .home__floating-stamp {
+  width: 67px;
+  height: auto;
+}
+
 .home__postcard-placed-stamp .home__floating-stamp-perforated {
   background: var(--sea-salt);
 }
