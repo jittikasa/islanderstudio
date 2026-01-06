@@ -9,7 +9,7 @@ export default function CategoryManager() {
   const [showForm, setShowForm] = useState(false)
   const [editingCategory, setEditingCategory] = useState(null)
   const [formData, setFormData] = useState({
-    name: '',
+    title: '',
     description: ''
   })
 
@@ -47,8 +47,8 @@ export default function CategoryManager() {
     try {
       const token = localStorage.getItem('admin_token')
 
-      // Generate slug from name
-      const slug = formData.name.toLowerCase().replace(/\s+/g, '-')
+      // Generate slug from title
+      const slug = formData.title.toLowerCase().replace(/\s+/g, '-')
 
       const url = editingCategory
         ? `${API_URL}/api/categories/${editingCategory.id}`
@@ -61,7 +61,7 @@ export default function CategoryManager() {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          name: formData.name,
+          title: formData.title,
           slug: slug,
           description: formData.description
         })
@@ -71,7 +71,7 @@ export default function CategoryManager() {
         throw new Error('Failed to save category')
       }
 
-      setFormData({ name: '', description: '' })
+      setFormData({ title: '', description: '' })
       setShowForm(false)
       setEditingCategory(null)
       fetchCategories()
@@ -109,7 +109,7 @@ export default function CategoryManager() {
 
   function handleEdit(category) {
     setFormData({
-      name: category.name,
+      title: category.title,
       description: category.description || ''
     })
     setEditingCategory(category)
@@ -117,7 +117,7 @@ export default function CategoryManager() {
   }
 
   function handleCancel() {
-    setFormData({ name: '', description: '' })
+    setFormData({ title: '', description: '' })
     setEditingCategory(null)
     setShowForm(false)
   }
@@ -138,12 +138,12 @@ export default function CategoryManager() {
       {showForm && (
         <form onSubmit={handleSubmit} className="content-form">
           <div className="form-group">
-            <label htmlFor="name">Name *</label>
+            <label htmlFor="title">Title *</label>
             <input
               type="text"
-              id="name"
-              value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              id="title"
+              value={formData.title}
+              onChange={(e) => setFormData({ ...formData, title: e.target.value })}
               required
             />
           </div>
@@ -176,7 +176,7 @@ export default function CategoryManager() {
           categories.map((category) => (
             <div key={category.id} className="content-item">
               <div className="item-info">
-                <h3>{category.name}</h3>
+                <h3>{category.title}</h3>
                 {category.description && <p>{category.description}</p>}
                 <p className="post-meta">Slug: {category.slug}</p>
               </div>
