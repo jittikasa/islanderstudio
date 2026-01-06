@@ -139,45 +139,54 @@ export default {
       // Protected API routes
       // Posts (write operations)
       if (path === '/api/posts' && method === 'POST') {
-        return await createPost(request, env);
+        const response = await createPost(request, env);
+        return addCorsHeaders(response, request);
       }
       if (path.match(/^\/api\/posts\/[^/]+$/) && method === 'PUT') {
         const id = path.split('/').pop();
-        return await updatePost(id, request, env);
+        const response = await updatePost(id, request, env);
+        return addCorsHeaders(response, request);
       }
       if (path.match(/^\/api\/posts\/[^/]+$/) && method === 'DELETE') {
         const id = path.split('/').pop();
-        return await deletePost(id, env);
+        const response = await deletePost(id, env);
+        return addCorsHeaders(response, request);
       }
 
       // Authors
       if (path.startsWith('/api/authors')) {
-        return await handleAuthors(request, env, method, path);
+        const response = await handleAuthors(request, env, method, path);
+        return addCorsHeaders(response, request);
       }
 
       // Categories
       if (path.startsWith('/api/categories')) {
-        return await handleCategories(request, env, method, path);
+        const response = await handleCategories(request, env, method, path);
+        return addCorsHeaders(response, request);
       }
 
       // Tags
       if (path.startsWith('/api/tags')) {
-        return await handleTags(request, env, method, path);
+        const response = await handleTags(request, env, method, path);
+        return addCorsHeaders(response, request);
       }
 
       // Apps
       if (path.startsWith('/api/apps')) {
-        return await handleApps(request, env, method, path);
+        const response = await handleApps(request, env, method, path);
+        return addCorsHeaders(response, request);
       }
 
       // Media (R2)
       if (path.startsWith('/api/media')) {
-        return await handleMedia(request, env, method, path);
+        const response = await handleMedia(request, env, method, path);
+        return addCorsHeaders(response, request);
       }
 
       // Email
       if (path.startsWith('/api/email')) {
-        return await handleEmail(request, env, method, path);
+        const response = await handleEmail(request, env, method, path);
+        return addCorsHeaders(response, request);
       }
 
       // 404 - Route not found
