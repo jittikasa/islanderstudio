@@ -13,30 +13,46 @@ import { handleMedia } from './api/media.js';
 import { handleEmail } from './api/email.js';
 
 /**
- * CORS headers for all responses
+ * Get CORS headers for the request origin
+ * Supports production (islanderstudio.app) and Cloudflare Pages preview environments
  */
-const corsHeaders = {
-  'Access-Control-Allow-Origin': '*', // TODO: Update to your domain in production
-  'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-};
+function getCorsHeaders(request) {
+  const origin = request.headers.get('Origin');
+  const allowedOrigins = [
+    'https://islanderstudio.app',
+    'https://www.islanderstudio.app',
+    'http://localhost:5173',
+    'http://localhost:3000',
+  ];
+
+  // Check if origin is allowed or is a Cloudflare Pages preview URL
+  const isAllowed = allowedOrigins.includes(origin) ||
+    origin?.includes('.pages.dev');
+
+  return {
+    'Access-Control-Allow-Origin': isAllowed ? origin : 'https://islanderstudio.app',
+    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+    'Access-Control-Allow-Credentials': 'true',
+  };
+}
 
 /**
  * Handle OPTIONS requests for CORS
  */
-function handleOptions() {
+function handleOptions(request) {
   return new Response(null, {
     status: 204,
-    headers: corsHeaders,
+    headers: getCorsHeaders(request),
   });
 }
 
 /**
  * Add CORS headers to response
  */
-function addCorsHeaders(response) {
+function addCorsHeaders(response, request) {
   const newResponse = new Response(response.body, response);
-  Object.entries(corsHeaders).forEach(([key, value]) => {
+  Object.entries(getCorsHeaders(request)).forEach(([key, value]) => {
     newResponse.headers.set(key, value);
   });
   return newResponse;
@@ -45,21 +61,26 @@ function addCorsHeaders(response) {
 /**
  * JSON response helper
  */
-function jsonResponse(data, status = 200) {
+function jsonResponse(data, status = 200, request = null) {
+  const headers = {
+    'Content-Type': 'application/json',
+  };
+
+  if (request) {
+    Object.assign(headers, getCorsHeaders(request));
+  }
+
   return new Response(JSON.stringify(data), {
     status,
-    headers: {
-      'Content-Type': 'application/json',
-      ...corsHeaders,
-    },
+    headers,
   });
 }
 
 /**
  * Error response helper
  */
-function errorResponse(message, status = 400) {
-  return jsonResponse({ error: message }, status);
+function errorResponse(message, status = 400, request = null) {
+  return jsonResponse({ error: message }, status, request);
 }
 
 /**
@@ -69,7 +90,7 @@ export default {
   async fetch(request, env, ctx) {
     // Handle OPTIONS preflight
     if (request.method === 'OPTIONS') {
-      return handleOptions();
+      return handleOptions(request);
     }
 
     const url = new URL(request.url);
@@ -92,26 +113,30 @@ export default {
 
       // Health check
       if (path === '/api/health') {
-        return jsonResponse({ status: 'ok', timestamp: new Date().toISOString() });
+        return jsonResponse({ status: 'ok', timestamp: new Date().toISOString() }, 200, request);
+      }
+
+      // Public blog endpoints (no auth required)
+      if (path === '/api/posts' && method === 'GET') {
+        const response = await handlePosts(request, env);
+        return addCorsHeaders(response, request);
+      }
+      if (path.match(/^\/api\/posts\/[^/]+$/) && method === 'GET') {
+        const slug = path.split('/').pop();
+        const response = await handlePost(slug, env);
+        return addCorsHeaders(response, request);
       }
 
       // All other routes require authentication
       const session = await verifySession(request, env);
       if (!session) {
-        return errorResponse('Unauthorized', 401);
+        return errorResponse('Unauthorized', 401, request);
       }
 
-      // API routes
-      // Posts
-      if (path === '/api/posts' && method === 'GET') {
-        return await handlePosts(request, env);
-      }
+      // Protected API routes
+      // Posts (write operations)
       if (path === '/api/posts' && method === 'POST') {
         return await createPost(request, env);
-      }
-      if (path.match(/^\/api\/posts\/[^/]+$/) && method === 'GET') {
-        const slug = path.split('/').pop();
-        return await handlePost(slug, env);
       }
       if (path.match(/^\/api\/posts\/[^/]+$/) && method === 'PUT') {
         const id = path.split('/').pop();
@@ -153,10 +178,10 @@ export default {
       }
 
       // 404 - Route not found
-      return errorResponse('Not found', 404);
+      return errorResponse('Not found', 404, request);
     } catch (error) {
       console.error('Error:', error);
-      return errorResponse(error.message || 'Internal server error', 500);
+      return errorResponse(error.message || 'Internal server error', 500, request);
     }
   },
 };

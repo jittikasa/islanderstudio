@@ -71,7 +71,7 @@ export async function getPostsByApp(appName, limit = 2) {
 }
 
 /**
- * Format post from D1 API to match Sanity structure
+ * Format post from D1 API to match expected structure
  * This ensures compatibility with existing components
  */
 function formatPost(post) {
@@ -90,14 +90,21 @@ function formatPost(post) {
     authorName: post.author_name,
     authorBio: post.author_bio,
     authorImage: post.author_image ? { asset: { url: post.author_image } } : null,
-    categories: post.categories || [],
-    tags: post.tags || [],
-    relatedApps: post.relatedApps || [],
+    // Handle different response formats from API
+    categories: Array.isArray(post.categories)
+      ? post.categories.map(c => typeof c === 'string' ? c : c.title)
+      : [],
+    tags: Array.isArray(post.tags)
+      ? post.tags.map(t => typeof t === 'string' ? t : t.title)
+      : [],
+    relatedApps: Array.isArray(post.relatedApps)
+      ? post.relatedApps.map(a => typeof a === 'string' ? a : a.name)
+      : [],
     mainImage: post.main_image_url ? {
       asset: { url: post.main_image_url },
       alt: post.main_image_alt,
     } : null,
-    body: post.body, // HTML from D1 (not Portable Text anymore)
+    body: post.body, // HTML from D1
     seo: {
       metaTitle: post.seo_meta_title,
       metaDescription: post.seo_meta_description,

@@ -1,24 +1,210 @@
 /**
  * Tags API endpoints
- * TODO: Implement full CRUD operations
+ * Full CRUD operations for managing blog tags
  */
+
+/**
+ * Generate a UUID v4
+ */
+function generateUUID() {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    const r = Math.random() * 16 | 0;
+    const v = c === 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
+}
+
+/**
+ * Generate slug from title
+ */
+function generateSlug(title) {
+  return title
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .substring(0, 96);
+}
+
+/**
+ * JSON response helper
+ */
+function jsonResponse(data, status = 200) {
+  return new Response(JSON.stringify(data), {
+    status,
+    headers: { 'Content-Type': 'application/json' },
+  });
+}
 
 export async function handleTags(request, env, method, path) {
   // GET /api/tags - List all tags
   if (method === 'GET' && path === '/api/tags') {
-    const { results } = await env.DB.prepare(
-      'SELECT * FROM tags ORDER BY title'
-    ).all();
+    try {
+      const { results } = await env.DB.prepare(
+        'SELECT * FROM tags ORDER BY title'
+      ).all();
 
-    return new Response(JSON.stringify({ tags: results }), {
-      headers: { 'Content-Type': 'application/json' },
-    });
+      return jsonResponse({ tags: results });
+    } catch (error) {
+      console.error('Error fetching tags:', error);
+      return jsonResponse({ error: 'Failed to fetch tags' }, 500);
+    }
   }
 
-  // TODO: Add POST, PUT, DELETE endpoints
+  // GET /api/tags/:id - Get single tag
+  if (method === 'GET' && path.match(/^\/api\/tags\/[^/]+$/)) {
+    const id = path.split('/').pop();
 
-  return new Response(JSON.stringify({ error: 'Not implemented' }), {
-    status: 501,
-    headers: { 'Content-Type': 'application/json' },
-  });
+    try {
+      const tag = await env.DB.prepare(
+        'SELECT * FROM tags WHERE id = ? OR slug = ?'
+      ).bind(id, id).first();
+
+      if (!tag) {
+        return jsonResponse({ error: 'Tag not found' }, 404);
+      }
+
+      return jsonResponse({ tag });
+    } catch (error) {
+      console.error('Error fetching tag:', error);
+      return jsonResponse({ error: 'Failed to fetch tag' }, 500);
+    }
+  }
+
+  // POST /api/tags - Create new tag
+  if (method === 'POST' && path === '/api/tags') {
+    try {
+      const data = await request.json();
+
+      // Validate required fields
+      if (!data.title) {
+        return jsonResponse({ error: 'Title is required' }, 400);
+      }
+
+      const tagId = generateUUID();
+      const slug = data.slug || generateSlug(data.title);
+
+      // Check if slug already exists
+      const existing = await env.DB.prepare(
+        'SELECT id FROM tags WHERE slug = ?'
+      ).bind(slug).first();
+
+      if (existing) {
+        return jsonResponse({ error: 'Tag with this slug already exists' }, 400);
+      }
+
+      // Insert tag
+      await env.DB.prepare(`
+        INSERT INTO tags (
+          id, title, slug, description, created_at
+        ) VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)
+      `).bind(
+        tagId,
+        data.title,
+        slug,
+        data.description || null
+      ).run();
+
+      return jsonResponse({ success: true, tagId, slug }, 201);
+    } catch (error) {
+      console.error('Error creating tag:', error);
+      return jsonResponse({ error: 'Failed to create tag' }, 500);
+    }
+  }
+
+  // PUT /api/tags/:id - Update tag
+  if (method === 'PUT' && path.match(/^\/api\/tags\/[^/]+$/)) {
+    const id = path.split('/').pop();
+
+    try {
+      const data = await request.json();
+
+      // Check if tag exists
+      const existing = await env.DB.prepare(
+        'SELECT id FROM tags WHERE id = ?'
+      ).bind(id).first();
+
+      if (!existing) {
+        return jsonResponse({ error: 'Tag not found' }, 404);
+      }
+
+      // Build update query dynamically
+      const updates = [];
+      const bindings = [];
+
+      if (data.title) {
+        updates.push('title = ?');
+        bindings.push(data.title);
+      }
+      if (data.slug) {
+        // Check if new slug conflicts with another tag
+        const slugConflict = await env.DB.prepare(
+          'SELECT id FROM tags WHERE slug = ? AND id != ?'
+        ).bind(data.slug, id).first();
+
+        if (slugConflict) {
+          return jsonResponse({ error: 'Slug already in use by another tag' }, 400);
+        }
+
+        updates.push('slug = ?');
+        bindings.push(data.slug);
+      }
+      if (data.description !== undefined) {
+        updates.push('description = ?');
+        bindings.push(data.description);
+      }
+
+      if (updates.length === 0) {
+        return jsonResponse({ error: 'No fields to update' }, 400);
+      }
+
+      bindings.push(id);
+
+      await env.DB.prepare(
+        `UPDATE tags SET ${updates.join(', ')} WHERE id = ?`
+      ).bind(...bindings).run();
+
+      return jsonResponse({ success: true });
+    } catch (error) {
+      console.error('Error updating tag:', error);
+      return jsonResponse({ error: 'Failed to update tag' }, 500);
+    }
+  }
+
+  // DELETE /api/tags/:id - Delete tag
+  if (method === 'DELETE' && path.match(/^\/api\/tags\/[^/]+$/)) {
+    const id = path.split('/').pop();
+
+    try {
+      // Check if tag exists
+      const existing = await env.DB.prepare(
+        'SELECT id FROM tags WHERE id = ?'
+      ).bind(id).first();
+
+      if (!existing) {
+        return jsonResponse({ error: 'Tag not found' }, 404);
+      }
+
+      // Check if tag is used in any posts
+      const postsCount = await env.DB.prepare(
+        'SELECT COUNT(*) as count FROM post_tags WHERE tag_id = ?'
+      ).bind(id).first();
+
+      if (postsCount.count > 0) {
+        return jsonResponse({
+          error: `Cannot delete tag. ${postsCount.count} post(s) are using this tag.`
+        }, 400);
+      }
+
+      // Delete tag
+      await env.DB.prepare('DELETE FROM tags WHERE id = ?').bind(id).run();
+
+      return jsonResponse({ success: true });
+    } catch (error) {
+      console.error('Error deleting tag:', error);
+      return jsonResponse({ error: 'Failed to delete tag' }, 500);
+    }
+  }
+
+  return jsonResponse({ error: 'Not found' }, 404);
 }
