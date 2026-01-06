@@ -9,7 +9,7 @@ export default function TagManager() {
   const [showForm, setShowForm] = useState(false)
   const [editingTag, setEditingTag] = useState(null)
   const [formData, setFormData] = useState({
-    name: ''
+    title: ''
   })
 
   useEffect(() => {
@@ -46,8 +46,8 @@ export default function TagManager() {
     try {
       const token = localStorage.getItem('admin_token')
 
-      // Generate slug from name
-      const slug = formData.name.toLowerCase().replace(/\s+/g, '-')
+      // Generate slug from title
+      const slug = formData.title.toLowerCase().replace(/\s+/g, '-')
 
       const url = editingTag
         ? `${API_URL}/api/tags/${editingTag.id}`
@@ -60,7 +60,7 @@ export default function TagManager() {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          name: formData.name,
+          title: formData.title,
           slug: slug
         })
       })
@@ -69,7 +69,7 @@ export default function TagManager() {
         throw new Error('Failed to save tag')
       }
 
-      setFormData({ name: '' })
+      setFormData({ title: '' })
       setShowForm(false)
       setEditingTag(null)
       fetchTags()
@@ -107,14 +107,14 @@ export default function TagManager() {
 
   function handleEdit(tag) {
     setFormData({
-      name: tag.name
+      title: tag.title
     })
     setEditingTag(tag)
     setShowForm(true)
   }
 
   function handleCancel() {
-    setFormData({ name: '' })
+    setFormData({ title: '' })
     setEditingTag(null)
     setShowForm(false)
   }
@@ -135,12 +135,12 @@ export default function TagManager() {
       {showForm && (
         <form onSubmit={handleSubmit} className="content-form">
           <div className="form-group">
-            <label htmlFor="name">Name *</label>
+            <label htmlFor="title">Title *</label>
             <input
               type="text"
-              id="name"
-              value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              id="title"
+              value={formData.title}
+              onChange={(e) => setFormData({ ...formData, title: e.target.value })}
               required
               placeholder="e.g., React, TypeScript, Web Development"
             />
@@ -164,7 +164,7 @@ export default function TagManager() {
           tags.map((tag) => (
             <div key={tag.id} className="content-item">
               <div className="item-info">
-                <h3>{tag.name}</h3>
+                <h3>{tag.title}</h3>
                 <p className="post-meta">Slug: {tag.slug}</p>
               </div>
               <div className="item-actions">
