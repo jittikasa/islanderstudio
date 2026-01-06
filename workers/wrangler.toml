@@ -17,6 +17,10 @@ database_id = "7a69bf73-d4df-494b-a025-5d549c98164d"
 binding = "MEDIA"
 bucket_name = "blog-media"
 
+# Environment variables
+[vars]
+R2_PUBLIC_URL = "https://pub-9c7eeff067e24dd4942b72316471fc86.r2.dev"
+
 # Email Sending binding
 [[send_email]]
 name = "EMAIL_SEND"
