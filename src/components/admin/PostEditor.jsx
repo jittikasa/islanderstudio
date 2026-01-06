@@ -454,7 +454,7 @@ export default function PostEditor({ post, onSave, onCancel }) {
                       checked={formData.category_ids.includes(category.id)}
                       onChange={() => handleCheckboxToggle('category_ids', category.id)}
                     />
-                    {category.name}
+                    {category.title}
                   </label>
                 ))}
               </div>
@@ -470,7 +470,7 @@ export default function PostEditor({ post, onSave, onCancel }) {
                       checked={formData.tag_ids.includes(tag.id)}
                       onChange={() => handleCheckboxToggle('tag_ids', tag.id)}
                     />
-                    {tag.name}
+                    {tag.title}
                   </label>
                 ))}
               </div>

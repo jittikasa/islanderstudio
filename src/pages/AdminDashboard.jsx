@@ -5,6 +5,7 @@ import SEO from '../components/SEO'
 import AuthorManager from '../components/admin/AuthorManager'
 import CategoryManager from '../components/admin/CategoryManager'
 import TagManager from '../components/admin/TagManager'
+import AppManager from '../components/admin/AppManager'
 import PostManager from '../components/admin/PostManager'
 import MediaLibrary from '../components/admin/MediaLibrary'
 import './AdminDashboard.css'
@@ -65,6 +66,12 @@ export default function AdminDashboard() {
         >
           Tags
         </button>
+        <button
+          className={`tab-btn ${activeTab === 'apps' ? 'active' : ''}`}
+          onClick={() => setActiveTab('apps')}
+        >
+          Apps
+        </button>
       </div>
 
       <div className="admin-content">
@@ -73,6 +80,7 @@ export default function AdminDashboard() {
         {activeTab === 'authors' && <AuthorManager />}
         {activeTab === 'categories' && <CategoryManager />}
         {activeTab === 'tags' && <TagManager />}
+        {activeTab === 'apps' && <AppManager />}
       </div>
     </div>
   )
