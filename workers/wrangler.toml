@@ -19,11 +19,7 @@ bucket_name = "blog-media"
 
 # Environment variables
 [vars]
-# Set this to your R2 bucket's public URL
-# Option A: R2.dev subdomain - Run: npx wrangler r2 bucket dev-url enable blog-media
-#           Then run: npx wrangler r2 bucket dev-url get blog-media
-# Option B: Custom domain - Configure in Cloudflare Dashboard > R2 > blog-media > Connect Domain
-R2_PUBLIC_URL = "REPLACE_WITH_YOUR_R2_PUBLIC_URL"
+R2_PUBLIC_URL = "https://pub-9c7eeff067e24dd4942b72316471fc86.r2.dev"
 
 # Email Sending binding
 [[send_email]]
