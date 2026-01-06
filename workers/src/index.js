@@ -100,15 +100,18 @@ export default {
     try {
       // Public routes (no auth required)
       if (path === '/api/auth/login' && method === 'POST') {
-        return await login(request, env);
+        const response = await login(request, env);
+        return addCorsHeaders(response, request);
       }
 
       if (path === '/api/auth/verify' && method === 'GET') {
-        return await verify(request, env);
+        const response = await verify(request, env);
+        return addCorsHeaders(response, request);
       }
 
       if (path === '/api/auth/logout' && method === 'POST') {
-        return await logout(request, env);
+        const response = await logout(request, env);
+        return addCorsHeaders(response, request);
       }
 
       // Health check
