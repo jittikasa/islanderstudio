@@ -71,6 +71,9 @@ export default function Footer() {
                 <li>
                   <Link to="/privacy" className="footer__link">Privacy</Link>
                 </li>
+                <li>
+                  <Link to="/terms" className="footer__link">Terms</Link>
+                </li>
               </ul>
             </div>
 
