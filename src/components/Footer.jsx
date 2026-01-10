@@ -68,8 +68,17 @@ export default function Footer() {
                 <li>
                   <Link to="/support" className="footer__link">Support</Link>
                 </li>
+              </ul>
+            </div>
+
+            <div className="footer__column">
+              <h4 className="footer__heading">Legal</h4>
+              <ul className="footer__list">
                 <li>
                   <Link to="/privacy" className="footer__link">Privacy</Link>
+                </li>
+                <li>
+                  <Link to="/terms" className="footer__link">Terms</Link>
                 </li>
               </ul>
             </div>

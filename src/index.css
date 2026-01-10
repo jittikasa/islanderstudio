@@ -340,8 +340,8 @@ img {
 .btn-primary:hover {
   transform: translateY(-2px);
   box-shadow: 3px 4px 0 var(--midnight-sky);
-  background: var(--coconut-shell);
-  border-color: var(--coconut-shell);
+  background: #444444;
+  border-color: #444444;
 }
 
 .btn-accent {

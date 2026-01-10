@@ -1,5 +1,6 @@
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom'
 import { useEffect } from 'react'
+import { AnimatePresence, motion } from 'motion/react'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import Home from './pages/Home'
@@ -8,6 +9,7 @@ import PolaMoment from './pages/PolaMoment'
 import Blog from './pages/Blog'
 import BlogPost from './pages/BlogPost'
 import Privacy from './pages/Privacy'
+import Terms from './pages/Terms'
 import Support from './pages/Support'
 import NotFound from './pages/NotFound'
 import AdminLogin from './pages/AdminLogin'
@@ -28,30 +30,29 @@ function App() {
     <div className="app">
       {!isAdminRoute && <Header />}
       <main className="main-content">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/shellist" element={<Shellist />} />
-          <Route path="/polamoment" element={<PolaMoment />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/blog/:slug" element={<BlogPost />} />
-          <Route path="/privacy" element={<Privacy />} />
-          <Route path="/support" element={<Support />} />
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={location.pathname}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+          >
+            <Routes location={location}>
+              <Route path="/" element={<Home />} />
+              <Route path="/shellist" element={<Shellist />} />
+              <Route path="/polamoment" element={<PolaMoment />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/:slug" element={<BlogPost />} />
+              <Route path="/privacy" element={<Privacy />} />
+              <Route path="/terms" element={<Terms />} />
+              <Route path="/support" element={<Support />} />
 
-          {/* Admin Routes - /admin shows login or dashboard based on auth */}
-          <Route path="/admin" element={<AdminPage />} />
-          <Route path="/login" element={<AdminLogin />} />
-          <Route path="/admin/login" element={<AdminLogin />} />
-          <Route
-            path="/admin/dashboard"
-            element={
-              <ProtectedRoute>
-                <AdminDashboard />
-              </ProtectedRoute>
-            }
-          />
 
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </motion.div>
+        </AnimatePresence>
       </main>
       {!isAdminRoute && <Footer />}
     </div>
