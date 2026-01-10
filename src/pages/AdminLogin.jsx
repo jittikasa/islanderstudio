@@ -39,8 +39,8 @@ export default function AdminLogin() {
       localStorage.setItem('admin_token', data.token);
       localStorage.setItem('admin_token_expires', data.expiresAt);
 
-      // Redirect to admin dashboard
-      navigate('/admin/dashboard');
+      // Redirect to admin
+      navigate('/admin');
     } catch (err) {
       setError(err.message || 'Failed to login. Please check your password.');
       setPassword('');

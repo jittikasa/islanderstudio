@@ -1,7 +1,8 @@
-import { Navigate } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
+import AdminLogin from './AdminLogin'
+import AdminDashboard from './AdminDashboard'
 
-export default function ProtectedRoute({ children }) {
+export default function AdminPage() {
   const { isAuthenticated, loading } = useAuth()
 
   if (loading) {
@@ -17,9 +18,6 @@ export default function ProtectedRoute({ children }) {
     )
   }
 
-  if (!isAuthenticated) {
-    return <Navigate to="/admin" replace />
-  }
-
-  return children
+  // Show dashboard if logged in, login if not
+  return isAuthenticated ? <AdminDashboard /> : <AdminLogin />
 }
