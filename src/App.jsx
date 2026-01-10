@@ -48,6 +48,18 @@ function App() {
               <Route path="/terms" element={<Terms />} />
               <Route path="/support" element={<Support />} />
 
+              {/* Admin Routes */}
+              <Route path="/admin" element={<AdminPage />} />
+              <Route path="/login" element={<AdminLogin />} />
+              <Route path="/admin/login" element={<AdminLogin />} />
+              <Route
+                path="/admin/dashboard"
+                element={
+                  <ProtectedRoute>
+                    <AdminDashboard />
+                  </ProtectedRoute>
+                }
+              />
 
               <Route path="*" element={<NotFound />} />
             </Routes>
