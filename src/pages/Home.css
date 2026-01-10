@@ -920,7 +920,7 @@
   border: 3px solid var(--midnight-sky);
   text-decoration: none;
   transition: all 0.3s var(--ease-spring);
-  animation: stamp-drop 0.5s var(--ease-out) calc(var(--index) * 0.15s + 0.2s) backwards;
+  display: block;
 }
 
 /* Perforated edges - top/bottom */
