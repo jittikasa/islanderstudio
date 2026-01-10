@@ -202,17 +202,15 @@
   line-height: 1.6;
 }
 
+.footer__connect {
+  margin-top: var(--space-6);
+}
+
 /* Links Grid */
 .footer__links {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: var(--space-8);
-}
-
-@media (min-width: 640px) {
-  .footer__links {
-    grid-template-columns: repeat(3, 1fr);
-  }
 }
 
 .footer__column {
