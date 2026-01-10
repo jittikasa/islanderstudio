@@ -14,11 +14,12 @@ import Support from './pages/Support'
 import NotFound from './pages/NotFound'
 import AdminLogin from './pages/AdminLogin'
 import AdminDashboard from './pages/AdminDashboard'
+import AdminPage from './pages/AdminPage'
 import ProtectedRoute from './components/ProtectedRoute'
 
 function App() {
   const location = useLocation()
-  const isAdminRoute = location.pathname.startsWith('/admin')
+  const isAdminRoute = location.pathname.startsWith('/admin') || location.pathname === '/login'
 
   // Scroll to top on route change
   useEffect(() => {
@@ -47,17 +48,6 @@ function App() {
               <Route path="/terms" element={<Terms />} />
               <Route path="/support" element={<Support />} />
 
-              {/* Admin Routes */}
-              <Route path="/admin" element={<Navigate to="/admin/dashboard" replace />} />
-              <Route path="/admin/login" element={<AdminLogin />} />
-              <Route
-                path="/admin/dashboard"
-                element={
-                  <ProtectedRoute>
-                    <AdminDashboard />
-                  </ProtectedRoute>
-                }
-              />
 
               <Route path="*" element={<NotFound />} />
             </Routes>
