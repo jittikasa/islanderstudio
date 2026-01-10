@@ -408,6 +408,7 @@ export default function Home() {
                 initial={{ opacity: 0, y: 40 }}
                 animate={collectionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
                 transition={{ duration: 0.5, delay: 0.2 + index * 0.15 }}
+                style={{ display: 'contents' }}
               >
               <Link
                 to={`/${app.id}`}
