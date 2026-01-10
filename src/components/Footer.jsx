@@ -38,6 +38,18 @@ export default function Footer() {
             <p className="footer__tagline">
               Crafted with soul for everyday moments.
             </p>
+            <div className="footer__connect">
+              <h4 className="footer__heading">Connect</h4>
+              <button
+                className="footer__link footer__link--copy"
+                onClick={handleCopyEmail}
+              >
+                <span className="footer__link-email">support@islanderstudio.app</span>
+                <span className={`footer__link-copy-text ${copied ? 'footer__link-copy-text--copied' : ''}`}>
+                  {copied ? 'Copied!' : 'Copy'}
+                </span>
+              </button>
+            </div>
           </div>
 
           <div className="footer__links">
@@ -83,22 +95,6 @@ export default function Footer() {
               </ul>
             </div>
 
-            <div className="footer__column">
-              <h4 className="footer__heading">Connect</h4>
-              <ul className="footer__list">
-                <li>
-                  <button
-                    className="footer__link footer__link--copy"
-                    onClick={handleCopyEmail}
-                  >
-                    <span className="footer__link-email">support@islanderstudio.app</span>
-                    <span className={`footer__link-copy-text ${copied ? 'footer__link-copy-text--copied' : ''}`}>
-                      {copied ? 'Copied!' : 'Copy'}
-                    </span>
-                  </button>
-                </li>
-              </ul>
-            </div>
           </div>
         </div>
 
