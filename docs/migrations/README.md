@@ -42,6 +42,19 @@ Creates the `media` table with:
 npx wrangler d1 execute blog-database --remote --file=../docs/migrations/001_add_media_table.sql
 ```
 
+### 002_add_user_email_to_sessions.sql
+**Date**: 2026-01-10
+**Purpose**: Add `user_email` column to `sessions` table for Google OAuth
+
+Adds a `user_email` column to track which Google account created each session.
+
+**Required for**: Google OAuth authentication
+
+**Apply with**:
+```bash
+npx wrangler d1 execute blog-database --remote --file=../docs/migrations/002_add_user_email_to_sessions.sql
+```
+
 ## Creating New Migrations
 
 When adding new features that require database changes:
