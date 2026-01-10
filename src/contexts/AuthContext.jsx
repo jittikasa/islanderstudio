@@ -90,12 +90,24 @@ export function AuthProvider({ children }) {
 
     setIsAuthenticated(false)
     localStorage.removeItem('admin_token')
+    localStorage.removeItem('admin_token_expires')
+    localStorage.removeItem('admin_email')
+  }
+
+  // Set token directly (for OAuth flow)
+  const setToken = (token, expiresAt) => {
+    localStorage.setItem('admin_token', token)
+    if (expiresAt) {
+      localStorage.setItem('admin_token_expires', expiresAt)
+    }
+    setIsAuthenticated(true)
   }
 
   const value = {
     isAuthenticated,
     login,
     logout,
+    setToken,
     loading
   }
 

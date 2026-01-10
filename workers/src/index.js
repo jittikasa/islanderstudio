@@ -4,6 +4,7 @@
  */
 
 import { login, verify, logout, verifySession } from './auth.js';
+import { googleAuthStart, googleAuthCallback } from './google-auth.js';
 import { handlePosts, handlePost, createPost, updatePost, deletePost } from './api/posts.js';
 import { handleAuthors } from './api/authors.js';
 import { handleCategories } from './api/categories.js';
@@ -112,6 +113,15 @@ export default {
       if (path === '/api/auth/logout' && method === 'POST') {
         const response = await logout(request, env);
         return addCorsHeaders(response, request);
+      }
+
+      // Google OAuth routes (public)
+      if (path === '/api/auth/google' && method === 'GET') {
+        return await googleAuthStart(request, env);
+      }
+
+      if (path === '/api/auth/google/callback' && method === 'GET') {
+        return await googleAuthCallback(request, env);
       }
 
       // Health check
