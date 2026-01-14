@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useState, useEffect, useRef, useCallback } from 'react'
+import { motion, useInView } from 'motion/react'
 import SEO, { StructuredData, organizationSchema, websiteSchema } from '../components/SEO'
 import './Home.css'
 
@@ -19,6 +20,10 @@ export default function Home() {
   const containerRef = useRef(null)
   const postcardRef = useRef(null)
   const stampPlaceholderRef = useRef(null)
+  const collectionRef = useRef(null)
+  const widgetsRef = useRef(null)
+  const collectionInView = useInView(collectionRef, { once: true, margin: '-100px' })
+  const widgetsInView = useInView(widgetsRef, { once: true, margin: '-100px' })
 
   useEffect(() => {
     setLoaded(true)
@@ -217,22 +222,42 @@ export default function Home() {
         {/* Hero Section */}
         <section className="home__hero">
           <div className="home__hero-content">
-            <div className="home__hero-badge">
+            <motion.div
+              className="home__hero-badge"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+            >
               <span className="home__hero-badge-dot"></span>
               Studio Collection
-            </div>
+            </motion.div>
 
-            <h1 className="home__hero-title">
+            <motion.h1
+              className="home__hero-title"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
               Apps crafted<br />
               with <span className="home__hero-accent">soul</span>
-            </h1>
+            </motion.h1>
 
-            <p className="home__hero-text">
+            <motion.p
+              className="home__hero-text"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.35 }}
+            >
               A small iOS studio, creating mobile experiences that feel personal,
               considered, and quietly delightful.
-            </p>
+            </motion.p>
 
-            <div className="home__hero-actions">
+            <motion.div
+              className="home__hero-actions"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+            >
               <a href="#collection" className="btn btn-primary">
                 View Collection
                 <span>↓</span>
@@ -243,7 +268,7 @@ export default function Home() {
               >
                 {copiedEmail ? 'Copied!' : 'Say Hello'}
               </button>
-            </div>
+            </motion.div>
           </div>
 
           <div className="home__hero-meta">
@@ -362,19 +387,30 @@ export default function Home() {
         </section>
 
         {/* App Collection */}
-        <section className="home__collection" id="collection">
-          <div className="home__collection-header">
+        <section className="home__collection" id="collection" ref={collectionRef}>
+          <motion.div
+            className="home__collection-header"
+            initial={{ opacity: 0, y: 30 }}
+            animate={collectionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            transition={{ duration: 0.6 }}
+          >
             <div className="home__collection-title">
               <span className="collection-number">№</span>
               <h2>App Collection</h2>
             </div>
             <p className="home__collection-count">{apps.length} stamps</p>
-          </div>
+          </motion.div>
 
           <div className="home__stamps">
             {apps.map((app, index) => (
-              <Link
+              <motion.div
                 key={app.id}
+                initial={{ opacity: 0, y: 40 }}
+                animate={collectionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+                transition={{ duration: 0.5, delay: 0.2 + index * 0.15 }}
+                style={{ display: 'contents' }}
+              >
+              <Link
                 to={`/${app.id}`}
                 className={`home__stamp ${hoveredApp === index ? 'home__stamp--hovered' : ''}`}
                 onMouseEnter={() => setHoveredApp(index)}
@@ -420,28 +456,44 @@ export default function Home() {
                   </div>
                 </div>
               </Link>
+              </motion.div>
             ))}
           </div>
         </section>
 
         {/* Widget Grid */}
-        <section className="home__widgets">
-          <div className="home__widgets-header">
+        <section className="home__widgets" ref={widgetsRef}>
+          <motion.div
+            className="home__widgets-header"
+            initial={{ opacity: 0, y: 30 }}
+            animate={widgetsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            transition={{ duration: 0.6 }}
+          >
             <h2>About the Studio</h2>
-          </div>
+          </motion.div>
 
           <div className="home__widgets-grid">
             {/* About Widget */}
-            <div className="widget home__widget home__widget--about">
+            <motion.div
+              className="widget home__widget home__widget--about"
+              initial={{ opacity: 0, y: 30 }}
+              animate={widgetsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+            >
               <span className="widget__label">Who we are</span>
               <h3 className="widget__title">islander Studio</h3>
               <p className="widget__content">
                 A tiny studio creating iOS apps that spark joy in everyday moments.
               </p>
-            </div>
+            </motion.div>
 
             {/* Philosophy Widget */}
-            <div className="widget home__widget home__widget--philosophy">
+            <motion.div
+              className="widget home__widget home__widget--philosophy"
+              initial={{ opacity: 0, y: 30 }}
+              animate={widgetsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
               <span className="widget__label">Philosophy</span>
               <ul className="home__values-list">
                 <li>
@@ -458,10 +510,15 @@ export default function Home() {
                 </li>
               </ul>
               <span className="home__values-note">*when possible</span>
-            </div>
+            </motion.div>
 
             {/* Contact Widget */}
-            <div className="widget home__widget home__widget--contact">
+            <motion.div
+              className="widget home__widget home__widget--contact"
+              initial={{ opacity: 0, y: 30 }}
+              animate={widgetsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+            >
               <span className="widget__label">Get in touch</span>
               <button
                 className="home__contact-btn"
@@ -474,10 +531,15 @@ export default function Home() {
                   {copiedEmail ? '✓ Copied' : 'Copy'}
                 </span>
               </button>
-            </div>
+            </motion.div>
 
             {/* Links Widget */}
-            <div className="widget home__widget home__widget--links">
+            <motion.div
+              className="widget home__widget home__widget--links"
+              initial={{ opacity: 0, y: 30 }}
+              animate={widgetsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+            >
               <span className="widget__label">Quick links</span>
               <nav className="home__quick-links">
                 <Link to="/support" className="link-arrow">
@@ -487,7 +549,7 @@ export default function Home() {
                   Privacy <span>→</span>
                 </Link>
               </nav>
-            </div>
+            </motion.div>
           </div>
         </section>
       </div>
