@@ -297,3 +297,37 @@ _Ralph appends entries below after each completed story:_
 **Milestone**: Islander Studio now has its first published SEO blog post! 🎉
 
 ---
+
+### [2026-01-15 09:35] SOCIAL-001 ✅
+**Story**: Create social media snippets
+**Outcome**: Comprehensive social media content package created
+- File: `content/social/social-media-snippets-v1.md`
+- 5 Twitter/X posts (226-273 characters, all under 280 limit)
+- 3 Instagram captions with full hashtag strategy (20-25 hashtags each)
+- 2 LinkedIn posts (professional tone, targeting different audiences)
+- All posts include app download CTAs
+- All reference published/drafted blog content
+
+**Social Content Highlights**:
+- Twitter: Mix of myth-busting, visual hooks, comparison teasers, nostalgia, thread starters
+- Instagram: Visual storytelling with pearl visualization, Polaroid revival, app comparison
+- LinkedIn: Professional angle on habit formation psychology + content marketing case study
+- Strategy notes included: best posting times, hashtag strategy, engagement tactics
+- Performance tracking framework: metrics to monitor, 10-15% engagement rate goal
+
+**Cross-Promotion Strategy**:
+- Week 1: Shellist habit formation content
+- Week 2: PolaMoment nostalgia angle
+- Week 3: Comparison guide + community engagement
+- Week 4: User testimonials + updates
+- UTM parameters recommended for link tracking
+
+**Learnings**:
+- Social content should match platform: concise for Twitter, visual storytelling for Instagram, thought leadership for LinkedIn
+- Hashtag strategy differs by platform: 20-25 for Instagram, 2-3 for Twitter, 3-5 for LinkedIn
+- Questions drive engagement: "Which habit tracker do you use?" invites comments
+- Character limits force clarity: Twitter's 280 chars = focus on one strong idea
+- Professional LinkedIn content can double as founder story + product marketing
+- CTAs must be platform-appropriate: "link in bio" for Instagram, direct links for Twitter/LinkedIn
+
+---

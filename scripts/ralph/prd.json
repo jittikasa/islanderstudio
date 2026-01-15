@@ -148,7 +148,7 @@
         "Include app download CTAs"
       ],
       "priority": 10,
-      "passes": false,
+      "passes": true,
       "notes": "Cross-promote on social to drive blog traffic"
     },
     {
