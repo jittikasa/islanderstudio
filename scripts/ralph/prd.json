@@ -118,7 +118,7 @@
         "Create 3 headline variations for A/B testing"
       ],
       "priority": 8,
-      "passes": false,
+      "passes": true,
       "notes": "On-page SEO optimization pass"
     },
     {
