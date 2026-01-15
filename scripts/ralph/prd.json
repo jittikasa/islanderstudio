@@ -87,7 +87,7 @@
         "CTA to download Shellist"
       ],
       "priority": 6,
-      "passes": false,
+      "passes": true,
       "notes": "Comparison posts rank well for 'vs' searches"
     },
     {

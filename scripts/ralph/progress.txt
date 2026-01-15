@@ -173,3 +173,23 @@ _Ralph appends entries below after each completed story:_
 - "Both/and" positioning (not "replace Polaroids") reduces defensiveness
 
 ---
+
+### [2026-01-15 08:35] PLAN-003 ✅
+**Story**: Plan comparison post - Shellist vs competitors
+**Outcome**: Created content plan entry (ID: 3) in database with:
+- Title: "Best Habit Tracker Apps for iOS in 2026: Shellist vs Streaks vs Habitify vs Done"
+- Type: blog (flagship quality - pillar content)
+- Target keywords: best habit tracker iOS 2026, Shellist vs Streaks, Shellist vs Habitify, habit tracker comparison, iOS habit app comparison, best habit tracking app iPhone, Shellist review, habit tracker with widgets
+- Priority: 6
+- Status: planned
+
+**Database Status**: 3 content plans created (2 in writing, 1 planned), 2 drafts completed
+
+**Learnings**:
+- "Vs" and "best" comparison content targets high-intent searchers (ready to download)
+- Fair comparisons build more trust than pure promotional content
+- Pillar content strategy: comprehensive guides (2000+ words) rank for multiple long-tail keywords
+- Feature matrix + pricing transparency = high conversion potential
+- Position Shellist for specific user type (visual learners) rather than claiming "best for everyone"
+
+---
