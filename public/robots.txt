@@ -2,8 +2,8 @@
 User-agent: *
 Allow: /
 
-# Sitemaps
-Sitemap: https://islanderstudio.app/sitemap.xml
+# Sitemaps (dynamic, includes blog posts)
+Sitemap: https://api.islanderstudio.app/sitemap.xml
 
 # Crawl-delay (optional, helps prevent server overload)
 Crawl-delay: 10

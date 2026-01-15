@@ -12,6 +12,8 @@ import { handleTags } from './api/tags.js';
 import { handleApps } from './api/apps.js';
 import { handleMedia } from './api/media.js';
 import { handleEmail } from './api/email.js';
+import { handleSitemap } from './api/sitemap.js';
+import { handleFeed, handleJsonFeed } from './api/feed.js';
 
 /**
  * Get CORS headers for the request origin
@@ -127,6 +129,21 @@ export default {
       // Health check
       if (path === '/api/health') {
         return jsonResponse({ status: 'ok', timestamp: new Date().toISOString() }, 200, request);
+      }
+
+      // Sitemap (public, no auth required)
+      if (path === '/sitemap.xml' || path === '/api/sitemap.xml') {
+        return await handleSitemap(env);
+      }
+
+      // RSS Feed (public, no auth required)
+      if (path === '/feed.xml' || path === '/rss.xml' || path === '/api/feed.xml') {
+        return await handleFeed(env);
+      }
+
+      // JSON Feed (public, no auth required)
+      if (path === '/feed.json' || path === '/api/feed.json') {
+        return await handleJsonFeed(env);
       }
 
       // Public blog endpoints (no auth required)

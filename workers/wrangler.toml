@@ -1,6 +1,12 @@
 name = "islanderstudio-blog-api"
 main = "src/index.js"
 compatibility_date = "2024-01-01"
+workers_dev = true
+
+# Routes for custom domain
+routes = [
+  { pattern = "api.islanderstudio.app/*", zone_name = "islanderstudio.app" }
+]
 
 # Environment variables (set these in Cloudflare dashboard)
 # ADMIN_PASSWORD_HASH - bcrypt hash of your admin password
@@ -24,15 +30,3 @@ R2_PUBLIC_URL = "https://pub-9c7eeff067e24dd4942b72316471fc86.r2.dev"
 # Email Sending binding
 [[send_email]]
 name = "EMAIL_SEND"
-# This allows your worker to send emails using Cloudflare's email infrastructure
-# No additional configuration needed for the binding itself
-# You'll need to configure allowed sender addresses in Cloudflare dashboard
-
-# CORS configuration
-[env.production]
-routes = [
-  { pattern = "api.islanderstudio.com/*", zone_name = "islanderstudio.com" }
-]
-
-[env.development]
-# For local development

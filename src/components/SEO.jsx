@@ -35,6 +35,28 @@ export default function SEO({
     }
     canonicalLink.setAttribute('href', url)
 
+    // RSS Feed discovery
+    let rssLink = document.querySelector('link[type="application/rss+xml"]')
+    if (!rssLink) {
+      rssLink = document.createElement('link')
+      rssLink.setAttribute('rel', 'alternate')
+      rssLink.setAttribute('type', 'application/rss+xml')
+      rssLink.setAttribute('title', 'Islander Studio Blog RSS Feed')
+      rssLink.setAttribute('href', 'https://api.islanderstudio.app/feed.xml')
+      document.head.appendChild(rssLink)
+    }
+
+    // JSON Feed discovery
+    let jsonFeedLink = document.querySelector('link[type="application/feed+json"]')
+    if (!jsonFeedLink) {
+      jsonFeedLink = document.createElement('link')
+      jsonFeedLink.setAttribute('rel', 'alternate')
+      jsonFeedLink.setAttribute('type', 'application/feed+json')
+      jsonFeedLink.setAttribute('title', 'Islander Studio Blog JSON Feed')
+      jsonFeedLink.setAttribute('href', 'https://api.islanderstudio.app/feed.json')
+      document.head.appendChild(jsonFeedLink)
+    }
+
     // Standard meta tags
     updateMetaTag('description', description, true)
     updateMetaTag('keywords', keywords, true)
