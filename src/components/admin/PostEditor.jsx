@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import Image from '@tiptap/extension-image'
@@ -7,6 +7,125 @@ import Placeholder from '@tiptap/extension-placeholder'
 import './PostEditor.css'
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8787'
+
+// Image upload component
+function ImageUploadModal({ isOpen, onClose, onInsert, apiUrl }) {
+  const [imageUrl, setImageUrl] = useState('')
+  const [altText, setAltText] = useState('')
+  const [uploading, setUploading] = useState(false)
+  const fileInputRef = useRef(null)
+
+  if (!isOpen) return null
+
+  async function handleFileUpload(e) {
+    const file = e.target.files?.[0]
+    if (!file) return
+
+    setUploading(true)
+    try {
+      const token = localStorage.getItem('admin_token')
+      const formData = new FormData()
+      formData.append('file', file)
+
+      const response = await fetch(`${apiUrl}/api/media`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
+        body: formData
+      })
+
+      if (response.ok) {
+        const data = await response.json()
+        setImageUrl(data.url)
+        setAltText(file.name.replace(/\.[^/.]+$/, ''))
+      } else {
+        alert('Failed to upload image')
+      }
+    } catch (error) {
+      console.error('Upload error:', error)
+      alert('Failed to upload image')
+    } finally {
+      setUploading(false)
+    }
+  }
+
+  function handleInsert() {
+    if (imageUrl) {
+      onInsert(imageUrl, altText)
+      setImageUrl('')
+      setAltText('')
+      onClose()
+    }
+  }
+
+  return (
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="modal-content" onClick={e => e.stopPropagation()}>
+        <h3>Insert Image</h3>
+
+        <div className="form-group">
+          <label>Upload Image</label>
+          <input
+            type="file"
+            ref={fileInputRef}
+            accept="image/*"
+            onChange={handleFileUpload}
+            style={{ display: 'none' }}
+          />
+          <button
+            type="button"
+            className="btn-secondary"
+            onClick={() => fileInputRef.current?.click()}
+            disabled={uploading}
+          >
+            {uploading ? 'Uploading...' : 'Choose File'}
+          </button>
+        </div>
+
+        <div className="form-group">
+          <label>Or paste image URL</label>
+          <input
+            type="url"
+            value={imageUrl}
+            onChange={e => setImageUrl(e.target.value)}
+            placeholder="https://example.com/image.jpg"
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Alt Text</label>
+          <input
+            type="text"
+            value={altText}
+            onChange={e => setAltText(e.target.value)}
+            placeholder="Describe the image"
+          />
+        </div>
+
+        {imageUrl && (
+          <div className="image-preview">
+            <img src={imageUrl} alt={altText} style={{ maxWidth: '100%', maxHeight: '200px' }} />
+          </div>
+        )}
+
+        <div className="modal-actions">
+          <button type="button" className="btn-secondary" onClick={onClose}>
+            Cancel
+          </button>
+          <button
+            type="button"
+            className="btn-primary"
+            onClick={handleInsert}
+            disabled={!imageUrl}
+          >
+            Insert Image
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
 
 export default function PostEditor({ post, onSave, onCancel }) {
   const [formData, setFormData] = useState({
@@ -43,6 +162,8 @@ export default function PostEditor({ post, onSave, onCancel }) {
   const [apps, setApps] = useState([])
   const [activeTab, setActiveTab] = useState('content')
   const [saving, setSaving] = useState(false)
+  const [showImageModal, setShowImageModal] = useState(false)
+  const [editorMode, setEditorMode] = useState('visual') // 'visual' or 'code'
 
   // Initialize Tiptap editor
   const editor = useEditor({
@@ -136,6 +257,31 @@ export default function PostEditor({ post, onSave, onCancel }) {
     }))
   }
 
+  function insertImage(url, alt) {
+    if (editor) {
+      editor.chain().focus().setImage({ src: url, alt: alt || '' }).run()
+    }
+  }
+
+  function addLink() {
+    const url = window.prompt('Enter URL:')
+    if (url) {
+      editor?.chain().focus().setLink({ href: url }).run()
+    }
+  }
+
+  function handleCodeBodyChange(e) {
+    const value = e.target.value
+    setFormData(prev => ({ ...prev, body: value }))
+  }
+
+  function syncEditorFromCode() {
+    if (editor && formData.body) {
+      editor.commands.setContent(formData.body)
+    }
+    setEditorMode('visual')
+  }
+
   // Character count helpers
   const metaTitleLength = formData.seo_meta_title?.length || 0
   const metaDescLength = formData.seo_meta_description?.length || 0
@@ -222,52 +368,111 @@ export default function PostEditor({ post, onSave, onCancel }) {
 
             <div className="form-group">
               <label>Body Content *</label>
-              <div className="editor-toolbar">
+              <div className="editor-mode-toggle">
                 <button
                   type="button"
-                  onClick={() => editor?.chain().focus().toggleBold().run()}
-                  className={editor?.isActive('bold') ? 'active' : ''}
+                  className={editorMode === 'visual' ? 'active' : ''}
+                  onClick={() => setEditorMode('visual')}
                 >
-                  Bold
+                  Visual Editor
                 </button>
                 <button
                   type="button"
-                  onClick={() => editor?.chain().focus().toggleItalic().run()}
-                  className={editor?.isActive('italic') ? 'active' : ''}
+                  className={editorMode === 'code' ? 'active' : ''}
+                  onClick={() => setEditorMode('code')}
                 >
-                  Italic
-                </button>
-                <button
-                  type="button"
-                  onClick={() => editor?.chain().focus().toggleHeading({ level: 2 }).run()}
-                  className={editor?.isActive('heading', { level: 2 }) ? 'active' : ''}
-                >
-                  H2
-                </button>
-                <button
-                  type="button"
-                  onClick={() => editor?.chain().focus().toggleHeading({ level: 3 }).run()}
-                  className={editor?.isActive('heading', { level: 3 }) ? 'active' : ''}
-                >
-                  H3
-                </button>
-                <button
-                  type="button"
-                  onClick={() => editor?.chain().focus().toggleBulletList().run()}
-                  className={editor?.isActive('bulletList') ? 'active' : ''}
-                >
-                  Bullet List
-                </button>
-                <button
-                  type="button"
-                  onClick={() => editor?.chain().focus().toggleOrderedList().run()}
-                  className={editor?.isActive('orderedList') ? 'active' : ''}
-                >
-                  Numbered List
+                  HTML/Markdown
                 </button>
               </div>
-              <EditorContent editor={editor} className="tiptap-editor" />
+
+              {editorMode === 'visual' ? (
+                <>
+                  <div className="editor-toolbar">
+                    <button
+                      type="button"
+                      onClick={() => editor?.chain().focus().toggleBold().run()}
+                      className={editor?.isActive('bold') ? 'active' : ''}
+                    >
+                      Bold
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => editor?.chain().focus().toggleItalic().run()}
+                      className={editor?.isActive('italic') ? 'active' : ''}
+                    >
+                      Italic
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => editor?.chain().focus().toggleHeading({ level: 2 }).run()}
+                      className={editor?.isActive('heading', { level: 2 }) ? 'active' : ''}
+                    >
+                      H2
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => editor?.chain().focus().toggleHeading({ level: 3 }).run()}
+                      className={editor?.isActive('heading', { level: 3 }) ? 'active' : ''}
+                    >
+                      H3
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => editor?.chain().focus().toggleBulletList().run()}
+                      className={editor?.isActive('bulletList') ? 'active' : ''}
+                    >
+                      Bullet List
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => editor?.chain().focus().toggleOrderedList().run()}
+                      className={editor?.isActive('orderedList') ? 'active' : ''}
+                    >
+                      Numbered List
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => editor?.chain().focus().toggleBlockquote().run()}
+                      className={editor?.isActive('blockquote') ? 'active' : ''}
+                    >
+                      Quote
+                    </button>
+                    <button
+                      type="button"
+                      onClick={addLink}
+                      className={editor?.isActive('link') ? 'active' : ''}
+                    >
+                      Link
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setShowImageModal(true)}
+                    >
+                      Image
+                    </button>
+                  </div>
+                  <EditorContent editor={editor} className="tiptap-editor" />
+                </>
+              ) : (
+                <>
+                  <textarea
+                    className="code-editor"
+                    value={formData.body}
+                    onChange={handleCodeBodyChange}
+                    placeholder="Enter HTML or Markdown content..."
+                    rows={20}
+                  />
+                  <small>You can use HTML tags or Markdown syntax. Content will be rendered on the blog page.</small>
+                </>
+              )}
             </div>
+
+            <ImageUploadModal
+              isOpen={showImageModal}
+              onClose={() => setShowImageModal(false)}
+              onInsert={insertImage}
+              apiUrl={API_URL}
+            />
 
             <div className="form-row">
               <div className="form-group">
