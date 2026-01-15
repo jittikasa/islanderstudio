@@ -103,7 +103,7 @@
         "Include screenshots descriptions"
       ],
       "priority": 7,
-      "passes": false,
+      "passes": true,
       "notes": "Be fair but show why Shellist wins for visual learners"
     },
     {

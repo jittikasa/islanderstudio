@@ -193,3 +193,40 @@ _Ralph appends entries below after each completed story:_
 - Position Shellist for specific user type (visual learners) rather than claiming "best for everyone"
 
 ---
+
+### [2026-01-15 08:50] WRITE-003 ✅
+**Story**: Write habit tracker comparison guide
+**Outcome**: Created pillar content draft (v1) - "Best Habit Tracker Apps for iOS in 2026"
+- Word count: 3,014 words (exceeds 2,000+ pillar content requirement)
+- File: `content/drafts/best-habit-tracker-ios-2026-comparison-v1.md`
+- Draft ID: 3 (linked to plan_id: 3)
+- Content plan status: Updated to 'writing'
+
+**Content Highlights**:
+- Comprehensive comparison of 4 apps: Shellist, Streaks, Habitify, Done
+- Feature comparison matrix (14 dimensions)
+- Deep dive sections: pros/cons for each app (600-800 words per app)
+- Real-world scenarios matching user types to best app
+- Pricing breakdown and value analysis
+- Habit formation science angle (BJ Fogg's Behavior Model applied to apps)
+- FAQ section addressing common questions
+- Final decision framework (3-question decision tree)
+- Fair positioning: Shellist wins overall but acknowledges competitor strengths
+
+**SEO Strategy**:
+- Pillar content (3,014 words) targets multiple long-tail keywords
+- Feature matrix optimized for featured snippets
+- "Vs" keywords naturally integrated (Shellist vs Streaks, etc.)
+- Scenario-based sections increase time-on-page and engagement
+- Honest comparison builds E-A-T (Expertise, Authority, Trustworthiness)
+- Internal linking opportunities to individual app reviews
+
+**Learnings**:
+- Pillar content works best when genuinely comprehensive, not just long
+- Feature matrices satisfy both users (quick comparison) and SEO (structured data)
+- Scenario-based recommendations help readers self-identify without feeling sold to
+- Fair comparison (acknowledging where competitors win) builds more credibility than pure promotion
+- Decision frameworks at the end convert "researchers" into "downloaders"
+- Habit formation science adds authority beyond typical app comparisons
+
+---
