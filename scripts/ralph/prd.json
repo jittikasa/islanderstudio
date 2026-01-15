@@ -44,7 +44,7 @@
         "Meta description under 160 chars"
       ],
       "priority": 3,
-      "passes": false,
+      "passes": true,
       "notes": "Tone: Inspiring yet scientific. Target audience: iOS users seeking self-improvement"
     },
     {
