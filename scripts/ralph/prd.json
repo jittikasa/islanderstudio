@@ -58,7 +58,7 @@
         "Include social media sharing angle"
       ],
       "priority": 4,
-      "passes": false,
+      "passes": true,
       "notes": "Leverage 2020s nostalgia trend for analog photography"
     },
     {
