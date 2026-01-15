@@ -6,7 +6,13 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "db:init": "node src/db/init.js",
+    "db:seed": "node src/db/seed.js",
+    "db:reset": "rm -f data/content.db && npm run db:init && npm run db:seed",
+    "db:status": "node src/db/status.js",
+    "content:list": "node src/content/list.js",
+    "test": "node src/test.js"
   },
   "dependencies": {
     "@ai-sdk/google": "^3.0.1",
@@ -16,6 +22,7 @@
     "@tiptap/react": "^3.14.0",
     "@tiptap/starter-kit": "^3.14.0",
     "ai": "^6.0.3",
+    "better-sqlite3": "^11.0.0",
     "lucide-react": "^0.263.1",
     "motion": "^12.24.12",
     "react": "^18.2.0",

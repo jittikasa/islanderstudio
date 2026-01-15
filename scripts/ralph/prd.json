@@ -1,0 +1,170 @@
+{
+  "projectName": "Islander_Studio_Content_Marketing",
+  "description": "SEO-optimized blog content for Islander Studio iOS apps (Shellist habit tracker & PolaMoment camera app)",
+  "branchName": "ralph/islander-studio-seo",
+  "userStories": [
+    {
+      "id": "SETUP-001",
+      "title": "Initialize database and verify setup",
+      "description": "Set up the content database with seed data and verify everything works",
+      "acceptanceCriteria": [
+        "Run npm install successfully",
+        "Run npm run db:reset to initialize database",
+        "Run npm run db:status shows trends, research, and communications",
+        "Run npm test passes all checks"
+      ],
+      "priority": 1,
+      "passes": true,
+      "notes": "Foundation story - database initialized successfully"
+    },
+    {
+      "id": "PLAN-001",
+      "title": "Create SEO blog plan for Shellist habit tracking",
+      "description": "Plan a comprehensive blog post about habit formation and Shellist app features",
+      "acceptanceCriteria": [
+        "Create content plan entry with type 'blog'",
+        "Target keywords: habit tracker, iOS habit app, pearl visualization, streak tracking",
+        "Title should be SEO-optimized for 'best habit tracking apps iOS'",
+        "Include Shellist unique features: pearl metaphor, widgets, analytics"
+      ],
+      "priority": 2,
+      "passes": true,
+      "notes": "Focus on 'habits as pearls' concept - unique differentiator"
+    },
+    {
+      "id": "WRITE-001",
+      "title": "Write habit formation psychology blog",
+      "description": "Write SEO-optimized blog about building habits with Shellist",
+      "acceptanceCriteria": [
+        "1500+ words for SEO authority",
+        "Include habit formation science (21-day myth, compound effect)",
+        "Showcase Shellist features naturally within content",
+        "Include App Store link and screenshots descriptions",
+        "Save markdown to content/drafts/",
+        "Meta description under 160 chars"
+      ],
+      "priority": 3,
+      "passes": false,
+      "notes": "Tone: Inspiring yet scientific. Target audience: iOS users seeking self-improvement"
+    },
+    {
+      "id": "PLAN-002",
+      "title": "Plan PolaMoment nostalgia content",
+      "description": "Create content plan for Polaroid photography revival trend",
+      "acceptanceCriteria": [
+        "Target keywords: polaroid camera app, vintage photo filters, instant camera iOS",
+        "Title hooks into nostalgia trend",
+        "Plan comparison: PolaMoment vs physical Polaroid cameras",
+        "Include social media sharing angle"
+      ],
+      "priority": 4,
+      "passes": false,
+      "notes": "Leverage 2020s nostalgia trend for analog photography"
+    },
+    {
+      "id": "WRITE-002",
+      "title": "Write PolaMoment photography nostalgia blog",
+      "description": "Write about instant photography culture and PolaMoment app",
+      "acceptanceCriteria": [
+        "1200+ words",
+        "History of Polaroid cameras and current revival",
+        "PolaMoment features: filters, frames, instant sharing",
+        "Include use cases: parties, travel, journaling",
+        "Save to content/drafts/"
+      ],
+      "priority": 5,
+      "passes": false,
+      "notes": "Emotional storytelling about capturing moments"
+    },
+    {
+      "id": "PLAN-003",
+      "title": "Plan comparison post: Shellist vs competitors",
+      "description": "SEO-focused comparison of habit tracking apps",
+      "acceptanceCriteria": [
+        "Target keywords: Shellist vs Streaks, best habit tracker iOS 2026",
+        "Fair comparison showing Shellist unique value",
+        "Include pricing, features matrix",
+        "CTA to download Shellist"
+      ],
+      "priority": 6,
+      "passes": false,
+      "notes": "Comparison posts rank well for 'vs' searches"
+    },
+    {
+      "id": "WRITE-003",
+      "title": "Write habit tracker comparison guide",
+      "description": "Comprehensive comparison of top iOS habit trackers",
+      "acceptanceCriteria": [
+        "2000+ words (pillar content)",
+        "Compare: Shellist, Streaks, Habitify, Done",
+        "Feature matrix table",
+        "Honest pros/cons for each",
+        "Shellist highlighted for unique pearl visualization",
+        "Include screenshots descriptions"
+      ],
+      "priority": 7,
+      "passes": false,
+      "notes": "Be fair but show why Shellist wins for visual learners"
+    },
+    {
+      "id": "REVIEW-001",
+      "title": "Review and optimize habit psychology blog",
+      "description": "Self-review and improve WRITE-001 draft for SEO",
+      "acceptanceCriteria": [
+        "Check keyword density (2-3% for main keywords)",
+        "Add internal links to Shellist page",
+        "Improve headline for CTR",
+        "Add FAQ schema markup suggestions",
+        "Create 3 headline variations for A/B testing"
+      ],
+      "priority": 8,
+      "passes": false,
+      "notes": "On-page SEO optimization pass"
+    },
+    {
+      "id": "PUBLISH-001",
+      "title": "Finalize and publish Shellist habit blog",
+      "description": "Final polish and prepare for Islander Studio blog",
+      "acceptanceCriteria": [
+        "Save to content/published/",
+        "Entry created in published table",
+        "Include meta title, description, keywords",
+        "Update plan status to 'published'",
+        "Log publish activity"
+      ],
+      "priority": 9,
+      "passes": false,
+      "notes": "First SEO blog published for Islander Studio!"
+    },
+    {
+      "id": "SOCIAL-001",
+      "title": "Create social media snippets",
+      "description": "Convert blog content into social posts",
+      "acceptanceCriteria": [
+        "5 Twitter/X posts (280 chars each)",
+        "3 Instagram captions (with hashtags)",
+        "2 LinkedIn posts (professional tone)",
+        "All reference published blogs",
+        "Include app download CTAs"
+      ],
+      "priority": 10,
+      "passes": false,
+      "notes": "Cross-promote on social to drive blog traffic"
+    },
+    {
+      "id": "METRICS-001",
+      "title": "Log content creation metrics",
+      "description": "Document all content created and learnings",
+      "acceptanceCriteria": [
+        "Count total blog posts written",
+        "Calculate total word count",
+        "List target keywords covered",
+        "Log summary to agent_log",
+        "Update progress.txt with SEO strategy insights"
+      ],
+      "priority": 11,
+      "passes": false,
+      "notes": "Track content velocity for future sprints"
+    }
+  ]
+}
