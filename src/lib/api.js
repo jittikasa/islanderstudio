@@ -3,7 +3,7 @@
  * Replaces Sanity CMS with D1 database backend
  */
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8787';
+const API_URL = import.meta.env.VITE_API_URL || 'https://api.islanderstudio.app';
 
 /**
  * Helper function to make authenticated API requests
