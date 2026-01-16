@@ -872,67 +872,63 @@
   }
 }
 
-/* CTA Block - Perforated Stamp Design */
+/* CTA Block - Exact copy from Shellist.css */
 .post-cta {
-  margin-top: var(--space-16);
-  padding: var(--space-16) var(--space-10);
-  background: var(--white);
-  border-top: 2px dashed var(--cloud);
-  border-bottom: 2px dashed var(--cloud);
-  position: relative;
-  text-align: center;
+  padding: var(--space-16) var(--space-6);
+  max-width: 720px;
+  margin: var(--space-16) auto 0 auto;
 }
 
-/* Perforated notches - left side */
-.post-cta::before {
+@media (min-width: 768px) {
+  .post-cta {
+    padding: var(--space-16) 0;
+  }
+}
+
+.post-cta-card {
+  background: var(--white);
+  border: 3px solid var(--midnight-sky);
+  padding: var(--space-12);
+  text-align: center;
+  position: relative;
+}
+
+/* Perforated edges for CTA card */
+.post-cta-card::before,
+.post-cta-card::after {
   content: '';
   position: absolute;
   left: 0;
-  top: 0;
-  bottom: 0;
-  width: 8px;
-  background: repeating-linear-gradient(
-    to bottom,
-    var(--white) 0px,
-    var(--white) 8px,
-    transparent 8px,
-    transparent 16px
-  );
-  border-left: 2px solid var(--cloud);
+  right: 0;
+  height: 12px;
+  background: radial-gradient(circle at center, var(--white) 4px, transparent 4px);
+  background-size: 16px 12px;
+  pointer-events: none;
 }
 
-/* Perforated notches - right side */
-.post-cta::after {
-  content: '';
-  position: absolute;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  width: 8px;
-  background: repeating-linear-gradient(
-    to bottom,
-    var(--white) 0px,
-    var(--white) 8px,
-    transparent 8px,
-    transparent 16px
-  );
-  border-right: 2px solid var(--cloud);
+.post-cta-card::before {
+  top: -6px;
+}
+
+.post-cta-card::after {
+  bottom: -6px;
 }
 
 .post-cta-label {
+  display: inline-block;
   font-family: var(--font-mono);
-  font-size: 0.6875rem;
+  font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.15em;
-  color: var(--stone);
+  letter-spacing: 0.1em;
+  color: var(--fog);
   margin-bottom: var(--space-4);
 }
 
 .post-cta-icon {
-  font-size: 2.5rem;
-  margin-bottom: var(--space-6);
   display: block;
+  font-size: 3rem;
+  margin-bottom: var(--space-4);
 }
 
 .post-cta-title {
@@ -940,12 +936,9 @@
   font-size: clamp(1.5rem, 4vw, 2rem);
   font-weight: 700;
   color: var(--midnight-sky);
-  margin-bottom: var(--space-4);
-  margin-top: 0;
-  padding-left: 0;
-  padding-bottom: 0;
-  border-left: none;
-  border-bottom: none;
+  margin: 0 0 var(--space-4) 0;
+  border: none;
+  padding: 0;
 }
 
 .post-cta-title::before {
@@ -954,62 +947,20 @@
 
 .post-cta-text {
   font-family: var(--font-body);
-  font-size: 1.0625rem;
-  color: var(--stone);
+  font-size: 1rem;
   line-height: 1.7;
-  margin-bottom: var(--space-8);
+  color: var(--stone);
   max-width: 400px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto var(--space-8) auto;
 }
 
-.post-cta-link {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-3);
-  padding: var(--space-4) var(--space-8);
-  background: var(--midnight-sky);
-  color: var(--white);
+.post-cta-note {
   font-family: var(--font-mono);
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  border-radius: var(--radius-md);
-  text-decoration: none;
-  transition: all var(--duration-base) var(--ease-spring);
-  border: none;
-}
-
-.post-cta-link:hover {
-  background: var(--coconut-shell);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(51, 51, 51, 0.2);
-}
-
-.post-cta-link svg {
-  width: 16px;
-  height: 16px;
-}
-
-.post-cta-meta {
-  margin-top: var(--space-6);
-  font-family: var(--font-mono);
-  font-size: 0.625rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
+  font-size: 11px;
   color: var(--fog);
-}
-
-@media (max-width: 768px) {
-  .post-cta {
-    padding: var(--space-10) var(--space-6);
-  }
-
-  .post-cta-icon {
-    font-size: 2rem;
-  }
+  margin: var(--space-4) 0 0 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 /* Print Styles */
