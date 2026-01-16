@@ -29,6 +29,66 @@ function isMarkdown(content) {
   return markdownPatterns.some(pattern => pattern.test(content))
 }
 
+// CTA Block with dynamic content based on related app
+function CTABlock({ relatedApps }) {
+  const hasShellist = relatedApps?.includes('shellist')
+  const hasPolaMoment = relatedApps?.includes('polamoment')
+
+  // Shellist CTA
+  if (hasShellist) {
+    return (
+      <div className="post-cta">
+        <h3 className="post-cta-title">Start Building Better Habits</h3>
+        <p className="post-cta-text">
+          Transform your daily routines with Shellist. Track habits visually with beautiful pearl chains,
+          earn milestones, and watch your progress grow.
+        </p>
+        <a
+          href="https://apps.apple.com/app/shellist/id6737081986"
+          className="post-cta-link post-cta-link--shellist"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Download Shellist
+          <span>→</span>
+        </a>
+      </div>
+    )
+  }
+
+  // PolaMoment CTA
+  if (hasPolaMoment) {
+    return (
+      <div className="post-cta">
+        <h3 className="post-cta-title">Capture Moments That Matter</h3>
+        <p className="post-cta-text">
+          Experience instant photography reimagined for the digital age. Create beautiful memories
+          with vintage-inspired filters and instant print effects.
+        </p>
+        <Link to="/polamoment" className="post-cta-link">
+          Learn More About PolaMoment
+          <span>→</span>
+        </Link>
+      </div>
+    )
+  }
+
+  // Default: Explore our apps
+  return (
+    <div className="post-cta">
+      <h3 className="post-cta-title">Explore islander Studio Apps</h3>
+      <p className="post-cta-text">
+        Discover apps crafted with soul for everyday moments. From habit tracking to instant photography,
+        find tools that enhance your daily life.
+      </p>
+      <Link to="/" className="post-cta-link">
+        View Our Apps
+        <span>→</span>
+      </Link>
+    </div>
+  )
+}
+
 // Content renderer that handles both HTML and Markdown
 function BlogContent({ content }) {
   const renderedContent = useMemo(() => {
@@ -316,6 +376,9 @@ export default function BlogPost() {
             )}
 
             <BlogContent content={post.body} />
+
+            {/* Dynamic CTA Block */}
+            <CTABlock relatedApps={post.relatedApps} />
           </div>
 
         </article>
