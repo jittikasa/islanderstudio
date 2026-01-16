@@ -83,7 +83,7 @@
 
 .blog-card-image {
   width: 100%;
-  height: 200px;
+  aspect-ratio: 3 / 2;
   overflow: hidden;
   background: var(--paper);
   position: relative;

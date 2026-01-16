@@ -318,25 +318,6 @@ export default function BlogPost() {
             <BlogContent content={post.body} />
           </div>
 
-          {post.authorName && (
-            <footer className="post-footer">
-              <div className="author-info">
-                {post.authorImage && (
-                  <img
-                    src={urlFor(post.authorImage).width(80).height(80).url()}
-                    alt={post.authorName}
-                    className="author-avatar"
-                  />
-                )}
-                <div className="author-details">
-                  <p className="author-name">{post.authorName}</p>
-                  {post.authorBio && (
-                    <p className="author-bio">{post.authorBio}</p>
-                  )}
-                </div>
-              </div>
-            </footer>
-          )}
         </article>
       </div>
     </div>
