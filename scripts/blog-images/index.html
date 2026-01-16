@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog OG Images - Islander Studio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #1a1a1a;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 60px;
+      align-items: center;
+    }
+
+    h1 {
+      color: white;
+      font-family: 'Syne', sans-serif;
+      margin-bottom: 20px;
+    }
+
+    .instructions {
+      color: #888;
+      max-width: 600px;
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    .label {
+      color: #888;
+      font-size: 14px;
+      margin-bottom: 10px;
+      font-family: monospace;
+    }
+
+    /* OG Image Container - 1200x630 for social sharing */
+    .og-image {
+      width: 1200px;
+      height: 630px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+
+    /* Post 1: Pearl Visualization - Shellist themed */
+    .og-pearl {
+      background: linear-gradient(135deg, #1a3a52 0%, #2d5a7b 50%, #4A90A4 100%);
+    }
+
+    .og-pearl::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 30% 70%, rgba(255,255,255,0.1) 0%, transparent 50%);
+    }
+
+    .og-pearl .pearls {
+      position: absolute;
+      bottom: 80px;
+      left: 80px;
+      display: flex;
+      gap: 12px;
+    }
+
+    .og-pearl .pearl {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(145deg, #fff 0%, #e8e0d5 50%, #d4c8b8 100%);
+      box-shadow:
+        inset -4px -4px 8px rgba(0,0,0,0.1),
+        inset 4px 4px 8px rgba(255,255,255,0.8),
+        0 4px 12px rgba(0,0,0,0.3);
+    }
+
+    .og-pearl .pearl:nth-child(odd) {
+      transform: translateY(-8px);
+    }
+
+    /* Post 2: Comparison - Grid themed */
+    .og-comparison {
+      background: linear-gradient(180deg, #F7F0E6 0%, #fff 100%);
+    }
+
+    .og-comparison .grid {
+      position: absolute;
+      top: 60px;
+      right: 60px;
+      display: grid;
+      grid-template-columns: repeat(4, 80px);
+      gap: 16px;
+    }
+
+    .og-comparison .app-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 12px;
+      color: white;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .og-comparison .app-icon.shellist { background: linear-gradient(135deg, #4A90A4, #2d5a7b); }
+    .og-comparison .app-icon.streaks { background: linear-gradient(135deg, #FF6B35, #F7931E); }
+    .og-comparison .app-icon.habitify { background: linear-gradient(135deg, #00C853, #009624); }
+    .og-comparison .app-icon.done { background: linear-gradient(135deg, #7C4DFF, #536DFE); }
+
+    .og-comparison .checkmark {
+      position: absolute;
+      bottom: -8px;
+      right: -8px;
+      width: 28px;
+      height: 28px;
+      background: #4A90A4;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 16px;
+      border: 3px solid white;
+    }
+
+    /* Post 3: Polaroid - Nostalgic themed */
+    .og-polaroid {
+      background: linear-gradient(135deg, #2c1810 0%, #4a2c1a 50%, #6b3d22 100%);
+    }
+
+    .og-polaroid .polaroids {
+      position: absolute;
+      bottom: 40px;
+      right: 60px;
+      display: flex;
+      gap: -40px;
+    }
+
+    .og-polaroid .polaroid-frame {
+      width: 200px;
+      height: 240px;
+      background: #fff;
+      padding: 12px 12px 48px 12px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      transform-origin: bottom center;
+    }
+
+    .og-polaroid .polaroid-frame:nth-child(1) {
+      transform: rotate(-12deg);
+      z-index: 1;
+    }
+
+    .og-polaroid .polaroid-frame:nth-child(2) {
+      transform: rotate(5deg);
+      z-index: 2;
+      margin-left: -60px;
+    }
+
+    .og-polaroid .polaroid-frame:nth-child(3) {
+      transform: rotate(-3deg);
+      z-index: 3;
+      margin-left: -60px;
+    }
+
+    .og-polaroid .polaroid-inner {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 50%, #fd79a8 100%);
+    }
+
+    .og-polaroid .polaroid-frame:nth-child(2) .polaroid-inner {
+      background: linear-gradient(135deg, #74b9ff 0%, #a29bfe 50%, #fd79a8 100%);
+    }
+
+    .og-polaroid .polaroid-frame:nth-child(3) .polaroid-inner {
+      background: linear-gradient(135deg, #55efc4 0%, #81ecec 50%, #74b9ff 100%);
+    }
+
+    /* Content overlay */
+    .og-content {
+      position: absolute;
+      padding: 60px 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 100%;
+      max-width: 700px;
+    }
+
+    .og-category {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 20px;
+      padding: 8px 16px;
+      border-radius: 4px;
+      display: inline-block;
+      width: fit-content;
+    }
+
+    .og-pearl .og-category {
+      background: rgba(255,255,255,0.15);
+      color: #fff;
+    }
+
+    .og-comparison .og-category {
+      background: #4A90A4;
+      color: #fff;
+    }
+
+    .og-polaroid .og-category {
+      background: rgba(255,255,255,0.15);
+      color: #fff;
+    }
+
+    .og-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 24px;
+    }
+
+    .og-pearl .og-title {
+      font-size: 52px;
+      color: #fff;
+    }
+
+    .og-comparison .og-title {
+      font-size: 48px;
+      color: #333;
+    }
+
+    .og-polaroid .og-title {
+      font-size: 52px;
+      color: #fff;
+    }
+
+    .og-subtitle {
+      font-size: 20px;
+      line-height: 1.5;
+      opacity: 0.85;
+    }
+
+    .og-pearl .og-subtitle { color: #b8d4e3; }
+    .og-comparison .og-subtitle { color: #666; }
+    .og-polaroid .og-subtitle { color: #d4a574; }
+
+    .og-logo {
+      position: absolute;
+      bottom: 40px;
+      left: 80px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .og-logo-icon {
+      width: 40px;
+      height: 40px;
+      background: #A78A6A;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 18px;
+    }
+
+    .og-logo-text {
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .og-pearl .og-logo-text { color: #fff; }
+    .og-comparison .og-logo-text { color: #333; }
+    .og-polaroid .og-logo-text { color: #fff; }
+
+    .og-comparison .og-logo {
+      bottom: 40px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Blog OG Images</h1>
+  <p class="instructions">
+    Right-click each image and "Save image as..." or take a screenshot at 1200×630px.<br>
+    These are optimized for Twitter, Facebook, and LinkedIn sharing.
+  </p>
+
+  <!-- Post 1: Pearl Visualization -->
+  <div>
+    <div class="label">post-001: pearl-visualization-og.png (1200×630)</div>
+    <div class="og-image og-pearl">
+      <div class="og-content">
+        <span class="og-category">Productivity</span>
+        <h2 class="og-title">Building Lasting Habits with Pearl Visualization</h2>
+        <p class="og-subtitle">The science behind visual habit tracking and why it works</p>
+      </div>
+      <div class="pearls">
+        <div class="pearl"></div>
+        <div class="pearl"></div>
+        <div class="pearl"></div>
+        <div class="pearl"></div>
+        <div class="pearl"></div>
+        <div class="pearl"></div>
+        <div class="pearl"></div>
+        <div class="pearl"></div>
+        <div class="pearl"></div>
+        <div class="pearl"></div>
+        <div class="pearl"></div>
+        <div class="pearl"></div>
+      </div>
+      <div class="og-logo">
+        <div class="og-logo-icon">IS</div>
+        <span class="og-logo-text">Islander Studio</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Post 2: Comparison -->
+  <div>
+    <div class="label">post-002: habit-tracker-comparison-og.png (1200×630)</div>
+    <div class="og-image og-comparison">
+      <div class="og-content">
+        <span class="og-category">App Reviews</span>
+        <h2 class="og-title">Best Habit Trackers for iOS in 2026</h2>
+        <p class="og-subtitle">Shellist vs Streaks vs Habitify vs Done — Full comparison</p>
+      </div>
+      <div class="grid">
+        <div class="app-icon shellist" style="position: relative;">
+          S
+          <div class="checkmark">✓</div>
+        </div>
+        <div class="app-icon streaks">St</div>
+        <div class="app-icon habitify">H</div>
+        <div class="app-icon done">D</div>
+      </div>
+      <div class="og-logo">
+        <div class="og-logo-icon">IS</div>
+        <span class="og-logo-text">Islander Studio</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Post 3: Polaroid -->
+  <div>
+    <div class="label">post-003: polaroid-revival-og.png (1200×630)</div>
+    <div class="og-image og-polaroid">
+      <div class="og-content">
+        <span class="og-category">Photography</span>
+        <h2 class="og-title">The Polaroid Revival</h2>
+        <p class="og-subtitle">Why instant photography is making a comeback</p>
+      </div>
+      <div class="polaroids">
+        <div class="polaroid-frame">
+          <div class="polaroid-inner"></div>
+        </div>
+        <div class="polaroid-frame">
+          <div class="polaroid-inner"></div>
+        </div>
+        <div class="polaroid-frame">
+          <div class="polaroid-inner"></div>
+        </div>
+      </div>
+      <div class="og-logo">
+        <div class="og-logo-icon">IS</div>
+        <span class="og-logo-text">Islander Studio</span>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
