@@ -106,7 +106,7 @@ export default function Support() {
       await navigator.clipboard.writeText('support@islanderstudio.app')
       setCopiedEmail(true)
       setTimeout(() => setCopiedEmail(false), 2000)
-    } catch (err) {
+    } catch (_err) {
       window.location.href = 'mailto:support@islanderstudio.app'
     }
   }

@@ -31,9 +31,8 @@ function isMarkdown(content) {
 
 // Content renderer that handles both HTML and Markdown
 function BlogContent({ content }) {
-  if (!content) return null
-
   const renderedContent = useMemo(() => {
+    if (!content) return ''
     // If content looks like markdown, parse it
     if (isMarkdown(content)) {
       return marked(content)
@@ -41,6 +40,8 @@ function BlogContent({ content }) {
     // Otherwise assume it's HTML
     return content
   }, [content])
+
+  if (!content) return null
 
   return (
     <div

@@ -275,7 +275,7 @@ export default function PostEditor({ post, onSave, onCancel }) {
     setFormData(prev => ({ ...prev, body: value }))
   }
 
-  function syncEditorFromCode() {
+  function _syncEditorFromCode() {
     if (editor && formData.body) {
       editor.commands.setContent(formData.body)
     }

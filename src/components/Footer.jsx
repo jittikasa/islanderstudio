@@ -11,7 +11,7 @@ export default function Footer() {
       await navigator.clipboard.writeText('support@islanderstudio.app')
       setCopied(true)
       setTimeout(() => setCopied(false), 2000)
-    } catch (err) {
+    } catch (_err) {
       window.location.href = 'mailto:support@islanderstudio.app'
     }
   }

@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "npm run lint && vite build",
+    "lint": "eslint src/",
+    "lint:fix": "eslint src/ --fix",
     "preview": "vite preview",
     "db:init": "node src/db/init.js",
     "db:seed": "node src/db/seed.js",
@@ -31,9 +33,14 @@
     "react-router-dom": "^6.21.0"
   },
   "devDependencies": {
+    "@eslint/js": "^9.39.2",
     "@types/react": "^18.2.47",
     "@types/react-dom": "^18.2.18",
     "@vitejs/plugin-react": "^4.2.1",
+    "eslint": "^9.39.2",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "globals": "^17.0.0",
     "puppeteer": "^24.35.0",
     "sharp": "^0.34.5",
     "vite": "^5.0.11"

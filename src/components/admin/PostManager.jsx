@@ -70,7 +70,7 @@ export default function PostManager() {
       setEditingPost(null)
       fetchPosts()
     } catch (error) {
-      throw error // Re-throw to be handled by PostEditor
+      alert(error.message || 'Failed to save post')
     }
   }
 
