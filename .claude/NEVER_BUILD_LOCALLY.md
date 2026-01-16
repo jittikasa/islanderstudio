@@ -16,14 +16,14 @@ User wants all testing done on LIVE deployment only.
 
 ### Deployment Process:
 1. Make code changes
-2. Commit to feature branch `claude/investigate-wordpress-integration-hCslq`
+2. Commit to feature branch
 3. Push to remote
-4. Changes go live via Netlify automatic deployment
+4. Changes go live via Cloudflare Pages automatic deployment
 5. Test on https://islanderstudio.app
 
 ### If You Need to Test:
 - Push changes to the branch
-- Wait for Netlify deployment
+- Wait for Cloudflare Pages deployment
 - User tests on live site
 - NO EXCEPTIONS
 

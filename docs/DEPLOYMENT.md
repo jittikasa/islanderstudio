@@ -1,6 +1,6 @@
 # Complete Cloudflare Deployment Guide
 
-You've deleted Netlify. Now let's deploy everything to Cloudflare!
+Full deployment guide for Islander Studio on Cloudflare.
 
 ## Quick Overview
 
@@ -262,13 +262,11 @@ After deployment, you'll have:
 - ✅ **Pages Site**: `https://islanderstudio.pages.dev`
 - ✅ **Admin Login**: Working password authentication
 
-**No more:**
-- ❌ Netlify build limits
-- ❌ Sanity CMS fees
-- ❌ Vendor lock-in
-- ❌ Build minute emails
-
-**Everything is FREE and UNLIMITED!** 🎉
+**Benefits:**
+- ✅ Unlimited builds
+- ✅ Edge performance (300+ locations)
+- ✅ Integrated D1 database
+- ✅ R2 storage included
 
 ---
 

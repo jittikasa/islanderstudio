@@ -17,8 +17,8 @@ Islander Studio is built with a **Tropical Modernism** aesthetic:
 - **Framework:** React 18 + Vite
 - **Routing:** React Router v6
 - **Styling:** Custom CSS with CSS Variables
-- **CMS:** Sanity (Headless CMS for blog)
-- **Deployment:** Netlify
+- **Backend:** Cloudflare Workers + D1 (SQLite) + R2 (Storage)
+- **Deployment:** Cloudflare Pages
 - **SEO:** Optimized meta tags, semantic HTML
 
 ## 📱 Our Apps
@@ -78,7 +78,7 @@ islanderstudio/
 ├── public/              # Static assets
 ├── sanity-schema/       # Sanity CMS schema files & setup guide
 ├── index.html           # HTML template
-├── netlify.toml         # Netlify configuration
+├── workers/             # Cloudflare Workers API
 └── package.json         # Dependencies & scripts
 ```
 
@@ -203,37 +203,15 @@ For detailed setup instructions, see `sanity-schema/README.md`.
 
 ## 🌐 Deployment
 
-### Netlify (Recommended)
+### Cloudflare Pages
 
-1. **Connect to Netlify:**
-   - Push this repo to GitHub
-   - Connect your GitHub repo to Netlify
-   - Netlify auto-detects build settings from `netlify.toml`
+See `docs/DEPLOYMENT.md` for full deployment guide.
 
-2. **Configure Environment Variables:**
-   - Go to Site Settings > Environment Variables
-   - Add your Sanity configuration:
-     - `VITE_SANITY_PROJECT_ID`
-     - `VITE_SANITY_DATASET`
-
-3. **Configure Domain:**
-   - Add `islanderstudio.app` as custom domain
-   - Netlify handles SSL automatically
-
-4. **Deploy:**
-   - Pushes to `main` branch auto-deploy
-   - Build command: `npm run build`
-   - Publish directory: `dist`
-
-### Manual Deployment
-
-```bash
-# Build the project
-npm run build
-
-# The dist/ folder contains your production build
-# Upload to any static hosting service
-```
+**Quick summary:**
+1. Frontend deploys to Cloudflare Pages (auto-deploy on push to `main`)
+2. API runs on Cloudflare Workers at `api.islanderstudio.app`
+3. Database: Cloudflare D1 (SQLite at edge)
+4. Storage: Cloudflare R2 (for media uploads)
 
 ## 📄 Pages
 
