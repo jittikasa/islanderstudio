@@ -877,7 +877,7 @@
   margin-top: var(--space-16);
   padding: var(--space-10);
   background: var(--cream);
-  border: 2px dashed var(--cloud);
+  border: 2px dashed var(--coconut-shell);
   border-radius: var(--radius-xl);
 }
 
@@ -887,6 +887,15 @@
   font-weight: 700;
   color: var(--midnight-sky);
   margin-bottom: var(--space-3);
+  margin-top: 0;
+  padding-left: 0;
+  padding-bottom: 0;
+  border-left: none;
+  border-bottom: none;
+}
+
+.post-cta-title::before {
+  display: none;
 }
 
 .post-cta-text {
