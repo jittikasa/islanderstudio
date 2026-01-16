@@ -123,30 +123,30 @@ function formatPost(post) {
  * Replaces: urlFor() from Sanity
  *
  * Since we're using R2 direct URLs now, we just return the URL
+ * but maintain chainable API for compatibility
  */
 export function urlFor(source) {
   if (!source) return null;
 
-  // If it's already a URL string, return it
+  // Get the base URL
+  let baseUrl = null;
+
   if (typeof source === 'string') {
-    return {
-      url: () => source,
-      width: (w) => ({ url: () => source }), // R2 images are pre-sized
-      height: (h) => ({ url: () => source }),
-    };
+    baseUrl = source;
+  } else if (source?.asset?.url) {
+    baseUrl = source.asset.url;
   }
 
-  // If it's an object with asset.url (Sanity-like structure)
-  if (source?.asset?.url) {
-    const url = source.asset.url;
-    return {
-      url: () => url,
-      width: (w) => ({ url: () => url }),
-      height: (h) => ({ url: () => url }),
-    };
-  }
+  if (!baseUrl) return null;
 
-  return null;
+  // Return chainable object (R2 images are pre-sized, so dimensions are ignored)
+  const chainable = {
+    url: () => baseUrl,
+    width: () => chainable,
+    height: () => chainable,
+  };
+
+  return chainable;
 }
 
 /**
