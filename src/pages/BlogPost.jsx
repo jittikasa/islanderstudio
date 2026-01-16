@@ -45,7 +45,7 @@ function CTABlock({ relatedApps }) {
         </p>
         <a
           href="https://apps.apple.com/app/shellist/id6737081986"
-          className="post-cta-link post-cta-link--shellist"
+          className="post-cta-link"
           target="_blank"
           rel="noopener noreferrer"
         >
