@@ -7,6 +7,7 @@ export default function SEO({
   url = 'https://islanderstudio.app',
   type = 'website',
   keywords = 'iOS apps, mobile apps, app studio, Shellist, PolaMoment, habit tracker, polaroid camera, indie apps',
+  robots,
 }) {
   useEffect(() => {
     // Update title
@@ -77,23 +78,26 @@ export default function SEO({
 
     // Additional SEO tags
     updateMetaTag('author', 'Islander Studio', true)
-    updateMetaTag('robots', 'index, follow', true)
+    updateMetaTag('robots', robots || 'index, follow', true)
 
-  }, [title, description, image, url, type, keywords])
+  }, [title, description, image, url, type, keywords, robots])
 
   return null
 }
 
 // JSON-LD Structured Data Component
+// Supports multiple schemas by using unique IDs based on @type
 export function StructuredData({ data }) {
+  const schemaId = `structured-data-${data['@type'] || 'unknown'}`.toLowerCase()
+
   useEffect(() => {
     const script = document.createElement('script')
     script.type = 'application/ld+json'
     script.text = JSON.stringify(data)
-    script.id = 'structured-data'
+    script.id = schemaId
 
-    // Remove existing structured data if present
-    const existing = document.getElementById('structured-data')
+    // Remove existing structured data with same ID if present
+    const existing = document.getElementById(schemaId)
     if (existing) {
       existing.remove()
     }
@@ -101,12 +105,12 @@ export function StructuredData({ data }) {
     document.head.appendChild(script)
 
     return () => {
-      const scriptToRemove = document.getElementById('structured-data')
+      const scriptToRemove = document.getElementById(schemaId)
       if (scriptToRemove) {
         scriptToRemove.remove()
       }
     }
-  }, [data])
+  }, [data, schemaId])
 
   return null
 }
