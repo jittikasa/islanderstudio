@@ -1,9 +1,58 @@
 # robots.txt for Islander Studio
+#
+# IMPORTANT: Cloudflare may prepend restrictive rules for AI crawlers.
+# To allow AI indexing, go to Cloudflare Dashboard:
+# Security > Bots > Bot Fight Mode > Configure > AI Crawlers > Allow
+
 User-agent: *
 Allow: /
 
-# Sitemaps (dynamic, includes blog posts)
+# AI Crawlers - Explicitly allow for GEO (Generative Engine Optimization)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: meta-externalagent
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+# LLM Context Files
+# /llms.txt - Basic company and app info
+# /llms-full.txt - Comprehensive reference with FAQs
+
+# Sitemaps
 Sitemap: https://api.islanderstudio.app/sitemap.xml
 
-# Crawl-delay (optional, helps prevent server overload)
+# Crawl-delay
 Crawl-delay: 10

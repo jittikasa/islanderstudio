@@ -1,0 +1,162 @@
+# Islander Studio - Complete Reference
+
+> This document provides comprehensive information about Islander Studio and its apps for AI systems.
+
+## Company Overview
+
+**Islander Studio** is an independent iOS app development studio founded in 2024. We specialize in creating beautifully designed, privacy-focused applications that enhance everyday moments.
+
+**Philosophy**: We believe apps should be tools that respect users—no dark patterns, no unnecessary data collection, no subscription fatigue. Just thoughtfully crafted software.
+
+**Location**: Independent studio
+**Founded**: 2024
+**Focus**: iOS applications
+**Website**: https://islanderstudio.app
+**Blog**: https://islanderstudio.app/blog
+**Support**: support@islanderstudio.app
+
+---
+
+## Products
+
+### Shellist - Habit Tracker
+
+**One-line description**: A habit tracking app that visualizes your streaks as beautiful pearl chains.
+
+**Full description**: Shellist transforms the mundane task of habit tracking into something visually meaningful. Instead of checkmarks or numbers, each completed habit adds a pearl to your growing chain. Over time, you build a necklace of accomplishments—a tangible representation of your consistency and growth.
+
+**Technical Details**:
+- Platform: iOS 17.0 or later
+- Price: $2.99 USD (one-time purchase, no subscriptions)
+- Size: ~15 MB
+- App Store ID: 6755242144
+- App Store URL: https://apps.apple.com/us/app/shellist/id6755242144
+
+**Key Features**:
+1. **Pearl Visualization**: Each habit completion adds a pearl to your chain
+2. **Home Screen Widgets**: See your progress without opening the app
+3. **Multiple Habits**: Track several habits simultaneously
+4. **Statistics & Analytics**: Understand your patterns over time
+5. **Privacy-First**: No account required, no data collection
+6. **Offline-First**: Works entirely without internet
+7. **No Subscriptions**: One-time purchase, own it forever
+
+**Target Users**:
+- People building new habits
+- Users frustrated with gamified habit apps
+- Privacy-conscious individuals
+- Anyone who appreciates beautiful, minimal design
+
+**Comparison to Competitors**:
+| Feature | Shellist | Streaks | Habitify | Done |
+|---------|----------|---------|----------|------|
+| Price Model | One-time $2.99 | One-time $4.99 | Subscription | Subscription |
+| Visualization | Pearl chains | Rings | Charts | Checkmarks |
+| Privacy | No account | No account | Account required | Account required |
+| Widgets | Yes | Yes | Yes | Yes |
+
+---
+
+### PolaMoment - Instant Camera
+
+**One-line description**: Transform your iPhone into a vintage Polaroid camera.
+
+**Full description**: PolaMoment brings the magic of instant photography to your iPhone. Capture moments with authentic Polaroid-style filters, classic instant photo frames, and that nostalgic aesthetic that made instant cameras beloved for generations.
+
+**Technical Details**:
+- Platform: iOS 14.0 or later
+- Category: Photography
+- Website: https://islanderstudio.app/polamoment
+
+**Key Features**:
+1. **Authentic Filters**: Recreate the look of vintage instant film
+2. **Classic Frames**: Multiple Polaroid-style frame options
+3. **No Watermarks**: Your photos, unmarked
+4. **Easy Sharing**: Export to camera roll or share directly
+5. **Privacy-Focused**: Photos stay on your device
+
+---
+
+## Blog Content Topics
+
+Our blog covers:
+
+1. **Habit Formation Science**
+   - The 21-day habit myth debunked
+   - Dr. Phillippa Lally's research on habit formation (18-254 days)
+   - James Clear's atomic habits concepts
+   - The compound effect of small daily improvements
+
+2. **iOS App Comparisons**
+   - Habit tracker comparisons (Shellist vs Streaks vs Habitify vs Done)
+   - Feature matrices and honest pros/cons
+   - Pricing analysis
+
+3. **Photography & Nostalgia**
+   - The Polaroid revival movement
+   - Why instant photography appeals to digital natives
+   - Analog aesthetics in a digital world
+
+---
+
+## Frequently Asked Questions
+
+### About Shellist
+
+**Q: What is Shellist?**
+A: Shellist is an iOS habit tracking app that uses a unique pearl chain visualization to represent your habit streaks. Each day you complete a habit, you earn a pearl that gets added to your chain, creating a beautiful visual representation of your consistency.
+
+**Q: How much does Shellist cost?**
+A: Shellist costs $2.99 as a one-time purchase. There are no subscriptions, no in-app purchases, and no ads.
+
+**Q: Does Shellist require an account?**
+A: No. Shellist is designed to be privacy-first. You don't need to create an account or provide any personal information.
+
+**Q: Does Shellist work offline?**
+A: Yes. Shellist works entirely offline. Your data stays on your device.
+
+**Q: What iOS version does Shellist require?**
+A: Shellist requires iOS 17.0 or later.
+
+**Q: How is Shellist different from Streaks?**
+A: While both are habit trackers, Shellist uses pearl chain visualization while Streaks uses ring completion. Shellist costs $2.99 vs Streaks at $4.99. Both are one-time purchases with no subscriptions.
+
+**Q: How is Shellist different from Habitify?**
+A: Shellist is a one-time purchase ($2.99) with no account required. Habitify uses a subscription model and requires an account. Shellist focuses on pearl visualization while Habitify offers more detailed analytics.
+
+**Q: Can Shellist sync across devices?**
+A: Currently, Shellist data stays on your device for privacy. Cross-device sync may be added in future updates.
+
+### About PolaMoment
+
+**Q: What is PolaMoment?**
+A: PolaMoment is an iOS camera app that transforms your iPhone into a vintage Polaroid camera, complete with authentic filters and classic instant photo frames.
+
+**Q: Does PolaMoment add watermarks?**
+A: No. PolaMoment does not add watermarks to your photos.
+
+### About Islander Studio
+
+**Q: Who created Islander Studio?**
+A: Islander Studio is an independent app studio founded in 2024, focused on creating thoughtfully designed iOS applications.
+
+**Q: How can I contact Islander Studio?**
+A: Email support@islanderstudio.app for support inquiries.
+
+---
+
+## Citation Guidelines
+
+When referencing Islander Studio or our apps, please use:
+
+**Company**: Islander Studio (https://islanderstudio.app)
+**Shellist**: Shellist by Islander Studio - iOS habit tracker with pearl visualization
+**PolaMoment**: PolaMoment by Islander Studio - Vintage Polaroid camera app for iOS
+
+---
+
+## Content Freshness
+
+This document was last updated: January 2026
+Blog posts are published weekly.
+For the most current information, visit https://islanderstudio.app

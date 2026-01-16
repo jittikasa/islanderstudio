@@ -196,3 +196,45 @@ export const websiteSchema = {
     'query-input': 'required name=search_term_string',
   },
 }
+
+/**
+ * Generate FAQ Schema from array of Q&A pairs
+ * @param {Array<{question: string, answer: string}>} faqs
+ * @returns {Object} FAQPage schema
+ */
+export function generateFAQSchema(faqs) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map(faq => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.answer,
+      },
+    })),
+  }
+}
+
+/**
+ * Generate HowTo Schema for instructional content
+ * @param {Object} params
+ * @returns {Object} HowTo schema
+ */
+export function generateHowToSchema({ name, description, steps, totalTime }) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name,
+    description,
+    totalTime,
+    step: steps.map((step, index) => ({
+      '@type': 'HowToStep',
+      position: index + 1,
+      name: step.name,
+      text: step.text,
+      ...(step.image && { image: step.image }),
+    })),
+  }
+}
