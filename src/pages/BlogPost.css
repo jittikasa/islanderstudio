@@ -963,6 +963,16 @@
   letter-spacing: 0.05em;
 }
 
+/* Back to Blog - bottom */
+.post-back-bottom {
+  text-align: center;
+  padding: var(--space-12) var(--space-6) var(--space-16);
+}
+
+.post-back-bottom .back-link {
+  margin-bottom: 0;
+}
+
 /* Print Styles */
 @media print {
   .reading-progress,

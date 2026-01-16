@@ -303,11 +303,6 @@ export default function BlogPost() {
       <div className="post-container">
         {/* Hero Header */}
         <header className="post-hero">
-          <Link to="/blog" className="back-link">
-            <ArrowLeft size={18} />
-            Back to Blog
-          </Link>
-
           {post.categories && post.categories.length > 0 && (
             <div className="post-categories">
               {post.categories.map((category, index) => (
@@ -386,12 +381,19 @@ export default function BlogPost() {
             )}
 
             <BlogContent content={post.body} />
-
-            {/* Dynamic CTA Block */}
-            <CTABlock relatedApps={post.relatedApps} />
           </div>
-
         </article>
+
+        {/* Dynamic CTA Block - outside post-content to avoid link style override */}
+        <CTABlock relatedApps={post.relatedApps} />
+
+        {/* Back to Blog - at bottom */}
+        <div className="post-back-bottom">
+          <Link to="/blog" className="back-link">
+            <ArrowLeft size={18} />
+            Back to Blog
+          </Link>
+        </div>
       </div>
     </div>
   )
