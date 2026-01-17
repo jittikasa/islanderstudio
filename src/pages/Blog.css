@@ -41,44 +41,21 @@
   margin-top: var(--space-12);
 }
 
-/* Blog Card - Scrapbook/Stamp Style */
+/* Blog Card */
 .blog-card {
   display: block;
   text-decoration: none;
   background: var(--white);
   border: 2px solid var(--cloud);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-md);
   overflow: hidden;
-  transition: all var(--duration-base) var(--ease-out);
-  box-shadow: var(--shadow-stamp);
-  position: relative;
-}
-
-.blog-card::before {
-  content: '';
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  width: 40px;
-  height: 40px;
-  background: var(--misty-morning);
-  border-radius: 50%;
-  opacity: 0;
-  transform: scale(0);
   transition: all var(--duration-base) var(--ease-spring);
-  z-index: 1;
-  pointer-events: none;
 }
 
 .blog-card:hover {
-  transform: translateY(-4px) rotate(0.5deg);
-  box-shadow: var(--shadow-sticker);
   border-color: var(--coconut-shell);
-}
-
-.blog-card:hover::before {
-  opacity: 0.2;
-  transform: scale(1);
+  transform: translateY(-4px) rotate(-1deg);
+  box-shadow: 3px 4px 0 var(--midnight-sky);
 }
 
 .blog-card-image {
@@ -149,9 +126,6 @@
   transition: color var(--duration-fast) var(--ease-out);
 }
 
-.blog-card:hover .blog-card-title {
-  color: var(--coconut-shell);
-}
 
 .blog-card-excerpt {
   color: var(--stone);
