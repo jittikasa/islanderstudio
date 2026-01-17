@@ -1,5 +1,5 @@
 /* ============================================
-   BACKGROUND SHOWCASE - Scrapbook Ocean Wave
+   BACKGROUND SHOWCASE - Flowing Wave Ribbons
    ============================================ */
 
 .bg-showcase {
@@ -7,638 +7,120 @@
   width: 100%;
   position: relative;
   overflow: hidden;
-  background: var(--cream);
+  background: #F7F3EC;
   opacity: 0;
-  transform: scale(0.98);
-  transition: all 0.8s var(--ease-out);
+  transition: opacity 1s var(--ease-out);
 }
 
 .bg-showcase--loaded {
   opacity: 1;
-  transform: scale(1);
 }
 
 /* ============================================
-   MAIN CANVAS - The Scrapbook Page
+   FLOWING WAVE RIBBONS SVG
    ============================================ */
 
-.wave-canvas {
-  position: absolute;
-  inset: 24px;
-  background: var(--paper);
-  border: 3px solid var(--midnight-sky);
-  overflow: hidden;
-  box-shadow:
-    8px 8px 0 var(--midnight-sky),
-    0 20px 60px rgba(51, 51, 51, 0.15);
-}
-
-/* Paper texture overlay */
-.wave-canvas__paper {
+.wave-ribbons {
   position: absolute;
   inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-  background-blend-mode: soft-light;
-  background-size: 150px;
-  opacity: 0.4;
-  pointer-events: none;
+  width: 100%;
+  height: 100%;
   z-index: 1;
 }
 
-/* ============================================
-   SAND AREA - Right side
-   ============================================ */
-
-.wave-sand {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: 55%;
-  background: linear-gradient(
-    135deg,
-    #F5EEE5 0%,
-    #EDE4D8 30%,
-    #E8DDD0 60%,
-    #F0E8DC 100%
-  );
-  z-index: 2;
+/* Ribbon layers with subtle animation */
+.ribbon-layer {
+  opacity: 0;
+  animation: ribbonFadeIn 1.2s var(--ease-out) forwards;
 }
 
-.wave-sand__texture {
-  position: absolute;
-  inset: 0;
-  background-image:
-    radial-gradient(circle at 20% 30%, rgba(167, 138, 106, 0.08) 1px, transparent 1px),
-    radial-gradient(circle at 60% 70%, rgba(167, 138, 106, 0.06) 1px, transparent 1px),
-    radial-gradient(circle at 80% 20%, rgba(167, 138, 106, 0.07) 1px, transparent 1px);
-  background-size: 30px 30px, 50px 50px, 40px 40px;
-}
+.ribbon-layer--1 { animation-delay: 0.1s; }
+.ribbon-layer--2 { animation-delay: 0.25s; }
+.ribbon-layer--3 { animation-delay: 0.4s; }
+.ribbon-layer--4 { animation-delay: 0.55s; }
 
-.wave-sand__grains {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-}
-
-.grain {
-  position: absolute;
-  background: var(--coconut-shell);
-  border-radius: 50%;
-  animation: grainShimmer 4s ease-in-out infinite;
-}
-
-@keyframes grainShimmer {
-  0%, 100% { opacity: 0.15; }
-  50% { opacity: 0.35; }
-}
-
-/* ============================================
-   FOAM AREA - Left side with torn paper edge
-   ============================================ */
-
-.wave-foam {
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  width: 50%;
-  z-index: 3;
-}
-
-.wave-foam__edge {
-  position: absolute;
-  top: 0;
-  right: -5%;
-  width: 60%;
-  height: 100%;
-}
-
-.foam-paper {
-  filter: drop-shadow(3px 0 6px rgba(167, 138, 106, 0.15));
-}
-
-.foam-paper-inner {
-  opacity: 0.9;
-}
-
-/* Lace doily pieces for foam texture */
-.wave-foam__lace {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-.lace-piece {
-  position: absolute;
-  background:
-    radial-gradient(circle at 10% 50%, transparent 2px, #FFFFFF 2px, #FFFFFF 4px, transparent 4px),
-    radial-gradient(circle at 30% 50%, transparent 2px, #FFFFFF 2px, #FFFFFF 4px, transparent 4px),
-    radial-gradient(circle at 50% 50%, transparent 2px, #FFFFFF 2px, #FFFFFF 4px, transparent 4px),
-    radial-gradient(circle at 70% 50%, transparent 2px, #FFFFFF 2px, #FFFFFF 4px, transparent 4px),
-    radial-gradient(circle at 90% 50%, transparent 2px, #FFFFFF 2px, #FFFFFF 4px, transparent 4px);
-  background-size: 20% 100%;
-  border-radius: 50%;
-  opacity: 0.6;
-  animation: laceFade 3s ease-in-out infinite;
-}
-
-@keyframes laceFade {
-  0%, 100% { opacity: 0.5; transform: translateX(0); }
-  50% { opacity: 0.7; transform: translateX(2px); }
-}
-
-/* Bubble punch holes */
-.wave-foam__bubbles {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-}
-
-.bubble-hole {
-  position: absolute;
-  background: radial-gradient(
-    circle,
-    rgba(255, 255, 255, 0.9) 0%,
-    rgba(255, 255, 255, 0.6) 40%,
-    rgba(247, 240, 230, 0.3) 70%,
-    transparent 100%
-  );
-  border-radius: 50%;
-  box-shadow:
-    inset 0 1px 2px rgba(255, 255, 255, 0.8),
-    0 1px 2px rgba(167, 138, 106, 0.1);
-  animation: bubbleFloat 5s ease-in-out infinite;
-}
-
-@keyframes bubbleFloat {
-  0%, 100% {
-    transform: translateY(0) scale(1);
-    opacity: 0.7;
-  }
-  50% {
-    transform: translateY(-3px) scale(1.05);
-    opacity: 0.9;
-  }
-}
-
-/* ============================================
-   WASHI TAPE DECORATIONS
-   ============================================ */
-
-.wave-washi {
-  position: absolute;
-  width: 120px;
-  height: 28px;
-  z-index: 20;
-  overflow: hidden;
-}
-
-.wave-washi--top {
-  top: 20px;
-  left: 30px;
-  transform: rotate(-8deg);
-}
-
-.wave-washi--bottom {
-  bottom: 30px;
-  right: 40px;
-  transform: rotate(5deg);
-}
-
-.wave-washi::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(
-    90deg,
-    var(--summer-sky) 0px,
-    var(--summer-sky) 8px,
-    #FFFFFF 8px,
-    #FFFFFF 16px
-  );
-  opacity: 0.85;
-}
-
-.wave-washi::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.3) 0%,
-    transparent 30%,
-    transparent 70%,
-    rgba(0, 0, 0, 0.05) 100%
-  );
-}
-
-.washi-pattern {
-  position: absolute;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='10' cy='10' r='1.5' fill='%23ffffff' opacity='0.4'/%3E%3C/svg%3E");
-  background-size: 10px 10px;
-}
-
-/* ============================================
-   CORNER STAMP
-   ============================================ */
-
-.wave-stamp {
-  position: absolute;
-  top: 60px;
-  right: 40px;
-  z-index: 15;
-  animation: stampEnter 0.6s var(--ease-spring) 0.4s backwards;
-}
-
-@keyframes stampEnter {
+@keyframes ribbonFadeIn {
   from {
     opacity: 0;
-    transform: translateY(-20px) rotate(-15deg) scale(0.8);
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
-    transform: translateY(0) rotate(-3deg) scale(1);
+    transform: translateY(0);
   }
 }
 
-.wave-stamp__inner {
-  width: 80px;
-  background: var(--white);
-  border: 3px solid var(--midnight-sky);
-  padding: 8px;
-  position: relative;
-  transform: rotate(-3deg);
-  box-shadow: 2px 3px 0 var(--midnight-sky);
-  transition: all 0.3s var(--ease-spring);
+/* Individual ribbon styling */
+.ribbon {
+  transition: transform 0.6s var(--ease-out);
 }
 
-.wave-stamp:hover .wave-stamp__inner {
-  transform: rotate(0deg) scale(1.05);
-  box-shadow: 4px 5px 0 var(--midnight-sky);
+/* Subtle floating animation for depth */
+.ribbon--blue-light {
+  animation: ribbonFloat1 20s ease-in-out infinite;
 }
 
-/* Perforated edges */
-.wave-stamp__inner::before,
-.wave-stamp__inner::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  height: 8px;
-  background: radial-gradient(circle at center, var(--cream) 3px, transparent 3px);
-  background-size: 10px 8px;
-  pointer-events: none;
+.ribbon--blue-mid {
+  animation: ribbonFloat2 25s ease-in-out infinite;
 }
 
-.wave-stamp__inner::before { top: -5px; }
-.wave-stamp__inner::after { bottom: -5px; }
-
-.wave-stamp__content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding: 4px 0;
+.ribbon--blue-right {
+  animation: ribbonFloat3 22s ease-in-out infinite;
 }
 
-.wave-stamp__icon {
-  font-size: 20px;
-  line-height: 1;
-  margin-bottom: 4px;
+.ribbon--cream {
+  animation: ribbonFloat4 28s ease-in-out infinite;
 }
 
-.wave-stamp__text {
-  font-family: var(--font-display);
-  font-size: 10px;
-  font-weight: 700;
-  color: var(--midnight-sky);
-  letter-spacing: 0.05em;
+.ribbon--cream-accent {
+  animation: ribbonFloat5 24s ease-in-out infinite;
 }
 
-.wave-stamp__subtext {
-  font-family: var(--font-mono);
-  font-size: 6px;
-  font-weight: 700;
-  color: var(--fog);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-}
-
-.wave-stamp__footer {
-  display: flex;
-  justify-content: space-between;
-  padding-top: 6px;
-  margin-top: 6px;
-  border-top: 1px dashed var(--cloud);
-}
-
-.wave-stamp__footer span {
-  font-family: var(--font-mono);
-  font-size: 6px;
-  font-weight: 700;
-  color: var(--fog);
-}
-
-/* ============================================
-   HANDWRITTEN ANNOTATION
-   ============================================ */
-
-.wave-annotation {
-  position: absolute;
-  z-index: 15;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  animation: annotationFade 0.5s var(--ease-out) 0.6s backwards;
-}
-
-@keyframes annotationFade {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.wave-annotation--top {
-  top: 35%;
-  left: 50%;
-  transform: rotate(-2deg);
-}
-
-.annotation-text {
-  font-family: 'Oooh Baby', cursive;
-  font-size: 18px;
-  color: var(--coconut-shell);
-  white-space: nowrap;
-}
-
-.annotation-arrow {
-  font-size: 16px;
-  color: var(--coconut-shell);
-  animation: arrowBounce 2s ease-in-out infinite;
-}
-
-@keyframes arrowBounce {
+@keyframes ribbonFloat1 {
   0%, 100% { transform: translate(0, 0); }
-  50% { transform: translate(-3px, 3px); }
+  25% { transform: translate(3px, -5px); }
+  50% { transform: translate(-2px, 3px); }
+  75% { transform: translate(4px, -2px); }
+}
+
+@keyframes ribbonFloat2 {
+  0%, 100% { transform: translate(0, 0); }
+  33% { transform: translate(-4px, 3px); }
+  66% { transform: translate(2px, -4px); }
+}
+
+@keyframes ribbonFloat3 {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(-3px, 4px); }
+  50% { transform: translate(5px, -2px); }
+  75% { transform: translate(-2px, -3px); }
+}
+
+@keyframes ribbonFloat4 {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(4px, 5px); }
+}
+
+@keyframes ribbonFloat5 {
+  0%, 100% { transform: translate(0, 0); }
+  33% { transform: translate(3px, -3px); }
+  66% { transform: translate(-3px, 4px); }
 }
 
 /* ============================================
-   PHOTO CORNERS
+   PAPER TEXTURE OVERLAY
    ============================================ */
 
-.photo-corner {
-  position: absolute;
-  width: 24px;
-  height: 24px;
-  z-index: 10;
-}
-
-.photo-corner::before,
-.photo-corner::after {
-  content: '';
-  position: absolute;
-  background: var(--coconut-shell);
-  opacity: 0.7;
-}
-
-.photo-corner--tl { top: 8px; left: 8px; }
-.photo-corner--tr { top: 8px; right: 8px; }
-.photo-corner--bl { bottom: 8px; left: 8px; }
-.photo-corner--br { bottom: 8px; right: 8px; }
-
-.photo-corner--tl::before,
-.photo-corner--br::before {
-  width: 24px;
-  height: 4px;
-  top: 0;
-  left: 0;
-}
-
-.photo-corner--tl::after,
-.photo-corner--br::after {
-  width: 4px;
-  height: 24px;
-  top: 0;
-  left: 0;
-}
-
-.photo-corner--tr::before,
-.photo-corner--bl::before {
-  width: 24px;
-  height: 4px;
-  top: 0;
-  right: 0;
-}
-
-.photo-corner--tr::after,
-.photo-corner--bl::after {
-  width: 4px;
-  height: 24px;
-  top: 0;
-  right: 0;
-}
-
-/* ============================================
-   FOAM DROPLETS ON SAND
-   ============================================ */
-
-.wave-droplets {
+.wave-texture {
   position: absolute;
   inset: 0;
-  z-index: 4;
+  z-index: 2;
   pointer-events: none;
-}
-
-.droplet {
-  position: absolute;
-  background: radial-gradient(
-    circle,
-    #FFFFFF 0%,
-    rgba(255, 255, 255, 0.8) 50%,
-    transparent 100%
-  );
-  border-radius: 50%;
-  box-shadow: 0 1px 2px rgba(167, 138, 106, 0.15);
-}
-
-/* ============================================
-   PERFORATED BORDER FRAME
-   ============================================ */
-
-.wave-frame {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 25;
-}
-
-.wave-frame__edge {
-  position: absolute;
-  background-repeat: repeat;
-}
-
-.wave-frame__edge--top,
-.wave-frame__edge--bottom {
-  left: 0;
-  right: 0;
-  height: 12px;
-  background: radial-gradient(circle at center, var(--cream) 4px, transparent 4px);
-  background-size: 16px 12px;
-}
-
-.wave-frame__edge--top { top: -6px; }
-.wave-frame__edge--bottom { bottom: -6px; }
-
-.wave-frame__edge--left,
-.wave-frame__edge--right {
-  top: 0;
-  bottom: 0;
-  width: 12px;
-  background: radial-gradient(circle at center, var(--cream) 4px, transparent 4px);
-  background-size: 12px 16px;
-}
-
-.wave-frame__edge--left { left: -6px; }
-.wave-frame__edge--right { right: -6px; }
-
-/* ============================================
-   INFO CARD OVERLAY
-   ============================================ */
-
-.bg-showcase__info {
-  position: absolute;
-  bottom: 60px;
-  right: 60px;
-  z-index: 30;
-  animation: cardSlide 0.6s var(--ease-out) 0.3s backwards;
-}
-
-@keyframes cardSlide {
-  from {
-    opacity: 0;
-    transform: translateY(20px) rotate(2deg);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) rotate(0);
-  }
-}
-
-.bg-showcase__card {
-  background: var(--white);
-  border: 3px solid var(--midnight-sky);
-  padding: 24px;
-  min-width: 280px;
-  position: relative;
-  box-shadow:
-    4px 4px 0 var(--midnight-sky),
-    0 10px 30px rgba(51, 51, 51, 0.1);
-  transition: all 0.3s var(--ease-spring);
-}
-
-.bg-showcase__card:hover {
-  transform: translateY(-4px) rotate(-1deg);
-  box-shadow:
-    6px 8px 0 var(--midnight-sky),
-    0 15px 40px rgba(51, 51, 51, 0.15);
-}
-
-.bg-showcase__card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 12px;
-}
-
-.bg-showcase__label {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--fog);
-}
-
-.bg-showcase__number {
-  font-family: var(--font-display);
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--misty-morning);
-}
-
-.bg-showcase__title {
-  font-family: var(--font-display);
-  font-size: 28px;
-  font-weight: 700;
-  color: var(--midnight-sky);
-  margin: 0 0 6px 0;
-  line-height: 1.1;
-}
-
-.bg-showcase__subtitle {
-  font-family: 'Oooh Baby', cursive;
-  font-size: 16px;
-  color: var(--coconut-shell);
-  margin: 0;
-}
-
-.bg-showcase__divider {
-  height: 2px;
-  background: repeating-linear-gradient(
-    90deg,
-    var(--midnight-sky) 0px,
-    var(--midnight-sky) 4px,
-    transparent 4px,
-    transparent 8px
-  );
-  margin: 16px 0;
-}
-
-/* Color Palette Swatches */
-.bg-showcase__palette {
-  display: flex;
-  gap: 12px;
-}
-
-.palette-swatch {
-  flex: 1;
-  text-align: center;
-}
-
-.swatch-color {
-  width: 100%;
-  height: 32px;
-  border-radius: 4px;
-  margin-bottom: 6px;
-  border: 2px solid var(--midnight-sky);
-  transition: transform 0.2s var(--ease-spring);
-}
-
-.palette-swatch:hover .swatch-color {
-  transform: scale(1.05);
-}
-
-.palette-swatch--foam .swatch-color {
-  background: #FFFFFF;
-}
-
-.palette-swatch--sand .swatch-color {
-  background: #F0E8DC;
-}
-
-.palette-swatch--shell .swatch-color {
-  background: var(--coconut-shell);
-}
-
-.swatch-name {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--stone);
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-blend-mode: soft-light;
+  background-size: 200px;
+  opacity: 0.25;
+  mix-blend-mode: multiply;
 }
 
 /* ============================================
@@ -646,73 +128,10 @@
    ============================================ */
 
 @media (max-width: 768px) {
-  .wave-canvas {
-    inset: 16px;
-  }
-
-  .bg-showcase__info {
-    bottom: 40px;
-    right: 32px;
-    left: 32px;
-  }
-
-  .bg-showcase__card {
-    min-width: auto;
-    width: 100%;
-  }
-
-  .wave-stamp {
-    top: 30px;
-    right: 20px;
-  }
-
-  .wave-washi--top {
-    top: 10px;
-    left: 15px;
-    width: 80px;
-    height: 20px;
-  }
-
-  .wave-washi--bottom {
-    bottom: 100px;
-    right: 20px;
-    width: 80px;
-    height: 20px;
-  }
-
-  .wave-annotation--top {
-    top: 25%;
-    left: 40%;
-  }
-
-  .annotation-text {
-    font-size: 14px;
-  }
-
-  .lace-piece {
-    display: none;
-  }
-}
-
-@media (max-width: 480px) {
-  .wave-canvas {
-    inset: 12px;
-  }
-
-  .bg-showcase__card {
-    padding: 16px;
-  }
-
-  .bg-showcase__title {
-    font-size: 22px;
-  }
-
-  .wave-stamp {
-    display: none;
-  }
-
-  .wave-annotation {
-    display: none;
+  .wave-ribbons {
+    /* Adjust viewBox handling for mobile */
+    width: 150%;
+    left: -25%;
   }
 }
 
@@ -721,20 +140,20 @@
    ============================================ */
 
 @media (prefers-reduced-motion: reduce) {
-  .bg-showcase,
-  .wave-stamp,
-  .bg-showcase__info,
-  .wave-annotation,
-  .grain,
-  .lace-piece,
-  .bubble-hole,
-  .annotation-arrow {
+  .bg-showcase {
+    transition: none;
+  }
+
+  .ribbon-layer {
+    animation: none;
+    opacity: 1;
+  }
+
+  .ribbon {
     animation: none !important;
-    transition: none !important;
   }
 
   .bg-showcase--loaded {
     opacity: 1;
-    transform: none;
   }
 }

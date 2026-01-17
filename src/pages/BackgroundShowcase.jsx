@@ -13,209 +13,191 @@ export default function BackgroundShowcase() {
     <>
       <SEO
         title="Ocean Wave | Islander Studio"
-        description="Beach wave background design in scrapbook style"
+        description="Flowing wave background design"
       />
 
       <div className={`bg-showcase ${isLoaded ? 'bg-showcase--loaded' : ''}`}>
-        {/* Main canvas - the scrapbook page */}
-        <div className="wave-canvas">
+        {/* Flowing wave ribbons background */}
+        <svg
+          className="wave-ribbons"
+          viewBox="0 0 1200 900"
+          preserveAspectRatio="xMidYMid slice"
+        >
+          <defs>
+            {/* Soft texture filter */}
+            <filter id="softTexture" x="-20%" y="-20%" width="140%" height="140%">
+              <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="3" result="noise"/>
+              <feDisplacementMap in="SourceGraphic" in2="noise" scale="8" xChannelSelector="R" yChannelSelector="G"/>
+            </filter>
 
-          {/* Paper texture base layer */}
-          <div className="wave-canvas__paper" />
+            {/* Gradient for depth */}
+            <linearGradient id="ribbonBlue1" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#9BB8C9"/>
+              <stop offset="50%" stopColor="#A8C4D4"/>
+              <stop offset="100%" stopColor="#B5CFE0"/>
+            </linearGradient>
 
-          {/* Sand area - right side with torn paper edge */}
-          <div className="wave-sand">
-            <div className="wave-sand__texture" />
-            {/* Sand grain dots */}
-            <div className="wave-sand__grains">
-              {[...Array(40)].map((_, i) => (
-                <span
-                  key={i}
-                  className="grain"
-                  style={{
-                    left: `${Math.random() * 100}%`,
-                    top: `${Math.random() * 100}%`,
-                    width: `${Math.random() * 4 + 2}px`,
-                    height: `${Math.random() * 4 + 2}px`,
-                    opacity: Math.random() * 0.4 + 0.1,
-                    animationDelay: `${Math.random() * 3}s`
-                  }}
-                />
-              ))}
-            </div>
-          </div>
+            <linearGradient id="ribbonBlue2" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#7A9DB5"/>
+              <stop offset="50%" stopColor="#8BAABB"/>
+              <stop offset="100%" stopColor="#9BB8C9"/>
+            </linearGradient>
 
-          {/* Foam/Wave area - left side */}
-          <div className="wave-foam">
-            {/* Layered torn paper edges for organic wave line */}
-            <svg className="wave-foam__edge" viewBox="0 0 100 800" preserveAspectRatio="none">
-              <defs>
-                <filter id="paper-rough">
-                  <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="5" result="noise"/>
-                  <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" xChannelSelector="R" yChannelSelector="G"/>
-                </filter>
-                <filter id="paper-shadow">
-                  <feDropShadow dx="2" dy="0" stdDeviation="2" floodOpacity="0.08" floodColor="#A78A6A"/>
-                </filter>
-              </defs>
+            <linearGradient id="ribbonBlue3" x1="0%" y1="100%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#B5CFE0"/>
+              <stop offset="50%" stopColor="#C5DAEB"/>
+              <stop offset="100%" stopColor="#D1E3F0"/>
+            </linearGradient>
 
-              {/* Main torn edge */}
-              <path
-                d="M0,0 L55,0
-                   C58,20 65,35 60,60
-                   C54,90 68,120 62,150
-                   C55,185 70,210 63,245
-                   C56,280 72,310 65,345
-                   C58,380 73,415 66,450
-                   C59,485 74,520 67,555
-                   C60,590 75,625 68,660
-                   C61,695 76,730 69,765
-                   L65,800 L0,800 Z"
-                fill="#FEFDFB"
-                filter="url(#paper-shadow)"
-                className="foam-paper"
-              />
+            <linearGradient id="ribbonCream1" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#F5EEE5"/>
+              <stop offset="50%" stopColor="#EDE4D8"/>
+              <stop offset="100%" stopColor="#E8DDD0"/>
+            </linearGradient>
 
-              {/* Secondary torn layer - slightly offset */}
-              <path
-                d="M0,0 L50,0
-                   C54,25 60,45 55,75
-                   C49,110 62,140 56,175
-                   C50,210 63,245 57,280
-                   C51,315 64,350 58,385
-                   C52,420 65,455 59,490
-                   C53,525 66,560 60,595
-                   C54,630 67,665 61,700
-                   C55,735 68,770 62,800
-                   L0,800 Z"
-                fill="#FFFFFF"
-                className="foam-paper-inner"
-              />
-            </svg>
+            <linearGradient id="ribbonCream2" x1="100%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="#FAF6F0"/>
+              <stop offset="50%" stopColor="#F5EEE5"/>
+              <stop offset="100%" stopColor="#EDE4D8"/>
+            </linearGradient>
+          </defs>
 
-            {/* Lace doily overlay for foam texture */}
-            <div className="wave-foam__lace">
-              {[...Array(12)].map((_, i) => (
-                <div
-                  key={i}
-                  className="lace-piece"
-                  style={{
-                    top: `${i * 8 + Math.random() * 4}%`,
-                    left: `${Math.random() * 25 + 5}%`,
-                    width: `${Math.random() * 60 + 40}px`,
-                    height: `${Math.random() * 30 + 20}px`,
-                    transform: `rotate(${Math.random() * 20 - 10}deg)`,
-                    animationDelay: `${i * 0.2}s`
-                  }}
-                />
-              ))}
-            </div>
+          {/* Base cream background */}
+          <rect x="0" y="0" width="1200" height="900" fill="#F7F3EC"/>
 
-            {/* Foam bubbles as paper punch holes */}
-            <div className="wave-foam__bubbles">
-              {[...Array(35)].map((_, i) => (
-                <span
-                  key={i}
-                  className="bubble-hole"
-                  style={{
-                    left: `${Math.random() * 35 + 5}%`,
-                    top: `${Math.random() * 95}%`,
-                    width: `${Math.random() * 12 + 6}px`,
-                    height: `${Math.random() * 12 + 6}px`,
-                    animationDelay: `${Math.random() * 4}s`
-                  }}
-                />
-              ))}
-            </div>
-          </div>
+          {/* Layer 1 - Back flowing ribbons */}
+          <g className="ribbon-layer ribbon-layer--1">
+            {/* Large cream ribbon flowing from top-left */}
+            <path
+              d="M-100,0
+                 C200,50 300,200 250,350
+                 C200,500 350,550 400,700
+                 C450,850 300,900 200,950
+                 L-100,950 Z"
+              fill="url(#ribbonCream1)"
+              className="ribbon ribbon--cream"
+            />
 
-          {/* Washi tape decorations */}
-          <div className="wave-washi wave-washi--top">
-            <span className="washi-pattern" />
-          </div>
-          <div className="wave-washi wave-washi--bottom">
-            <span className="washi-pattern" />
-          </div>
+            {/* Blue ribbon from top */}
+            <path
+              d="M100,0
+                 C350,80 450,150 400,300
+                 C350,450 500,500 550,650
+                 C600,800 450,900 350,950
+                 L100,950 L100,0 Z"
+              fill="url(#ribbonBlue3)"
+              className="ribbon ribbon--blue-light"
+            />
+          </g>
 
-          {/* Corner stamp decoration */}
-          <div className="wave-stamp">
-            <div className="wave-stamp__inner">
-              <div className="wave-stamp__content">
-                <span className="wave-stamp__icon">🌊</span>
-                <span className="wave-stamp__text">OCEAN</span>
-                <span className="wave-stamp__subtext">COLLECTION</span>
-              </div>
-              <div className="wave-stamp__footer">
-                <span>2024</span>
-                <span>№ 001</span>
-              </div>
-            </div>
-          </div>
+          {/* Layer 2 - Mid flowing ribbons */}
+          <g className="ribbon-layer ribbon-layer--2">
+            {/* Sweeping blue ribbon */}
+            <path
+              d="M-50,200
+                 C150,180 300,250 350,400
+                 C400,550 300,650 400,800
+                 C500,950 350,1000 200,1000
+                 L-50,1000 Z"
+              fill="url(#ribbonBlue2)"
+              className="ribbon ribbon--blue-mid"
+            />
 
-          {/* Handwritten annotation */}
-          <div className="wave-annotation wave-annotation--top">
-            <span className="annotation-text">where foam meets sand</span>
-            <span className="annotation-arrow">↙</span>
-          </div>
+            {/* Cream accent ribbon */}
+            <path
+              d="M250,0
+                 C500,100 550,200 500,350
+                 C450,500 600,600 650,750
+                 C700,900 550,950 450,950
+                 L300,950 C350,800 250,700 300,550
+                 C350,400 200,300 250,150 Z"
+              fill="url(#ribbonCream2)"
+              className="ribbon ribbon--cream-accent"
+            />
+          </g>
 
-          {/* Photo corner mounts */}
-          <div className="photo-corner photo-corner--tl" />
-          <div className="photo-corner photo-corner--tr" />
-          <div className="photo-corner photo-corner--bl" />
-          <div className="photo-corner photo-corner--br" />
+          {/* Layer 3 - Front flowing ribbons */}
+          <g className="ribbon-layer ribbon-layer--3">
+            {/* Bold blue flowing ribbon from right */}
+            <path
+              d="M1300,100
+                 C1100,150 900,100 800,250
+                 C700,400 850,500 800,650
+                 C750,800 900,850 1000,900
+                 L1300,900 Z"
+              fill="url(#ribbonBlue1)"
+              className="ribbon ribbon--blue-right"
+            />
 
-          {/* Scattered foam droplets on sand */}
-          <div className="wave-droplets">
-            {[...Array(20)].map((_, i) => (
-              <span
-                key={i}
-                className="droplet"
-                style={{
-                  right: `${Math.random() * 35 + 5}%`,
-                  top: `${Math.random() * 90 + 5}%`,
-                  width: `${Math.random() * 8 + 3}px`,
-                  height: `${Math.random() * 8 + 3}px`,
-                  opacity: Math.random() * 0.6 + 0.2
-                }}
-              />
-            ))}
-          </div>
+            {/* Light blue ribbon wrapping */}
+            <path
+              d="M1300,300
+                 C1050,280 950,350 900,500
+                 C850,650 1000,700 950,850
+                 L1300,850 Z"
+              fill="url(#ribbonBlue3)"
+              className="ribbon ribbon--blue-wrap"
+            />
 
-          {/* Perforated border frame */}
-          <div className="wave-frame">
-            <div className="wave-frame__edge wave-frame__edge--top" />
-            <div className="wave-frame__edge wave-frame__edge--bottom" />
-            <div className="wave-frame__edge wave-frame__edge--left" />
-            <div className="wave-frame__edge wave-frame__edge--right" />
-          </div>
-        </div>
+            {/* Cream ribbon accent from bottom right */}
+            <path
+              d="M1300,500
+                 C1100,480 1000,550 1050,700
+                 C1100,850 950,900 1000,950
+                 L1300,950 Z"
+              fill="url(#ribbonCream1)"
+              className="ribbon ribbon--cream-bottom"
+            />
+          </g>
 
-        {/* Info card overlay */}
-        <div className="bg-showcase__info">
-          <div className="bg-showcase__card">
-            <div className="bg-showcase__card-header">
-              <span className="bg-showcase__label">Background</span>
-              <span className="bg-showcase__number">№ 001</span>
-            </div>
-            <h1 className="bg-showcase__title">Shoreline</h1>
-            <p className="bg-showcase__subtitle">Where the ocean whispers to the sand</p>
-            <div className="bg-showcase__divider" />
-            <div className="bg-showcase__palette">
-              <div className="palette-swatch palette-swatch--foam">
-                <div className="swatch-color" />
-                <span className="swatch-name">Foam</span>
-              </div>
-              <div className="palette-swatch palette-swatch--sand">
-                <div className="swatch-color" />
-                <span className="swatch-name">Sand</span>
-              </div>
-              <div className="palette-swatch palette-swatch--shell">
-                <div className="swatch-color" />
-                <span className="swatch-name">Shell</span>
-              </div>
-            </div>
-          </div>
-        </div>
+          {/* Layer 4 - Foreground accent ribbons */}
+          <g className="ribbon-layer ribbon-layer--4">
+            {/* Thin blue accent ribbon */}
+            <path
+              d="M0,400
+                 C200,380 350,450 400,550
+                 C450,650 350,750 450,850
+                 C550,950 400,1000 300,1000
+                 L0,1000 Z"
+              fill="#8BAEC4"
+              opacity="0.7"
+              className="ribbon ribbon--accent"
+            />
+
+            {/* Top right blue ribbon */}
+            <path
+              d="M800,0
+                 C900,50 1000,30 1100,100
+                 C1200,170 1100,250 1200,350
+                 L1300,350 L1300,0 Z"
+              fill="url(#ribbonBlue2)"
+              className="ribbon ribbon--top-right"
+            />
+
+            {/* Bottom left cream flow */}
+            <path
+              d="M0,600
+                 C150,580 250,650 200,750
+                 C150,850 250,900 200,1000
+                 L0,1000 Z"
+              fill="#EDE4D8"
+              opacity="0.8"
+              className="ribbon ribbon--bottom-left"
+            />
+          </g>
+
+          {/* Subtle texture overlay */}
+          <rect
+            x="0" y="0"
+            width="1200" height="900"
+            fill="url(#noisePattern)"
+            opacity="0.03"
+            style={{ mixBlendMode: 'multiply' }}
+          />
+        </svg>
+
+        {/* Paper texture overlay */}
+        <div className="wave-texture" />
       </div>
     </>
   )
