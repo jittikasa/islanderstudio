@@ -48,6 +48,35 @@ export default function PostManager() {
         'Content-Type': 'application/json'
       }
 
+      // Transform snake_case to camelCase for API
+      const apiData = {
+        title: postData.title,
+        slug: postData.slug,
+        excerpt: postData.excerpt,
+        body: postData.body,
+        authorId: postData.author_id,
+        categories: postData.category_ids,
+        tags: postData.tag_ids,
+        relatedApps: postData.app_ids,
+        mainImageUrl: postData.main_image_url,
+        mainImageAlt: postData.main_image_alt,
+        featured: postData.featured,
+        contentStatus: postData.content_status,
+        publishedAt: postData.published_at,
+        seo: {
+          metaTitle: postData.seo_meta_title,
+          metaDescription: postData.seo_meta_description,
+          focusKeyword: postData.seo_focus_keyword,
+          keywords: postData.seo_additional_keywords,
+          canonicalUrl: postData.seo_canonical_url,
+          ogTitle: postData.seo_og_title,
+          ogDescription: postData.seo_og_description,
+          ogImageUrl: postData.seo_og_image_url,
+          ogType: postData.seo_og_type,
+          noIndex: postData.seo_hide_from_search,
+        }
+      }
+
       const url = editingPost
         ? `${API_URL}/api/posts/${editingPost.id}`
         : `${API_URL}/api/posts`
@@ -57,7 +86,7 @@ export default function PostManager() {
       const response = await fetch(url, {
         method,
         headers,
-        body: JSON.stringify(postData)
+        body: JSON.stringify(apiData)
       })
 
       if (!response.ok) {
