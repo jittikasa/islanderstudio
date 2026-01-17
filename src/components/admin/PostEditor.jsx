@@ -4,7 +4,25 @@ import StarterKit from '@tiptap/starter-kit'
 import Image from '@tiptap/extension-image'
 import Link from '@tiptap/extension-link'
 import Placeholder from '@tiptap/extension-placeholder'
+import { marked } from 'marked'
 import './PostEditor.css'
+
+// Helper to detect if content is markdown (has markdown syntax but no HTML tags)
+function isMarkdown(content) {
+  if (!content) return false
+  const hasMarkdownSyntax = /^#{1,6}\s|^\*\*|^\*\s|^-\s|^\d+\.\s|^\[.*\]\(.*\)|^>\s/m.test(content)
+  const hasHtmlTags = /<[a-z][\s\S]*>/i.test(content)
+  return hasMarkdownSyntax && !hasHtmlTags
+}
+
+// Convert markdown to HTML
+function markdownToHtml(content) {
+  if (!content) return ''
+  if (isMarkdown(content)) {
+    return marked.parse(content)
+  }
+  return content
+}
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8787'
 
@@ -341,7 +359,7 @@ export default function PostEditor({ post, onSave, onCancel }) {
         placeholder: 'Start writing your blog post...',
       }),
     ],
-    content: formData.body || '',
+    content: markdownToHtml(formData.body) || '',
     onUpdate: ({ editor }) => {
       setFormData(prev => ({ ...prev, body: editor.getHTML() }))
     },
@@ -353,7 +371,7 @@ export default function PostEditor({ post, onSave, onCancel }) {
 
   useEffect(() => {
     if (editor && post?.body) {
-      editor.commands.setContent(post.body)
+      editor.commands.setContent(markdownToHtml(post.body))
     }
   }, [editor, post])
 
@@ -441,7 +459,7 @@ export default function PostEditor({ post, onSave, onCancel }) {
 
   function switchToVisualMode() {
     if (editor && formData.body) {
-      editor.commands.setContent(formData.body)
+      editor.commands.setContent(markdownToHtml(formData.body))
     }
     setEditorMode('visual')
   }
