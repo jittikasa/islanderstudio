@@ -12,6 +12,7 @@ import Privacy from './pages/Privacy'
 import Terms from './pages/Terms'
 import Support from './pages/Support'
 import NotFound from './pages/NotFound'
+import BackgroundShowcase from './pages/BackgroundShowcase'
 import AdminLogin from './pages/AdminLogin'
 import AdminDashboard from './pages/AdminDashboard'
 import AdminPage from './pages/AdminPage'
@@ -47,6 +48,7 @@ function App() {
               <Route path="/privacy" element={<Privacy />} />
               <Route path="/terms" element={<Terms />} />
               <Route path="/support" element={<Support />} />
+              <Route path="/bg" element={<BackgroundShowcase />} />
 
               {/* Admin Routes */}
               <Route path="/admin" element={<AdminPage />} />

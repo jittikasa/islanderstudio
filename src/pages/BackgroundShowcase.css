@@ -1,0 +1,276 @@
+/* Background Showcase Page */
+.bg-showcase {
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 0.8s var(--ease-out);
+}
+
+.bg-showcase--loaded {
+  opacity: 1;
+}
+
+/* Wave Background Container */
+.wave-background {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.wave-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Foam body animation */
+.foam-body {
+  animation: foamWave 8s ease-in-out infinite;
+  transform-origin: right center;
+}
+
+.foam-inner {
+  animation: foamWave 8s ease-in-out infinite;
+  animation-delay: -0.5s;
+  transform-origin: right center;
+}
+
+.foam-edge {
+  animation: foamWave 8s ease-in-out infinite;
+  animation-delay: -0.2s;
+  transform-origin: right center;
+}
+
+@keyframes foamWave {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(1%);
+  }
+}
+
+/* Bubbles */
+.bubble {
+  fill: #FFFFFF;
+  animation: bubblePulse 3s ease-in-out infinite;
+}
+
+@keyframes bubblePulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.5;
+  }
+}
+
+/* Droplets on sand */
+.droplet {
+  fill: #FFFFFF;
+  filter: drop-shadow(0 0 1px rgba(167, 138, 106, 0.2));
+}
+
+/* Foam overlay particles */
+.foam-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.foam-particle {
+  position: absolute;
+  background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
+  border-radius: 50%;
+  animation: floatParticle 6s ease-in-out infinite;
+}
+
+.foam-particle--1 {
+  width: 60px;
+  height: 60px;
+  left: 15%;
+  top: 20%;
+  animation-delay: 0s;
+}
+
+.foam-particle--2 {
+  width: 40px;
+  height: 40px;
+  left: 25%;
+  top: 40%;
+  animation-delay: -1s;
+}
+
+.foam-particle--3 {
+  width: 50px;
+  height: 50px;
+  left: 10%;
+  top: 60%;
+  animation-delay: -2s;
+}
+
+.foam-particle--4 {
+  width: 35px;
+  height: 35px;
+  left: 20%;
+  top: 75%;
+  animation-delay: -3s;
+}
+
+.foam-particle--5 {
+  width: 45px;
+  height: 45px;
+  left: 30%;
+  top: 85%;
+  animation-delay: -4s;
+}
+
+@keyframes floatParticle {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.6;
+  }
+  25% {
+    transform: translate(5px, -10px) scale(1.05);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translate(10px, 0) scale(1);
+    opacity: 0.6;
+  }
+  75% {
+    transform: translate(5px, 10px) scale(0.95);
+    opacity: 0.7;
+  }
+}
+
+/* Content overlay */
+.bg-showcase__content {
+  position: relative;
+  z-index: 10;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: var(--space-8);
+  padding-top: 100px;
+}
+
+.bg-showcase__card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: 2px solid var(--cloud);
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
+  max-width: 360px;
+  box-shadow: var(--shadow-lg);
+}
+
+.bg-showcase__label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--coconut-shell);
+  display: block;
+  margin-bottom: var(--space-2);
+}
+
+.bg-showcase__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 700;
+  color: var(--midnight-sky);
+  margin-bottom: var(--space-4);
+  line-height: 1.1;
+}
+
+.bg-showcase__description {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--stone);
+  line-height: 1.6;
+  margin-bottom: var(--space-6);
+}
+
+/* Color swatches */
+.bg-showcase__colors {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.color-swatch {
+  flex: 1;
+  text-align: center;
+}
+
+.color-swatch::before {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 40px;
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-2);
+  border: 1px solid var(--cloud);
+}
+
+.color-swatch--foam::before {
+  background: #FFFFFF;
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.05);
+}
+
+.color-swatch--sand::before {
+  background: #F5EEE5;
+}
+
+.color-swatch--accent::before {
+  background: var(--coconut-shell);
+}
+
+.color-swatch span {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--midnight-sky);
+  margin-bottom: 2px;
+}
+
+.color-swatch code {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--fog);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .bg-showcase__content {
+    justify-content: center;
+    align-items: flex-end;
+    padding-bottom: var(--space-12);
+  }
+
+  .bg-showcase__card {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .foam-particle {
+    display: none;
+  }
+}
+
+/* Full screen variant (can be used as a background) */
+.wave-background--fullscreen {
+  position: fixed;
+  z-index: -1;
+}
