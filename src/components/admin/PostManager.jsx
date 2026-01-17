@@ -167,7 +167,12 @@ export default function PostManager() {
           </div>
         ) : (
           posts.map((post) => (
-            <div key={post.id} className="content-item">
+            <div key={post.id} className="content-item content-item--with-image">
+              {post.main_image_url && (
+                <div className="item-thumbnail">
+                  <img src={post.main_image_url} alt={post.main_image_alt || post.title} />
+                </div>
+              )}
               <div className="item-info">
                 <div className="item-header">
                   <h3>{post.title}</h3>

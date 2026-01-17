@@ -29,7 +29,7 @@ export default function AdminLogin({ error: propError }) {
       <div className="admin-login__container">
         <div className="admin-login__logo">
           <img
-            src="/Islander Studio — Branding Identity/Logos/Logo-light.png"
+            src="/branding/Logo-light.png"
             alt="Islander Studio"
             className="admin-login__logo-img"
           />

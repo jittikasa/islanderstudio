@@ -8,6 +8,169 @@ import './PostEditor.css'
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8787'
 
+// Featured Image Selection Modal
+function FeaturedImageModal({ isOpen, onClose, onSelect, currentUrl, apiUrl }) {
+  const [activeTab, setActiveTab] = useState('library')
+  const [media, setMedia] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [uploading, setUploading] = useState(false)
+  const [selectedImage, setSelectedImage] = useState(null)
+  const fileInputRef = useRef(null)
+
+  useEffect(() => {
+    if (isOpen) {
+      fetchMedia()
+    }
+  }, [isOpen])
+
+  async function fetchMedia() {
+    try {
+      const token = localStorage.getItem('admin_token')
+      const response = await fetch(`${apiUrl}/api/media`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      })
+      if (response.ok) {
+        const data = await response.json()
+        setMedia(data.media || [])
+      }
+    } catch (error) {
+      console.error('Error fetching media:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  async function handleFileUpload(e) {
+    const file = e.target.files?.[0]
+    if (!file) return
+
+    setUploading(true)
+    try {
+      const token = localStorage.getItem('admin_token')
+      const formData = new FormData()
+      formData.append('file', file)
+
+      const response = await fetch(`${apiUrl}/api/media`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
+        body: formData
+      })
+
+      if (response.ok) {
+        const data = await response.json()
+        setMedia([data.media, ...media])
+        setSelectedImage(data.media)
+        setActiveTab('library')
+      } else {
+        alert('Failed to upload image')
+      }
+    } catch (error) {
+      console.error('Upload error:', error)
+      alert('Failed to upload image')
+    } finally {
+      setUploading(false)
+      if (fileInputRef.current) fileInputRef.current.value = ''
+    }
+  }
+
+  function handleSelectImage() {
+    if (selectedImage) {
+      onSelect(selectedImage.url, selectedImage.alt_text || selectedImage.filename)
+      onClose()
+      setSelectedImage(null)
+    }
+  }
+
+  if (!isOpen) return null
+
+  return (
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="modal-content featured-image-modal" onClick={e => e.stopPropagation()}>
+        <h3>Select Featured Image</h3>
+
+        <div className="modal-tabs">
+          <button
+            type="button"
+            className={activeTab === 'library' ? 'active' : ''}
+            onClick={() => setActiveTab('library')}
+          >
+            Media Library
+          </button>
+          <button
+            type="button"
+            className={activeTab === 'upload' ? 'active' : ''}
+            onClick={() => setActiveTab('upload')}
+          >
+            Upload New
+          </button>
+        </div>
+
+        {activeTab === 'library' && (
+          <div className="media-grid-modal">
+            {loading ? (
+              <div className="loading-text">Loading media...</div>
+            ) : media.length === 0 ? (
+              <div className="empty-text">No images in library. Upload one!</div>
+            ) : (
+              media.map((image) => (
+                <div
+                  key={image.id}
+                  className={`media-grid-item ${selectedImage?.id === image.id ? 'selected' : ''}`}
+                  onClick={() => setSelectedImage(image)}
+                >
+                  <img src={image.url} alt={image.alt_text || image.filename} />
+                  {selectedImage?.id === image.id && (
+                    <div className="selected-check">✓</div>
+                  )}
+                </div>
+              ))
+            )}
+          </div>
+        )}
+
+        {activeTab === 'upload' && (
+          <div className="upload-tab">
+            <input
+              type="file"
+              ref={fileInputRef}
+              accept="image/*"
+              onChange={handleFileUpload}
+              style={{ display: 'none' }}
+            />
+            <button
+              type="button"
+              className="upload-area"
+              onClick={() => fileInputRef.current?.click()}
+              disabled={uploading}
+            >
+              {uploading ? 'Uploading...' : 'Click to select an image'}
+            </button>
+          </div>
+        )}
+
+        <div className="modal-actions">
+          <button type="button" className="btn-secondary" onClick={onClose}>
+            Cancel
+          </button>
+          <button
+            type="button"
+            className="btn-primary"
+            onClick={handleSelectImage}
+            disabled={!selectedImage}
+          >
+            Use Selected Image
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 // Image upload component
 function ImageUploadModal({ isOpen, onClose, onInsert, apiUrl }) {
   const [imageUrl, setImageUrl] = useState('')
@@ -163,6 +326,7 @@ export default function PostEditor({ post, onSave, onCancel }) {
   const [activeTab, setActiveTab] = useState('content')
   const [saving, setSaving] = useState(false)
   const [showImageModal, setShowImageModal] = useState(false)
+  const [showFeaturedImageModal, setShowFeaturedImageModal] = useState(false)
   const [editorMode, setEditorMode] = useState('visual') // 'visual' or 'code'
 
   // Initialize Tiptap editor
@@ -275,11 +439,19 @@ export default function PostEditor({ post, onSave, onCancel }) {
     setFormData(prev => ({ ...prev, body: value }))
   }
 
-  function _syncEditorFromCode() {
+  function switchToVisualMode() {
     if (editor && formData.body) {
       editor.commands.setContent(formData.body)
     }
     setEditorMode('visual')
+  }
+
+  function switchToCodeMode() {
+    // Sync current editor content to formData before switching
+    if (editor) {
+      setFormData(prev => ({ ...prev, body: editor.getHTML() }))
+    }
+    setEditorMode('code')
   }
 
   // Character count helpers
@@ -372,14 +544,14 @@ export default function PostEditor({ post, onSave, onCancel }) {
                 <button
                   type="button"
                   className={editorMode === 'visual' ? 'active' : ''}
-                  onClick={() => setEditorMode('visual')}
+                  onClick={switchToVisualMode}
                 >
                   Visual Editor
                 </button>
                 <button
                   type="button"
                   className={editorMode === 'code' ? 'active' : ''}
-                  onClick={() => setEditorMode('code')}
+                  onClick={switchToCodeMode}
                 >
                   HTML/Markdown
                 </button>
@@ -474,18 +646,45 @@ export default function PostEditor({ post, onSave, onCancel }) {
               apiUrl={API_URL}
             />
 
-            <div className="form-row">
-              <div className="form-group">
-                <label htmlFor="main_image_url">Featured Image URL</label>
+            <div className="form-group featured-image-section">
+              <label>Featured Image</label>
+              <div className="featured-image-content">
+                {formData.main_image_url ? (
+                  <div className="featured-image-preview">
+                    <img src={formData.main_image_url} alt={formData.main_image_alt || 'Featured image'} />
+                    <button
+                      type="button"
+                      className="remove-featured-image"
+                      onClick={() => setFormData({ ...formData, main_image_url: '', main_image_alt: '' })}
+                      title="Remove image"
+                    >
+                      ×
+                    </button>
+                  </div>
+                ) : (
+                  <div className="featured-image-placeholder">
+                    No image selected
+                  </div>
+                )}
+                <div className="featured-image-actions">
+                  <button
+                    type="button"
+                    className="btn-secondary"
+                    onClick={() => setShowFeaturedImageModal(true)}
+                  >
+                    {formData.main_image_url ? 'Change Image' : 'Select Image'}
+                  </button>
+                </div>
+              </div>
+              <div className="featured-image-url-input">
                 <input
                   type="url"
                   id="main_image_url"
                   value={formData.main_image_url}
                   onChange={(e) => setFormData({ ...formData, main_image_url: e.target.value })}
-                  placeholder="https://example.com/image.jpg"
+                  placeholder="Or paste image URL directly"
                 />
               </div>
-
               <div className="form-group">
                 <label htmlFor="main_image_alt">Image Alt Text</label>
                 <input
@@ -497,6 +696,14 @@ export default function PostEditor({ post, onSave, onCancel }) {
                 />
               </div>
             </div>
+
+            <FeaturedImageModal
+              isOpen={showFeaturedImageModal}
+              onClose={() => setShowFeaturedImageModal(false)}
+              onSelect={(url, alt) => setFormData({ ...formData, main_image_url: url, main_image_alt: alt })}
+              currentUrl={formData.main_image_url}
+              apiUrl={API_URL}
+            />
           </div>
         )}
 
