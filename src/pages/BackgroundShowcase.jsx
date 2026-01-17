@@ -17,245 +17,212 @@ export default function BackgroundShowcase() {
       />
 
       <div className={`bg-showcase ${isLoaded ? 'bg-showcase--loaded' : ''}`}>
-        {/* Flowing wave ribbons background */}
+        {/* Parallel flowing wave stripes */}
         <svg
-          className="wave-ribbons"
+          className="wave-stripes"
           viewBox="0 0 1440 900"
           preserveAspectRatio="xMidYMid slice"
         >
           <defs>
-            {/* Gradients for ribbon depth */}
-            <linearGradient id="blueDeep" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#7592AA"/>
-              <stop offset="100%" stopColor="#8BA5B8"/>
+            {/* Blue stripe gradients - varying intensity */}
+            <linearGradient id="blue1" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#8AADC4"/>
+              <stop offset="50%" stopColor="#7FA5BC"/>
+              <stop offset="100%" stopColor="#8AADC4"/>
             </linearGradient>
 
-            <linearGradient id="blueMid" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#9BB5C6"/>
-              <stop offset="100%" stopColor="#A8C2D2"/>
+            <linearGradient id="blue2" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#9BBACE"/>
+              <stop offset="50%" stopColor="#8FB0C6"/>
+              <stop offset="100%" stopColor="#9BBACE"/>
             </linearGradient>
 
-            <linearGradient id="blueLight" x1="0%" y1="100%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#B8CCD9"/>
-              <stop offset="100%" stopColor="#C8D9E5"/>
+            <linearGradient id="blue3" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#A8C5D6"/>
+              <stop offset="50%" stopColor="#9CBBCE"/>
+              <stop offset="100%" stopColor="#A8C5D6"/>
             </linearGradient>
 
-            <linearGradient id="bluePale" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#D0DFE9"/>
-              <stop offset="100%" stopColor="#DCE8F0"/>
+            <linearGradient id="blue4" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#7A9FB8"/>
+              <stop offset="50%" stopColor="#6E95AE"/>
+              <stop offset="100%" stopColor="#7A9FB8"/>
             </linearGradient>
 
-            <linearGradient id="cream" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#EDE5DA"/>
-              <stop offset="100%" stopColor="#E5DCD0"/>
+            {/* Cream stripe gradients */}
+            <linearGradient id="cream1" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#F5F0E8"/>
+              <stop offset="50%" stopColor="#EDE6DC"/>
+              <stop offset="100%" stopColor="#F5F0E8"/>
             </linearGradient>
 
-            <linearGradient id="creamLight" x1="100%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stopColor="#F5EEE5"/>
-              <stop offset="100%" stopColor="#EDE5DA"/>
+            <linearGradient id="cream2" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#EBE4D8"/>
+              <stop offset="50%" stopColor="#E3DACF"/>
+              <stop offset="100%" stopColor="#EBE4D8"/>
             </linearGradient>
+
+            <linearGradient id="cream3" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#F8F4EE"/>
+              <stop offset="50%" stopColor="#F0EAE0"/>
+              <stop offset="100%" stopColor="#F8F4EE"/>
+            </linearGradient>
+
+            {/* Soft edge filter for watercolor effect */}
+            <filter id="softEdge" x="-5%" y="-5%" width="110%" height="110%">
+              <feGaussianBlur in="SourceGraphic" stdDeviation="1"/>
+            </filter>
           </defs>
 
           {/* Base background */}
-          <rect x="0" y="0" width="1440" height="900" fill="#F0EBE3"/>
+          <rect x="0" y="0" width="1440" height="900" fill="#F8F5F0"/>
 
-          {/* ============================================
-              LAYER 1 - Deepest / Back ribbons
-              ============================================ */}
-          <g className="ribbon-layer ribbon-layer--1">
-            {/* Large sweeping cream ribbon - flows from top-left corner diagonally */}
+          {/* Flowing parallel stripes - all curve in same direction */}
+          <g className="stripe-group">
+
+            {/* Stripe 1 - Blue (leftmost) */}
             <path
-              d="M-200,-50
-                 C100,50 200,150 180,300
-                 C160,450 280,550 320,700
-                 C360,850 280,950 180,1000
-                 L-50,1000
-                 C50,900 100,800 80,650
-                 C60,500 -50,400 -80,250
-                 C-110,100 -100,0 -200,-50
+              className="stripe stripe--1"
+              d="M-200,-100
+                 Q100,100 150,350
+                 Q200,600 100,900
+                 L-50,900
+                 Q50,600 0,350
+                 Q-50,100 -200,-100
                  Z"
-              fill="url(#cream)"
-              className="ribbon"
+              fill="url(#blue2)"
             />
 
-            {/* Deep blue ribbon sweeping from upper left */}
+            {/* Stripe 2 - Cream */}
             <path
-              d="M50,-100
-                 C250,0 380,100 400,280
-                 C420,460 320,580 380,750
-                 C440,920 320,1000 200,1050
-                 L80,1050
-                 C180,950 280,850 240,700
-                 C200,550 280,420 260,280
-                 C240,140 150,50 50,-100
+              className="stripe stripe--2"
+              d="M-50,-100
+                 Q250,100 300,350
+                 Q350,600 250,900
+                 L100,900
+                 Q200,600 150,350
+                 Q100,100 -50,-100
                  Z"
-              fill="url(#blueLight)"
-              className="ribbon"
-            />
-          </g>
-
-          {/* ============================================
-              LAYER 2 - Mid-back ribbons
-              ============================================ */}
-          <g className="ribbon-layer ribbon-layer--2">
-            {/* Wide sweeping blue ribbon - S-curve from left edge */}
-            <path
-              d="M-100,150
-                 C150,120 300,200 350,380
-                 C400,560 280,680 350,850
-                 C420,1020 280,1100 150,1100
-                 L-100,1100
-                 C0,1000 100,900 60,750
-                 C20,600 120,480 80,350
-                 C40,220 -50,180 -100,150
-                 Z"
-              fill="url(#blueMid)"
-              className="ribbon"
+              fill="url(#cream1)"
             />
 
-            {/* Cream accent ribbon flowing through middle */}
+            {/* Stripe 3 - Blue */}
             <path
-              d="M200,-50
-                 C450,50 550,180 520,380
-                 C490,580 620,700 680,880
-                 C740,1060 600,1100 480,1100
-                 L350,1100
-                 C450,1000 560,880 520,720
-                 C480,560 380,460 400,300
-                 C420,140 320,50 200,-50
+              className="stripe stripe--3"
+              d="M100,-100
+                 Q400,100 450,350
+                 Q500,600 400,900
+                 L250,900
+                 Q350,600 300,350
+                 Q250,100 100,-100
                  Z"
-              fill="url(#creamLight)"
-              className="ribbon"
-            />
-          </g>
-
-          {/* ============================================
-              LAYER 3 - Middle ribbons (most prominent)
-              ============================================ */}
-          <g className="ribbon-layer ribbon-layer--3">
-            {/* Bold blue ribbon - main focal sweep from left */}
-            <path
-              d="M-80,380
-                 C180,340 380,420 450,580
-                 C520,740 400,860 500,1000
-                 L280,1000
-                 C200,880 300,780 250,640
-                 C200,500 50,440 -80,380
-                 Z"
-              fill="url(#blueDeep)"
-              className="ribbon ribbon--prominent"
+              fill="url(#blue1)"
             />
 
-            {/* Light blue ribbon from right side - graceful S-curve */}
+            {/* Stripe 4 - Cream */}
             <path
-              d="M1540,80
-                 C1300,120 1150,60 1020,180
-                 C890,300 980,450 920,620
-                 C860,790 1000,880 980,1000
-                 L1150,1000
-                 C1120,880 1020,780 1080,620
-                 C1140,460 1060,320 1180,200
-                 C1300,80 1420,120 1540,80
+              className="stripe stripe--4"
+              d="M250,-100
+                 Q550,100 620,350
+                 Q690,600 580,900
+                 L400,900
+                 Q510,600 450,350
+                 Q390,100 250,-100
                  Z"
-              fill="url(#blueLight)"
-              className="ribbon"
+              fill="url(#cream2)"
             />
 
-            {/* Mid blue ribbon from top right */}
+            {/* Stripe 5 - Blue (prominent middle) */}
             <path
-              d="M1200,-50
-                 C1050,50 950,20 850,140
-                 C750,260 850,400 780,560
-                 C710,720 850,820 800,950
-                 L950,950
-                 C980,840 880,740 940,600
-                 C1000,460 920,320 1020,200
-                 C1120,80 1280,100 1380,-50
-                 L1200,-50
+              className="stripe stripe--5"
+              d="M400,-100
+                 Q720,100 800,350
+                 Q880,600 760,900
+                 L580,900
+                 Q700,600 630,350
+                 Q560,100 400,-100
                  Z"
-              fill="url(#blueMid)"
-              className="ribbon"
-            />
-          </g>
-
-          {/* ============================================
-              LAYER 4 - Front ribbons
-              ============================================ */}
-          <g className="ribbon-layer ribbon-layer--4">
-            {/* Pale blue ribbon wrapping from right */}
-            <path
-              d="M1540,280
-                 C1320,260 1180,340 1120,480
-                 C1060,620 1160,720 1100,860
-                 C1040,1000 1180,1050 1300,1000
-                 L1540,1000
-                 L1540,850
-                 C1400,880 1280,820 1320,700
-                 C1360,580 1280,480 1340,380
-                 C1400,280 1500,300 1540,280
-                 Z"
-              fill="url(#bluePale)"
-              className="ribbon"
+              fill="url(#blue4)"
             />
 
-            {/* Small cream accent - bottom left */}
+            {/* Stripe 6 - Cream */}
             <path
-              d="M-50,650
-                 C100,620 200,700 180,820
-                 C160,940 80,1000 -50,1000
-                 L-50,650
+              className="stripe stripe--6"
+              d="M580,-100
+                 Q900,100 1000,350
+                 Q1100,600 960,900
+                 L760,900
+                 Q900,600 820,350
+                 Q740,100 580,-100
                  Z"
-              fill="url(#cream)"
-              opacity="0.8"
-              className="ribbon"
+              fill="url(#cream1)"
             />
 
-            {/* Deep blue accent - top right corner */}
+            {/* Stripe 7 - Blue */}
             <path
-              d="M1100,-50
-                 C1180,20 1280,0 1380,80
-                 C1480,160 1420,280 1500,380
-                 L1540,380
-                 L1540,-50
-                 L1100,-50
+              className="stripe stripe--7"
+              d="M760,-100
+                 Q1080,100 1180,350
+                 Q1280,600 1140,900
+                 L960,900
+                 Q1100,600 1010,350
+                 Q920,100 760,-100
                  Z"
-              fill="url(#blueDeep)"
-              opacity="0.6"
-              className="ribbon"
-            />
-          </g>
-
-          {/* ============================================
-              LAYER 5 - Foreground accent ribbons
-              ============================================ */}
-          <g className="ribbon-layer ribbon-layer--5">
-            {/* Thin flowing accent ribbon - adds movement */}
-            <path
-              d="M-50,500
-                 C150,480 280,540 320,650
-                 C360,760 260,850 320,950
-                 L200,950
-                 C160,870 220,790 200,700
-                 C180,610 80,560 -50,500
-                 Z"
-              fill="#8FAFC2"
-              opacity="0.5"
-              className="ribbon"
+              fill="url(#blue3)"
             />
 
-            {/* Light accent on right */}
+            {/* Stripe 8 - Cream */}
             <path
-              d="M1540,500
-                 C1380,520 1300,460 1250,560
-                 C1200,660 1280,740 1240,840
-                 C1200,940 1300,1000 1400,980
-                 L1540,950
-                 L1540,500
+              className="stripe stripe--8"
+              d="M960,-100
+                 Q1280,100 1380,350
+                 Q1480,600 1340,900
+                 L1140,900
+                 Q1280,600 1200,350
+                 Q1120,100 960,-100
                  Z"
-              fill="#C5D6E2"
-              opacity="0.6"
-              className="ribbon"
+              fill="url(#cream3)"
             />
+
+            {/* Stripe 9 - Blue */}
+            <path
+              className="stripe stripe--9"
+              d="M1140,-100
+                 Q1460,100 1540,350
+                 Q1620,600 1500,900
+                 L1340,900
+                 Q1460,600 1380,350
+                 Q1300,100 1140,-100
+                 Z"
+              fill="url(#blue2)"
+            />
+
+            {/* Stripe 10 - Cream (rightmost) */}
+            <path
+              className="stripe stripe--10"
+              d="M1340,-100
+                 Q1640,100 1700,350
+                 Q1760,600 1660,900
+                 L1500,900
+                 Q1600,600 1540,350
+                 Q1480,100 1340,-100
+                 Z"
+              fill="url(#cream2)"
+            />
+
+            {/* Stripe 11 - Blue edge */}
+            <path
+              className="stripe stripe--11"
+              d="M1500,-100
+                 L1700,-100
+                 L1700,900
+                 L1660,900
+                 Q1760,600 1700,350
+                 Q1640,100 1500,-100
+                 Z"
+              fill="url(#blue1)"
+            />
+
           </g>
         </svg>
 

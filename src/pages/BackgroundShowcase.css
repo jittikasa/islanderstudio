@@ -1,6 +1,6 @@
 /* ============================================
-   BACKGROUND SHOWCASE - Flowing Wave Ribbons
-   Elegant sweeping curves like silk in wind
+   BACKGROUND SHOWCASE - Parallel Wave Stripes
+   Flowing curved stripes like watercolor brushstrokes
    ============================================ */
 
 .bg-showcase {
@@ -8,9 +8,9 @@
   width: 100%;
   position: relative;
   overflow: hidden;
-  background: #F0EBE3;
+  background: #F8F5F0;
   opacity: 0;
-  transition: opacity 1.2s var(--ease-out);
+  transition: opacity 1s var(--ease-out);
 }
 
 .bg-showcase--loaded {
@@ -18,10 +18,10 @@
 }
 
 /* ============================================
-   FLOWING WAVE RIBBONS SVG
+   WAVE STRIPES SVG
    ============================================ */
 
-.wave-ribbons {
+.wave-stripes {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -29,22 +29,16 @@
   z-index: 1;
 }
 
-/* Ribbon layers with staggered reveal */
-.ribbon-layer {
+/* Stripe group animation */
+.stripe-group {
   opacity: 0;
-  animation: ribbonReveal 1.4s var(--ease-out) forwards;
+  animation: stripesReveal 1.5s var(--ease-out) 0.2s forwards;
 }
 
-.ribbon-layer--1 { animation-delay: 0s; }
-.ribbon-layer--2 { animation-delay: 0.15s; }
-.ribbon-layer--3 { animation-delay: 0.3s; }
-.ribbon-layer--4 { animation-delay: 0.45s; }
-.ribbon-layer--5 { animation-delay: 0.6s; }
-
-@keyframes ribbonReveal {
+@keyframes stripesReveal {
   from {
     opacity: 0;
-    transform: translateX(-20px);
+    transform: translateX(-30px);
   }
   to {
     opacity: 1;
@@ -52,79 +46,42 @@
   }
 }
 
-/* Individual ribbons - subtle breathing animation */
-.ribbon {
+/* Individual stripe styling */
+.stripe {
   transform-origin: center center;
 }
 
-/* Gentle floating movement for organic feel */
-.ribbon-layer--1 .ribbon {
-  animation: drift1 30s ease-in-out infinite;
+/* Staggered entrance for each stripe */
+.stripe--1 { animation: stripeIn 1.2s var(--ease-out) 0.1s backwards; }
+.stripe--2 { animation: stripeIn 1.2s var(--ease-out) 0.15s backwards; }
+.stripe--3 { animation: stripeIn 1.2s var(--ease-out) 0.2s backwards; }
+.stripe--4 { animation: stripeIn 1.2s var(--ease-out) 0.25s backwards; }
+.stripe--5 { animation: stripeIn 1.2s var(--ease-out) 0.3s backwards; }
+.stripe--6 { animation: stripeIn 1.2s var(--ease-out) 0.35s backwards; }
+.stripe--7 { animation: stripeIn 1.2s var(--ease-out) 0.4s backwards; }
+.stripe--8 { animation: stripeIn 1.2s var(--ease-out) 0.45s backwards; }
+.stripe--9 { animation: stripeIn 1.2s var(--ease-out) 0.5s backwards; }
+.stripe--10 { animation: stripeIn 1.2s var(--ease-out) 0.55s backwards; }
+.stripe--11 { animation: stripeIn 1.2s var(--ease-out) 0.6s backwards; }
+
+@keyframes stripeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.ribbon-layer--2 .ribbon {
-  animation: drift2 35s ease-in-out infinite;
-}
-
-.ribbon-layer--3 .ribbon {
-  animation: drift3 28s ease-in-out infinite;
-}
-
-.ribbon-layer--4 .ribbon {
-  animation: drift4 32s ease-in-out infinite;
-}
-
-.ribbon-layer--5 .ribbon {
-  animation: drift5 25s ease-in-out infinite;
-}
-
-/* Prominent ribbon gets special treatment */
-.ribbon--prominent {
-  animation: driftProminent 20s ease-in-out infinite !important;
-}
-
-@keyframes drift1 {
-  0%, 100% { transform: translate(0, 0); }
-  25% { transform: translate(8px, -6px); }
-  50% { transform: translate(-4px, 8px); }
-  75% { transform: translate(6px, -4px); }
-}
-
-@keyframes drift2 {
-  0%, 100% { transform: translate(0, 0); }
-  33% { transform: translate(-6px, 5px); }
-  66% { transform: translate(5px, -7px); }
-}
-
-@keyframes drift3 {
-  0%, 100% { transform: translate(0, 0); }
-  20% { transform: translate(5px, 6px); }
-  40% { transform: translate(-7px, -3px); }
-  60% { transform: translate(4px, -5px); }
-  80% { transform: translate(-3px, 7px); }
-}
-
-@keyframes drift4 {
-  0%, 100% { transform: translate(0, 0); }
-  50% { transform: translate(-5px, 5px); }
-}
-
-@keyframes drift5 {
-  0%, 100% { transform: translate(0, 0); }
-  25% { transform: translate(4px, -4px); }
-  50% { transform: translate(-6px, 3px); }
-  75% { transform: translate(3px, 5px); }
-}
-
-@keyframes driftProminent {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  25% { transform: translate(6px, -8px) scale(1.01); }
-  50% { transform: translate(-4px, 6px) scale(0.99); }
-  75% { transform: translate(8px, -4px) scale(1.01); }
+/* Subtle floating animation for organic feel */
+.stripe-group:hover .stripe {
+  transition: transform 0.6s var(--ease-out);
 }
 
 /* ============================================
-   PAPER TEXTURE OVERLAY
+   PAPER/WATERCOLOR TEXTURE OVERLAY
    ============================================ */
 
 .wave-texture {
@@ -132,34 +89,45 @@
   inset: 0;
   z-index: 2;
   pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-  background-size: 256px;
-  opacity: 0.15;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 512px;
+  opacity: 0.12;
   mix-blend-mode: multiply;
+}
+
+/* Additional subtle grain for watercolor effect */
+.wave-texture::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)'/%3E%3C/svg%3E");
+  background-size: 150px;
+  opacity: 0.08;
+  mix-blend-mode: overlay;
 }
 
 /* ============================================
    RESPONSIVE
    ============================================ */
 
-@media (max-width: 1024px) {
-  .wave-ribbons {
-    width: 130%;
-    left: -15%;
+@media (max-width: 1200px) {
+  .wave-stripes {
+    width: 120%;
+    left: -10%;
   }
 }
 
 @media (max-width: 768px) {
-  .wave-ribbons {
-    width: 180%;
-    left: -40%;
+  .wave-stripes {
+    width: 160%;
+    left: -30%;
   }
 }
 
 @media (max-width: 480px) {
-  .wave-ribbons {
-    width: 220%;
-    left: -60%;
+  .wave-stripes {
+    width: 200%;
+    left: -50%;
   }
 }
 
@@ -173,13 +141,12 @@
     opacity: 1;
   }
 
-  .ribbon-layer {
+  .stripe-group {
     animation: none;
     opacity: 1;
   }
 
-  .ribbon,
-  .ribbon--prominent {
+  .stripe {
     animation: none !important;
   }
 }
