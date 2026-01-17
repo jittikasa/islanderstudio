@@ -20,180 +20,243 @@ export default function BackgroundShowcase() {
         {/* Flowing wave ribbons background */}
         <svg
           className="wave-ribbons"
-          viewBox="0 0 1200 900"
+          viewBox="0 0 1440 900"
           preserveAspectRatio="xMidYMid slice"
         >
           <defs>
-            {/* Soft texture filter */}
-            <filter id="softTexture" x="-20%" y="-20%" width="140%" height="140%">
-              <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="3" result="noise"/>
-              <feDisplacementMap in="SourceGraphic" in2="noise" scale="8" xChannelSelector="R" yChannelSelector="G"/>
-            </filter>
-
-            {/* Gradient for depth */}
-            <linearGradient id="ribbonBlue1" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#9BB8C9"/>
-              <stop offset="50%" stopColor="#A8C4D4"/>
-              <stop offset="100%" stopColor="#B5CFE0"/>
+            {/* Gradients for ribbon depth */}
+            <linearGradient id="blueDeep" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#7592AA"/>
+              <stop offset="100%" stopColor="#8BA5B8"/>
             </linearGradient>
 
-            <linearGradient id="ribbonBlue2" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#7A9DB5"/>
-              <stop offset="50%" stopColor="#8BAABB"/>
-              <stop offset="100%" stopColor="#9BB8C9"/>
+            <linearGradient id="blueMid" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#9BB5C6"/>
+              <stop offset="100%" stopColor="#A8C2D2"/>
             </linearGradient>
 
-            <linearGradient id="ribbonBlue3" x1="0%" y1="100%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#B5CFE0"/>
-              <stop offset="50%" stopColor="#C5DAEB"/>
-              <stop offset="100%" stopColor="#D1E3F0"/>
+            <linearGradient id="blueLight" x1="0%" y1="100%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#B8CCD9"/>
+              <stop offset="100%" stopColor="#C8D9E5"/>
             </linearGradient>
 
-            <linearGradient id="ribbonCream1" x1="0%" y1="0%" x2="100%" y2="100%">
+            <linearGradient id="bluePale" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#D0DFE9"/>
+              <stop offset="100%" stopColor="#DCE8F0"/>
+            </linearGradient>
+
+            <linearGradient id="cream" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#EDE5DA"/>
+              <stop offset="100%" stopColor="#E5DCD0"/>
+            </linearGradient>
+
+            <linearGradient id="creamLight" x1="100%" y1="0%" x2="0%" y2="100%">
               <stop offset="0%" stopColor="#F5EEE5"/>
-              <stop offset="50%" stopColor="#EDE4D8"/>
-              <stop offset="100%" stopColor="#E8DDD0"/>
-            </linearGradient>
-
-            <linearGradient id="ribbonCream2" x1="100%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stopColor="#FAF6F0"/>
-              <stop offset="50%" stopColor="#F5EEE5"/>
-              <stop offset="100%" stopColor="#EDE4D8"/>
+              <stop offset="100%" stopColor="#EDE5DA"/>
             </linearGradient>
           </defs>
 
-          {/* Base cream background */}
-          <rect x="0" y="0" width="1200" height="900" fill="#F7F3EC"/>
+          {/* Base background */}
+          <rect x="0" y="0" width="1440" height="900" fill="#F0EBE3"/>
 
-          {/* Layer 1 - Back flowing ribbons */}
+          {/* ============================================
+              LAYER 1 - Deepest / Back ribbons
+              ============================================ */}
           <g className="ribbon-layer ribbon-layer--1">
-            {/* Large cream ribbon flowing from top-left */}
+            {/* Large sweeping cream ribbon - flows from top-left corner diagonally */}
             <path
-              d="M-100,0
-                 C200,50 300,200 250,350
-                 C200,500 350,550 400,700
-                 C450,850 300,900 200,950
-                 L-100,950 Z"
-              fill="url(#ribbonCream1)"
-              className="ribbon ribbon--cream"
+              d="M-200,-50
+                 C100,50 200,150 180,300
+                 C160,450 280,550 320,700
+                 C360,850 280,950 180,1000
+                 L-50,1000
+                 C50,900 100,800 80,650
+                 C60,500 -50,400 -80,250
+                 C-110,100 -100,0 -200,-50
+                 Z"
+              fill="url(#cream)"
+              className="ribbon"
             />
 
-            {/* Blue ribbon from top */}
+            {/* Deep blue ribbon sweeping from upper left */}
             <path
-              d="M100,0
-                 C350,80 450,150 400,300
-                 C350,450 500,500 550,650
-                 C600,800 450,900 350,950
-                 L100,950 L100,0 Z"
-              fill="url(#ribbonBlue3)"
-              className="ribbon ribbon--blue-light"
+              d="M50,-100
+                 C250,0 380,100 400,280
+                 C420,460 320,580 380,750
+                 C440,920 320,1000 200,1050
+                 L80,1050
+                 C180,950 280,850 240,700
+                 C200,550 280,420 260,280
+                 C240,140 150,50 50,-100
+                 Z"
+              fill="url(#blueLight)"
+              className="ribbon"
             />
           </g>
 
-          {/* Layer 2 - Mid flowing ribbons */}
+          {/* ============================================
+              LAYER 2 - Mid-back ribbons
+              ============================================ */}
           <g className="ribbon-layer ribbon-layer--2">
-            {/* Sweeping blue ribbon */}
+            {/* Wide sweeping blue ribbon - S-curve from left edge */}
             <path
-              d="M-50,200
-                 C150,180 300,250 350,400
-                 C400,550 300,650 400,800
-                 C500,950 350,1000 200,1000
-                 L-50,1000 Z"
-              fill="url(#ribbonBlue2)"
-              className="ribbon ribbon--blue-mid"
+              d="M-100,150
+                 C150,120 300,200 350,380
+                 C400,560 280,680 350,850
+                 C420,1020 280,1100 150,1100
+                 L-100,1100
+                 C0,1000 100,900 60,750
+                 C20,600 120,480 80,350
+                 C40,220 -50,180 -100,150
+                 Z"
+              fill="url(#blueMid)"
+              className="ribbon"
             />
 
-            {/* Cream accent ribbon */}
+            {/* Cream accent ribbon flowing through middle */}
             <path
-              d="M250,0
-                 C500,100 550,200 500,350
-                 C450,500 600,600 650,750
-                 C700,900 550,950 450,950
-                 L300,950 C350,800 250,700 300,550
-                 C350,400 200,300 250,150 Z"
-              fill="url(#ribbonCream2)"
-              className="ribbon ribbon--cream-accent"
+              d="M200,-50
+                 C450,50 550,180 520,380
+                 C490,580 620,700 680,880
+                 C740,1060 600,1100 480,1100
+                 L350,1100
+                 C450,1000 560,880 520,720
+                 C480,560 380,460 400,300
+                 C420,140 320,50 200,-50
+                 Z"
+              fill="url(#creamLight)"
+              className="ribbon"
             />
           </g>
 
-          {/* Layer 3 - Front flowing ribbons */}
+          {/* ============================================
+              LAYER 3 - Middle ribbons (most prominent)
+              ============================================ */}
           <g className="ribbon-layer ribbon-layer--3">
-            {/* Bold blue flowing ribbon from right */}
+            {/* Bold blue ribbon - main focal sweep from left */}
             <path
-              d="M1300,100
-                 C1100,150 900,100 800,250
-                 C700,400 850,500 800,650
-                 C750,800 900,850 1000,900
-                 L1300,900 Z"
-              fill="url(#ribbonBlue1)"
-              className="ribbon ribbon--blue-right"
+              d="M-80,380
+                 C180,340 380,420 450,580
+                 C520,740 400,860 500,1000
+                 L280,1000
+                 C200,880 300,780 250,640
+                 C200,500 50,440 -80,380
+                 Z"
+              fill="url(#blueDeep)"
+              className="ribbon ribbon--prominent"
             />
 
-            {/* Light blue ribbon wrapping */}
+            {/* Light blue ribbon from right side - graceful S-curve */}
             <path
-              d="M1300,300
-                 C1050,280 950,350 900,500
-                 C850,650 1000,700 950,850
-                 L1300,850 Z"
-              fill="url(#ribbonBlue3)"
-              className="ribbon ribbon--blue-wrap"
+              d="M1540,80
+                 C1300,120 1150,60 1020,180
+                 C890,300 980,450 920,620
+                 C860,790 1000,880 980,1000
+                 L1150,1000
+                 C1120,880 1020,780 1080,620
+                 C1140,460 1060,320 1180,200
+                 C1300,80 1420,120 1540,80
+                 Z"
+              fill="url(#blueLight)"
+              className="ribbon"
             />
 
-            {/* Cream ribbon accent from bottom right */}
+            {/* Mid blue ribbon from top right */}
             <path
-              d="M1300,500
-                 C1100,480 1000,550 1050,700
-                 C1100,850 950,900 1000,950
-                 L1300,950 Z"
-              fill="url(#ribbonCream1)"
-              className="ribbon ribbon--cream-bottom"
+              d="M1200,-50
+                 C1050,50 950,20 850,140
+                 C750,260 850,400 780,560
+                 C710,720 850,820 800,950
+                 L950,950
+                 C980,840 880,740 940,600
+                 C1000,460 920,320 1020,200
+                 C1120,80 1280,100 1380,-50
+                 L1200,-50
+                 Z"
+              fill="url(#blueMid)"
+              className="ribbon"
             />
           </g>
 
-          {/* Layer 4 - Foreground accent ribbons */}
+          {/* ============================================
+              LAYER 4 - Front ribbons
+              ============================================ */}
           <g className="ribbon-layer ribbon-layer--4">
-            {/* Thin blue accent ribbon */}
+            {/* Pale blue ribbon wrapping from right */}
             <path
-              d="M0,400
-                 C200,380 350,450 400,550
-                 C450,650 350,750 450,850
-                 C550,950 400,1000 300,1000
-                 L0,1000 Z"
-              fill="#8BAEC4"
-              opacity="0.7"
-              className="ribbon ribbon--accent"
+              d="M1540,280
+                 C1320,260 1180,340 1120,480
+                 C1060,620 1160,720 1100,860
+                 C1040,1000 1180,1050 1300,1000
+                 L1540,1000
+                 L1540,850
+                 C1400,880 1280,820 1320,700
+                 C1360,580 1280,480 1340,380
+                 C1400,280 1500,300 1540,280
+                 Z"
+              fill="url(#bluePale)"
+              className="ribbon"
             />
 
-            {/* Top right blue ribbon */}
+            {/* Small cream accent - bottom left */}
             <path
-              d="M800,0
-                 C900,50 1000,30 1100,100
-                 C1200,170 1100,250 1200,350
-                 L1300,350 L1300,0 Z"
-              fill="url(#ribbonBlue2)"
-              className="ribbon ribbon--top-right"
-            />
-
-            {/* Bottom left cream flow */}
-            <path
-              d="M0,600
-                 C150,580 250,650 200,750
-                 C150,850 250,900 200,1000
-                 L0,1000 Z"
-              fill="#EDE4D8"
+              d="M-50,650
+                 C100,620 200,700 180,820
+                 C160,940 80,1000 -50,1000
+                 L-50,650
+                 Z"
+              fill="url(#cream)"
               opacity="0.8"
-              className="ribbon ribbon--bottom-left"
+              className="ribbon"
+            />
+
+            {/* Deep blue accent - top right corner */}
+            <path
+              d="M1100,-50
+                 C1180,20 1280,0 1380,80
+                 C1480,160 1420,280 1500,380
+                 L1540,380
+                 L1540,-50
+                 L1100,-50
+                 Z"
+              fill="url(#blueDeep)"
+              opacity="0.6"
+              className="ribbon"
             />
           </g>
 
-          {/* Subtle texture overlay */}
-          <rect
-            x="0" y="0"
-            width="1200" height="900"
-            fill="url(#noisePattern)"
-            opacity="0.03"
-            style={{ mixBlendMode: 'multiply' }}
-          />
+          {/* ============================================
+              LAYER 5 - Foreground accent ribbons
+              ============================================ */}
+          <g className="ribbon-layer ribbon-layer--5">
+            {/* Thin flowing accent ribbon - adds movement */}
+            <path
+              d="M-50,500
+                 C150,480 280,540 320,650
+                 C360,760 260,850 320,950
+                 L200,950
+                 C160,870 220,790 200,700
+                 C180,610 80,560 -50,500
+                 Z"
+              fill="#8FAFC2"
+              opacity="0.5"
+              className="ribbon"
+            />
+
+            {/* Light accent on right */}
+            <path
+              d="M1540,500
+                 C1380,520 1300,460 1250,560
+                 C1200,660 1280,740 1240,840
+                 C1200,940 1300,1000 1400,980
+                 L1540,950
+                 L1540,500
+                 Z"
+              fill="#C5D6E2"
+              opacity="0.6"
+              className="ribbon"
+            />
+          </g>
         </svg>
 
         {/* Paper texture overlay */}

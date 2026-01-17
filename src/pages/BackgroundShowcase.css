@@ -1,5 +1,6 @@
 /* ============================================
    BACKGROUND SHOWCASE - Flowing Wave Ribbons
+   Elegant sweeping curves like silk in wind
    ============================================ */
 
 .bg-showcase {
@@ -7,9 +8,9 @@
   width: 100%;
   position: relative;
   overflow: hidden;
-  background: #F7F3EC;
+  background: #F0EBE3;
   opacity: 0;
-  transition: opacity 1s var(--ease-out);
+  transition: opacity 1.2s var(--ease-out);
 }
 
 .bg-showcase--loaded {
@@ -28,83 +29,98 @@
   z-index: 1;
 }
 
-/* Ribbon layers with subtle animation */
+/* Ribbon layers with staggered reveal */
 .ribbon-layer {
   opacity: 0;
-  animation: ribbonFadeIn 1.2s var(--ease-out) forwards;
+  animation: ribbonReveal 1.4s var(--ease-out) forwards;
 }
 
-.ribbon-layer--1 { animation-delay: 0.1s; }
-.ribbon-layer--2 { animation-delay: 0.25s; }
-.ribbon-layer--3 { animation-delay: 0.4s; }
-.ribbon-layer--4 { animation-delay: 0.55s; }
+.ribbon-layer--1 { animation-delay: 0s; }
+.ribbon-layer--2 { animation-delay: 0.15s; }
+.ribbon-layer--3 { animation-delay: 0.3s; }
+.ribbon-layer--4 { animation-delay: 0.45s; }
+.ribbon-layer--5 { animation-delay: 0.6s; }
 
-@keyframes ribbonFadeIn {
+@keyframes ribbonReveal {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateX(-20px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(0);
   }
 }
 
-/* Individual ribbon styling */
+/* Individual ribbons - subtle breathing animation */
 .ribbon {
-  transition: transform 0.6s var(--ease-out);
+  transform-origin: center center;
 }
 
-/* Subtle floating animation for depth */
-.ribbon--blue-light {
-  animation: ribbonFloat1 20s ease-in-out infinite;
+/* Gentle floating movement for organic feel */
+.ribbon-layer--1 .ribbon {
+  animation: drift1 30s ease-in-out infinite;
 }
 
-.ribbon--blue-mid {
-  animation: ribbonFloat2 25s ease-in-out infinite;
+.ribbon-layer--2 .ribbon {
+  animation: drift2 35s ease-in-out infinite;
 }
 
-.ribbon--blue-right {
-  animation: ribbonFloat3 22s ease-in-out infinite;
+.ribbon-layer--3 .ribbon {
+  animation: drift3 28s ease-in-out infinite;
 }
 
-.ribbon--cream {
-  animation: ribbonFloat4 28s ease-in-out infinite;
+.ribbon-layer--4 .ribbon {
+  animation: drift4 32s ease-in-out infinite;
 }
 
-.ribbon--cream-accent {
-  animation: ribbonFloat5 24s ease-in-out infinite;
+.ribbon-layer--5 .ribbon {
+  animation: drift5 25s ease-in-out infinite;
 }
 
-@keyframes ribbonFloat1 {
+/* Prominent ribbon gets special treatment */
+.ribbon--prominent {
+  animation: driftProminent 20s ease-in-out infinite !important;
+}
+
+@keyframes drift1 {
   0%, 100% { transform: translate(0, 0); }
-  25% { transform: translate(3px, -5px); }
-  50% { transform: translate(-2px, 3px); }
-  75% { transform: translate(4px, -2px); }
+  25% { transform: translate(8px, -6px); }
+  50% { transform: translate(-4px, 8px); }
+  75% { transform: translate(6px, -4px); }
 }
 
-@keyframes ribbonFloat2 {
+@keyframes drift2 {
   0%, 100% { transform: translate(0, 0); }
-  33% { transform: translate(-4px, 3px); }
-  66% { transform: translate(2px, -4px); }
+  33% { transform: translate(-6px, 5px); }
+  66% { transform: translate(5px, -7px); }
 }
 
-@keyframes ribbonFloat3 {
+@keyframes drift3 {
   0%, 100% { transform: translate(0, 0); }
-  25% { transform: translate(-3px, 4px); }
-  50% { transform: translate(5px, -2px); }
-  75% { transform: translate(-2px, -3px); }
+  20% { transform: translate(5px, 6px); }
+  40% { transform: translate(-7px, -3px); }
+  60% { transform: translate(4px, -5px); }
+  80% { transform: translate(-3px, 7px); }
 }
 
-@keyframes ribbonFloat4 {
+@keyframes drift4 {
   0%, 100% { transform: translate(0, 0); }
-  50% { transform: translate(4px, 5px); }
+  50% { transform: translate(-5px, 5px); }
 }
 
-@keyframes ribbonFloat5 {
+@keyframes drift5 {
   0%, 100% { transform: translate(0, 0); }
-  33% { transform: translate(3px, -3px); }
-  66% { transform: translate(-3px, 4px); }
+  25% { transform: translate(4px, -4px); }
+  50% { transform: translate(-6px, 3px); }
+  75% { transform: translate(3px, 5px); }
+}
+
+@keyframes driftProminent {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(6px, -8px) scale(1.01); }
+  50% { transform: translate(-4px, 6px) scale(0.99); }
+  75% { transform: translate(8px, -4px) scale(1.01); }
 }
 
 /* ============================================
@@ -116,10 +132,9 @@
   inset: 0;
   z-index: 2;
   pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-  background-blend-mode: soft-light;
-  background-size: 200px;
-  opacity: 0.25;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 256px;
+  opacity: 0.15;
   mix-blend-mode: multiply;
 }
 
@@ -127,11 +142,24 @@
    RESPONSIVE
    ============================================ */
 
+@media (max-width: 1024px) {
+  .wave-ribbons {
+    width: 130%;
+    left: -15%;
+  }
+}
+
 @media (max-width: 768px) {
   .wave-ribbons {
-    /* Adjust viewBox handling for mobile */
-    width: 150%;
-    left: -25%;
+    width: 180%;
+    left: -40%;
+  }
+}
+
+@media (max-width: 480px) {
+  .wave-ribbons {
+    width: 220%;
+    left: -60%;
   }
 }
 
@@ -142,6 +170,7 @@
 @media (prefers-reduced-motion: reduce) {
   .bg-showcase {
     transition: none;
+    opacity: 1;
   }
 
   .ribbon-layer {
@@ -149,11 +178,8 @@
     opacity: 1;
   }
 
-  .ribbon {
+  .ribbon,
+  .ribbon--prominent {
     animation: none !important;
-  }
-
-  .bg-showcase--loaded {
-    opacity: 1;
   }
 }
