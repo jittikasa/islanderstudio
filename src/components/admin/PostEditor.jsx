@@ -9,7 +9,7 @@ import './PostEditor.css'
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8787'
 
 // Featured Image Selection Modal
-function FeaturedImageModal({ isOpen, onClose, onSelect, currentUrl, apiUrl }) {
+function FeaturedImageModal({ isOpen, onClose, onSelect, apiUrl }) {
   const [activeTab, setActiveTab] = useState('library')
   const [media, setMedia] = useState([])
   const [loading, setLoading] = useState(true)
@@ -701,7 +701,6 @@ export default function PostEditor({ post, onSave, onCancel }) {
               isOpen={showFeaturedImageModal}
               onClose={() => setShowFeaturedImageModal(false)}
               onSelect={(url, alt) => setFormData({ ...formData, main_image_url: url, main_image_alt: alt })}
-              currentUrl={formData.main_image_url}
               apiUrl={API_URL}
             />
           </div>
