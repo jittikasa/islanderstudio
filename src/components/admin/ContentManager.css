@@ -170,8 +170,8 @@
 
 .item-thumbnail {
   flex-shrink: 0;
-  width: 120px;
-  height: 80px;
+  width: 280px;
+  height: 180px;
   border-radius: var(--radius-md);
   overflow: hidden;
   background: var(--cloud);
