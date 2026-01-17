@@ -201,16 +201,17 @@
 .shellist__feature {
   padding: var(--space-6);
   background: var(--white);
-  border: 2px solid var(--cloud);
+  border: 2px solid var(--coconut-shell);
   border-radius: var(--radius-md);
   transition: all var(--duration-base) var(--ease-spring);
   animation: stamp-drop 0.5s var(--ease-out) calc(var(--index) * 0.1s + 0.2s) backwards;
+  box-shadow: 4px 5px 0 var(--coconut-shell);
 }
 
 .shellist__feature:hover {
-  border-color: var(--coconut-shell);
-  transform: translateY(-4px) rotate(-1deg);
-  box-shadow: 3px 4px 0 var(--midnight-sky);
+  border-color: var(--midnight-sky);
+  transform: translateY(-2px) translateX(-2px);
+  box-shadow: 8px 10px 0 var(--midnight-sky);
 }
 
 .shellist__feature-number {
@@ -382,16 +383,17 @@
 .shellist__blog-card {
   display: block;
   background: var(--white);
-  border: 2px solid var(--cloud);
+  border: 2px solid var(--coconut-shell);
   border-radius: var(--radius-md);
   overflow: hidden;
   transition: all var(--duration-base) var(--ease-spring);
+  box-shadow: 4px 5px 0 var(--coconut-shell);
 }
 
 .shellist__blog-card:hover {
-  border-color: var(--coconut-shell);
-  transform: translateY(-4px);
-  box-shadow: 3px 4px 0 var(--midnight-sky);
+  border-color: var(--midnight-sky);
+  transform: translateY(-2px) translateX(-2px);
+  box-shadow: 8px 10px 0 var(--midnight-sky);
 }
 
 .shellist__blog-image {
