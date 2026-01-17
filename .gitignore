@@ -34,3 +34,4 @@ build
 dist
 .cache
 .env
+client_secret_*.json

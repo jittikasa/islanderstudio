@@ -9,221 +9,209 @@ export default function BackgroundShowcase() {
     setIsLoaded(true)
   }, [])
 
-  // Generate random bubbles for the foam texture
-  const generateBubbles = (count, section) => {
-    const bubbles = []
-    for (let i = 0; i < count; i++) {
-      const size = Math.random() * 12 + 4
-      const x = section === 'edge'
-        ? Math.random() * 15 + 25 // Near the wave edge
-        : Math.random() * 30 + 5  // In the foam body
-      const y = Math.random() * 100
-      const delay = Math.random() * 4
-      const duration = Math.random() * 2 + 2
-      bubbles.push(
-        <circle
-          key={`${section}-${i}`}
-          cx={`${x}%`}
-          cy={`${y}%`}
-          r={size}
-          className="bubble"
-          style={{
-            animationDelay: `${delay}s`,
-            animationDuration: `${duration}s`,
-            opacity: Math.random() * 0.4 + 0.3
-          }}
-        />
-      )
-    }
-    return bubbles
-  }
-
-  // Generate foam droplets on sand
-  const generateDroplets = (count) => {
-    const droplets = []
-    for (let i = 0; i < count; i++) {
-      const size = Math.random() * 6 + 2
-      const x = Math.random() * 35 + 55 // On the sand side
-      const y = Math.random() * 100
-      droplets.push(
-        <circle
-          key={`droplet-${i}`}
-          cx={`${x}%`}
-          cy={`${y}%`}
-          r={size}
-          className="droplet"
-          style={{
-            opacity: Math.random() * 0.5 + 0.2
-          }}
-        />
-      )
-    }
-    return droplets
-  }
-
   return (
     <>
       <SEO
-        title="Background Design | Islander Studio"
-        description="Beach wave background design showcase"
+        title="Ocean Wave | Islander Studio"
+        description="Beach wave background design in scrapbook style"
       />
 
       <div className={`bg-showcase ${isLoaded ? 'bg-showcase--loaded' : ''}`}>
-        {/* Wave Background */}
-        <div className="wave-background">
-          <svg
-            viewBox="0 0 100 100"
-            preserveAspectRatio="none"
-            className="wave-svg"
-          >
-            <defs>
-              {/* Sand gradient */}
-              <linearGradient id="sandGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="#E8DFD4" />
-                <stop offset="50%" stopColor="#F5EEE5" />
-                <stop offset="100%" stopColor="#FAF6F0" />
-              </linearGradient>
+        {/* Main canvas - the scrapbook page */}
+        <div className="wave-canvas">
 
-              {/* Foam gradient */}
-              <linearGradient id="foamGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="#FFFFFF" stopOpacity="1" />
-                <stop offset="70%" stopColor="#FDFCFA" stopOpacity="0.95" />
-                <stop offset="100%" stopColor="#F7F4EF" stopOpacity="0.9" />
-              </linearGradient>
+          {/* Paper texture base layer */}
+          <div className="wave-canvas__paper" />
 
-              {/* Foam edge highlight */}
-              <linearGradient id="foamEdge" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="#FFFFFF" />
-                <stop offset="100%" stopColor="#FEFEFE" />
-              </linearGradient>
-
-              {/* Noise filter for texture */}
-              <filter id="foamNoise">
-                <feTurbulence
-                  type="fractalNoise"
-                  baseFrequency="0.9"
-                  numOctaves="4"
-                  result="noise"
+          {/* Sand area - right side with torn paper edge */}
+          <div className="wave-sand">
+            <div className="wave-sand__texture" />
+            {/* Sand grain dots */}
+            <div className="wave-sand__grains">
+              {[...Array(40)].map((_, i) => (
+                <span
+                  key={i}
+                  className="grain"
+                  style={{
+                    left: `${Math.random() * 100}%`,
+                    top: `${Math.random() * 100}%`,
+                    width: `${Math.random() * 4 + 2}px`,
+                    height: `${Math.random() * 4 + 2}px`,
+                    opacity: Math.random() * 0.4 + 0.1,
+                    animationDelay: `${Math.random() * 3}s`
+                  }}
                 />
-                <feDisplacementMap
-                  in="SourceGraphic"
-                  in2="noise"
-                  scale="2"
-                  xChannelSelector="R"
-                  yChannelSelector="G"
+              ))}
+            </div>
+          </div>
+
+          {/* Foam/Wave area - left side */}
+          <div className="wave-foam">
+            {/* Layered torn paper edges for organic wave line */}
+            <svg className="wave-foam__edge" viewBox="0 0 100 800" preserveAspectRatio="none">
+              <defs>
+                <filter id="paper-rough">
+                  <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="5" result="noise"/>
+                  <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" xChannelSelector="R" yChannelSelector="G"/>
+                </filter>
+                <filter id="paper-shadow">
+                  <feDropShadow dx="2" dy="0" stdDeviation="2" floodOpacity="0.08" floodColor="#A78A6A"/>
+                </filter>
+              </defs>
+
+              {/* Main torn edge */}
+              <path
+                d="M0,0 L55,0
+                   C58,20 65,35 60,60
+                   C54,90 68,120 62,150
+                   C55,185 70,210 63,245
+                   C56,280 72,310 65,345
+                   C58,380 73,415 66,450
+                   C59,485 74,520 67,555
+                   C60,590 75,625 68,660
+                   C61,695 76,730 69,765
+                   L65,800 L0,800 Z"
+                fill="#FEFDFB"
+                filter="url(#paper-shadow)"
+                className="foam-paper"
+              />
+
+              {/* Secondary torn layer - slightly offset */}
+              <path
+                d="M0,0 L50,0
+                   C54,25 60,45 55,75
+                   C49,110 62,140 56,175
+                   C50,210 63,245 57,280
+                   C51,315 64,350 58,385
+                   C52,420 65,455 59,490
+                   C53,525 66,560 60,595
+                   C54,630 67,665 61,700
+                   C55,735 68,770 62,800
+                   L0,800 Z"
+                fill="#FFFFFF"
+                className="foam-paper-inner"
+              />
+            </svg>
+
+            {/* Lace doily overlay for foam texture */}
+            <div className="wave-foam__lace">
+              {[...Array(12)].map((_, i) => (
+                <div
+                  key={i}
+                  className="lace-piece"
+                  style={{
+                    top: `${i * 8 + Math.random() * 4}%`,
+                    left: `${Math.random() * 25 + 5}%`,
+                    width: `${Math.random() * 60 + 40}px`,
+                    height: `${Math.random() * 30 + 20}px`,
+                    transform: `rotate(${Math.random() * 20 - 10}deg)`,
+                    animationDelay: `${i * 0.2}s`
+                  }}
                 />
-              </filter>
+              ))}
+            </div>
 
-              {/* Subtle shadow for depth */}
-              <filter id="foamShadow">
-                <feDropShadow dx="1" dy="0" stdDeviation="0.5" floodOpacity="0.08" floodColor="#A78A6A"/>
-              </filter>
-            </defs>
+            {/* Foam bubbles as paper punch holes */}
+            <div className="wave-foam__bubbles">
+              {[...Array(35)].map((_, i) => (
+                <span
+                  key={i}
+                  className="bubble-hole"
+                  style={{
+                    left: `${Math.random() * 35 + 5}%`,
+                    top: `${Math.random() * 95}%`,
+                    width: `${Math.random() * 12 + 6}px`,
+                    height: `${Math.random() * 12 + 6}px`,
+                    animationDelay: `${Math.random() * 4}s`
+                  }}
+                />
+              ))}
+            </div>
+          </div>
 
-            {/* Sand background */}
-            <rect x="0" y="0" width="100" height="100" fill="url(#sandGradient)" />
+          {/* Washi tape decorations */}
+          <div className="wave-washi wave-washi--top">
+            <span className="washi-pattern" />
+          </div>
+          <div className="wave-washi wave-washi--bottom">
+            <span className="washi-pattern" />
+          </div>
 
-            {/* Foam droplets on sand */}
-            <g className="droplets-group">
-              {generateDroplets(25)}
-            </g>
+          {/* Corner stamp decoration */}
+          <div className="wave-stamp">
+            <div className="wave-stamp__inner">
+              <div className="wave-stamp__content">
+                <span className="wave-stamp__icon">🌊</span>
+                <span className="wave-stamp__text">OCEAN</span>
+                <span className="wave-stamp__subtext">COLLECTION</span>
+              </div>
+              <div className="wave-stamp__footer">
+                <span>2024</span>
+                <span>№ 001</span>
+              </div>
+            </div>
+          </div>
 
-            {/* Main wave foam - organic wavy edge */}
-            <path
-              d="M0,0
-                 L35,0
-                 C38,5 42,8 40,15
-                 C37,22 42,28 39,35
-                 C35,42 40,48 38,55
-                 C35,62 39,68 37,75
-                 C34,82 38,88 36,95
-                 L35,100
-                 L0,100
-                 Z"
-              fill="url(#foamGradient)"
-              filter="url(#foamShadow)"
-              className="foam-body"
-            />
+          {/* Handwritten annotation */}
+          <div className="wave-annotation wave-annotation--top">
+            <span className="annotation-text">where foam meets sand</span>
+            <span className="annotation-arrow">↙</span>
+          </div>
 
-            {/* Secondary foam layer for depth */}
-            <path
-              d="M0,0
-                 L32,0
-                 C35,7 38,12 36,20
-                 C33,28 37,35 35,42
-                 C32,50 36,57 34,65
-                 C31,73 35,80 33,88
-                 L32,100
-                 L0,100
-                 Z"
-              fill="#FFFFFF"
-              opacity="0.7"
-              className="foam-inner"
-            />
+          {/* Photo corner mounts */}
+          <div className="photo-corner photo-corner--tl" />
+          <div className="photo-corner photo-corner--tr" />
+          <div className="photo-corner photo-corner--bl" />
+          <div className="photo-corner photo-corner--br" />
 
-            {/* Foam edge highlight */}
-            <path
-              d="M35,0
-                 C38,5 42,8 40,15
-                 C37,22 42,28 39,35
-                 C35,42 40,48 38,55
-                 C35,62 39,68 37,75
-                 C34,82 38,88 36,95
-                 L35,100"
-              fill="none"
-              stroke="url(#foamEdge)"
-              strokeWidth="1.5"
-              className="foam-edge"
-            />
+          {/* Scattered foam droplets on sand */}
+          <div className="wave-droplets">
+            {[...Array(20)].map((_, i) => (
+              <span
+                key={i}
+                className="droplet"
+                style={{
+                  right: `${Math.random() * 35 + 5}%`,
+                  top: `${Math.random() * 90 + 5}%`,
+                  width: `${Math.random() * 8 + 3}px`,
+                  height: `${Math.random() * 8 + 3}px`,
+                  opacity: Math.random() * 0.6 + 0.2
+                }}
+              />
+            ))}
+          </div>
 
-            {/* Bubble texture in foam */}
-            <g className="bubbles-group">
-              {generateBubbles(40, 'body')}
-              {generateBubbles(20, 'edge')}
-            </g>
-
-            {/* Lacy foam patterns */}
-            <g className="lace-patterns">
-              <ellipse cx="15%" cy="20%" rx="8" ry="4" fill="#FFFFFF" opacity="0.5" />
-              <ellipse cx="10%" cy="35%" rx="6" ry="3" fill="#FFFFFF" opacity="0.4" />
-              <ellipse cx="20%" cy="50%" rx="10" ry="5" fill="#FFFFFF" opacity="0.45" />
-              <ellipse cx="8%" cy="65%" rx="7" ry="3.5" fill="#FFFFFF" opacity="0.5" />
-              <ellipse cx="18%" cy="80%" rx="9" ry="4" fill="#FFFFFF" opacity="0.4" />
-              <ellipse cx="12%" cy="90%" rx="6" ry="3" fill="#FFFFFF" opacity="0.5" />
-            </g>
-          </svg>
-
-          {/* Animated foam overlay */}
-          <div className="foam-overlay">
-            <div className="foam-particle foam-particle--1"></div>
-            <div className="foam-particle foam-particle--2"></div>
-            <div className="foam-particle foam-particle--3"></div>
-            <div className="foam-particle foam-particle--4"></div>
-            <div className="foam-particle foam-particle--5"></div>
+          {/* Perforated border frame */}
+          <div className="wave-frame">
+            <div className="wave-frame__edge wave-frame__edge--top" />
+            <div className="wave-frame__edge wave-frame__edge--bottom" />
+            <div className="wave-frame__edge wave-frame__edge--left" />
+            <div className="wave-frame__edge wave-frame__edge--right" />
           </div>
         </div>
 
-        {/* Content overlay to show the design */}
-        <div className="bg-showcase__content">
+        {/* Info card overlay */}
+        <div className="bg-showcase__info">
           <div className="bg-showcase__card">
-            <span className="bg-showcase__label">Background Design</span>
-            <h1 className="bg-showcase__title">Ocean Wave</h1>
-            <p className="bg-showcase__description">
-              A CSS/SVG recreation of beach foam meeting sand,
-              crafted in Islander Studio's warm, natural palette.
-            </p>
-            <div className="bg-showcase__colors">
-              <div className="color-swatch color-swatch--foam">
-                <span>Foam</span>
-                <code>#FFFFFF</code>
+            <div className="bg-showcase__card-header">
+              <span className="bg-showcase__label">Background</span>
+              <span className="bg-showcase__number">№ 001</span>
+            </div>
+            <h1 className="bg-showcase__title">Shoreline</h1>
+            <p className="bg-showcase__subtitle">Where the ocean whispers to the sand</p>
+            <div className="bg-showcase__divider" />
+            <div className="bg-showcase__palette">
+              <div className="palette-swatch palette-swatch--foam">
+                <div className="swatch-color" />
+                <span className="swatch-name">Foam</span>
               </div>
-              <div className="color-swatch color-swatch--sand">
-                <span>Sand</span>
-                <code>#F5EEE5</code>
+              <div className="palette-swatch palette-swatch--sand">
+                <div className="swatch-color" />
+                <span className="swatch-name">Sand</span>
               </div>
-              <div className="color-swatch color-swatch--accent">
-                <span>Accent</span>
-                <code>#A78A6A</code>
+              <div className="palette-swatch palette-swatch--shell">
+                <div className="swatch-color" />
+                <span className="swatch-name">Shell</span>
               </div>
             </div>
           </div>

@@ -1,276 +1,740 @@
-/* Background Showcase Page */
+/* ============================================
+   BACKGROUND SHOWCASE - Scrapbook Ocean Wave
+   ============================================ */
+
 .bg-showcase {
   min-height: 100vh;
   width: 100%;
   position: relative;
   overflow: hidden;
+  background: var(--cream);
   opacity: 0;
-  transition: opacity 0.8s var(--ease-out);
+  transform: scale(0.98);
+  transition: all 0.8s var(--ease-out);
 }
 
 .bg-showcase--loaded {
   opacity: 1;
+  transform: scale(1);
 }
 
-/* Wave Background Container */
-.wave-background {
+/* ============================================
+   MAIN CANVAS - The Scrapbook Page
+   ============================================ */
+
+.wave-canvas {
+  position: absolute;
+  inset: 24px;
+  background: var(--paper);
+  border: 3px solid var(--midnight-sky);
+  overflow: hidden;
+  box-shadow:
+    8px 8px 0 var(--midnight-sky),
+    0 20px 60px rgba(51, 51, 51, 0.15);
+}
+
+/* Paper texture overlay */
+.wave-canvas__paper {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.wave-svg {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-
-/* Foam body animation */
-.foam-body {
-  animation: foamWave 8s ease-in-out infinite;
-  transform-origin: right center;
-}
-
-.foam-inner {
-  animation: foamWave 8s ease-in-out infinite;
-  animation-delay: -0.5s;
-  transform-origin: right center;
-}
-
-.foam-edge {
-  animation: foamWave 8s ease-in-out infinite;
-  animation-delay: -0.2s;
-  transform-origin: right center;
-}
-
-@keyframes foamWave {
-  0%, 100% {
-    transform: translateX(0);
-  }
-  50% {
-    transform: translateX(1%);
-  }
-}
-
-/* Bubbles */
-.bubble {
-  fill: #FFFFFF;
-  animation: bubblePulse 3s ease-in-out infinite;
-}
-
-@keyframes bubblePulse {
-  0%, 100% {
-    transform: scale(1);
-    opacity: 0.3;
-  }
-  50% {
-    transform: scale(1.1);
-    opacity: 0.5;
-  }
-}
-
-/* Droplets on sand */
-.droplet {
-  fill: #FFFFFF;
-  filter: drop-shadow(0 0 1px rgba(167, 138, 106, 0.2));
-}
-
-/* Foam overlay particles */
-.foam-overlay {
-  position: absolute;
-  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-blend-mode: soft-light;
+  background-size: 150px;
+  opacity: 0.4;
   pointer-events: none;
+  z-index: 1;
+}
+
+/* ============================================
+   SAND AREA - Right side
+   ============================================ */
+
+.wave-sand {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 55%;
+  background: linear-gradient(
+    135deg,
+    #F5EEE5 0%,
+    #EDE4D8 30%,
+    #E8DDD0 60%,
+    #F0E8DC 100%
+  );
+  z-index: 2;
+}
+
+.wave-sand__texture {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(167, 138, 106, 0.08) 1px, transparent 1px),
+    radial-gradient(circle at 60% 70%, rgba(167, 138, 106, 0.06) 1px, transparent 1px),
+    radial-gradient(circle at 80% 20%, rgba(167, 138, 106, 0.07) 1px, transparent 1px);
+  background-size: 30px 30px, 50px 50px, 40px 40px;
+}
+
+.wave-sand__grains {
+  position: absolute;
+  inset: 0;
   overflow: hidden;
 }
 
-.foam-particle {
+.grain {
   position: absolute;
-  background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
+  background: var(--coconut-shell);
   border-radius: 50%;
-  animation: floatParticle 6s ease-in-out infinite;
+  animation: grainShimmer 4s ease-in-out infinite;
 }
 
-.foam-particle--1 {
-  width: 60px;
-  height: 60px;
-  left: 15%;
-  top: 20%;
-  animation-delay: 0s;
+@keyframes grainShimmer {
+  0%, 100% { opacity: 0.15; }
+  50% { opacity: 0.35; }
 }
 
-.foam-particle--2 {
-  width: 40px;
-  height: 40px;
-  left: 25%;
-  top: 40%;
-  animation-delay: -1s;
+/* ============================================
+   FOAM AREA - Left side with torn paper edge
+   ============================================ */
+
+.wave-foam {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 50%;
+  z-index: 3;
 }
 
-.foam-particle--3 {
-  width: 50px;
-  height: 50px;
-  left: 10%;
-  top: 60%;
-  animation-delay: -2s;
+.wave-foam__edge {
+  position: absolute;
+  top: 0;
+  right: -5%;
+  width: 60%;
+  height: 100%;
 }
 
-.foam-particle--4 {
-  width: 35px;
-  height: 35px;
-  left: 20%;
-  top: 75%;
-  animation-delay: -3s;
+.foam-paper {
+  filter: drop-shadow(3px 0 6px rgba(167, 138, 106, 0.15));
 }
 
-.foam-particle--5 {
-  width: 45px;
-  height: 45px;
-  left: 30%;
-  top: 85%;
-  animation-delay: -4s;
+.foam-paper-inner {
+  opacity: 0.9;
 }
 
-@keyframes floatParticle {
+/* Lace doily pieces for foam texture */
+.wave-foam__lace {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.lace-piece {
+  position: absolute;
+  background:
+    radial-gradient(circle at 10% 50%, transparent 2px, #FFFFFF 2px, #FFFFFF 4px, transparent 4px),
+    radial-gradient(circle at 30% 50%, transparent 2px, #FFFFFF 2px, #FFFFFF 4px, transparent 4px),
+    radial-gradient(circle at 50% 50%, transparent 2px, #FFFFFF 2px, #FFFFFF 4px, transparent 4px),
+    radial-gradient(circle at 70% 50%, transparent 2px, #FFFFFF 2px, #FFFFFF 4px, transparent 4px),
+    radial-gradient(circle at 90% 50%, transparent 2px, #FFFFFF 2px, #FFFFFF 4px, transparent 4px);
+  background-size: 20% 100%;
+  border-radius: 50%;
+  opacity: 0.6;
+  animation: laceFade 3s ease-in-out infinite;
+}
+
+@keyframes laceFade {
+  0%, 100% { opacity: 0.5; transform: translateX(0); }
+  50% { opacity: 0.7; transform: translateX(2px); }
+}
+
+/* Bubble punch holes */
+.wave-foam__bubbles {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.bubble-hole {
+  position: absolute;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.9) 0%,
+    rgba(255, 255, 255, 0.6) 40%,
+    rgba(247, 240, 230, 0.3) 70%,
+    transparent 100%
+  );
+  border-radius: 50%;
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 0.8),
+    0 1px 2px rgba(167, 138, 106, 0.1);
+  animation: bubbleFloat 5s ease-in-out infinite;
+}
+
+@keyframes bubbleFloat {
   0%, 100% {
-    transform: translate(0, 0) scale(1);
-    opacity: 0.6;
-  }
-  25% {
-    transform: translate(5px, -10px) scale(1.05);
-    opacity: 0.8;
-  }
-  50% {
-    transform: translate(10px, 0) scale(1);
-    opacity: 0.6;
-  }
-  75% {
-    transform: translate(5px, 10px) scale(0.95);
+    transform: translateY(0) scale(1);
     opacity: 0.7;
   }
+  50% {
+    transform: translateY(-3px) scale(1.05);
+    opacity: 0.9;
+  }
 }
 
-/* Content overlay */
-.bg-showcase__content {
+/* ============================================
+   WASHI TAPE DECORATIONS
+   ============================================ */
+
+.wave-washi {
+  position: absolute;
+  width: 120px;
+  height: 28px;
+  z-index: 20;
+  overflow: hidden;
+}
+
+.wave-washi--top {
+  top: 20px;
+  left: 30px;
+  transform: rotate(-8deg);
+}
+
+.wave-washi--bottom {
+  bottom: 30px;
+  right: 40px;
+  transform: rotate(5deg);
+}
+
+.wave-washi::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--summer-sky) 0px,
+    var(--summer-sky) 8px,
+    #FFFFFF 8px,
+    #FFFFFF 16px
+  );
+  opacity: 0.85;
+}
+
+.wave-washi::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.3) 0%,
+    transparent 30%,
+    transparent 70%,
+    rgba(0, 0, 0, 0.05) 100%
+  );
+}
+
+.washi-pattern {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='10' cy='10' r='1.5' fill='%23ffffff' opacity='0.4'/%3E%3C/svg%3E");
+  background-size: 10px 10px;
+}
+
+/* ============================================
+   CORNER STAMP
+   ============================================ */
+
+.wave-stamp {
+  position: absolute;
+  top: 60px;
+  right: 40px;
+  z-index: 15;
+  animation: stampEnter 0.6s var(--ease-spring) 0.4s backwards;
+}
+
+@keyframes stampEnter {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) rotate(-15deg) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotate(-3deg) scale(1);
+  }
+}
+
+.wave-stamp__inner {
+  width: 80px;
+  background: var(--white);
+  border: 3px solid var(--midnight-sky);
+  padding: 8px;
   position: relative;
-  z-index: 10;
-  min-height: 100vh;
+  transform: rotate(-3deg);
+  box-shadow: 2px 3px 0 var(--midnight-sky);
+  transition: all 0.3s var(--ease-spring);
+}
+
+.wave-stamp:hover .wave-stamp__inner {
+  transform: rotate(0deg) scale(1.05);
+  box-shadow: 4px 5px 0 var(--midnight-sky);
+}
+
+/* Perforated edges */
+.wave-stamp__inner::before,
+.wave-stamp__inner::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background: radial-gradient(circle at center, var(--cream) 3px, transparent 3px);
+  background-size: 10px 8px;
+  pointer-events: none;
+}
+
+.wave-stamp__inner::before { top: -5px; }
+.wave-stamp__inner::after { bottom: -5px; }
+
+.wave-stamp__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 4px 0;
+}
+
+.wave-stamp__icon {
+  font-size: 20px;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.wave-stamp__text {
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--midnight-sky);
+  letter-spacing: 0.05em;
+}
+
+.wave-stamp__subtext {
+  font-family: var(--font-mono);
+  font-size: 6px;
+  font-weight: 700;
+  color: var(--fog);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.wave-stamp__footer {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 6px;
+  margin-top: 6px;
+  border-top: 1px dashed var(--cloud);
+}
+
+.wave-stamp__footer span {
+  font-family: var(--font-mono);
+  font-size: 6px;
+  font-weight: 700;
+  color: var(--fog);
+}
+
+/* ============================================
+   HANDWRITTEN ANNOTATION
+   ============================================ */
+
+.wave-annotation {
+  position: absolute;
+  z-index: 15;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  padding: var(--space-8);
-  padding-top: 100px;
+  gap: 8px;
+  animation: annotationFade 0.5s var(--ease-out) 0.6s backwards;
+}
+
+@keyframes annotationFade {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.wave-annotation--top {
+  top: 35%;
+  left: 50%;
+  transform: rotate(-2deg);
+}
+
+.annotation-text {
+  font-family: 'Oooh Baby', cursive;
+  font-size: 18px;
+  color: var(--coconut-shell);
+  white-space: nowrap;
+}
+
+.annotation-arrow {
+  font-size: 16px;
+  color: var(--coconut-shell);
+  animation: arrowBounce 2s ease-in-out infinite;
+}
+
+@keyframes arrowBounce {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(-3px, 3px); }
+}
+
+/* ============================================
+   PHOTO CORNERS
+   ============================================ */
+
+.photo-corner {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  z-index: 10;
+}
+
+.photo-corner::before,
+.photo-corner::after {
+  content: '';
+  position: absolute;
+  background: var(--coconut-shell);
+  opacity: 0.7;
+}
+
+.photo-corner--tl { top: 8px; left: 8px; }
+.photo-corner--tr { top: 8px; right: 8px; }
+.photo-corner--bl { bottom: 8px; left: 8px; }
+.photo-corner--br { bottom: 8px; right: 8px; }
+
+.photo-corner--tl::before,
+.photo-corner--br::before {
+  width: 24px;
+  height: 4px;
+  top: 0;
+  left: 0;
+}
+
+.photo-corner--tl::after,
+.photo-corner--br::after {
+  width: 4px;
+  height: 24px;
+  top: 0;
+  left: 0;
+}
+
+.photo-corner--tr::before,
+.photo-corner--bl::before {
+  width: 24px;
+  height: 4px;
+  top: 0;
+  right: 0;
+}
+
+.photo-corner--tr::after,
+.photo-corner--bl::after {
+  width: 4px;
+  height: 24px;
+  top: 0;
+  right: 0;
+}
+
+/* ============================================
+   FOAM DROPLETS ON SAND
+   ============================================ */
+
+.wave-droplets {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.droplet {
+  position: absolute;
+  background: radial-gradient(
+    circle,
+    #FFFFFF 0%,
+    rgba(255, 255, 255, 0.8) 50%,
+    transparent 100%
+  );
+  border-radius: 50%;
+  box-shadow: 0 1px 2px rgba(167, 138, 106, 0.15);
+}
+
+/* ============================================
+   PERFORATED BORDER FRAME
+   ============================================ */
+
+.wave-frame {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 25;
+}
+
+.wave-frame__edge {
+  position: absolute;
+  background-repeat: repeat;
+}
+
+.wave-frame__edge--top,
+.wave-frame__edge--bottom {
+  left: 0;
+  right: 0;
+  height: 12px;
+  background: radial-gradient(circle at center, var(--cream) 4px, transparent 4px);
+  background-size: 16px 12px;
+}
+
+.wave-frame__edge--top { top: -6px; }
+.wave-frame__edge--bottom { bottom: -6px; }
+
+.wave-frame__edge--left,
+.wave-frame__edge--right {
+  top: 0;
+  bottom: 0;
+  width: 12px;
+  background: radial-gradient(circle at center, var(--cream) 4px, transparent 4px);
+  background-size: 12px 16px;
+}
+
+.wave-frame__edge--left { left: -6px; }
+.wave-frame__edge--right { right: -6px; }
+
+/* ============================================
+   INFO CARD OVERLAY
+   ============================================ */
+
+.bg-showcase__info {
+  position: absolute;
+  bottom: 60px;
+  right: 60px;
+  z-index: 30;
+  animation: cardSlide 0.6s var(--ease-out) 0.3s backwards;
+}
+
+@keyframes cardSlide {
+  from {
+    opacity: 0;
+    transform: translateY(20px) rotate(2deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotate(0);
+  }
 }
 
 .bg-showcase__card {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  border: 2px solid var(--cloud);
-  border-radius: var(--radius-xl);
-  padding: var(--space-8);
-  max-width: 360px;
-  box-shadow: var(--shadow-lg);
+  background: var(--white);
+  border: 3px solid var(--midnight-sky);
+  padding: 24px;
+  min-width: 280px;
+  position: relative;
+  box-shadow:
+    4px 4px 0 var(--midnight-sky),
+    0 10px 30px rgba(51, 51, 51, 0.1);
+  transition: all 0.3s var(--ease-spring);
+}
+
+.bg-showcase__card:hover {
+  transform: translateY(-4px) rotate(-1deg);
+  box-shadow:
+    6px 8px 0 var(--midnight-sky),
+    0 15px 40px rgba(51, 51, 51, 0.15);
+}
+
+.bg-showcase__card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
 }
 
 .bg-showcase__label {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: var(--coconut-shell);
-  display: block;
-  margin-bottom: var(--space-2);
+  color: var(--fog);
+}
+
+.bg-showcase__number {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--misty-morning);
 }
 
 .bg-showcase__title {
   font-family: var(--font-display);
-  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-size: 28px;
   font-weight: 700;
   color: var(--midnight-sky);
-  margin-bottom: var(--space-4);
+  margin: 0 0 6px 0;
   line-height: 1.1;
 }
 
-.bg-showcase__description {
-  font-family: var(--font-body);
-  font-size: 14px;
-  color: var(--stone);
-  line-height: 1.6;
-  margin-bottom: var(--space-6);
+.bg-showcase__subtitle {
+  font-family: 'Oooh Baby', cursive;
+  font-size: 16px;
+  color: var(--coconut-shell);
+  margin: 0;
 }
 
-/* Color swatches */
-.bg-showcase__colors {
+.bg-showcase__divider {
+  height: 2px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--midnight-sky) 0px,
+    var(--midnight-sky) 4px,
+    transparent 4px,
+    transparent 8px
+  );
+  margin: 16px 0;
+}
+
+/* Color Palette Swatches */
+.bg-showcase__palette {
   display: flex;
-  gap: var(--space-3);
+  gap: 12px;
 }
 
-.color-swatch {
+.palette-swatch {
   flex: 1;
   text-align: center;
 }
 
-.color-swatch::before {
-  content: '';
-  display: block;
+.swatch-color {
   width: 100%;
-  height: 40px;
-  border-radius: var(--radius-md);
-  margin-bottom: var(--space-2);
-  border: 1px solid var(--cloud);
+  height: 32px;
+  border-radius: 4px;
+  margin-bottom: 6px;
+  border: 2px solid var(--midnight-sky);
+  transition: transform 0.2s var(--ease-spring);
 }
 
-.color-swatch--foam::before {
+.palette-swatch:hover .swatch-color {
+  transform: scale(1.05);
+}
+
+.palette-swatch--foam .swatch-color {
   background: #FFFFFF;
-  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.05);
 }
 
-.color-swatch--sand::before {
-  background: #F5EEE5;
+.palette-swatch--sand .swatch-color {
+  background: #F0E8DC;
 }
 
-.color-swatch--accent::before {
+.palette-swatch--shell .swatch-color {
   background: var(--coconut-shell);
 }
 
-.color-swatch span {
-  display: block;
+.swatch-name {
   font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 600;
+  font-size: 9px;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: var(--midnight-sky);
-  margin-bottom: 2px;
+  color: var(--stone);
 }
 
-.color-swatch code {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  color: var(--fog);
-}
+/* ============================================
+   RESPONSIVE
+   ============================================ */
 
-/* Responsive */
 @media (max-width: 768px) {
-  .bg-showcase__content {
-    justify-content: center;
-    align-items: flex-end;
-    padding-bottom: var(--space-12);
+  .wave-canvas {
+    inset: 16px;
+  }
+
+  .bg-showcase__info {
+    bottom: 40px;
+    right: 32px;
+    left: 32px;
   }
 
   .bg-showcase__card {
-    max-width: 100%;
+    min-width: auto;
     width: 100%;
   }
 
-  .foam-particle {
+  .wave-stamp {
+    top: 30px;
+    right: 20px;
+  }
+
+  .wave-washi--top {
+    top: 10px;
+    left: 15px;
+    width: 80px;
+    height: 20px;
+  }
+
+  .wave-washi--bottom {
+    bottom: 100px;
+    right: 20px;
+    width: 80px;
+    height: 20px;
+  }
+
+  .wave-annotation--top {
+    top: 25%;
+    left: 40%;
+  }
+
+  .annotation-text {
+    font-size: 14px;
+  }
+
+  .lace-piece {
     display: none;
   }
 }
 
-/* Full screen variant (can be used as a background) */
-.wave-background--fullscreen {
-  position: fixed;
-  z-index: -1;
+@media (max-width: 480px) {
+  .wave-canvas {
+    inset: 12px;
+  }
+
+  .bg-showcase__card {
+    padding: 16px;
+  }
+
+  .bg-showcase__title {
+    font-size: 22px;
+  }
+
+  .wave-stamp {
+    display: none;
+  }
+
+  .wave-annotation {
+    display: none;
+  }
+}
+
+/* ============================================
+   REDUCED MOTION
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .bg-showcase,
+  .wave-stamp,
+  .bg-showcase__info,
+  .wave-annotation,
+  .grain,
+  .lace-piece,
+  .bubble-hole,
+  .annotation-arrow {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .bg-showcase--loaded {
+    opacity: 1;
+    transform: none;
+  }
 }
