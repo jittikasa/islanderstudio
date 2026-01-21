@@ -14,6 +14,7 @@ import { handleMedia } from './api/media.js';
 import { handleEmail } from './api/email.js';
 import { handleSitemap } from './api/sitemap.js';
 import { handleFeed, handleJsonFeed } from './api/feed.js';
+import { handleStats, handleRecentPosts } from './api/stats.js';
 
 /**
  * Get CORS headers for the request origin
@@ -216,11 +217,61 @@ export default {
         return addCorsHeaders(response, request);
       }
 
+      // Stats (dashboard)
+      if (path === '/api/stats' && method === 'GET') {
+        const response = await handleStats(request, env);
+        return addCorsHeaders(response, request);
+      }
+
+      // Recent posts (dashboard)
+      if (path === '/api/stats/recent-posts' && method === 'GET') {
+        const response = await handleRecentPosts(request, env);
+        return addCorsHeaders(response, request);
+      }
+
       // 404 - Route not found
       return errorResponse('Not found', 404, request);
     } catch (error) {
       console.error('Error:', error);
       return errorResponse(error.message || 'Internal server error', 500, request);
+    }
+  },
+
+  /**
+   * Scheduled handler for cron triggers
+   * Runs every 5 minutes to publish scheduled posts
+   */
+  async scheduled(event, env, ctx) {
+    console.log('Running scheduled task:', event.scheduledTime);
+
+    try {
+      // Find all posts with status 'scheduled' and published_at in the past
+      const result = await env.DB.prepare(`
+        SELECT id, title, slug
+        FROM posts
+        WHERE status = 'scheduled'
+          AND published_at <= datetime('now')
+      `).all();
+
+      const postsToPublish = result.results || [];
+      console.log(`Found ${postsToPublish.length} posts to publish`);
+
+      // Update each post to published
+      for (const post of postsToPublish) {
+        await env.DB.prepare(`
+          UPDATE posts
+          SET status = 'published',
+              updated_at = datetime('now')
+          WHERE id = ?
+        `).bind(post.id).run();
+
+        console.log(`Published: ${post.title} (${post.slug})`);
+      }
+
+      return new Response(`Published ${postsToPublish.length} posts`, { status: 200 });
+    } catch (error) {
+      console.error('Scheduled task error:', error);
+      throw error;
     }
   },
 };

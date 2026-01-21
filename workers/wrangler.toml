@@ -30,3 +30,7 @@ R2_PUBLIC_URL = "https://pub-9c7eeff067e24dd4942b72316471fc86.r2.dev"
 # Email Sending binding
 [[send_email]]
 name = "EMAIL_SEND"
+
+# Cron Triggers for scheduled posts
+[triggers]
+crons = ["*/5 * * * *"]  # Run every 5 minutes

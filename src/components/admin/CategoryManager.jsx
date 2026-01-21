@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
+import ColorPicker from './ColorPicker'
 import './ContentManager.css'
+import './CategoryManager.css'
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8787'
 
@@ -10,7 +12,8 @@ export default function CategoryManager() {
   const [editingCategory, setEditingCategory] = useState(null)
   const [formData, setFormData] = useState({
     title: '',
-    description: ''
+    description: '',
+    color: ''
   })
 
   useEffect(() => {
@@ -63,7 +66,8 @@ export default function CategoryManager() {
         body: JSON.stringify({
           title: formData.title,
           slug: slug,
-          description: formData.description
+          description: formData.description,
+          color: formData.color || null
         })
       })
 
@@ -71,7 +75,7 @@ export default function CategoryManager() {
         throw new Error('Failed to save category')
       }
 
-      setFormData({ title: '', description: '' })
+      setFormData({ title: '', description: '', color: '' })
       setShowForm(false)
       setEditingCategory(null)
       fetchCategories()
@@ -96,28 +100,30 @@ export default function CategoryManager() {
       })
 
       if (!response.ok) {
-        throw new Error('Failed to delete category')
+        const data = await response.json()
+        throw new Error(data.error || 'Failed to delete category')
       }
 
       fetchCategories()
       alert('Category deleted successfully!')
     } catch (error) {
       console.error('Error deleting category:', error)
-      alert('Failed to delete category')
+      alert(error.message || 'Failed to delete category')
     }
   }
 
   function handleEdit(category) {
     setFormData({
       title: category.title,
-      description: category.description || ''
+      description: category.description || '',
+      color: category.color || ''
     })
     setEditingCategory(category)
     setShowForm(true)
   }
 
   function handleCancel() {
-    setFormData({ title: '', description: '' })
+    setFormData({ title: '', description: '', color: '' })
     setEditingCategory(null)
     setShowForm(false)
   }
@@ -127,7 +133,7 @@ export default function CategoryManager() {
   }
 
   return (
-    <div className="content-manager">
+    <div className="content-manager category-manager">
       <div className="manager-header">
         <h2>Categories</h2>
         <button onClick={() => setShowForm(!showForm)} className="add-btn">
@@ -137,15 +143,25 @@ export default function CategoryManager() {
 
       {showForm && (
         <form onSubmit={handleSubmit} className="content-form">
-          <div className="form-group">
-            <label htmlFor="title">Title *</label>
-            <input
-              type="text"
-              id="title"
-              value={formData.title}
-              onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-              required
-            />
+          <div className="form-row">
+            <div className="form-group form-group--flex">
+              <label htmlFor="title">Title *</label>
+              <input
+                type="text"
+                id="title"
+                value={formData.title}
+                onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                required
+              />
+            </div>
+
+            <div className="form-group">
+              <ColorPicker
+                value={formData.color}
+                onChange={(color) => setFormData({ ...formData, color })}
+                label="Color"
+              />
+            </div>
           </div>
 
           <div className="form-group">
@@ -174,11 +190,22 @@ export default function CategoryManager() {
           <p className="empty-state">No categories yet. Create your first category!</p>
         ) : (
           categories.map((category) => (
-            <div key={category.id} className="content-item">
+            <div key={category.id} className="content-item category-item">
+              {category.color && (
+                <span
+                  className="category-color-indicator"
+                  style={{ backgroundColor: category.color }}
+                />
+              )}
               <div className="item-info">
                 <h3>{category.title}</h3>
                 {category.description && <p>{category.description}</p>}
-                <p className="post-meta">Slug: {category.slug}</p>
+                <p className="post-meta">
+                  <span className="category-slug">/{category.slug}</span>
+                  {category.color && (
+                    <span className="category-color-value">{category.color}</span>
+                  )}
+                </p>
               </div>
               <div className="item-actions">
                 <button

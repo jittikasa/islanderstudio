@@ -1,0 +1,52 @@
+/* Category Manager Specific Styles */
+
+.category-manager .form-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.category-manager .form-group--flex {
+  flex: 1;
+}
+
+/* Category Item */
+.category-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.category-color-indicator {
+  display: block;
+  width: 8px;
+  height: 100%;
+  min-height: 48px;
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+}
+
+.category-slug {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--fog);
+}
+
+.category-color-value {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--stone);
+  margin-left: 0.75rem;
+  padding: 0.125rem 0.375rem;
+  background: var(--paper);
+  border-radius: var(--radius-sm);
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .category-manager .form-row {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}

@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import { useAuth } from '../contexts/AuthContext'
 import { useNavigate } from 'react-router-dom'
 import SEO from '../components/SEO'
+import DashboardOverview from '../components/admin/DashboardOverview'
 import AuthorManager from '../components/admin/AuthorManager'
 import CategoryManager from '../components/admin/CategoryManager'
 import TagManager from '../components/admin/TagManager'
@@ -11,7 +12,8 @@ import MediaLibrary from '../components/admin/MediaLibrary'
 import './AdminDashboard.css'
 
 export default function AdminDashboard() {
-  const [activeTab, setActiveTab] = useState('posts')
+  const [activeTab, setActiveTab] = useState('overview')
+  const [postAction, setPostAction] = useState(null)
   const { logout } = useAuth()
   const navigate = useNavigate()
 
@@ -19,6 +21,14 @@ export default function AdminDashboard() {
     logout()
     navigate('/admin')
   }
+
+  // Handle navigation from overview quick actions
+  const handleOverviewNavigate = useCallback((tab, action = null) => {
+    setActiveTab(tab)
+    if (action) {
+      setPostAction(action)
+    }
+  }, [])
 
   return (
     <div className="admin-dashboard">
@@ -36,6 +46,12 @@ export default function AdminDashboard() {
       </div>
 
       <div className="admin-tabs">
+        <button
+          className={`tab-btn ${activeTab === 'overview' ? 'active' : ''}`}
+          onClick={() => setActiveTab('overview')}
+        >
+          Overview
+        </button>
         <button
           className={`tab-btn ${activeTab === 'posts' ? 'active' : ''}`}
           onClick={() => setActiveTab('posts')}
@@ -75,7 +91,8 @@ export default function AdminDashboard() {
       </div>
 
       <div className="admin-content">
-        {activeTab === 'posts' && <PostManager />}
+        {activeTab === 'overview' && <DashboardOverview onNavigate={handleOverviewNavigate} />}
+        {activeTab === 'posts' && <PostManager initialAction={postAction} onActionComplete={() => setPostAction(null)} />}
         {activeTab === 'media' && <MediaLibrary />}
         {activeTab === 'authors' && <AuthorManager />}
         {activeTab === 'categories' && <CategoryManager />}

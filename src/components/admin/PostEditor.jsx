@@ -1,11 +1,86 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import Image from '@tiptap/extension-image'
 import Link from '@tiptap/extension-link'
 import Placeholder from '@tiptap/extension-placeholder'
 import { marked } from 'marked'
+import { Eye, Save, Clock } from 'lucide-react'
+import PostPreviewModal from './PostPreviewModal'
 import './PostEditor.css'
+
+// Auto-save debounce hook
+function useAutoSave(data, key, delay = 5000) {
+  const [lastSaved, setLastSaved] = useState(null)
+  const [isSaving, setIsSaving] = useState(false)
+  const timeoutRef = useRef(null)
+
+  const save = useCallback(() => {
+    if (!data || !data.title) return // Don't save empty posts
+    setIsSaving(true)
+    try {
+      localStorage.setItem(key, JSON.stringify({
+        data,
+        timestamp: Date.now()
+      }))
+      setLastSaved(new Date())
+    } catch (error) {
+      console.error('Auto-save failed:', error)
+    }
+    setIsSaving(false)
+  }, [data, key])
+
+  useEffect(() => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current)
+    }
+
+    timeoutRef.current = setTimeout(() => {
+      save()
+    }, delay)
+
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current)
+      }
+    }
+  }, [data, save, delay])
+
+  const clearSaved = useCallback(() => {
+    localStorage.removeItem(key)
+    setLastSaved(null)
+  }, [key])
+
+  return { lastSaved, isSaving, clearSaved, saveNow: save }
+}
+
+// Get saved draft
+function getSavedDraft(key) {
+  try {
+    const saved = localStorage.getItem(key)
+    if (saved) {
+      const { data, timestamp } = JSON.parse(saved)
+      // Only return if less than 24 hours old
+      if (Date.now() - timestamp < 24 * 60 * 60 * 1000) {
+        return { data, timestamp }
+      }
+    }
+  } catch (error) {
+    console.error('Error loading draft:', error)
+  }
+  return null
+}
+
+function formatLastSaved(date) {
+  if (!date) return null
+  const now = new Date()
+  const diff = Math.floor((now - date) / 1000)
+
+  if (diff < 5) return 'Just now'
+  if (diff < 60) return `${diff}s ago`
+  if (diff < 3600) return `${Math.floor(diff / 60)}m ago`
+  return date.toLocaleTimeString()
+}
 
 // Helper to detect if content is markdown (has markdown syntax but no HTML tags)
 function isMarkdown(content) {
@@ -309,7 +384,14 @@ function ImageUploadModal({ isOpen, onClose, onInsert, apiUrl }) {
 }
 
 export default function PostEditor({ post, onSave, onCancel }) {
-  const [formData, setFormData] = useState({
+  // Unique key for auto-save (based on post ID or 'new-post')
+  const autoSaveKey = post?.id ? `post-draft-${post.id}` : 'post-draft-new'
+
+  // Check for existing draft on mount
+  const [showDraftRestore, setShowDraftRestore] = useState(false)
+  const [savedDraft, setSavedDraft] = useState(null)
+
+  const initialFormData = {
     title: '',
     slug: '',
     excerpt: '',
@@ -335,7 +417,9 @@ export default function PostEditor({ post, onSave, onCancel }) {
     seo_og_type: 'article',
     seo_hide_from_search: false,
     ...post
-  })
+  }
+
+  const [formData, setFormData] = useState(initialFormData)
 
   const [authors, setAuthors] = useState([])
   const [categories, setCategories] = useState([])
@@ -345,7 +429,38 @@ export default function PostEditor({ post, onSave, onCancel }) {
   const [saving, setSaving] = useState(false)
   const [showImageModal, setShowImageModal] = useState(false)
   const [showFeaturedImageModal, setShowFeaturedImageModal] = useState(false)
+  const [showPreview, setShowPreview] = useState(false)
   const [editorMode, setEditorMode] = useState('visual') // 'visual' or 'code'
+
+  // Auto-save hook
+  const { lastSaved, isSaving: isAutoSaving, clearSaved } = useAutoSave(formData, autoSaveKey, 5000)
+
+  // Check for saved draft on mount
+  useEffect(() => {
+    const draft = getSavedDraft(autoSaveKey)
+    if (draft) {
+      setSavedDraft(draft)
+      // Only show restore prompt for new posts or if draft is newer
+      if (!post?.id || draft.timestamp > new Date(post.updated_at || 0).getTime()) {
+        setShowDraftRestore(true)
+      }
+    }
+  }, [autoSaveKey, post])
+
+  function restoreDraft() {
+    if (savedDraft?.data) {
+      setFormData(savedDraft.data)
+      if (editor && savedDraft.data.body) {
+        editor.commands.setContent(markdownToHtml(savedDraft.data.body))
+      }
+    }
+    setShowDraftRestore(false)
+  }
+
+  function discardDraft() {
+    clearSaved()
+    setShowDraftRestore(false)
+  }
 
   // Initialize Tiptap editor
   const editor = useEditor({
@@ -423,6 +538,8 @@ export default function PostEditor({ post, onSave, onCancel }) {
 
     try {
       await onSave(formData)
+      // Clear auto-save on successful save
+      clearSaved()
     } catch (error) {
       alert('Failed to save post: ' + error.message)
     } finally {
@@ -478,9 +595,56 @@ export default function PostEditor({ post, onSave, onCancel }) {
 
   return (
     <form onSubmit={handleSubmit} className="post-editor">
+      {/* Draft Restore Banner */}
+      {showDraftRestore && (
+        <div className="draft-restore-banner">
+          <div className="draft-restore-content">
+            <Clock size={18} />
+            <span>
+              Unsaved draft found from {savedDraft ? new Date(savedDraft.timestamp).toLocaleString() : 'earlier'}
+            </span>
+          </div>
+          <div className="draft-restore-actions">
+            <button type="button" onClick={restoreDraft} className="btn-restore">
+              Restore Draft
+            </button>
+            <button type="button" onClick={discardDraft} className="btn-discard">
+              Discard
+            </button>
+          </div>
+        </div>
+      )}
+
       <div className="editor-header">
-        <h2>{post ? 'Edit Post' : 'New Post'}</h2>
+        <div className="editor-title-row">
+          <h2>{post ? 'Edit Post' : 'New Post'}</h2>
+          {/* Auto-save indicator */}
+          {lastSaved && (
+            <span className="autosave-indicator">
+              {isAutoSaving ? (
+                <>
+                  <Save size={14} className="saving-icon" />
+                  Saving...
+                </>
+              ) : (
+                <>
+                  <Save size={14} />
+                  Saved {formatLastSaved(lastSaved)}
+                </>
+              )}
+            </span>
+          )}
+        </div>
         <div className="editor-actions">
+          <button
+            type="button"
+            onClick={() => setShowPreview(true)}
+            className="btn-preview"
+            title="Preview post"
+          >
+            <Eye size={18} />
+            Preview
+          </button>
           <button type="button" onClick={onCancel} className="btn-secondary">
             Cancel
           </button>
@@ -931,18 +1095,37 @@ export default function PostEditor({ post, onSave, onCancel }) {
                 <option value="draft">Draft</option>
                 <option value="in_review">In Review</option>
                 <option value="seo_optimized">SEO Optimized</option>
+                <option value="scheduled">Scheduled</option>
                 <option value="published">Published</option>
               </select>
+              {formData.content_status === 'scheduled' && (
+                <small className="schedule-note">
+                  Post will be automatically published at the scheduled date/time.
+                </small>
+              )}
             </div>
 
             <div className="form-group">
-              <label htmlFor="published_at">Publish Date</label>
-              <input
-                type="date"
-                id="published_at"
-                value={formData.published_at}
-                onChange={(e) => setFormData({ ...formData, published_at: e.target.value })}
-              />
+              <label htmlFor="published_at">
+                {formData.content_status === 'scheduled' ? 'Schedule Date & Time *' : 'Publish Date'}
+              </label>
+              {formData.content_status === 'scheduled' ? (
+                <input
+                  type="datetime-local"
+                  id="published_at"
+                  value={formData.published_at}
+                  onChange={(e) => setFormData({ ...formData, published_at: e.target.value })}
+                  min={new Date().toISOString().slice(0, 16)}
+                  required
+                />
+              ) : (
+                <input
+                  type="date"
+                  id="published_at"
+                  value={formData.published_at}
+                  onChange={(e) => setFormData({ ...formData, published_at: e.target.value })}
+                />
+              )}
             </div>
 
             <div className="form-group">
@@ -958,6 +1141,15 @@ export default function PostEditor({ post, onSave, onCancel }) {
           </div>
         )}
       </div>
+
+      {/* Post Preview Modal */}
+      <PostPreviewModal
+        isOpen={showPreview}
+        onClose={() => setShowPreview(false)}
+        post={formData}
+        authors={authors}
+        categories={categories}
+      />
     </form>
   )
 }

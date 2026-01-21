@@ -1,0 +1,320 @@
+/* Tag Manager Specific Styles */
+
+.tag-manager .header-actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.delete-unused-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.5rem 1rem;
+  background: transparent;
+  border: 2px solid var(--cloud);
+  border-radius: var(--radius-md);
+  color: var(--stone);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-out);
+}
+
+.delete-unused-btn:hover:not(:disabled) {
+  background: rgba(239, 68, 68, 0.1);
+  border-color: #ef4444;
+  color: #ef4444;
+}
+
+.delete-unused-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* List Header */
+.list-header {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--cloud);
+  background: var(--paper);
+}
+
+.select-all {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-size: 0.875rem;
+  color: var(--stone);
+}
+
+.select-all input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+/* Tag Item */
+.tag-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.tag-item.selected {
+  background: rgba(99, 102, 241, 0.05);
+}
+
+.tag-checkbox {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.tag-checkbox input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.tag-slug {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--fog);
+}
+
+.tag-count {
+  font-size: 0.8125rem;
+  color: var(--stone);
+  margin-left: 0.75rem;
+}
+
+.tag-count.unused {
+  color: var(--fog);
+  font-style: italic;
+}
+
+/* Selection Bar */
+.selection-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  background: var(--midnight-sky);
+  color: var(--white);
+  border-radius: var(--radius-md);
+  margin-bottom: 1rem;
+}
+
+.selection-count {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.selection-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0.75rem;
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  border-radius: var(--radius-sm);
+  color: var(--white);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background var(--duration-fast) var(--ease-out);
+}
+
+.action-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.action-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.action-btn.merge-btn:hover:not(:disabled) {
+  background: #6366f1;
+}
+
+.action-btn.delete-btn:hover:not(:disabled) {
+  background: #ef4444;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.modal {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  width: 100%;
+  max-width: 480px;
+  max-height: 90vh;
+  overflow: auto;
+  box-shadow: var(--shadow-xl);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--cloud);
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  color: var(--midnight-sky);
+}
+
+.modal-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem;
+  background: transparent;
+  border: none;
+  color: var(--stone);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: all var(--duration-fast) var(--ease-out);
+}
+
+.modal-close:hover {
+  background: var(--paper);
+  color: var(--midnight-sky);
+}
+
+.modal-body {
+  padding: 1.5rem;
+}
+
+.modal-body > p {
+  margin: 0 0 1.25rem;
+  color: var(--stone);
+  line-height: 1.5;
+}
+
+.modal-body .form-group {
+  margin-bottom: 1.25rem;
+}
+
+.modal-body .form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--midnight-sky);
+}
+
+.merge-select {
+  width: 100%;
+  padding: 0.625rem 0.875rem;
+  font-size: 1rem;
+  font-family: var(--font-body);
+  border: 2px solid var(--cloud);
+  border-radius: var(--radius-md);
+  background: var(--white);
+  color: var(--midnight-sky);
+  cursor: pointer;
+}
+
+.merge-select:focus {
+  outline: none;
+  border-color: var(--misty-morning);
+}
+
+.merge-preview {
+  background: var(--paper);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+}
+
+.merge-preview-label {
+  margin: 0 0 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--stone);
+}
+
+.merge-source-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.merge-source-list li {
+  padding: 0.375rem 0;
+  color: var(--midnight-sky);
+  font-size: 0.9375rem;
+}
+
+.merge-source-list .tag-count {
+  font-size: 0.8125rem;
+  color: var(--fog);
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  padding: 1.25rem 1.5rem;
+  border-top: 1px solid var(--cloud);
+  background: var(--paper);
+}
+
+.modal-footer .cancel-btn {
+  padding: 0.625rem 1.25rem;
+  background: transparent;
+  border: 2px solid var(--cloud);
+  border-radius: var(--radius-md);
+  color: var(--stone);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-out);
+}
+
+.modal-footer .cancel-btn:hover {
+  border-color: var(--midnight-sky);
+  color: var(--midnight-sky);
+}
+
+.modal-footer .submit-btn {
+  padding: 0.625rem 1.25rem;
+  background: var(--misty-morning);
+  border: none;
+  border-radius: var(--radius-md);
+  color: var(--white);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--duration-fast) var(--ease-out);
+}
+
+.modal-footer .submit-btn:hover:not(:disabled) {
+  background: var(--coconut-shell);
+}
+
+.modal-footer .submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

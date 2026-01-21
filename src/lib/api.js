@@ -262,9 +262,50 @@ export async function getTags() {
 }
 
 /**
+ * Merge multiple tags into one
+ * @param {string[]} sourceIds - Tag IDs to merge (will be deleted)
+ * @param {string} targetId - Tag ID to merge into (will be kept)
+ */
+export async function mergeTags(sourceIds, targetId) {
+  return apiRequest('/api/tags/merge', {
+    method: 'POST',
+    body: JSON.stringify({ sourceIds, targetId }),
+  });
+}
+
+/**
+ * Bulk delete tags
+ * @param {Object} options
+ * @param {string[]} options.tagIds - Specific tag IDs to delete
+ * @param {boolean} options.unusedOnly - If true, delete all unused tags
+ */
+export async function bulkDeleteTags(options = {}) {
+  return apiRequest('/api/tags/bulk-delete', {
+    method: 'POST',
+    body: JSON.stringify(options),
+  });
+}
+
+/**
  * Get all apps
  */
 export async function getApps() {
   const data = await apiRequest('/api/apps');
   return data.apps;
+}
+
+/**
+ * Get dashboard statistics
+ */
+export async function getDashboardStats() {
+  const data = await apiRequest('/api/stats');
+  return data.stats;
+}
+
+/**
+ * Get recent posts for dashboard
+ */
+export async function getRecentDashboardPosts(limit = 5) {
+  const data = await apiRequest(`/api/stats/recent-posts?limit=${limit}`);
+  return data.posts;
 }

@@ -4,12 +4,23 @@ import './ContentManager.css'
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8787'
 
-export default function PostManager() {
+export default function PostManager({ initialAction, onActionComplete }) {
   const [posts, setPosts] = useState([])
   const [loading, setLoading] = useState(true)
   const [showEditor, setShowEditor] = useState(false)
   const [editingPost, setEditingPost] = useState(null)
   const [filter, setFilter] = useState('all') // all, draft, published
+
+  // Handle initial action from dashboard quick actions
+  useEffect(() => {
+    if (initialAction === 'new') {
+      setShowEditor(true)
+      setEditingPost(null)
+      if (onActionComplete) {
+        onActionComplete()
+      }
+    }
+  }, [initialAction, onActionComplete])
 
   useEffect(() => {
     fetchPosts()
