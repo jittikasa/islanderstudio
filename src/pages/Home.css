@@ -190,8 +190,8 @@
 }
 
 .home__sticker:hover {
-  transform: rotate(0deg) scale(calc(var(--scale) * 1.15));
-  filter: drop-shadow(0 8px 24px rgba(51, 51, 51, 0.2));
+  transform: rotate(2deg) scale(calc(var(--scale) * 1.15));
+  filter: drop-shadow(2px 10px 20px rgba(51, 51, 51, 0.25));
   z-index: 100;
 }
 
@@ -254,7 +254,6 @@
   text-transform: uppercase;
   letter-spacing: 0.1em;
   margin-bottom: var(--space-6);
-  animation: fadeInUp 0.5s var(--ease-out) 0.1s backwards;
 }
 
 .home__hero-badge-dot {
@@ -271,7 +270,6 @@
   line-height: 1.1;
   letter-spacing: -0.03em;
   margin-bottom: var(--space-6);
-  animation: fadeInUp 0.5s var(--ease-out) 0.2s backwards;
 }
 
 .home__hero-accent {
@@ -298,14 +296,12 @@
   color: var(--stone);
   margin-bottom: var(--space-8);
   max-width: 400px;
-  animation: fadeInUp 0.5s var(--ease-out) 0.3s backwards;
 }
 
 .home__hero-actions {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-3);
-  animation: fadeInUp 0.5s var(--ease-out) 0.4s backwards;
 }
 
 /* Hero Meta */
@@ -313,7 +309,7 @@
   display: flex;
   gap: var(--space-8);
   margin-top: var(--space-16);
-  animation: fadeInUp 0.5s var(--ease-out) 0.5s backwards;
+  animation: fadeInUp 0.55s var(--ease-out) 0.2s backwards;
   position: relative;
 }
 
@@ -379,7 +375,7 @@
 .home__postcard-wrapper {
   width: 100%;
   max-width: 600px;
-  animation: fadeInUp 0.5s var(--ease-out) 0.45s backwards;
+  animation: fadeInUp 0.6s var(--ease-out) 0.25s backwards;
   position: relative;
   transition: transform 0.3s ease;
 }
@@ -957,10 +953,11 @@
 
 .home__stamp:hover,
 .home__stamp--hovered {
-  transform: translateY(-6px) rotate(-1deg);
+  transform: translateY(-8px) rotate(-1.5deg);
   box-shadow:
-    4px 6px 0 var(--midnight-sky),
-    0 20px 40px rgba(51, 51, 51, 0.15);
+    5px 8px 0 var(--midnight-sky),
+    -2px 2px 20px rgba(51, 51, 51, 0.08),
+    0 24px 48px rgba(51, 51, 51, 0.12);
 }
 
 .home__stamp:active {

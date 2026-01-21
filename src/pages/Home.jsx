@@ -224,9 +224,9 @@ export default function Home() {
           <div className="home__hero-content">
             <motion.div
               className="home__hero-badge"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
+              initial={{ opacity: 0, y: 16, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.5, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
             >
               <span className="home__hero-badge-dot"></span>
               Studio Collection
@@ -234,9 +234,9 @@ export default function Home() {
 
             <motion.h1
               className="home__hero-title"
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              transition={{ duration: 0.65, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
             >
               Apps crafted<br />
               with <span className="home__hero-accent">soul</span>
@@ -244,9 +244,9 @@ export default function Home() {
 
             <motion.p
               className="home__hero-text"
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.35 }}
+              transition={{ duration: 0.5, delay: 0.28, ease: [0.16, 1, 0.3, 1] }}
             >
               A small iOS studio, creating mobile experiences that feel personal,
               considered, and quietly delightful.
@@ -254,9 +254,9 @@ export default function Home() {
 
             <motion.div
               className="home__hero-actions"
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.5 }}
+              transition={{ duration: 0.5, delay: 0.38, ease: [0.16, 1, 0.3, 1] }}
             >
               <a href="#collection" className="btn btn-primary">
                 View Collection
