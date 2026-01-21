@@ -1,0 +1,106 @@
+/* ============================================
+   RUBBER STAMP TEXT EFFECT
+   Headlines that slam down with bounce + ink
+   ============================================ */
+
+.rubber-stamp {
+  position: relative;
+  display: inline-block;
+  perspective: 500px;
+}
+
+.rubber-stamp__text {
+  position: relative;
+  z-index: 2;
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+}
+
+/* Ink splatter on impact */
+.rubber-stamp__ink {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 120%;
+  height: 120%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    ellipse at center,
+    var(--ink-color) 0%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1;
+  filter: blur(8px);
+}
+
+/* Subtle ink texture overlay */
+.rubber-stamp__texture {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  opacity: 0.03;
+  pointer-events: none;
+  z-index: 3;
+  mix-blend-mode: multiply;
+}
+
+/* Impact ring that expands outward */
+.rubber-stamp__ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  transform: translate(-50%, -50%);
+  border: 2px solid var(--ring-color);
+  border-radius: 4px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Simpler inline stamp */
+.stamp-text {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+/* Optional: Add slight rotation for more organic feel */
+.rubber-stamp--tilted .rubber-stamp__text {
+  transform: rotate(-1deg);
+}
+
+/* Stamp with border frame */
+.rubber-stamp--framed .rubber-stamp__text {
+  padding: 0.5em 1em;
+  border: 3px solid currentColor;
+  border-radius: 4px;
+}
+
+.rubber-stamp--framed .rubber-stamp__text::before {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border: 1px solid currentColor;
+  border-radius: 2px;
+  opacity: 0.3;
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .rubber-stamp__text,
+  .stamp-text {
+    transform: none !important;
+    opacity: 1 !important;
+    transition: none !important;
+  }
+
+  .rubber-stamp__ink,
+  .rubber-stamp__ring {
+    display: none;
+  }
+}

@@ -20,8 +20,10 @@
 }
 
 .notfound__content {
+  position: relative;
   text-align: center;
   max-width: 400px;
+  padding-bottom: var(--space-12);
 }
 
 /* Error Code */
@@ -159,6 +161,37 @@
   background: var(--summer-sky);
 }
 
+/* Clickable hint for gravity easter egg */
+.notfound__code {
+  cursor: pointer;
+  user-select: none;
+}
+
+.notfound__code:hover .notfound__digit {
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.notfound__hint {
+  position: absolute;
+  bottom: var(--space-8);
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-style: italic;
+  color: var(--fog);
+  margin: 0;
+}
+
+/* Gravity active state */
+.notfound--gravity {
+  overflow: hidden;
+}
+
+.notfound--gravity .notfound__code {
+  pointer-events: none;
+}
+
 /* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
   .notfound,
@@ -170,5 +203,9 @@
 
   .notfound__digit {
     transform: none !important;
+  }
+
+  .notfound__hint {
+    display: none;
   }
 }

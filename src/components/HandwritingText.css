@@ -1,0 +1,80 @@
+/* ============================================
+   HANDWRITING TEXT ANIMATION
+   Reveals text as if being written by hand
+   ============================================ */
+
+/* SVG Handwriting Version */
+.handwriting {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.handwriting__svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.handwriting__text {
+  font-family: var(--font-display);
+  font-weight: 600;
+}
+
+.handwriting__stroke {
+  font-family: var(--font-display);
+  font-weight: 600;
+}
+
+.handwriting__cursor {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  font-size: 1.2em;
+  pointer-events: none;
+}
+
+/* Typewriter Version - simpler, more reliable */
+.typewriter {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.typewriter__text {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  vertical-align: bottom;
+}
+
+.typewriter__cursor {
+  display: inline-block;
+  margin-left: 2px;
+  font-weight: 300;
+  color: var(--misty-morning);
+  animation: cursorBlink 0.8s ease-in-out infinite;
+}
+
+@keyframes cursorBlink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .typewriter__text {
+    width: 100% !important;
+    transition: none !important;
+  }
+
+  .typewriter__cursor {
+    display: none;
+  }
+
+  .handwriting__stroke,
+  .handwriting__cursor {
+    display: none;
+  }
+}
