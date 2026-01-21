@@ -1,83 +1,174 @@
-# Admin Panel Deployment Guide
+# Islander Studio Deployment Guide
 
-This guide will help you deploy the complete admin panel with all features including image upload to Cloudflare R2.
+This comprehensive guide covers deploying the Islander Studio blog platform to production on Cloudflare's infrastructure.
+
+## Architecture Overview
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    Cloudflare Edge Network                       │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│  ┌──────────────────────────────────────────────────────────┐  │
+│  │              Cloudflare Pages (Frontend)                  │  │
+│  │           React 18 + Vite + React Router                  │  │
+│  │              https://islanderstudio.app                   │  │
+│  │                                                           │  │
+│  │  Features:                                                │  │
+│  │  - Code splitting with lazy loading                       │  │
+│  │  - Service worker for offline support                     │  │
+│  │  - Automatic preview deployments on PRs                   │  │
+│  └──────────────────────┬───────────────────────────────────┘  │
+│                         │                                        │
+│                         │ HTTPS + JWT Authentication            │
+│                         ▼                                        │
+│  ┌──────────────────────────────────────────────────────────┐  │
+│  │            Cloudflare Workers (Backend API)               │  │
+│  │                 https://api.islanderstudio.app            │  │
+│  │                                                           │  │
+│  │  Features:                                                │  │
+│  │  - RESTful API endpoints                                  │  │
+│  │  - JWT & Google OAuth authentication                      │  │
+│  │  - Rate limiting via KV                                   │  │
+│  │  - Cron triggers for scheduled tasks                      │  │
+│  └─────┬───────────────────┬──────────────────┬─────────────┘  │
+│        │                   │                  │                  │
+│        ▼                   ▼                  ▼                  │
+│  ┌──────────┐       ┌──────────┐       ┌──────────┐            │
+│  │    D1    │       │    R2    │       │    KV    │            │
+│  │ Database │       │ Storage  │       │  Cache   │            │
+│  │ (SQLite) │       │ (Media)  │       │  (Rate   │            │
+│  │          │       │          │       │  Limit)  │            │
+│  └──────────┘       └──────────┘       └──────────┘            │
+│                                                                  │
+└─────────────────────────────────────────────────────────────────┘
+```
 
 ## Prerequisites
 
-- Cloudflare account with Workers and Pages enabled
-- D1 database already created: `blog-database`
-- R2 bucket already created: `blog-media`
-- Cloudflare API token with appropriate permissions
+Before deploying, ensure you have:
 
-## Step 1: Apply Database Migrations
+- **Cloudflare Account** with Workers, Pages, D1, R2, and KV enabled
+- **Node.js** v18 or later
+- **Wrangler CLI** installed (`npm install -g wrangler`)
+- **Git** for version control
+- Domain configured in Cloudflare (for custom domains)
 
-The admin panel requires a new `media` table in your D1 database.
+## Initial Setup
 
-### Apply the Media Table Migration
+### 1. Create Cloudflare Resources
+
+```bash
+# Login to Cloudflare
+wrangler login
+
+# Create D1 Database
+wrangler d1 create blog-database
+# Note the database ID from the output
+
+# Create R2 Bucket for media storage
+wrangler r2 bucket create blog-media
+
+# Create KV Namespace for rate limiting
+wrangler kv:namespace create RATE_LIMIT_KV
+# Note the namespace ID from the output
+```
+
+### 2. Configure wrangler.toml
+
+Update `workers/wrangler.toml` with your resource IDs:
+
+```toml
+name = "islanderstudio-blog-api"
+main = "src/index.js"
+compatibility_date = "2024-01-01"
+
+[vars]
+FRONTEND_URL = "https://islanderstudio.app"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "blog-database"
+database_id = "YOUR_D1_DATABASE_ID"
+
+[[r2_buckets]]
+binding = "MEDIA_BUCKET"
+bucket_name = "blog-media"
+
+[[kv_namespaces]]
+binding = "RATE_LIMIT_KV"
+id = "YOUR_KV_NAMESPACE_ID"
+
+[triggers]
+crons = [
+  "*/5 * * * *",  # Every 5 minutes - publish scheduled posts
+  "0 3 * * *"     # Daily at 3 AM UTC - session cleanup
+]
+```
+
+### 3. Apply Database Migrations
 
 ```bash
 cd workers
+
+# Apply all migrations in order
 npx wrangler d1 execute blog-database --remote --file=../docs/migrations/001_add_media_table.sql
+npx wrangler d1 execute blog-database --remote --file=../docs/migrations/002_add_sessions_table.sql
+
+# Verify tables were created
+npx wrangler d1 execute blog-database --remote --command="SELECT name FROM sqlite_master WHERE type='table';"
 ```
 
-This will create the `media` table with the following schema:
-- `id` - UUID primary key
-- `filename` - Original filename
-- `key` - R2 object storage key
-- `url` - Public URL to access the image
-- `size` - File size in bytes
-- `content_type` - MIME type
-- `width`, `height` - Image dimensions
-- `alt_text` - Accessibility text
-- `created_at` - Timestamp
+## Environment Variables
 
-## Step 2: Configure R2 Public Access
+### Workers Secrets
 
-To serve images publicly, you need to configure your R2 bucket:
+Set these using `wrangler secret put <SECRET_NAME>`:
 
-### Option A: R2 Custom Domain (Recommended)
+| Secret | Required | Description |
+|--------|----------|-------------|
+| `ADMIN_PASSWORD_HASH` | Yes | bcrypt hash of admin password |
+| `JWT_SECRET` | Yes | 32+ character secret for signing JWTs |
+| `GOOGLE_CLIENT_ID` | For OAuth | Google OAuth client ID |
+| `GOOGLE_CLIENT_SECRET` | For OAuth | Google OAuth client secret |
+| `ALLOWED_ADMIN_EMAILS` | Optional | Comma-separated list of allowed OAuth emails |
 
-1. Go to Cloudflare Dashboard → R2 → Your bucket (`blog-media`)
-2. Click "Settings" → "Public access"
-3. Click "Connect Domain"
-4. Enter a subdomain like `media.islanderstudio.app`
-5. Follow the prompts to complete DNS setup
-
-Once configured, update the URL in `workers/src/api/media.js` line 95:
-```javascript
-const url = `https://media.islanderstudio.app/${key}`;
+**Generate password hash:**
+```bash
+node -e "const bcrypt = require('bcryptjs'); console.log(bcrypt.hashSync('YOUR_PASSWORD', 10));"
 ```
 
-### Option B: R2.dev Subdomain (Development)
-
-For development/testing, you can enable the R2.dev subdomain:
-
-1. Go to R2 bucket settings
-2. Enable "Allow Access" under R2.dev subdomain
-3. Copy the URL (e.g., `https://pub-abc123.r2.dev`)
-4. Update line 95 in `workers/src/api/media.js`:
-```javascript
-const url = `https://pub-abc123.r2.dev/${key}`;
+**Generate JWT secret:**
+```bash
+openssl rand -base64 32
 ```
 
-## Step 3: Deploy Workers API
+### Pages Environment Variables
 
-Deploy the updated Workers API with media endpoints:
+Set in Cloudflare Dashboard → Pages → Settings → Environment Variables:
+
+| Variable | Value |
+|----------|-------|
+| `VITE_API_URL` | `https://api.islanderstudio.app` |
+
+## Deployment Steps
+
+### Deploy Backend (Workers)
 
 ```bash
 cd workers
-npm install
-npx wrangler deploy
-```
 
-Verify deployment:
-```bash
+# Install dependencies
+npm install
+
+# Deploy to production
+npx wrangler deploy
+
+# Verify deployment
 curl https://api.islanderstudio.app/api/health
 ```
 
-## Step 4: Deploy Frontend (Pages)
-
-Build and deploy the updated frontend with the media library:
+### Deploy Frontend (Pages)
 
 ```bash
 # From project root
@@ -88,122 +179,256 @@ npm run build
 npx wrangler pages deploy dist --project-name=islanderstudio
 ```
 
-## Step 5: Environment Variables
+Or connect your Git repository for automatic deployments:
 
-Ensure all required environment variables are set in Cloudflare:
+1. Go to Cloudflare Dashboard → Pages
+2. Click "Create a project" → "Connect to Git"
+3. Select your repository
+4. Configure build settings:
+   - Build command: `npm run build`
+   - Build output directory: `dist`
+   - Root directory: `/` (project root)
 
-### Workers Environment Variables
-- `ADMIN_PASSWORD_HASH` - bcrypt hash of your admin password
-- `JWT_SECRET` - Secret key for JWT token signing
+## Custom Domain Configuration
 
-To generate a password hash:
+### Frontend Domain (islanderstudio.app)
+
+1. Go to Cloudflare Dashboard → Pages → Your project
+2. Click "Custom domains"
+3. Add `islanderstudio.app` and `www.islanderstudio.app`
+4. DNS records are automatically configured
+
+### API Domain (api.islanderstudio.app)
+
+1. Go to Cloudflare Dashboard → Workers & Pages → Your worker
+2. Click "Triggers" → "Custom Domains"
+3. Add `api.islanderstudio.app`
+4. DNS is automatically configured
+
+### Media Domain (media.islanderstudio.app)
+
+1. Go to Cloudflare Dashboard → R2 → blog-media bucket
+2. Click "Settings" → "Public access"
+3. Click "Connect Domain"
+4. Enter `media.islanderstudio.app`
+5. Update `workers/src/api/media.js` with the new URL
+
+## R2 Storage Configuration
+
+### Option A: Custom Domain (Recommended for Production)
+
+```javascript
+// workers/src/api/media.js line ~95
+const url = `https://media.islanderstudio.app/${key}`;
+```
+
+### Option B: R2.dev Subdomain (Development)
+
+1. Enable R2.dev subdomain in bucket settings
+2. Copy the provided URL (e.g., `https://pub-abc123.r2.dev`)
+3. Update the URL in media.js
+
+## Cron Jobs
+
+The worker includes scheduled tasks:
+
+| Schedule | Task |
+|----------|------|
+| Every 5 minutes | Publish scheduled posts |
+| Daily at 3 AM UTC | Clean up expired sessions |
+
+Verify cron configuration:
 ```bash
-node -e "const bcrypt = require('bcryptjs'); console.log(bcrypt.hashSync('your-password', 10));"
+npx wrangler triggers list
 ```
 
-### Pages Environment Variables
-- `VITE_API_URL` - Your Workers API URL (e.g., `https://api.islanderstudio.app`)
+## Security Checklist
 
-## Step 6: Test the Admin Panel
+Before going to production:
 
-1. Navigate to `https://islanderstudio.app/admin/login`
-2. Login with your admin password
-3. Test each tab:
-   - **Posts**: Create/edit blog posts with Tiptap editor and SEO fields
-   - **Media**: Upload images, browse library, delete images
-   - **Authors**: Add/edit author profiles
-   - **Categories**: Manage blog categories
-   - **Tags**: Manage blog tags
+- [ ] Set strong `ADMIN_PASSWORD_HASH` (12+ characters, mixed case, numbers, symbols)
+- [ ] Set random `JWT_SECRET` (32+ characters)
+- [ ] Configure `ALLOWED_ADMIN_EMAILS` if using OAuth
+- [ ] Enable R2 bucket access logging
+- [ ] Review CORS settings in `workers/src/index.js`
+- [ ] Test rate limiting is working
+- [ ] Verify all environment variables are set
+- [ ] Test authentication flow end-to-end
 
-## Step 7: Test Image Upload
+## Rollback Procedures
 
-1. Go to Admin Dashboard → Media tab
-2. Click "+ Upload Image"
-3. Select an image (max 5MB)
-4. Verify the image appears in the grid
-5. Click the image to select it
-6. Try deleting the image
+### Rollback Workers
 
-## Features Implemented
+```bash
+# List recent deployments
+npx wrangler deployments list
 
-### Backend (Cloudflare Workers)
-- ✅ JWT-based authentication with sessions
-- ✅ RESTful API for posts, authors, categories, tags
-- ✅ R2 image upload with multipart form data
-- ✅ Media metadata storage in D1
-- ✅ Image validation (type, size)
-- ✅ CORS configuration
-
-### Frontend (React + Vite)
-- ✅ Password-only login with "Remember Me"
-- ✅ Protected routes with authentication
-- ✅ Post Manager with filtering (all/drafts/published)
-- ✅ Tiptap rich text editor with formatting toolbar
-- ✅ SEO fields with preview panel
-- ✅ Character counters for meta title/description
-- ✅ Media Library with upload/browse/delete
-- ✅ Author Manager with CRUD operations
-- ✅ Category Manager with CRUD operations
-- ✅ Tag Manager with CRUD operations
-
-## Architecture
-
+# Rollback to previous version
+npx wrangler rollback
 ```
-┌─────────────────────────────────────────────┐
-│         Cloudflare Pages (Frontend)         │
-│   React + Vite + React Router + Tiptap      │
-│      https://islanderstudio.app             │
-└────────────────┬────────────────────────────┘
-                 │
-                 │ HTTPS + JWT Auth
-                 ▼
-┌─────────────────────────────────────────────┐
-│       Cloudflare Workers (Backend)          │
-│         Node.js + D1 + R2                   │
-│      https://api.islanderstudio.app         │
-└──────────┬──────────────────┬───────────────┘
-           │                  │
-           ▼                  ▼
-    ┌──────────────┐   ┌──────────────┐
-    │  D1 Database │   │  R2 Storage  │
-    │  (SQLite)    │   │   (Images)   │
-    └──────────────┘   └──────────────┘
+
+### Rollback Pages
+
+1. Go to Cloudflare Dashboard → Pages → Your project
+2. Click "Deployments"
+3. Find the previous working deployment
+4. Click "..." → "Rollback to this deployment"
+
+### Database Rollback
+
+D1 has automatic point-in-time recovery:
+
+```bash
+# List available restore points
+npx wrangler d1 time-travel info blog-database
+
+# Restore to a specific point
+npx wrangler d1 time-travel restore blog-database --timestamp "2025-01-20T12:00:00Z"
+```
+
+## Monitoring & Debugging
+
+### View Worker Logs
+
+```bash
+# Real-time logs
+npx wrangler tail
+
+# With filters
+npx wrangler tail --format=pretty --status=error
+```
+
+### Check Cron Execution
+
+```bash
+# View recent cron invocations
+npx wrangler triggers list
+```
+
+### Database Inspection
+
+```bash
+# Query database
+npx wrangler d1 execute blog-database --remote --command="SELECT COUNT(*) FROM posts;"
+
+# Export data
+npx wrangler d1 export blog-database --remote --output=backup.sql
 ```
 
 ## Troubleshooting
 
-### Images not loading
-- Check R2 bucket public access settings
-- Verify the URL in `workers/src/api/media.js` matches your R2 domain
+### Common Issues
+
+#### "Worker not found" or 404 on API
+- Verify worker is deployed: `npx wrangler deployments list`
+- Check custom domain is configured in Triggers
+
+#### "Invalid token" errors
+- Clear browser localStorage
+- Check JWT_SECRET hasn't changed
+- Verify token hasn't expired
+
+#### Images not loading
+- Check R2 bucket public access is enabled
+- Verify the URL in media.js matches your R2 domain
 - Check browser console for CORS errors
 
-### Upload fails
-- Verify R2 bucket binding in `wrangler.toml`
-- Check file size (must be < 5MB)
-- Ensure file type is an image (jpeg, png, gif, webp)
+#### Rate limiting blocking legitimate users
+- Check KV namespace is correctly bound
+- Verify IP isn't being shared (VPN, corporate network)
+- Increase rate limits if needed
 
-### Database errors
-- Confirm migration was applied successfully
-- Check D1 database binding in `wrangler.toml`
-- Verify database ID matches your actual D1 database
+#### OAuth "redirect_uri_mismatch"
+- Add callback URL to Google Cloud Console
+- Ensure no trailing slashes
+- Wait a few minutes for Google to propagate
 
-### Authentication issues
-- Verify `ADMIN_PASSWORD_HASH` is set correctly
-- Check `JWT_SECRET` is set
-- Clear browser localStorage and try logging in again
+#### Database migrations failed
+- Check database ID in wrangler.toml
+- Verify Wrangler has correct permissions
+- Try applying migrations one at a time
 
-## Next Steps
+### Debug Commands
 
-1. Configure R2 custom domain for production
-2. Test all admin panel features
-3. Create your first blog post with images
-4. Set up automated backups for D1 database
-5. Consider adding image optimization/resizing
-6. Add image alt text editing in media library
+```bash
+# Check worker binding configuration
+npx wrangler whoami
+
+# Verify D1 database
+npx wrangler d1 list
+npx wrangler d1 info blog-database
+
+# Check R2 bucket
+npx wrangler r2 bucket list
+
+# Check KV namespace
+npx wrangler kv:namespace list
+```
+
+## Performance Optimization
+
+### Frontend
+
+- Code splitting is enabled for admin routes
+- Images use lazy loading with OptimizedImage component
+- Service worker caches static assets
+
+### Backend
+
+- D1 queries use indexes on slug, status, and dates
+- Media uploads are streamed directly to R2
+- Sessions are cleaned up automatically
+
+### Caching
+
+Consider adding these Workers caching strategies:
+
+```javascript
+// Cache public API responses for 5 minutes
+const cacheControl = 'public, max-age=300';
+
+// Use Cache API for expensive queries
+const cache = caches.default;
+```
+
+## Backup Strategy
+
+### Database Backups
+
+```bash
+# Manual export
+npx wrangler d1 export blog-database --remote --output=backup-$(date +%Y%m%d).sql
+
+# Set up automated backups using a cron job
+# Add to your CI/CD pipeline
+```
+
+### Media Backups
+
+R2 doesn't have built-in backup, but you can:
+1. Enable object versioning in bucket settings
+2. Use rclone to sync to another storage provider
+3. Keep local copies of original uploads
+
+## Updating the Application
+
+```bash
+# Pull latest changes
+git pull origin main
+
+# Update dependencies
+npm install
+cd workers && npm install && cd ..
+
+# Deploy both
+cd workers && npx wrangler deploy && cd ..
+npm run build && npx wrangler pages deploy dist --project-name=islanderstudio
+```
 
 ## Support
 
-For issues or questions, check:
-- Cloudflare Workers docs: https://developers.cloudflare.com/workers/
-- Cloudflare R2 docs: https://developers.cloudflare.com/r2/
-- Cloudflare D1 docs: https://developers.cloudflare.com/d1/
+- Cloudflare Workers: https://developers.cloudflare.com/workers/
+- Cloudflare Pages: https://developers.cloudflare.com/pages/
+- Cloudflare D1: https://developers.cloudflare.com/d1/
+- Cloudflare R2: https://developers.cloudflare.com/r2/
+- Project Issues: https://github.com/islanderstudio/blog/issues

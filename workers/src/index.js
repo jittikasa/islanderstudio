@@ -137,6 +137,25 @@ export default {
         return jsonResponse({ status: 'ok', timestamp: new Date().toISOString() }, 200, request);
       }
 
+      // Error reporting endpoint (public, for frontend error tracking)
+      if (path === '/api/errors' && method === 'POST') {
+        try {
+          const errorData = await request.json();
+          // Log error for monitoring (visible in Workers logs)
+          console.error('[Frontend Error]', JSON.stringify({
+            message: errorData.message,
+            stack: errorData.stack?.substring(0, 500),
+            url: errorData.url,
+            type: errorData.type,
+            timestamp: errorData.timestamp,
+            userAgent: errorData.userAgent?.substring(0, 200),
+          }));
+          return jsonResponse({ received: true }, 200, request);
+        } catch {
+          return jsonResponse({ received: true }, 200, request);
+        }
+      }
+
       // Sitemap (public, no auth required)
       if (path === '/sitemap.xml' || path === '/api/sitemap.xml') {
         return await handleSitemap(env);
