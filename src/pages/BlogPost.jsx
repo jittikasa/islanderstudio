@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo, useRef } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { ArrowLeft } from 'lucide-react'
+import { motion, useInView } from 'motion/react'
 import { marked } from 'marked'
 import SEO, { StructuredData } from '../components/SEO'
 import { PostDetailSkeleton } from '../components/Skeleton'
@@ -31,17 +32,29 @@ function isMarkdown(content) {
 }
 
 // CTA Block - copied exactly from Shellist.jsx
-function CTABlock({ relatedApps }) {
+function CTABlock({ relatedApps, ctaRef, ctaInView }) {
   const hasShellist = relatedApps?.includes('shellist')
   const hasPolaMoment = relatedApps?.includes('polamoment')
 
   // Shellist CTA - exact copy from Shellist.jsx
   if (hasShellist) {
     return (
-      <section className="post-cta">
-        <div className="post-cta-card">
+      <section className="post-cta" ref={ctaRef}>
+        <motion.div
+          className="post-cta-card"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={ctaInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        >
           <span className="post-cta-label">iOS App</span>
-          <span className="post-cta-icon">🐚</span>
+          <motion.span
+            className="post-cta-icon"
+            initial={{ scale: 0 }}
+            animate={ctaInView ? { scale: 1 } : { scale: 0 }}
+            transition={{ duration: 0.5, delay: 0.2, type: 'spring', stiffness: 300 }}
+          >
+            🐚
+          </motion.span>
           <h2 className="post-cta-title">Start Building Better Habits</h2>
           <p className="post-cta-text">
             Download Shellist and watch your transformation unfold, one pearl at a time.
@@ -55,7 +68,7 @@ function CTABlock({ relatedApps }) {
           <p className="post-cta-note">
             Available for iPhone and iPad • iOS 17.0 or later • $2.99 USD
           </p>
-        </div>
+        </motion.div>
       </section>
     )
   }
@@ -63,10 +76,22 @@ function CTABlock({ relatedApps }) {
   // PolaMoment CTA
   if (hasPolaMoment) {
     return (
-      <section className="post-cta">
-        <div className="post-cta-card">
+      <section className="post-cta" ref={ctaRef}>
+        <motion.div
+          className="post-cta-card"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={ctaInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        >
           <span className="post-cta-label">Coming Soon</span>
-          <span className="post-cta-icon">📸</span>
+          <motion.span
+            className="post-cta-icon"
+            initial={{ scale: 0 }}
+            animate={ctaInView ? { scale: 1 } : { scale: 0 }}
+            transition={{ duration: 0.5, delay: 0.2, type: 'spring', stiffness: 300 }}
+          >
+            📸
+          </motion.span>
           <h2 className="post-cta-title">Capture Moments That Matter</h2>
           <p className="post-cta-text">
             Experience instant photography reimagined for the digital age.
@@ -77,17 +102,29 @@ function CTABlock({ relatedApps }) {
           <p className="post-cta-note">
             Available for iPhone and iPad • iOS 17.0 or later
           </p>
-        </div>
+        </motion.div>
       </section>
     )
   }
 
   // Default
   return (
-    <section className="post-cta">
-      <div className="post-cta-card">
+    <section className="post-cta" ref={ctaRef}>
+      <motion.div
+        className="post-cta-card"
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={ctaInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      >
         <span className="post-cta-label">islander Studio</span>
-        <span className="post-cta-icon">✨</span>
+        <motion.span
+          className="post-cta-icon"
+          initial={{ scale: 0 }}
+          animate={ctaInView ? { scale: 1 } : { scale: 0 }}
+          transition={{ duration: 0.5, delay: 0.2, type: 'spring', stiffness: 300 }}
+        >
+          ✨
+        </motion.span>
         <h2 className="post-cta-title">Explore Our Apps</h2>
         <p className="post-cta-text">
           Discover apps crafted with soul for everyday moments.
@@ -95,7 +132,7 @@ function CTABlock({ relatedApps }) {
         <Link to="/" className="btn-download-app">
           View Our Apps
         </Link>
-      </div>
+      </motion.div>
     </section>
   )
 }
@@ -130,6 +167,12 @@ export default function BlogPost() {
   const [error, setError] = useState(null)
   const [readingProgress, setReadingProgress] = useState(0)
   const articleRef = useRef(null)
+  const ctaRef = useRef(null)
+  const relatedRef = useRef(null)
+
+  // In-view detection
+  const ctaInView = useInView(ctaRef, { once: true, margin: '-100px' })
+  const relatedInView = useInView(relatedRef, { once: true, margin: '-100px' })
 
   useEffect(() => {
     async function fetchPost() {
@@ -319,17 +362,27 @@ export default function BlogPost() {
         {/* Hero Header */}
         <header className="post-hero">
           {post.categories && post.categories.length > 0 && (
-            <div className="post-categories">
+            <motion.div
+              className="post-categories"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            >
               {post.categories.map((category, index) => (
                 <span key={index} className="post-category">
                   {category}
                 </span>
               ))}
-            </div>
+            </motion.div>
           )}
 
           {post.relatedApps && post.relatedApps.length > 0 && (
-            <div className="post-related-apps">
+            <motion.div
+              className="post-related-apps"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+            >
               {post.relatedApps.map((app, index) => (
                 <Link
                   key={index}
@@ -339,22 +392,39 @@ export default function BlogPost() {
                   Related to {app === 'shellist' ? 'Shellist' : 'PolaMoment'}
                 </Link>
               ))}
-            </div>
+            </motion.div>
           )}
 
-          <h1 className="post-title">{post.title}</h1>
+          <motion.h1
+            className="post-title"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          >
+            {post.title}
+          </motion.h1>
 
           {post.tags && post.tags.length > 0 && (
-            <div className="post-tags">
+            <motion.div
+              className="post-tags"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            >
               {post.tags.map((tag, index) => (
                 <span key={index} className="post-tag">
                   #{tag}
                 </span>
               ))}
-            </div>
+            </motion.div>
           )}
 
-          <div className="post-meta">
+          <motion.div
+            className="post-meta"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
+          >
             <time dateTime={post.publishedAt}>
               {formatDate(post.publishedAt)}
             </time>
@@ -376,15 +446,20 @@ export default function BlogPost() {
                 <span className="post-reading-time">{post.readingTime} min read</span>
               </>
             )}
-          </div>
+          </motion.div>
 
           {post.mainImage && (
-            <div className="post-featured-image">
+            <motion.div
+              className="post-featured-image"
+              initial={{ opacity: 0, scale: 0.98 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.7, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            >
               <img
                 src={urlFor(post.mainImage).width(1200).url()}
                 alt={post.mainImage.alt || post.title}
               />
-            </div>
+            </motion.div>
           )}
         </header>
 
@@ -400,37 +475,50 @@ export default function BlogPost() {
         </article>
 
         {/* Dynamic CTA Block - outside post-content to avoid link style override */}
-        <CTABlock relatedApps={post.relatedApps} />
+        <CTABlock relatedApps={post.relatedApps} ctaRef={ctaRef} ctaInView={ctaInView} />
 
         {/* Related Posts Section */}
         {relatedPosts.length > 0 && (
-          <section className="related-posts">
-            <h2 className="related-posts-title">Related Posts</h2>
+          <section className="related-posts" ref={relatedRef}>
+            <motion.h2
+              className="related-posts-title"
+              initial={{ opacity: 0, y: 20 }}
+              animate={relatedInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            >
+              Related Posts
+            </motion.h2>
             <div className="related-posts-grid">
-              {relatedPosts.map((relatedPost) => (
-                <Link
+              {relatedPosts.map((relatedPost, index) => (
+                <motion.div
                   key={relatedPost._id}
-                  to={`/blog/${relatedPost.slug.current}`}
-                  className="related-post-card"
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={relatedInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                  transition={{ duration: 0.5, delay: 0.1 + index * 0.1, ease: [0.16, 1, 0.3, 1] }}
                 >
-                  {relatedPost.mainImage && (
-                    <div className="related-post-image">
-                      <img
-                        src={urlFor(relatedPost.mainImage).width(400).height(250).url()}
-                        alt={relatedPost.mainImage.alt || relatedPost.title}
-                        loading="lazy"
-                      />
-                    </div>
-                  )}
-                  <div className="related-post-content">
-                    <h3 className="related-post-title">{relatedPost.title}</h3>
-                    {relatedPost.readingTime && (
-                      <span className="related-post-meta">
-                        {formatReadingTime(relatedPost.readingTime)}
-                      </span>
+                  <Link
+                    to={`/blog/${relatedPost.slug.current}`}
+                    className="related-post-card"
+                  >
+                    {relatedPost.mainImage && (
+                      <div className="related-post-image">
+                        <img
+                          src={urlFor(relatedPost.mainImage).width(400).height(250).url()}
+                          alt={relatedPost.mainImage.alt || relatedPost.title}
+                          loading="lazy"
+                        />
+                      </div>
                     )}
-                  </div>
-                </Link>
+                    <div className="related-post-content">
+                      <h3 className="related-post-title">{relatedPost.title}</h3>
+                      {relatedPost.readingTime && (
+                        <span className="related-post-meta">
+                          {formatReadingTime(relatedPost.readingTime)}
+                        </span>
+                      )}
+                    </div>
+                  </Link>
+                </motion.div>
               ))}
             </div>
           </section>

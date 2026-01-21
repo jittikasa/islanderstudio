@@ -1,6 +1,7 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { Search, X } from 'lucide-react'
+import { motion, useInView } from 'motion/react'
 import SEO from '../components/SEO'
 import LoadingSpinner from '../components/LoadingSpinner'
 import { PostCardSkeleton } from '../components/Skeleton'
@@ -133,6 +134,14 @@ export default function Blog() {
 
   const hasActiveFilters = activeCategory || activeTag || activeApp || debouncedSearch
 
+  // Refs for scroll-triggered animations
+  const headerRef = useRef(null)
+  const gridRef = useRef(null)
+
+  // In-view detection
+  const headerInView = useInView(headerRef, { once: true, margin: '-50px' })
+  const gridInView = useInView(gridRef, { once: true, margin: '-100px' })
+
   // Get app display name
   const getAppDisplayName = (appName) => {
     const names = {
@@ -174,11 +183,23 @@ export default function Blog() {
         path="/blog"
       />
 
-      <div className="blog-header">
-        <h1 className="blog-title">Blog</h1>
-        <p className="blog-subtitle">
+      <div className="blog-header" ref={headerRef}>
+        <motion.h1
+          className="blog-title"
+          initial={{ opacity: 0, y: 20 }}
+          animate={headerInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        >
+          Blog
+        </motion.h1>
+        <motion.p
+          className="blog-subtitle"
+          initial={{ opacity: 0, y: 16 }}
+          animate={headerInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
+          transition={{ duration: 0.5, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+        >
           Thoughts, updates, and stories from islander Studio
-        </p>
+        </motion.p>
       </div>
 
       {/* Search and Filters */}
@@ -310,59 +331,65 @@ export default function Blog() {
 
       {/* Posts Grid */}
       {posts.length > 0 && (
-        <div className="blog-grid">
-          {posts.map((post) => (
-            <Link
+        <div className="blog-grid" ref={gridRef}>
+          {posts.map((post, index) => (
+            <motion.div
               key={post._id}
-              to={`/blog/${post.slug.current}`}
-              className="blog-card"
+              initial={{ opacity: 0, y: 30 }}
+              animate={gridInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+              transition={{ duration: 0.5, delay: 0.05 + index * 0.08, ease: [0.16, 1, 0.3, 1] }}
             >
-              {post.mainImage && (
-                <div className="blog-card-image">
-                  <img
-                    src={urlFor(post.mainImage).width(600).height(400).url()}
-                    alt={post.mainImage.alt || post.title}
-                    loading="lazy"
-                  />
-                </div>
-              )}
-              <div className="blog-card-content">
-                <div className="blog-card-meta">
-                  <time dateTime={post.publishedAt}>
-                    {formatDate(post.publishedAt)}
-                  </time>
-                  {post.readingTime && (
-                    <>
-                      <span className="meta-dot">·</span>
-                      <span className="blog-card-reading-time">
-                        {formatReadingTime(post.readingTime)}
-                      </span>
-                    </>
-                  )}
-                  {post.categories && post.categories.length > 0 && (
-                    <span className="blog-card-category">
-                      {post.categories[0]}
-                    </span>
-                  )}
-                </div>
-                <h2 className="blog-card-title">{post.title}</h2>
-                {post.excerpt && (
-                  <p className="blog-card-excerpt">{post.excerpt}</p>
+              <Link
+                to={`/blog/${post.slug.current}`}
+                className="blog-card"
+              >
+                {post.mainImage && (
+                  <div className="blog-card-image">
+                    <img
+                      src={urlFor(post.mainImage).width(600).height(400).url()}
+                      alt={post.mainImage.alt || post.title}
+                      loading="lazy"
+                    />
+                  </div>
                 )}
-                <div className="blog-card-footer">
-                  {post.authorName && (
-                    <span className="blog-card-author">by {post.authorName}</span>
+                <div className="blog-card-content">
+                  <div className="blog-card-meta">
+                    <time dateTime={post.publishedAt}>
+                      {formatDate(post.publishedAt)}
+                    </time>
+                    {post.readingTime && (
+                      <>
+                        <span className="meta-dot">·</span>
+                        <span className="blog-card-reading-time">
+                          {formatReadingTime(post.readingTime)}
+                        </span>
+                      </>
+                    )}
+                    {post.categories && post.categories.length > 0 && (
+                      <span className="blog-card-category">
+                        {post.categories[0]}
+                      </span>
+                    )}
+                  </div>
+                  <h2 className="blog-card-title">{post.title}</h2>
+                  {post.excerpt && (
+                    <p className="blog-card-excerpt">{post.excerpt}</p>
                   )}
-                  {post.tags && post.tags.length > 0 && (
-                    <div className="blog-card-tags">
-                      {post.tags.slice(0, 2).map((tag, index) => (
-                        <span key={index} className="blog-card-tag">#{tag}</span>
-                      ))}
-                    </div>
-                  )}
+                  <div className="blog-card-footer">
+                    {post.authorName && (
+                      <span className="blog-card-author">by {post.authorName}</span>
+                    )}
+                    {post.tags && post.tags.length > 0 && (
+                      <div className="blog-card-tags">
+                        {post.tags.slice(0, 2).map((tag, index) => (
+                          <span key={index} className="blog-card-tag">#{tag}</span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 </div>
-              </div>
-            </Link>
+              </Link>
+            </motion.div>
           ))}
         </div>
       )}
