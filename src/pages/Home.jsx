@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { motion, useInView, useScroll, useTransform } from 'motion/react'
 import SEO, { StructuredData, organizationSchema, websiteSchema } from '../components/SEO'
+import { playStampThud, playCopyPop } from '../utils/sounds'
 import './Home.css'
 
 export default function Home() {
@@ -173,6 +174,7 @@ export default function Home() {
         // Place stamp on postcard
         setPlacedStamp(sticker)
         setStampJustPlaced(true)
+        playStampThud()
         setTimeout(() => setStampJustPlaced(false), 300)
 
         // Hide the floating sticker (move it off-screen)
@@ -212,6 +214,7 @@ export default function Home() {
     try {
       await navigator.clipboard.writeText('support@islanderstudio.app')
       setCopiedEmail(true)
+      playCopyPop()
       setTimeout(() => setCopiedEmail(false), 2000)
     } catch (_err) {
       window.location.href = 'mailto:support@islanderstudio.app'
@@ -404,10 +407,10 @@ export default function Home() {
                     <div className="home__postcard-header">
                       <div className="home__postcard-postmark">
                         <svg className="home__postcard-postmark-waves" viewBox="0 0 70 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M0 5 Q 7 1, 14 5 T 28 5 T 42 5 T 56 5 T 70 5" stroke="currentColor" strokeWidth="1" fill="none"/>
-                          <path d="M0 14 Q 7 10, 14 14 T 28 14 T 42 14 T 56 14 T 70 14" stroke="currentColor" strokeWidth="1" fill="none"/>
-                          <path d="M0 23 Q 7 19, 14 23 T 28 23 T 42 23 T 56 23 T 70 23" stroke="currentColor" strokeWidth="1" fill="none"/>
-                          <path d="M0 32 Q 7 28, 14 32 T 28 32 T 42 32 T 56 32 T 70 32" stroke="currentColor" strokeWidth="1" fill="none"/>
+                          <path className="home__postcard-wave" d="M0 5 Q 7 1, 14 5 T 28 5 T 42 5 T 56 5 T 70 5" stroke="currentColor" strokeWidth="1" fill="none" style={{ '--wave-delay': '0.6s' }}/>
+                          <path className="home__postcard-wave" d="M0 14 Q 7 10, 14 14 T 28 14 T 42 14 T 56 14 T 70 14" stroke="currentColor" strokeWidth="1" fill="none" style={{ '--wave-delay': '0.7s' }}/>
+                          <path className="home__postcard-wave" d="M0 23 Q 7 19, 14 23 T 28 23 T 42 23 T 56 23 T 70 23" stroke="currentColor" strokeWidth="1" fill="none" style={{ '--wave-delay': '0.8s' }}/>
+                          <path className="home__postcard-wave" d="M0 32 Q 7 28, 14 32 T 28 32 T 42 32 T 56 32 T 70 32" stroke="currentColor" strokeWidth="1" fill="none" style={{ '--wave-delay': '0.9s' }}/>
                         </svg>
                         <div className="home__postcard-postmark-circle">
                           <span className="home__postcard-postmark-star">★</span>
@@ -479,7 +482,10 @@ export default function Home() {
             transition={{ duration: 0.6 }}
           >
             <div className="home__collection-title">
-              <span className="collection-number">№</span>
+              <svg className={`collection-number-svg ${collectionInView ? 'collection-number-svg--visible' : ''}`} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path className="collection-number-path" d="M4 18V6L12 18V6" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+                <path className="collection-number-path collection-number-path--delayed" d="M16 10V18M16 6V7" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"/>
+              </svg>
               <h2>App Collection</h2>
             </div>
             <p className="home__collection-count">{apps.length} stamps</p>

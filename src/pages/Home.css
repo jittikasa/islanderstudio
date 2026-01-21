@@ -688,6 +688,19 @@
   flex-shrink: 0;
 }
 
+/* Wave path drawing animation */
+.home__postcard-wave {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  animation: drawWave 0.8s var(--ease-out) var(--wave-delay, 0.6s) forwards;
+}
+
+@keyframes drawWave {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
 .home__postcard-postmark-circle {
   width: 70px;
   height: 70px;
@@ -904,6 +917,34 @@
   display: flex;
   align-items: baseline;
   gap: var(--space-3);
+}
+
+/* Animated № SVG */
+.collection-number-svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--misty-morning);
+  flex-shrink: 0;
+}
+
+.collection-number-path {
+  stroke-dasharray: 50;
+  stroke-dashoffset: 50;
+  transition: stroke-dashoffset 0s;
+}
+
+.collection-number-svg--visible .collection-number-path {
+  animation: drawNumber 0.6s var(--ease-out) 0.2s forwards;
+}
+
+.collection-number-svg--visible .collection-number-path--delayed {
+  animation-delay: 0.4s;
+}
+
+@keyframes drawNumber {
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 
 .home__collection-title h2 {
@@ -1292,9 +1333,20 @@
   .home__stamp-icon,
   .home__stamp-arrow span,
   .home__contact-btn,
-  .home__contact-action {
+  .home__contact-action,
+  .home__postcard-wave,
+  .home__postcard-stamp-placeholder--near,
+  .collection-number-path {
     animation: none !important;
     transition: none !important;
+  }
+
+  .home__postcard-wave {
+    stroke-dashoffset: 0;
+  }
+
+  .collection-number-path {
+    stroke-dashoffset: 0;
   }
 
   .home__postcard-hint {

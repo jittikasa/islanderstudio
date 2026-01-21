@@ -1,7 +1,14 @@
 /* Skeleton Loader Styles */
 
 .skeleton {
-  background: var(--cloud);
+  background: linear-gradient(
+    110deg,
+    var(--cloud) 0%,
+    var(--sea-salt) 40%,
+    var(--cloud) 60%,
+    var(--cloud) 100%
+  );
+  background-size: 200% 100%;
   border-radius: var(--radius-sm);
 }
 
@@ -37,6 +44,7 @@
 .skeleton-wave {
   position: relative;
   overflow: hidden;
+  animation: skeleton-shimmer 1.8s ease-in-out infinite;
 }
 
 .skeleton-wave::after {
@@ -48,11 +56,49 @@
   bottom: 0;
   background: linear-gradient(
     90deg,
-    transparent,
-    rgba(255, 255, 255, 0.4),
-    transparent
+    transparent 0%,
+    rgba(247, 240, 230, 0.6) 25%,
+    rgba(167, 138, 106, 0.15) 50%,
+    rgba(247, 240, 230, 0.6) 75%,
+    transparent 100%
   );
-  animation: skeleton-wave 1.5s ease-in-out infinite;
+  animation: skeleton-wave 1.8s ease-in-out infinite;
+}
+
+/* Stamp-themed skeleton card */
+.skeleton-stamp {
+  position: relative;
+  background: var(--white);
+  border: 3px solid var(--cloud);
+}
+
+.skeleton-stamp::before,
+.skeleton-stamp::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 12px;
+  background: radial-gradient(circle at center, var(--cream) 4px, transparent 4px);
+  background-size: 16px 12px;
+  pointer-events: none;
+}
+
+.skeleton-stamp::before {
+  top: -6px;
+}
+
+.skeleton-stamp::after {
+  bottom: -6px;
+}
+
+@keyframes skeleton-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
 }
 
 .skeleton-none {
@@ -184,11 +230,13 @@
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .skeleton-pulse,
+  .skeleton-wave,
   .skeleton-wave::after {
     animation: none;
   }
 
   .skeleton {
     opacity: 0.7;
+    background: var(--cloud);
   }
 }
