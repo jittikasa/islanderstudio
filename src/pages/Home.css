@@ -198,12 +198,12 @@
 .home__sticker:active,
 .home__sticker--dragging {
   cursor: grabbing;
-  transform: rotate(0deg) scale(calc(var(--scale) * 0.8));
-  filter: drop-shadow(0 8px 20px rgba(51, 51, 51, 0.3));
+  transform: rotate(var(--rotation, 0deg)) scale(calc(var(--scale) * 0.85));
+  filter: drop-shadow(0 12px 24px rgba(51, 51, 51, 0.35));
   z-index: 1000;
   animation: none;
   opacity: 1 !important;
-  transition: transform 0.15s ease-out, filter 0.15s ease-out;
+  transition: filter 0.1s ease-out;
 }
 
 @media (max-width: 768px) {
@@ -565,6 +565,30 @@
 .home__postcard-stamp-placeholder--has-stamp {
   border-color: transparent;
   opacity: 1;
+}
+
+/* Proximity glow when sticker is near */
+.home__postcard-stamp-placeholder--near {
+  border-color: var(--misty-morning);
+  opacity: 1;
+  background: rgba(117, 146, 170, 0.08);
+  box-shadow:
+    0 0 0 4px rgba(117, 146, 170, 0.15),
+    0 0 20px rgba(117, 146, 170, 0.2);
+  animation: dropZonePulse 1s ease-in-out infinite;
+}
+
+@keyframes dropZonePulse {
+  0%, 100% {
+    box-shadow:
+      0 0 0 4px rgba(117, 146, 170, 0.15),
+      0 0 20px rgba(117, 146, 170, 0.2);
+  }
+  50% {
+    box-shadow:
+      0 0 0 8px rgba(117, 146, 170, 0.1),
+      0 0 30px rgba(117, 146, 170, 0.3);
+  }
 }
 
 .home__postcard-stamp-placeholder > span {

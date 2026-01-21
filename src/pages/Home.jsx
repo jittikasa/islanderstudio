@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useState, useEffect, useRef, useCallback } from 'react'
-import { motion, useInView } from 'motion/react'
+import { motion, useInView, useScroll, useTransform } from 'motion/react'
 import SEO, { StructuredData, organizationSchema, websiteSchema } from '../components/SEO'
 import './Home.css'
 
@@ -15,6 +15,8 @@ export default function Home() {
     { id: 4, x: 3, y: 25, rotation: -8, scale: 0.9, category: 'App', name: 'Daily Ritual', tagline: 'Mindful habits', year: '2026', color: '#FFB74D', icon: '🕯️', serial: 'IS-004' },
   ])
   const [dragging, setDragging] = useState(null)
+  const [dragRotation, setDragRotation] = useState(0)
+  const [nearDropZone, setNearDropZone] = useState(false)
   const [placedStamp, setPlacedStamp] = useState(null)
   const [stampJustPlaced, setStampJustPlaced] = useState(false)
   const containerRef = useRef(null)
@@ -22,8 +24,17 @@ export default function Home() {
   const stampPlaceholderRef = useRef(null)
   const collectionRef = useRef(null)
   const widgetsRef = useRef(null)
+  const lastMousePos = useRef({ x: 0, y: 0, time: Date.now() })
+  const velocityRef = useRef({ x: 0, y: 0 })
   const collectionInView = useInView(collectionRef, { once: true, margin: '-100px' })
   const widgetsInView = useInView(widgetsRef, { once: true, margin: '-100px' })
+
+  // Scroll-based parallax for hero section
+  const { scrollY } = useScroll()
+  const postcardY = useTransform(scrollY, [0, 500], [0, 30])
+  const postcardBackY = useTransform(scrollY, [0, 500], [0, 50])
+  const heroStatsOpacity = useTransform(scrollY, [0, 300], [1, 0])
+  const heroStatsY = useTransform(scrollY, [0, 300], [0, -20])
 
   useEffect(() => {
     setLoaded(true)
@@ -41,6 +52,15 @@ export default function Home() {
     )
   }, [])
 
+  // Check proximity to drop zone (within 100px)
+  const getDistanceToDropZone = useCallback((clientX, clientY) => {
+    if (!stampPlaceholderRef.current) return Infinity
+    const rect = stampPlaceholderRef.current.getBoundingClientRect()
+    const centerX = rect.left + rect.width / 2
+    const centerY = rect.top + rect.height / 2
+    return Math.sqrt(Math.pow(clientX - centerX, 2) + Math.pow(clientY - centerY, 2))
+  }, [])
+
   // Handle sticker drag start
   const handleStickerMouseDown = useCallback((e, stickerId, isFromPostcard = false) => {
     e.preventDefault()
@@ -56,6 +76,11 @@ export default function Home() {
       const stampY = (sticker.y / 100) * rect.height + rect.top
       const offsetX = e.clientX - stampX
       const offsetY = e.clientY - stampY
+
+      // Initialize velocity tracking
+      lastMousePos.current = { x: e.clientX, y: e.clientY, time: Date.now() }
+      velocityRef.current = { x: 0, y: 0 }
+      setDragRotation(0)
 
       setDragging({
         type: 'sticker',
@@ -86,17 +111,57 @@ export default function Home() {
 
     if (dragging.type === 'sticker' && containerRef.current) {
       const rect = containerRef.current.getBoundingClientRect()
-      // Use offset to keep stamp position relative to where user grabbed it
-      const x = ((e.clientX - dragging.offsetX - rect.left) / rect.width) * 100
-      const y = ((e.clientY - dragging.offsetY - rect.top) / rect.height) * 100
+      const now = Date.now()
+      const dt = Math.max(now - lastMousePos.current.time, 1)
+
+      // Calculate velocity
+      const vx = (e.clientX - lastMousePos.current.x) / dt
+      const vy = (e.clientY - lastMousePos.current.y) / dt
+
+      // Smooth velocity with lerp
+      velocityRef.current = {
+        x: velocityRef.current.x * 0.7 + vx * 0.3,
+        y: velocityRef.current.y * 0.7 + vy * 0.3
+      }
+
+      // Update last position
+      lastMousePos.current = { x: e.clientX, y: e.clientY, time: now }
+
+      // Calculate rotation based on horizontal velocity (clamped)
+      const rotation = Math.max(-15, Math.min(15, velocityRef.current.x * 8))
+      setDragRotation(rotation)
+
+      // Calculate position
+      let x = ((e.clientX - dragging.offsetX - rect.left) / rect.width) * 100
+      let y = ((e.clientY - dragging.offsetY - rect.top) / rect.height) * 100
+
+      // Rubber-band effect at edges
+      const minX = 0, maxX = 95, minY = 0, maxY = 55
+      const rubberBand = 0.3 // resistance factor
+
+      if (x < minX) {
+        x = minX + (x - minX) * rubberBand
+      } else if (x > maxX) {
+        x = maxX + (x - maxX) * rubberBand
+      }
+
+      if (y < minY) {
+        y = minY + (y - minY) * rubberBand
+      } else if (y > maxY) {
+        y = maxY + (y - maxY) * rubberBand
+      }
+
+      // Check proximity to drop zone
+      const distance = getDistanceToDropZone(e.clientX, e.clientY)
+      setNearDropZone(distance < 120 && !placedStamp)
 
       setStickers(prev => prev.map(s =>
         s.id === dragging.id
-          ? { ...s, x: Math.max(0, Math.min(95, x)), y: Math.max(0, Math.min(55, y)) }
+          ? { ...s, x, y }
           : s
       ))
     }
-  }, [dragging])
+  }, [dragging, getDistanceToDropZone, placedStamp])
 
   const handleMouseUp = useCallback((e) => {
     if (!dragging) return
@@ -117,8 +182,18 @@ export default function Home() {
             : s
         ))
       }
+    } else {
+      // Snap back to valid bounds if outside
+      setStickers(prev => prev.map(s =>
+        s.id === dragging.id
+          ? { ...s, x: Math.max(0, Math.min(95, s.x)), y: Math.max(0, Math.min(55, s.y)) }
+          : s
+      ))
     }
 
+    // Reset drag state
+    setDragRotation(0)
+    setNearDropZone(false)
     setDragging(null)
   }, [dragging, isInsideStampPlaceholder, stickers])
 
@@ -190,7 +265,7 @@ export default function Home() {
               style={{
                 left: `${sticker.x}%`,
                 top: `${sticker.y}%`,
-                '--rotation': `${sticker.rotation}deg`,
+                '--rotation': dragging?.id === sticker.id ? `${dragRotation}deg` : `${sticker.rotation}deg`,
                 '--scale': sticker.scale,
                 '--delay': `${index * 0.1}s`,
                 '--stamp-color': sticker.color,
@@ -272,23 +347,32 @@ export default function Home() {
           </div>
 
           <div className="home__hero-meta">
-            <div className="home__hero-stat">
+            <motion.div
+              className="home__hero-stat"
+              style={{ opacity: heroStatsOpacity, y: heroStatsY }}
+            >
               <span className="home__hero-stat-value">02</span>
               <span className="home__hero-stat-label">Apps</span>
-            </div>
-            <div className="home__hero-stat">
+            </motion.div>
+            <motion.div
+              className="home__hero-stat"
+              style={{ opacity: heroStatsOpacity, y: heroStatsY }}
+            >
               <span className="home__hero-stat-value">TH</span>
               <span className="home__hero-stat-label">Phuket</span>
-            </div>
-            <div className="home__hero-stat">
+            </motion.div>
+            <motion.div
+              className="home__hero-stat"
+              style={{ opacity: heroStatsOpacity, y: heroStatsY }}
+            >
               <span className="home__hero-stat-value">25</span>
               <span className="home__hero-stat-label">Year</span>
-            </div>
+            </motion.div>
 
             {/* Interactive Postcard */}
-            <div className="home__postcard-wrapper">
+            <motion.div className="home__postcard-wrapper" style={{ y: postcardY }}>
               {/* Back postcard (partially visible) */}
-              <div className="home__postcard-back"></div>
+              <motion.div className="home__postcard-back" style={{ y: postcardBackY }}></motion.div>
 
               {/* Front postcard */}
               <div className="home__postcard-border">
@@ -332,7 +416,7 @@ export default function Home() {
                         </div>
                       </div>
                       <div
-                        className={`home__postcard-stamp-placeholder ${placedStamp ? 'home__postcard-stamp-placeholder--has-stamp' : ''}`}
+                        className={`home__postcard-stamp-placeholder ${placedStamp ? 'home__postcard-stamp-placeholder--has-stamp' : ''} ${nearDropZone ? 'home__postcard-stamp-placeholder--near' : ''}`}
                         ref={stampPlaceholderRef}
                       >
                         {placedStamp ? (
@@ -382,7 +466,7 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </section>
 
