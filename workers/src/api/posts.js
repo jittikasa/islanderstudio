@@ -49,6 +49,9 @@ function jsonResponse(data, status = 200) {
  * Query params:
  *  - status: filter by content_status
  *  - app: filter by related app
+ *  - category: filter by category slug
+ *  - tag: filter by tag slug
+ *  - search: search in title, excerpt, and body
  *  - limit: number of posts to return
  *  - offset: pagination offset
  */
@@ -56,7 +59,10 @@ export async function handlePosts(request, env) {
   const url = new URL(request.url);
   const status = url.searchParams.get('status');
   const app = url.searchParams.get('app');
-  const limit = parseInt(url.searchParams.get('limit')) || 50;
+  const category = url.searchParams.get('category');
+  const tag = url.searchParams.get('tag');
+  const search = url.searchParams.get('search');
+  const limit = Math.min(parseInt(url.searchParams.get('limit')) || 50, 100);
   const offset = parseInt(url.searchParams.get('offset')) || 0;
 
   try {
@@ -91,6 +97,26 @@ export async function handlePosts(request, env) {
                  INNER JOIN apps app2 ON pa2.app_id = app2.id`;
       conditions.push('app2.name = ?');
       bindings.push(app);
+    }
+
+    if (category) {
+      query += ` INNER JOIN post_categories pc2 ON p.id = pc2.post_id
+                 INNER JOIN categories c2 ON pc2.category_id = c2.id`;
+      conditions.push('c2.slug = ?');
+      bindings.push(category);
+    }
+
+    if (tag) {
+      query += ` INNER JOIN post_tags pt2 ON p.id = pt2.post_id
+                 INNER JOIN tags t2 ON pt2.tag_id = t2.id`;
+      conditions.push('t2.slug = ?');
+      bindings.push(tag);
+    }
+
+    if (search) {
+      const searchPattern = `%${search}%`;
+      conditions.push('(p.title LIKE ? OR p.excerpt LIKE ? OR p.body LIKE ?)');
+      bindings.push(searchPattern, searchPattern, searchPattern);
     }
 
     if (conditions.length > 0) {

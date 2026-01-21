@@ -35,11 +35,26 @@ async function apiRequest(endpoint, options = {}) {
 }
 
 /**
- * Get all blog posts
+ * Get all blog posts with optional filters
  * Replaces: getBlogPosts() from Sanity
+ * @param {Object} options - Filter options
+ * @param {string} options.category - Filter by category slug
+ * @param {string} options.tag - Filter by tag slug
+ * @param {string} options.search - Search in title, excerpt, body
+ * @param {number} options.limit - Number of posts to return
+ * @param {number} options.offset - Pagination offset
  */
-export async function getBlogPosts() {
-  const data = await apiRequest('/api/posts?status=published');
+export async function getBlogPosts(options = {}) {
+  const params = new URLSearchParams({ status: 'published' });
+
+  if (options.category) params.append('category', options.category);
+  if (options.tag) params.append('tag', options.tag);
+  if (options.app) params.append('app', options.app);
+  if (options.search) params.append('search', options.search);
+  if (options.limit) params.append('limit', options.limit);
+  if (options.offset) params.append('offset', options.offset);
+
+  const data = await apiRequest(`/api/posts?${params.toString()}`);
   return data.posts.map(formatPost);
 }
 
@@ -65,9 +80,49 @@ export async function getRecentPosts(limit = 3) {
  * Get posts related to a specific app
  * Replaces: getPostsByApp(appName, limit) from Sanity
  */
-export async function getPostsByApp(appName, limit = 2) {
+export async function getPostsByApp(appName, limit = 3) {
   const data = await apiRequest(`/api/posts?app=${appName}&status=published&limit=${limit}`);
   return data.posts.map(formatPost);
+}
+
+/**
+ * Get related posts based on categories or tags
+ * @param {string} currentSlug - Slug of current post to exclude
+ * @param {string[]} categories - Category titles to match
+ * @param {string[]} tags - Tag titles to match
+ * @param {number} limit - Number of posts to return
+ */
+export async function getRelatedPosts(currentSlug, categories = [], tags = [], limit = 3) {
+  // Try to get posts from same categories first
+  let relatedPosts = [];
+
+  if (categories.length > 0) {
+    // Get the slug of the first category (convert title to slug format)
+    const categorySlug = categories[0].toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, '');
+    try {
+      const data = await apiRequest(`/api/posts?category=${categorySlug}&status=published&limit=${limit + 1}`);
+      relatedPosts = data.posts.filter(p => p.slug !== currentSlug).slice(0, limit).map(formatPost);
+    } catch (e) {
+      console.error('Error fetching related posts by category:', e);
+    }
+  }
+
+  // If not enough posts, try tags
+  if (relatedPosts.length < limit && tags.length > 0) {
+    const tagSlug = tags[0].toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, '');
+    try {
+      const data = await apiRequest(`/api/posts?tag=${tagSlug}&status=published&limit=${limit + 1}`);
+      const tagPosts = data.posts
+        .filter(p => p.slug !== currentSlug && !relatedPosts.find(r => r._id === p.id))
+        .slice(0, limit - relatedPosts.length)
+        .map(formatPost);
+      relatedPosts = [...relatedPosts, ...tagPosts];
+    } catch (e) {
+      console.error('Error fetching related posts by tag:', e);
+    }
+  }
+
+  return relatedPosts.slice(0, limit);
 }
 
 /**

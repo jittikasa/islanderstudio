@@ -4,7 +4,8 @@ import { ArrowLeft } from 'lucide-react'
 import { marked } from 'marked'
 import SEO, { StructuredData } from '../components/SEO'
 import LoadingSpinner from '../components/LoadingSpinner'
-import { getBlogPost, urlFor } from '../lib/api'
+import { getBlogPost, getRelatedPosts, urlFor } from '../lib/api'
+import { formatReadingTime } from '../lib/readingTime'
 import './BlogPost.css'
 
 // Configure marked options
@@ -124,6 +125,7 @@ function BlogContent({ content }) {
 export default function BlogPost() {
   const { slug } = useParams()
   const [post, setPost] = useState(null)
+  const [relatedPosts, setRelatedPosts] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [readingProgress, setReadingProgress] = useState(0)
@@ -137,6 +139,20 @@ export default function BlogPost() {
           setError('Post not found')
         } else {
           setPost(data)
+          // Fetch related posts based on categories and tags
+          if (data.categories?.length > 0 || data.tags?.length > 0) {
+            try {
+              const related = await getRelatedPosts(
+                slug,
+                data.categories || [],
+                data.tags || [],
+                3
+              )
+              setRelatedPosts(related)
+            } catch (err) {
+              console.error('Error fetching related posts:', err)
+            }
+          }
         }
       } catch (err) {
         console.error('Error fetching blog post:', err)
@@ -386,6 +402,40 @@ export default function BlogPost() {
 
         {/* Dynamic CTA Block - outside post-content to avoid link style override */}
         <CTABlock relatedApps={post.relatedApps} />
+
+        {/* Related Posts Section */}
+        {relatedPosts.length > 0 && (
+          <section className="related-posts">
+            <h2 className="related-posts-title">Related Posts</h2>
+            <div className="related-posts-grid">
+              {relatedPosts.map((relatedPost) => (
+                <Link
+                  key={relatedPost._id}
+                  to={`/blog/${relatedPost.slug.current}`}
+                  className="related-post-card"
+                >
+                  {relatedPost.mainImage && (
+                    <div className="related-post-image">
+                      <img
+                        src={urlFor(relatedPost.mainImage).width(400).height(250).url()}
+                        alt={relatedPost.mainImage.alt || relatedPost.title}
+                        loading="lazy"
+                      />
+                    </div>
+                  )}
+                  <div className="related-post-content">
+                    <h3 className="related-post-title">{relatedPost.title}</h3>
+                    {relatedPost.readingTime && (
+                      <span className="related-post-meta">
+                        {formatReadingTime(relatedPost.readingTime)}
+                      </span>
+                    )}
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* Back to Blog - at bottom */}
         <div className="post-back-bottom">

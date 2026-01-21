@@ -187,8 +187,8 @@ export default function Shellist() {
               <span className="section-number">№</span>
               <h2>Related Reading</h2>
             </div>
-            <Link to="/blog" className="shellist__blog-view-all">
-              View all <span>→</span>
+            <Link to="/blog?app=shellist" className="shellist__blog-view-all">
+              View all posts <span>→</span>
             </Link>
           </div>
 
