@@ -3,6 +3,7 @@ import { Link, useSearchParams } from 'react-router-dom'
 import { Search, X } from 'lucide-react'
 import SEO from '../components/SEO'
 import LoadingSpinner from '../components/LoadingSpinner'
+import { PostCardSkeleton } from '../components/Skeleton'
 import { getBlogPosts, getCategories, getTags, urlFor } from '../lib/api'
 import { formatReadingTime } from '../lib/readingTime'
 import './Blog.css'
@@ -141,7 +142,7 @@ export default function Blog() {
     return names[appName] || appName
   }
 
-  // Loading state (only show full loading on initial load)
+  // Loading state with skeleton loaders (only show on initial load)
   if (loading && posts.length === 0) {
     return (
       <div className="blog-page">
@@ -150,9 +151,16 @@ export default function Blog() {
           description="Thoughts, updates, and stories from islander Studio"
           path="/blog"
         />
-        <div className="blog-loading">
-          <LoadingSpinner />
-          <p>Loading blog posts...</p>
+        <div className="blog-header">
+          <h1 className="blog-title">Blog</h1>
+          <p className="blog-subtitle">
+            Thoughts, updates, and stories from islander Studio
+          </p>
+        </div>
+        <div className="blog-grid blog-skeleton-grid">
+          {Array.from({ length: 6 }).map((_, i) => (
+            <PostCardSkeleton key={i} />
+          ))}
         </div>
       </div>
     )

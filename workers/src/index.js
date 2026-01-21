@@ -3,7 +3,7 @@
  * Cloudflare Workers backend for D1-powered blog
  */
 
-import { login, verify, logout, verifySession } from './auth.js';
+import { login, verify, logout, refresh, verifySession } from './auth.js';
 import { googleAuthStart, googleAuthCallback } from './google-auth.js';
 import { handlePosts, handlePost, createPost, updatePost, deletePost } from './api/posts.js';
 import { handleAuthors } from './api/authors.js';
@@ -115,6 +115,11 @@ export default {
 
       if (path === '/api/auth/logout' && method === 'POST') {
         const response = await logout(request, env);
+        return addCorsHeaders(response, request);
+      }
+
+      if (path === '/api/auth/refresh' && method === 'POST') {
+        const response = await refresh(request, env);
         return addCorsHeaders(response, request);
       }
 
@@ -239,24 +244,27 @@ export default {
 
   /**
    * Scheduled handler for cron triggers
-   * Runs every 5 minutes to publish scheduled posts
+   * - Every 5 minutes: publish scheduled posts
+   * - Daily at 3 AM UTC: cleanup expired sessions
    */
   async scheduled(event, env, ctx) {
     console.log('Running scheduled task:', event.scheduledTime);
+    const cronTime = new Date(event.scheduledTime);
+    const hour = cronTime.getUTCHours();
+    const minute = cronTime.getUTCMinutes();
 
     try {
-      // Find all posts with status 'scheduled' and published_at in the past
-      const result = await env.DB.prepare(`
+      // Always check for scheduled posts (runs every 5 minutes)
+      const postsResult = await env.DB.prepare(`
         SELECT id, title, slug
         FROM posts
         WHERE status = 'scheduled'
           AND published_at <= datetime('now')
       `).all();
 
-      const postsToPublish = result.results || [];
+      const postsToPublish = postsResult.results || [];
       console.log(`Found ${postsToPublish.length} posts to publish`);
 
-      // Update each post to published
       for (const post of postsToPublish) {
         await env.DB.prepare(`
           UPDATE posts
@@ -268,7 +276,28 @@ export default {
         console.log(`Published: ${post.title} (${post.slug})`);
       }
 
-      return new Response(`Published ${postsToPublish.length} posts`, { status: 200 });
+      // Session cleanup runs at 3 AM UTC (hour=3, minute=0)
+      let sessionsDeleted = 0;
+      if (hour === 3 && minute === 0) {
+        console.log('Running session cleanup...');
+
+        // Delete expired sessions
+        const deleteResult = await env.DB.prepare(`
+          DELETE FROM sessions
+          WHERE expires_at < datetime('now')
+        `).run();
+
+        sessionsDeleted = deleteResult.meta?.changes || 0;
+        console.log(`Cleaned up ${sessionsDeleted} expired sessions`);
+      }
+
+      return new Response(
+        JSON.stringify({
+          postsPublished: postsToPublish.length,
+          sessionsDeleted,
+        }),
+        { status: 200 }
+      );
     } catch (error) {
       console.error('Scheduled task error:', error);
       throw error;

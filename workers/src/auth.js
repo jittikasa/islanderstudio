@@ -4,6 +4,7 @@
  */
 
 import bcrypt from 'bcryptjs';
+import { checkRateLimit, recordFailedAttempt, resetRateLimit, rateLimitResponse } from './middleware/rateLimit.js';
 
 /**
  * Generate a simple JWT-like token
@@ -65,6 +66,12 @@ function generateUUID() {
  */
 export async function login(request, env) {
   try {
+    // Check rate limit first
+    const rateLimit = await checkRateLimit(request, env, 'auth/login');
+    if (rateLimit.limited) {
+      return rateLimitResponse(rateLimit.retryAfter, request);
+    }
+
     const { password, rememberMe } = await request.json();
 
     if (!password) {
@@ -87,11 +94,16 @@ export async function login(request, env) {
     // Verify password
     const isValid = await bcrypt.compare(password, adminPasswordHash);
     if (!isValid) {
+      // Record failed attempt for rate limiting
+      await recordFailedAttempt(request, env, 'auth/login');
       return new Response(JSON.stringify({ error: 'Invalid password' }), {
         status: 401,
         headers: { 'Content-Type': 'application/json' },
       });
     }
+
+    // Reset rate limit on successful login
+    await resetRateLimit(request, env, 'auth/login');
 
     // Generate session token
     const token = generateToken(env.JWT_SECRET || 'default-secret');
@@ -217,6 +229,63 @@ export async function logout(request, env) {
   } catch (error) {
     console.error('Logout error:', error);
     return new Response(JSON.stringify({ error: 'Logout failed' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+}
+
+/**
+ * Refresh token endpoint
+ * POST /api/auth/refresh
+ * Extends session without re-login
+ */
+export async function refresh(request, env) {
+  try {
+    const authHeader = request.headers.get('Authorization');
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      return new Response(JSON.stringify({ error: 'No token provided' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+
+    const oldToken = authHeader.substring(7);
+
+    // Verify current token is valid (not just signature, but also in DB and not expired)
+    const session = await env.DB.prepare(
+      'SELECT * FROM sessions WHERE token = ? AND expires_at > datetime("now")'
+    ).bind(oldToken).first();
+
+    if (!session) {
+      return new Response(JSON.stringify({ error: 'Invalid or expired token' }), {
+        status: 401,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+
+    // Generate new token
+    const newToken = generateToken(env.JWT_SECRET || 'default-secret');
+
+    // Calculate new expiration (24 hours from now)
+    const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000);
+
+    // Update session with new token and expiration
+    await env.DB.prepare(
+      'UPDATE sessions SET token = ?, expires_at = ? WHERE id = ?'
+    ).bind(newToken, expiresAt.toISOString(), session.id).run();
+
+    return new Response(JSON.stringify({
+      success: true,
+      token: newToken,
+      expiresAt: expiresAt.toISOString(),
+    }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  } catch (error) {
+    console.error('Token refresh error:', error);
+    return new Response(JSON.stringify({ error: 'Refresh failed' }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' },
     });

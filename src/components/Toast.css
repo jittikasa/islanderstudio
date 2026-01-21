@@ -1,0 +1,132 @@
+/* Toast Notification Styles */
+
+.toast-container {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 400px;
+  width: calc(100% - 3rem);
+  pointer-events: none;
+}
+
+.toast {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: var(--white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  border-left: 4px solid;
+  pointer-events: auto;
+  animation: toast-slide-in 0.3s var(--ease-out);
+}
+
+@keyframes toast-slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Variants */
+.toast-success {
+  border-left-color: var(--palm-green);
+}
+
+.toast-success .toast-icon {
+  color: var(--palm-green);
+}
+
+.toast-error {
+  border-left-color: var(--coral-reef);
+}
+
+.toast-error .toast-icon {
+  color: var(--coral-reef);
+}
+
+.toast-warning {
+  border-left-color: var(--sunrise-gold);
+}
+
+.toast-warning .toast-icon {
+  color: var(--sunrise-gold);
+}
+
+.toast-info {
+  border-left-color: var(--misty-morning);
+}
+
+.toast-info .toast-icon {
+  color: var(--misty-morning);
+}
+
+/* Toast parts */
+.toast-icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toast-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.toast-message {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--midnight-sky);
+}
+
+.toast-dismiss {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem;
+  background: transparent;
+  border: none;
+  color: var(--stone);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: all var(--duration-fast) var(--ease-out);
+}
+
+.toast-dismiss:hover {
+  background: var(--cloud);
+  color: var(--midnight-sky);
+}
+
+/* Mobile positioning */
+@media (max-width: 640px) {
+  .toast-container {
+    bottom: 1rem;
+    right: 1rem;
+    left: 1rem;
+    max-width: none;
+    width: auto;
+  }
+
+  .toast {
+    padding: 0.875rem;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .toast {
+    animation: none;
+  }
+}

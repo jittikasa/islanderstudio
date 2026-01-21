@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import Header from './components/Header'
 import Footer from './components/Footer'
+import ErrorBoundary from './components/ErrorBoundary'
 import Home from './pages/Home'
 import Shellist from './pages/Shellist'
 import PolaMoment from './pages/PolaMoment'
@@ -31,42 +32,54 @@ function App() {
     <div className="app">
       {!isAdminRoute && <Header />}
       <main className="main-content">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={location.pathname}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
-          >
-            <Routes location={location}>
-              <Route path="/" element={<Home />} />
-              <Route path="/shellist" element={<Shellist />} />
-              <Route path="/polamoment" element={<PolaMoment />} />
-              <Route path="/blog" element={<Blog />} />
-              <Route path="/blog/:slug" element={<BlogPost />} />
-              <Route path="/privacy" element={<Privacy />} />
-              <Route path="/terms" element={<Terms />} />
-              <Route path="/support" element={<Support />} />
-              <Route path="/bg" element={<BackgroundShowcase />} />
+        <ErrorBoundary>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={location.pathname}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+            >
+              <Routes location={location}>
+                <Route path="/" element={<Home />} />
+                <Route path="/shellist" element={<Shellist />} />
+                <Route path="/polamoment" element={<PolaMoment />} />
+                <Route path="/blog" element={
+                  <ErrorBoundary message="Unable to load the blog. Please try again.">
+                    <Blog />
+                  </ErrorBoundary>
+                } />
+                <Route path="/blog/:slug" element={
+                  <ErrorBoundary message="Unable to load this blog post. Please try again.">
+                    <BlogPost />
+                  </ErrorBoundary>
+                } />
+                <Route path="/privacy" element={<Privacy />} />
+                <Route path="/terms" element={<Terms />} />
+                <Route path="/support" element={<Support />} />
+                <Route path="/bg" element={<BackgroundShowcase />} />
 
-              {/* Admin Routes */}
-              <Route path="/admin" element={<AdminPage />} />
-              <Route path="/login" element={<AdminLogin />} />
-              <Route path="/admin/login" element={<AdminLogin />} />
-              <Route
-                path="/admin/dashboard"
-                element={
-                  <ProtectedRoute>
-                    <AdminDashboard />
-                  </ProtectedRoute>
-                }
-              />
+                {/* Admin Routes */}
+                <Route path="/admin" element={<AdminPage />} />
+                <Route path="/login" element={<AdminLogin />} />
+                <Route path="/admin/login" element={<AdminLogin />} />
+                <Route
+                  path="/admin/dashboard"
+                  element={
+                    <ProtectedRoute>
+                      <ErrorBoundary message="Unable to load the admin dashboard. Please try again.">
+                        <AdminDashboard />
+                      </ErrorBoundary>
+                    </ProtectedRoute>
+                  }
+                />
 
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </motion.div>
-        </AnimatePresence>
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </motion.div>
+          </AnimatePresence>
+        </ErrorBoundary>
       </main>
       {!isAdminRoute && <Footer />}
     </div>

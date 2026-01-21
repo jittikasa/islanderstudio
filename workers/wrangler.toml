@@ -31,6 +31,16 @@ R2_PUBLIC_URL = "https://pub-9c7eeff067e24dd4942b72316471fc86.r2.dev"
 [[send_email]]
 name = "EMAIL_SEND"
 
-# Cron Triggers for scheduled posts
+# KV Namespace for Rate Limiting
+# Create with: wrangler kv:namespace create RATE_LIMIT_KV
+# Then update the id below with the returned namespace ID
+[[kv_namespaces]]
+binding = "RATE_LIMIT_KV"
+id = "REPLACE_WITH_YOUR_KV_NAMESPACE_ID"
+
+# Cron Triggers
 [triggers]
-crons = ["*/5 * * * *"]  # Run every 5 minutes
+crons = [
+  "*/5 * * * *",  # Every 5 minutes - publish scheduled posts
+  "0 3 * * *"     # Daily at 3 AM UTC - session cleanup
+]

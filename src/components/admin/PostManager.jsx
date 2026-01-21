@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import PostEditor from './PostEditor'
+import { useToast } from '../../contexts/ToastContext'
 import './ContentManager.css'
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8787'
@@ -10,6 +11,7 @@ export default function PostManager({ initialAction, onActionComplete }) {
   const [showEditor, setShowEditor] = useState(false)
   const [editingPost, setEditingPost] = useState(null)
   const [filter, setFilter] = useState('all') // all, draft, published
+  const toast = useToast()
 
   // Handle initial action from dashboard quick actions
   useEffect(() => {
@@ -45,7 +47,7 @@ export default function PostManager({ initialAction, onActionComplete }) {
       setPosts(data.posts || [])
     } catch (error) {
       console.error('Error fetching posts:', error)
-      alert('Failed to load posts')
+      toast.error('Failed to load posts')
     } finally {
       setLoading(false)
     }
@@ -105,12 +107,12 @@ export default function PostManager({ initialAction, onActionComplete }) {
         throw new Error(error.error || 'Failed to save post')
       }
 
-      alert(editingPost ? 'Post updated successfully!' : 'Post created successfully!')
+      toast.success(editingPost ? 'Post updated successfully!' : 'Post created successfully!')
       setShowEditor(false)
       setEditingPost(null)
       fetchPosts()
     } catch (error) {
-      alert(error.message || 'Failed to save post')
+      toast.error(error.message || 'Failed to save post')
     }
   }
 
@@ -134,11 +136,11 @@ export default function PostManager({ initialAction, onActionComplete }) {
         throw new Error('Failed to delete post')
       }
 
-      alert('Post deleted successfully!')
+      toast.success('Post deleted successfully!')
       fetchPosts()
     } catch (error) {
       console.error('Error deleting post:', error)
-      alert('Failed to delete post')
+      toast.error('Failed to delete post')
     }
   }
 

@@ -3,7 +3,7 @@ import { useParams, Link } from 'react-router-dom'
 import { ArrowLeft } from 'lucide-react'
 import { marked } from 'marked'
 import SEO, { StructuredData } from '../components/SEO'
-import LoadingSpinner from '../components/LoadingSpinner'
+import { PostDetailSkeleton } from '../components/Skeleton'
 import { getBlogPost, getRelatedPosts, urlFor } from '../lib/api'
 import { formatReadingTime } from '../lib/readingTime'
 import './BlogPost.css'
@@ -206,9 +206,8 @@ export default function BlogPost() {
     return (
       <div className="blog-post-page">
         <SEO title="Loading... - islander Studio Blog" path={`/blog/${slug}`} />
-        <div className="post-loading">
-          <LoadingSpinner />
-          <p>Loading post...</p>
+        <div className="post-container">
+          <PostDetailSkeleton />
         </div>
       </div>
     )
