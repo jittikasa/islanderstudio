@@ -6,6 +6,7 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: var(--space-20) var(--space-6);
+  padding-top: 80px;
   min-height: 60vh;
 }
 
@@ -315,6 +316,7 @@
 
 .blog-card-meta time {
   color: var(--stone);
+  white-space: nowrap;
 }
 
 .blog-card-category {
@@ -379,6 +381,7 @@
 .blog-card-reading-time {
   color: var(--fog);
   font-family: var(--font-mono);
+  white-space: nowrap;
 }
 
 .meta-dot {

@@ -19,6 +19,7 @@
 .blog-post-page {
   min-height: 100vh;
   padding: 0;
+  padding-top: 80px;
   padding-bottom: var(--space-24);
   margin-bottom: calc(-1 * var(--space-24));
   background: var(--white);
