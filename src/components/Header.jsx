@@ -32,6 +32,17 @@ export default function Header() {
     }
   }, [menuOpen])
 
+  // Close menu on Escape key
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape' && menuOpen) {
+        setMenuOpen(false)
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [menuOpen])
+
   const navLinks = [
     { path: '/', label: 'Home' },
     { path: '/shellist', label: 'Shellist' },
@@ -58,8 +69,8 @@ export default function Header() {
           </span>
         </Link>
 
-        <nav className="header__nav">
-          <ul className="header__nav-list">
+        <nav className="header__nav" aria-label="Main navigation">
+          <ul className="header__nav-list" role="list">
             {navLinks.map((link) => {
               const isActive = link.path === '/'
                 ? location.pathname === link.path
@@ -72,6 +83,7 @@ export default function Header() {
                     className={`header__nav-link ${
                       isActive ? 'header__nav-link--active' : ''
                     }`}
+                    aria-current={isActive ? 'page' : undefined}
                   >
                     {link.label}
                   </Link>
@@ -105,7 +117,13 @@ export default function Header() {
       />
 
       {/* Mobile Menu */}
-      <div className={`header__mobile-menu ${menuOpen ? 'header__mobile-menu--open' : ''}`}>
+      <div
+        className={`header__mobile-menu ${menuOpen ? 'header__mobile-menu--open' : ''}`}
+        role="dialog"
+        aria-label="Mobile navigation menu"
+        aria-modal="true"
+        aria-hidden={!menuOpen}
+      >
         <div className="header__mobile-header">
           <span className="header__logo-text header__logo-text--mobile">
             <span className="header__logo-i">
@@ -121,7 +139,7 @@ export default function Header() {
           </span>
         </div>
 
-        <nav className="header__mobile-nav">
+        <nav className="header__mobile-nav" aria-label="Mobile navigation">
           {navLinks.map((link, index) => {
             const isActive = link.path === '/'
               ? location.pathname === link.path
@@ -135,9 +153,11 @@ export default function Header() {
                   isActive ? 'header__mobile-link--active' : ''
                 }`}
                 style={{ animationDelay: `${index * 50}ms` }}
+                aria-current={isActive ? 'page' : undefined}
+                tabIndex={menuOpen ? 0 : -1}
               >
                 <span className="header__mobile-link-text">{link.label}</span>
-                <span className="header__mobile-link-arrow">→</span>
+                <span className="header__mobile-link-arrow" aria-hidden="true">→</span>
               </Link>
             )
           })}
