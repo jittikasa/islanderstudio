@@ -36,7 +36,7 @@ name = "EMAIL_SEND"
 # Then update the id below with the returned namespace ID
 [[kv_namespaces]]
 binding = "RATE_LIMIT_KV"
-id = "REPLACE_WITH_YOUR_KV_NAMESPACE_ID"
+id = "d3c0adddf84642aebcd8b3337e4e376f"
 
 # Cron Triggers
 [triggers]
