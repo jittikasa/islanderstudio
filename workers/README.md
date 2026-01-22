@@ -68,9 +68,23 @@ The API will be available at `http://localhost:8787`
 
 ### 7. Deploy to Cloudflare
 
+**Manual deployment:**
 ```bash
 npm run deploy
 ```
+
+**Automatic deployment (CI/CD):**
+
+The Workers API is automatically deployed via GitHub Actions when changes are pushed to the `workers/` directory on the `main` branch.
+
+To set up CI/CD, add these secrets to your GitHub repository (Settings → Secrets → Actions):
+
+| Secret | Description | How to Get |
+|--------|-------------|------------|
+| `CLOUDFLARE_API_TOKEN` | API token with Workers permissions | [Cloudflare Dashboard](https://dash.cloudflare.com/profile/api-tokens) → Create Token → "Edit Cloudflare Workers" template |
+| `CLOUDFLARE_ACCOUNT_ID` | Your Cloudflare account ID | [Cloudflare Dashboard](https://dash.cloudflare.com) → Workers & Pages → Account ID (right sidebar) |
+
+The workflow file is at `.github/workflows/deploy-workers.yml`
 
 ## API Endpoints
 
