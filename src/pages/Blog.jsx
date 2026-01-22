@@ -135,11 +135,9 @@ export default function Blog() {
   const hasActiveFilters = activeCategory || activeTag || activeApp || debouncedSearch
 
   // Refs for scroll-triggered animations
-  const headerRef = useRef(null)
   const gridRef = useRef(null)
 
-  // In-view detection
-  const headerInView = useInView(headerRef, { once: true, margin: '-50px' })
+  // In-view detection for below-fold content
   const gridInView = useInView(gridRef, { once: true, margin: '-100px' })
 
   // Get app display name
@@ -183,11 +181,11 @@ export default function Blog() {
         path="/blog"
       />
 
-      <div className="blog-header" ref={headerRef}>
+      <div className="blog-header">
         <motion.h1
           className="blog-title"
           initial={{ opacity: 0, y: 20 }}
-          animate={headerInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         >
           Blog
@@ -195,7 +193,7 @@ export default function Blog() {
         <motion.p
           className="blog-subtitle"
           initial={{ opacity: 0, y: 16 }}
-          animate={headerInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
         >
           Thoughts, updates, and stories from islander Studio
