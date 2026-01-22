@@ -41,22 +41,26 @@ export default function Blog() {
   const [searchInput, setSearchInput] = useState(searchParams.get('search') || '')
   const debouncedSearch = useDebounce(searchInput, 300)
 
-  // Fetch categories and tags on mount
+  // Fetch categories and tags on mount (fail silently if unauthorized)
   useEffect(() => {
     async function fetchFilters() {
+      // Fetch categories
       try {
-        const [categoriesData, tagsData] = await Promise.all([
-          getCategories(),
-          getTags()
-        ])
+        const categoriesData = await getCategories()
         setCategories(categoriesData || [])
-        // Get top 10 tags by post count
+      } catch (err) {
+        console.warn('Categories not available:', err.message)
+      }
+
+      // Fetch tags separately so one failure doesn't block the other
+      try {
+        const tagsData = await getTags()
         const sortedTags = (tagsData || [])
           .sort((a, b) => (b.post_count || 0) - (a.post_count || 0))
           .slice(0, 10)
         setTags(sortedTags)
       } catch (err) {
-        console.error('Error fetching filters:', err)
+        console.warn('Tags not available:', err.message)
       }
     }
     fetchFilters()
