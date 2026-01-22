@@ -182,6 +182,16 @@ export default {
         return addCorsHeaders(response, request);
       }
 
+      // Public categories and tags (for blog filters)
+      if (path === '/api/categories' && method === 'GET') {
+        const response = await handleCategories(request, env, method, path);
+        return addCorsHeaders(response, request);
+      }
+      if (path === '/api/tags' && method === 'GET') {
+        const response = await handleTags(request, env, method, path);
+        return addCorsHeaders(response, request);
+      }
+
       // All other routes require authentication
       const session = await verifySession(request, env);
       if (!session) {
