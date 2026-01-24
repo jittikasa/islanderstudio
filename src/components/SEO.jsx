@@ -1,12 +1,12 @@
 import { useEffect } from 'react'
 
 export default function SEO({
-  title = 'islander Studio - Crafting Beautiful iOS Apps',
-  description = 'islander Studio creates beautifully crafted iOS apps that blend functionality with artistry. Discover Shellist, PolaMoment, and more.',
-  image = 'https://islanderstudio.app/branding/Logo-primary.png',
-  url = 'https://islanderstudio.app',
+  title = 'Jittika Sakulchit - Designer & Maker',
+  description = 'Designer and maker creating thoughtful digital experiences. Building iOS apps and crafting beautiful interfaces with soul.',
+  image = 'https://jittika.com/og-image.png',
+  url = 'https://jittika.com',
   type = 'website',
-  keywords = 'iOS apps, mobile apps, app studio, Shellist, PolaMoment, habit tracker, polaroid camera, indie apps',
+  keywords = 'designer, maker, iOS apps, UI design, UX design, Shellist, PolaMoment, creative developer, indie apps',
   robots,
 }) {
   useEffect(() => {
@@ -42,7 +42,7 @@ export default function SEO({
       rssLink = document.createElement('link')
       rssLink.setAttribute('rel', 'alternate')
       rssLink.setAttribute('type', 'application/rss+xml')
-      rssLink.setAttribute('title', 'Islander Studio Blog RSS Feed')
+      rssLink.setAttribute('title', 'Jittika Blog RSS Feed')
       rssLink.setAttribute('href', 'https://api.islanderstudio.app/feed.xml')
       document.head.appendChild(rssLink)
     }
@@ -53,7 +53,7 @@ export default function SEO({
       jsonFeedLink = document.createElement('link')
       jsonFeedLink.setAttribute('rel', 'alternate')
       jsonFeedLink.setAttribute('type', 'application/feed+json')
-      jsonFeedLink.setAttribute('title', 'Islander Studio Blog JSON Feed')
+      jsonFeedLink.setAttribute('title', 'Jittika Blog JSON Feed')
       jsonFeedLink.setAttribute('href', 'https://api.islanderstudio.app/feed.json')
       document.head.appendChild(jsonFeedLink)
     }
@@ -68,7 +68,7 @@ export default function SEO({
     updateMetaTag('og:image', image)
     updateMetaTag('og:url', url)
     updateMetaTag('og:type', type)
-    updateMetaTag('og:site_name', 'Islander Studio')
+    updateMetaTag('og:site_name', 'Jittika Sakulchit')
 
     // Twitter Card
     updateMetaTag('twitter:card', 'summary_large_image', true)
@@ -77,7 +77,7 @@ export default function SEO({
     updateMetaTag('twitter:image', image, true)
 
     // Additional SEO tags
-    updateMetaTag('author', 'Islander Studio', true)
+    updateMetaTag('author', 'Jittika Sakulchit', true)
     updateMetaTag('robots', robots || 'index, follow', true)
 
   }, [title, description, image, url, type, keywords, robots])
@@ -115,16 +115,16 @@ export function StructuredData({ data }) {
   return null
 }
 
-// Organization Schema
+// Person Schema
 export const organizationSchema = {
   '@context': 'https://schema.org',
-  '@type': 'Organization',
-  name: 'Islander Studio',
-  url: 'https://islanderstudio.app',
-  logo: 'https://islanderstudio.app/logo.png',
-  description: 'Independent iOS app studio creating beautifully designed applications that respect privacy and delight users.',
-  email: 'support@islanderstudio.app',
-  foundingDate: '2024',
+  '@type': 'Person',
+  name: 'Jittika Sakulchit',
+  url: 'https://jittika.com',
+  image: 'https://jittika.com/profile.jpg',
+  description: 'Designer and maker creating thoughtful digital experiences and iOS apps.',
+  email: 'hello@jittika.com',
+  jobTitle: 'Designer & Maker',
   sameAs: [],
 }
 
@@ -146,16 +146,16 @@ export const shellistAppSchema = {
     ratingCount: '1',
   },
   description: 'Build habits like pearls. Transform your life one habit at a time with beautiful pearl visualizations, powerful analytics, and motivational tools.',
-  image: 'https://islanderstudio.app/shellist-icon.png',
-  screenshot: 'https://islanderstudio.app/shellist-screenshot.png',
+  image: 'https://jittika.com/shellist-icon.png',
+  screenshot: 'https://jittika.com/shellist-screenshot.png',
   downloadUrl: 'https://apps.apple.com/us/app/shellist/id6755242144',
   author: {
-    '@type': 'Organization',
-    name: 'Islander Studio',
+    '@type': 'Person',
+    name: 'Jittika Sakulchit',
   },
   creator: {
-    '@type': 'Organization',
-    name: 'Islander Studio',
+    '@type': 'Person',
+    name: 'Jittika Sakulchit',
   },
 }
 
@@ -167,15 +167,15 @@ export const polamomentAppSchema = {
   applicationCategory: 'PhotographyApplication',
   operatingSystem: 'iOS 14.0 or later',
   description: 'Transform your iPhone into a vintage Polaroid camera. Create instant memories with authentic retro filters, classic frames, and that iconic aesthetic.',
-  image: 'https://islanderstudio.app/pola-assets/Icon-1024.png',
-  screenshot: 'https://islanderstudio.app/pola-assets/Image-1.jpeg',
+  image: 'https://jittika.com/pola-assets/Icon-1024.png',
+  screenshot: 'https://jittika.com/pola-assets/Image-1.jpeg',
   author: {
-    '@type': 'Organization',
-    name: 'Islander Studio',
+    '@type': 'Person',
+    name: 'Jittika Sakulchit',
   },
   creator: {
-    '@type': 'Organization',
-    name: 'Islander Studio',
+    '@type': 'Person',
+    name: 'Jittika Sakulchit',
   },
 }
 
@@ -183,16 +183,16 @@ export const polamomentAppSchema = {
 export const websiteSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
-  name: 'Islander Studio',
-  url: 'https://islanderstudio.app',
-  description: 'Creating beautifully designed iOS applications that inspire and delight.',
+  name: 'Jittika Sakulchit',
+  url: 'https://jittika.com',
+  description: 'Designer and maker creating thoughtful digital experiences and iOS apps.',
   publisher: {
-    '@type': 'Organization',
-    name: 'Islander Studio',
+    '@type': 'Person',
+    name: 'Jittika Sakulchit',
   },
   potentialAction: {
     '@type': 'SearchAction',
-    target: 'https://islanderstudio.app/?s={search_term_string}',
+    target: 'https://jittika.com/?s={search_term_string}',
     'query-input': 'required name=search_term_string',
   },
 }

@@ -23,6 +23,8 @@ import { handleStats, handleRecentPosts } from './api/stats.js';
 function getCorsHeaders(request) {
   const origin = request.headers.get('Origin');
   const allowedOrigins = [
+    'https://jittika.com',
+    'https://www.jittika.com',
     'https://islanderstudio.app',
     'https://www.islanderstudio.app',
     'http://localhost:5173',
@@ -34,7 +36,7 @@ function getCorsHeaders(request) {
     origin?.includes('.pages.dev');
 
   return {
-    'Access-Control-Allow-Origin': isAllowed ? origin : 'https://islanderstudio.app',
+    'Access-Control-Allow-Origin': isAllowed ? origin : 'https://jittika.com',
     'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type, Authorization',
     'Access-Control-Allow-Credentials': 'true',
