@@ -1,6 +1,20 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import { motion, AnimatePresence } from 'motion/react'
 import './Header.css'
+
+// Small decorative flower SVG for accents
+function TinyFlower({ className }) {
+  return (
+    <svg className={className} viewBox="0 0 16 16" fill="none" width="16" height="16">
+      <circle cx="8" cy="8" r="2" fill="currentColor" opacity="0.8" />
+      <ellipse cx="8" cy="4" rx="2" ry="3" fill="currentColor" opacity="0.5" />
+      <ellipse cx="8" cy="12" rx="2" ry="3" fill="currentColor" opacity="0.5" />
+      <ellipse cx="4" cy="8" rx="3" ry="2" fill="currentColor" opacity="0.5" />
+      <ellipse cx="12" cy="8" rx="3" ry="2" fill="currentColor" opacity="0.5" />
+    </svg>
+  )
+}
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false)
@@ -45,32 +59,27 @@ export default function Header() {
 
   const navLinks = [
     { path: '/', label: 'Home' },
-    { path: '/shellist', label: 'Shellist' },
-    { path: '/polamoment', label: 'PolaMoment' },
-    { path: '/blog', label: 'Blog' },
-    { path: '/support', label: 'Support' },
+    { path: '/blog', label: 'Journal' },
+    { path: '/contact', label: 'Contact' },
   ]
 
   return (
-    <header className={`header ${scrolled ? 'header--scrolled' : ''}`}>
-      <div className="header__container">
-        <Link to="/" className="header__logo">
-          <span className="header__logo-text">
-            <span className="header__logo-i">
-              <span className="header__logo-letter">i</span>
-              <img
-                src="/branding/Logomark-dark.png"
-                alt=""
-                className="header__logo-mark"
-              />
-            </span>
-            <span className="header__logo-slander">slander</span>
-            <span className="header__logo-dot"></span>
-          </span>
+    <header className={`header-editorial ${scrolled ? 'header-editorial--scrolled' : ''}`}>
+      <div className="header-editorial__container">
+        {/* Logo with script font */}
+        <Link to="/" className="header-editorial__logo">
+          <motion.span
+            className="header-editorial__logo-text"
+            whileHover={{ letterSpacing: '0.08em' }}
+            transition={{ duration: 0.3 }}
+          >
+            Jittika
+          </motion.span>
         </Link>
 
-        <nav className="header__nav" aria-label="Main navigation">
-          <ul className="header__nav-list" role="list">
+        {/* Desktop Nav with elegant underlines */}
+        <nav className="header-editorial__nav" aria-label="Main navigation">
+          <ul className="header-editorial__nav-list" role="list">
             {navLinks.map((link) => {
               const isActive = link.path === '/'
                 ? location.pathname === link.path
@@ -80,98 +89,124 @@ export default function Header() {
                 <li key={link.path}>
                   <Link
                     to={link.path}
-                    className={`header__nav-link ${
-                      isActive ? 'header__nav-link--active' : ''
+                    className={`header-editorial__nav-link ${
+                      isActive ? 'header-editorial__nav-link--active' : ''
                     }`}
                     aria-current={isActive ? 'page' : undefined}
                   >
-                    {link.label}
+                    <span className="header-editorial__nav-text">{link.label}</span>
+                    <span className="header-editorial__nav-underline" />
                   </Link>
                 </li>
               )
             })}
           </ul>
+
+          {/* Decorative accent */}
+          <TinyFlower className="header-editorial__accent" />
         </nav>
 
-        <div className="header__right">
-          <a href="mailto:support@islanderstudio.app" className="header__contact-btn">
-            Say Hello
-          </a>
-
-          <button
-            className={`header__menu-btn ${menuOpen ? 'header__menu-btn--open' : ''}`}
-            onClick={() => setMenuOpen(!menuOpen)}
-            aria-label="Toggle menu"
-            aria-expanded={menuOpen}
-          >
-            <span className="header__menu-line"></span>
-            <span className="header__menu-line"></span>
-          </button>
-        </div>
+        {/* Mobile Menu Button */}
+        <button
+          className={`header-editorial__menu-btn ${menuOpen ? 'header-editorial__menu-btn--open' : ''}`}
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Toggle menu"
+          aria-expanded={menuOpen}
+        >
+          <span className="header-editorial__menu-line"></span>
+          <span className="header-editorial__menu-line"></span>
+        </button>
       </div>
 
       {/* Mobile Menu Overlay */}
-      <div
-        className={`header__overlay ${menuOpen ? 'header__overlay--open' : ''}`}
-        onClick={() => setMenuOpen(false)}
-      />
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            className="header-editorial__overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            onClick={() => setMenuOpen(false)}
+          />
+        )}
+      </AnimatePresence>
 
-      {/* Mobile Menu */}
-      <div
-        className={`header__mobile-menu ${menuOpen ? 'header__mobile-menu--open' : ''}`}
-        role="dialog"
-        aria-label="Mobile navigation menu"
-        aria-modal="true"
-        aria-hidden={!menuOpen}
-      >
-        <div className="header__mobile-header">
-          <span className="header__logo-text header__logo-text--mobile">
-            <span className="header__logo-i">
-              <span className="header__logo-letter">i</span>
-              <img
-                src="/branding/Logomark-dark.png"
-                alt=""
-                className="header__logo-mark"
-              />
-            </span>
-            <span className="header__logo-slander">slander</span>
-            <span className="header__logo-dot"></span>
-          </span>
-        </div>
+      {/* Mobile Menu - Page flip animation */}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            className="header-editorial__mobile-menu"
+            initial={{ x: '100%', rotateY: -15 }}
+            animate={{ x: 0, rotateY: 0 }}
+            exit={{ x: '100%', rotateY: -15 }}
+            transition={{
+              type: 'spring',
+              damping: 25,
+              stiffness: 200,
+            }}
+            role="dialog"
+            aria-label="Mobile navigation menu"
+            aria-modal="true"
+          >
+            {/* Paper texture pattern */}
+            <div className="header-editorial__mobile-paper" />
 
-        <nav className="header__mobile-nav" aria-label="Mobile navigation">
-          {navLinks.map((link, index) => {
-            const isActive = link.path === '/'
-              ? location.pathname === link.path
-              : location.pathname.startsWith(link.path)
-
-            return (
-              <Link
-                key={link.path}
-                to={link.path}
-                className={`header__mobile-link ${
-                  isActive ? 'header__mobile-link--active' : ''
-                }`}
-                style={{ animationDelay: `${index * 50}ms` }}
-                aria-current={isActive ? 'page' : undefined}
-                tabIndex={menuOpen ? 0 : -1}
+            <div className="header-editorial__mobile-header">
+              <span className="header-editorial__logo-text">Jittika</span>
+              <button
+                className="header-editorial__close-btn"
+                onClick={() => setMenuOpen(false)}
+                aria-label="Close menu"
               >
-                <span className="header__mobile-link-text">{link.label}</span>
-                <span className="header__mobile-link-arrow" aria-hidden="true">→</span>
-              </Link>
-            )
-          })}
-        </nav>
+                <span>&times;</span>
+              </button>
+            </div>
 
-        <div className="header__mobile-footer">
-          <a href="mailto:support@islanderstudio.app" className="header__mobile-email">
-            support@islanderstudio.app
-          </a>
-          <p className="header__mobile-tagline">
-            Crafted with soul for everyday moments
-          </p>
-        </div>
-      </div>
+            <nav className="header-editorial__mobile-nav" aria-label="Mobile navigation">
+              {navLinks.map((link, index) => {
+                const isActive = link.path === '/'
+                  ? location.pathname === link.path
+                  : location.pathname.startsWith(link.path)
+
+                return (
+                  <motion.div
+                    key={link.path}
+                    initial={{ opacity: 0, x: 30 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.3, delay: 0.1 + index * 0.05 }}
+                  >
+                    <Link
+                      to={link.path}
+                      className={`header-editorial__mobile-link ${
+                        isActive ? 'header-editorial__mobile-link--active' : ''
+                      }`}
+                      aria-current={isActive ? 'page' : undefined}
+                    >
+                      {link.label}
+                    </Link>
+                  </motion.div>
+                )
+              })}
+            </nav>
+
+            <motion.div
+              className="header-editorial__mobile-footer"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.4, delay: 0.3 }}
+            >
+              <TinyFlower className="header-editorial__mobile-flower" />
+              <a href="mailto:hello@jittika.com" className="header-editorial__mobile-email">
+                hello@jittika.com
+              </a>
+              <p className="header-editorial__mobile-tagline">
+                Designer & Maker from Phuket
+              </p>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   )
 }

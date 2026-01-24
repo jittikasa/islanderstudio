@@ -14,6 +14,9 @@ import PolaMoment from './pages/PolaMoment'
 import NotFound from './pages/NotFound'
 
 // Lazily loaded pages (code splitting)
+const Apps = lazy(() => import('./pages/Apps'))
+const Work = lazy(() => import('./pages/Work'))
+const Contact = lazy(() => import('./pages/Contact'))
 const Blog = lazy(() => import('./pages/Blog'))
 const BlogPost = lazy(() => import('./pages/BlogPost'))
 const Privacy = lazy(() => import('./pages/Privacy'))
@@ -46,6 +49,7 @@ function PageLoader() {
 function App() {
   const location = useLocation()
   const isAdminRoute = location.pathname.startsWith('/admin') || location.pathname === '/login'
+  const isComingSoon = location.pathname === '/'
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
 
   // Check for reduced motion preference
@@ -69,7 +73,7 @@ function App() {
       <a href="#main-content" className="skip-link">
         Skip to main content
       </a>
-      {!isAdminRoute && <Header />}
+      {!isAdminRoute && !isComingSoon && <Header />}
       <main className="main-content" id="main-content" tabIndex={-1}>
         <ErrorBoundary>
           <Suspense fallback={<PageLoader />}>
@@ -83,8 +87,13 @@ function App() {
               >
                 <Routes location={location}>
                   <Route path="/" element={<Home />} />
+                  <Route path="/apps" element={<Apps />} />
+                  <Route path="/apps/shellist" element={<Shellist />} />
+                  <Route path="/apps/polamoment" element={<PolaMoment />} />
                   <Route path="/shellist" element={<Shellist />} />
                   <Route path="/polamoment" element={<PolaMoment />} />
+                  <Route path="/work" element={<Work />} />
+                  <Route path="/contact" element={<Contact />} />
                   <Route path="/blog" element={
                     <ErrorBoundary message="Unable to load the blog. Please try again.">
                       <Blog />
@@ -122,7 +131,7 @@ function App() {
           </Suspense>
         </ErrorBoundary>
       </main>
-      {!isAdminRoute && <Footer />}
+      {!isAdminRoute && !isComingSoon && <Footer />}
     </div>
   )
 }

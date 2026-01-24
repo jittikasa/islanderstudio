@@ -141,8 +141,8 @@ export default function Blog() {
   // Refs for scroll-triggered animations
   const gridRef = useRef(null)
 
-  // In-view detection for below-fold content
-  const gridInView = useInView(gridRef, { once: true, margin: '-100px' })
+  // In-view detection for below-fold content (reserved for future animation)
+  const _gridInView = useInView(gridRef, { once: true, amount: 0.1 })
 
   // Get app display name
   const getAppDisplayName = (appName) => {
@@ -338,7 +338,7 @@ export default function Blog() {
             <motion.div
               key={post._id}
               initial={{ opacity: 0, y: 30 }}
-              animate={gridInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.05 + index * 0.08, ease: [0.16, 1, 0.3, 1] }}
             >
               <Link

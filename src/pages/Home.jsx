@@ -1,647 +1,108 @@
-import { Link } from 'react-router-dom'
-import { useState, useEffect, useRef, useCallback } from 'react'
-import { motion, useInView, useScroll, useTransform } from 'motion/react'
+import { motion } from 'motion/react'
 import SEO, { StructuredData, organizationSchema, websiteSchema } from '../components/SEO'
-import { playStampThud, playCopyPop } from '../utils/sounds'
 import './Home.css'
 
 export default function Home() {
-  const [loaded, setLoaded] = useState(false)
-  const [hoveredApp, setHoveredApp] = useState(null)
-  const [copiedEmail, setCopiedEmail] = useState(false)
-  const [stickers, setStickers] = useState([
-    { id: 1, x: 78, y: 12, rotation: 5, scale: 1, category: 'Studio', name: 'islander.', tagline: 'Crafted with soul', year: '2025', color: '#4CAF50', icon: '🌴', serial: 'IS-001' },
-    { id: 2, x: 5, y: 55, rotation: -12, scale: 0.9, category: 'App', name: 'Shellist', tagline: 'Shell notes', year: '2025', color: '#FFAB91', icon: '🐚', serial: 'IS-002' },
-    { id: 3, x: 88, y: 70, rotation: 8, scale: 0.85, category: 'App', name: 'PolaMoment', tagline: 'Capture moments', year: '2026', color: '#78909C', icon: '📷', serial: 'IS-003' },
-    { id: 4, x: 3, y: 25, rotation: -8, scale: 0.9, category: 'App', name: 'Daily Ritual', tagline: 'Mindful habits', year: '2026', color: '#FFB74D', icon: '🕯️', serial: 'IS-004' },
-  ])
-  const [dragging, setDragging] = useState(null)
-  const [dragRotation, setDragRotation] = useState(0)
-  const [nearDropZone, setNearDropZone] = useState(false)
-  const [placedStamp, setPlacedStamp] = useState(null)
-  const [stampJustPlaced, setStampJustPlaced] = useState(false)
-  const containerRef = useRef(null)
-  const postcardRef = useRef(null)
-  const stampPlaceholderRef = useRef(null)
-  const collectionRef = useRef(null)
-  const widgetsRef = useRef(null)
-  const lastMousePos = useRef({ x: 0, y: 0, time: Date.now() })
-  const velocityRef = useRef({ x: 0, y: 0 })
-  const collectionInView = useInView(collectionRef, { once: true, margin: '-100px' })
-  const widgetsInView = useInView(widgetsRef, { once: true, margin: '-100px' })
-
-  // Scroll-based parallax for hero section
-  const { scrollY } = useScroll()
-  const postcardY = useTransform(scrollY, [0, 500], [0, 30])
-  const postcardBackY = useTransform(scrollY, [0, 500], [0, 50])
-  const heroStatsOpacity = useTransform(scrollY, [0, 300], [1, 0])
-  const heroStatsY = useTransform(scrollY, [0, 300], [0, -20])
-
-  useEffect(() => {
-    setLoaded(true)
-  }, [])
-
-  // Check if point is inside stamp placeholder
-  const isInsideStampPlaceholder = useCallback((clientX, clientY) => {
-    if (!stampPlaceholderRef.current) return false
-    const rect = stampPlaceholderRef.current.getBoundingClientRect()
-    return (
-      clientX >= rect.left &&
-      clientX <= rect.right &&
-      clientY >= rect.top &&
-      clientY <= rect.bottom
-    )
-  }, [])
-
-  // Check proximity to drop zone (within 100px)
-  const getDistanceToDropZone = useCallback((clientX, clientY) => {
-    if (!stampPlaceholderRef.current) return Infinity
-    const rect = stampPlaceholderRef.current.getBoundingClientRect()
-    const centerX = rect.left + rect.width / 2
-    const centerY = rect.top + rect.height / 2
-    return Math.sqrt(Math.pow(clientX - centerX, 2) + Math.pow(clientY - centerY, 2))
-  }, [])
-
-  // Handle sticker drag start
-  const handleStickerMouseDown = useCallback((e, stickerId, isFromPostcard = false) => {
-    e.preventDefault()
-    e.stopPropagation()
-    const sticker = isFromPostcard
-      ? placedStamp
-      : stickers.find(s => s.id === stickerId)
-
-    if (sticker && containerRef.current) {
-      const rect = containerRef.current.getBoundingClientRect()
-      // Calculate offset from where user clicked to the stamp's current position
-      const stampX = (sticker.x / 100) * rect.width + rect.left
-      const stampY = (sticker.y / 100) * rect.height + rect.top
-      const offsetX = e.clientX - stampX
-      const offsetY = e.clientY - stampY
-
-      // Initialize velocity tracking
-      lastMousePos.current = { x: e.clientX, y: e.clientY, time: Date.now() }
-      velocityRef.current = { x: 0, y: 0 }
-      setDragRotation(0)
-
-      setDragging({
-        type: 'sticker',
-        id: stickerId,
-        sticker,
-        isFromPostcard,
-        offsetX,
-        offsetY
-      })
-
-      // If dragging from postcard, remove it from placed and restore to stickers
-      if (isFromPostcard) {
-        setPlacedStamp(null)
-        // Restore the sticker to current mouse position
-        const x = ((e.clientX - rect.left) / rect.width) * 100
-        const y = ((e.clientY - rect.top) / rect.height) * 100
-        setStickers(prev => prev.map(s =>
-          s.id === stickerId
-            ? { ...s, x: Math.max(0, Math.min(95, x)), y: Math.max(0, Math.min(55, y)) }
-            : s
-        ))
-      }
-    }
-  }, [stickers, placedStamp])
-
-  const handleMouseMove = useCallback((e) => {
-    if (!dragging) return
-
-    if (dragging.type === 'sticker' && containerRef.current) {
-      const rect = containerRef.current.getBoundingClientRect()
-      const now = Date.now()
-      const dt = Math.max(now - lastMousePos.current.time, 1)
-
-      // Calculate velocity
-      const vx = (e.clientX - lastMousePos.current.x) / dt
-      const vy = (e.clientY - lastMousePos.current.y) / dt
-
-      // Smooth velocity with lerp
-      velocityRef.current = {
-        x: velocityRef.current.x * 0.7 + vx * 0.3,
-        y: velocityRef.current.y * 0.7 + vy * 0.3
-      }
-
-      // Update last position
-      lastMousePos.current = { x: e.clientX, y: e.clientY, time: now }
-
-      // Calculate rotation based on horizontal velocity (clamped)
-      const rotation = Math.max(-15, Math.min(15, velocityRef.current.x * 8))
-      setDragRotation(rotation)
-
-      // Calculate position
-      let x = ((e.clientX - dragging.offsetX - rect.left) / rect.width) * 100
-      let y = ((e.clientY - dragging.offsetY - rect.top) / rect.height) * 100
-
-      // Rubber-band effect at edges
-      const minX = 0, maxX = 95, minY = 0, maxY = 55
-      const rubberBand = 0.3 // resistance factor
-
-      if (x < minX) {
-        x = minX + (x - minX) * rubberBand
-      } else if (x > maxX) {
-        x = maxX + (x - maxX) * rubberBand
-      }
-
-      if (y < minY) {
-        y = minY + (y - minY) * rubberBand
-      } else if (y > maxY) {
-        y = maxY + (y - maxY) * rubberBand
-      }
-
-      // Check proximity to drop zone
-      const distance = getDistanceToDropZone(e.clientX, e.clientY)
-      setNearDropZone(distance < 120 && !placedStamp)
-
-      setStickers(prev => prev.map(s =>
-        s.id === dragging.id
-          ? { ...s, x, y }
-          : s
-      ))
-    }
-  }, [dragging, getDistanceToDropZone, placedStamp])
-
-  const handleMouseUp = useCallback((e) => {
-    if (!dragging) return
-
-    // Check if dropped on stamp placeholder
-    if (isInsideStampPlaceholder(e.clientX, e.clientY)) {
-      const sticker = stickers.find(s => s.id === dragging.id) || dragging.sticker
-      if (sticker) {
-        // Place stamp on postcard
-        setPlacedStamp(sticker)
-        setStampJustPlaced(true)
-        playStampThud()
-        setTimeout(() => setStampJustPlaced(false), 300)
-
-        // Hide the floating sticker (move it off-screen)
-        setStickers(prev => prev.map(s =>
-          s.id === dragging.id
-            ? { ...s, x: -100, y: -100 }
-            : s
-        ))
-      }
-    } else {
-      // Snap back to valid bounds if outside
-      setStickers(prev => prev.map(s =>
-        s.id === dragging.id
-          ? { ...s, x: Math.max(0, Math.min(95, s.x)), y: Math.max(0, Math.min(55, s.y)) }
-          : s
-      ))
-    }
-
-    // Reset drag state
-    setDragRotation(0)
-    setNearDropZone(false)
-    setDragging(null)
-  }, [dragging, isInsideStampPlaceholder, stickers])
-
-  useEffect(() => {
-    if (dragging) {
-      window.addEventListener('mousemove', handleMouseMove)
-      window.addEventListener('mouseup', handleMouseUp)
-      return () => {
-        window.removeEventListener('mousemove', handleMouseMove)
-        window.removeEventListener('mouseup', handleMouseUp)
-      }
-    }
-  }, [dragging, handleMouseMove, handleMouseUp])
-
-  const handleCopyEmail = async () => {
-    try {
-      await navigator.clipboard.writeText('support@islanderstudio.app')
-      setCopiedEmail(true)
-      playCopyPop()
-      setTimeout(() => setCopiedEmail(false), 2000)
-    } catch (_err) {
-      window.location.href = 'mailto:support@islanderstudio.app'
-    }
-  }
-
-  const apps = [
-    {
-      id: 'shellist',
-      name: 'Shellist',
-      tagline: 'Build habits like pearls',
-      category: 'Productivity',
-      status: 'live',
-      year: '2025',
-      icon: '/shellist/images/App Icon.png',
-      color: '#4A90A4',
-      description: 'A habit tracker that visualizes your progress as a growing pearl chain.',
-    },
-    {
-      id: 'polamoment',
-      name: 'PolaMoment',
-      tagline: 'Capture vintage memories',
-      category: 'Photography',
-      status: 'soon',
-      year: '2025',
-      icon: '/pola-assets/Icon-1024.png',
-      color: '#D93025',
-      description: 'Turn your iPhone into a vintage Polaroid camera.',
-    }
-  ]
-
   return (
     <>
       <SEO
-        title="islander Studio — Apps crafted with soul"
-        description="A boutique iOS studio creating thoughtfully designed mobile experiences. Discover Shellist and PolaMoment."
-        url="https://islanderstudio.app"
+        title="Jittika — Designer & Maker"
+        description="Hi, I'm Jittika. A designer and maker creating thoughtful digital experiences from Phuket, Thailand. Coming soon."
+        url="https://jittika.com"
       />
       <StructuredData data={[organizationSchema, websiteSchema]} />
 
-      <div
-        className={`home ${loaded ? 'home--loaded' : ''}`}
-        ref={containerRef}
-      >
-        {/* Floating Mini Stamp Cards */}
-        <div className="home__stickers">
-          {stickers.map((sticker, index) => (
-            <div
-              key={sticker.id}
-              className={`home__sticker home__sticker--stamp ${dragging?.id === sticker.id ? 'home__sticker--dragging' : ''}`}
-              style={{
-                left: `${sticker.x}%`,
-                top: `${sticker.y}%`,
-                '--rotation': dragging?.id === sticker.id ? `${dragRotation}deg` : `${sticker.rotation}deg`,
-                '--scale': sticker.scale,
-                '--delay': `${index * 0.1}s`,
-                '--stamp-color': sticker.color,
-              }}
-              onMouseDown={(e) => handleStickerMouseDown(e, sticker.id)}
-              data-tooltip="Drag me!"
-            >
-              <div className="home__floating-stamp">
-                <div className="home__floating-stamp-perforated">
-                  <div className="home__floating-stamp-inner">
-                    <div className="home__floating-stamp-content">
-                      <div className="home__floating-stamp-icon">
-                        <span>{sticker.icon}</span>
-                      </div>
-                      <h4 className="home__floating-stamp-name">{sticker.name}</h4>
-                      <p className="home__floating-stamp-tagline">{sticker.category}</p>
-                    </div>
-                    <div className="home__floating-stamp-footer">
-                      <span className="home__floating-stamp-year">{sticker.year}</span>
-                      <span className="home__floating-stamp-serial">{sticker.serial}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+      <div className="coming-soon">
+        {/* Subtle background gradient */}
+        <div className="coming-soon__bg" />
 
-        {/* Hero Section */}
-        <section className="home__hero">
-          <div className="home__hero-content">
-            <motion.div
-              className="home__hero-badge"
-              initial={{ opacity: 0, y: 16, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
-            >
-              <span className="home__hero-badge-dot"></span>
-              Studio Collection
-            </motion.div>
-
-            <motion.h1
-              className="home__hero-title"
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.65, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-            >
-              Apps crafted<br />
-              with <span className="home__hero-accent">soul</span>
-            </motion.h1>
-
-            <motion.p
-              className="home__hero-text"
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.28, ease: [0.16, 1, 0.3, 1] }}
-            >
-              A small iOS studio, creating mobile experiences that feel personal,
-              considered, and quietly delightful.
-            </motion.p>
-
-            <motion.div
-              className="home__hero-actions"
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.38, ease: [0.16, 1, 0.3, 1] }}
-            >
-              <a href="#collection" className="btn btn-primary">
-                View Collection
-                <span>↓</span>
-              </a>
-              <button
-                className="btn btn-outline"
-                onClick={handleCopyEmail}
-              >
-                {copiedEmail ? 'Copied!' : 'Say Hello'}
-              </button>
-            </motion.div>
-          </div>
-
-          <div className="home__hero-meta">
-            <motion.div
-              className="home__hero-stat"
-              style={{ opacity: heroStatsOpacity, y: heroStatsY }}
-            >
-              <span className="home__hero-stat-value">02</span>
-              <span className="home__hero-stat-label">Apps</span>
-            </motion.div>
-            <motion.div
-              className="home__hero-stat"
-              style={{ opacity: heroStatsOpacity, y: heroStatsY }}
-            >
-              <span className="home__hero-stat-value">TH</span>
-              <span className="home__hero-stat-label">Phuket</span>
-            </motion.div>
-            <motion.div
-              className="home__hero-stat"
-              style={{ opacity: heroStatsOpacity, y: heroStatsY }}
-            >
-              <span className="home__hero-stat-value">25</span>
-              <span className="home__hero-stat-label">Year</span>
-            </motion.div>
-
-            {/* Interactive Postcard */}
-            <motion.div className="home__postcard-wrapper" style={{ y: postcardY }}>
-              {/* Back postcard (partially visible) */}
-              <motion.div className="home__postcard-back" style={{ y: postcardBackY }}></motion.div>
-
-              {/* Front postcard */}
-              <div className="home__postcard-border">
-                <div className="home__postcard" ref={postcardRef}>
-                  {/* Left side - Studio Notes */}
-                  <div className="home__postcard-left">
-                    <div className="home__postcard-notes">
-                      <div className="home__postcard-title">
-                        <span>POSTCARD</span>
-                        <span>FROM THE SEA</span>
-                      </div>
-                      <p className="home__postcard-notes-label">STUDIO NOTES :</p>
-                      <div className="home__postcard-notes-content">
-                        <p className="home__postcard-notes-line">Been spending time</p>
-                        <p className="home__postcard-notes-line">refining small details.</p>
-                        <p className="home__postcard-notes-line">Sketching ideas, testing flows,</p>
-                        <p className="home__postcard-notes-line">adjusting pixels.</p>
-                        <p className="home__postcard-notes-line">Slow progress—but it feels right.</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Vertical Divider */}
-                  <div className="home__postcard-divider"></div>
-
-                  {/* Right side - Postmark & Address */}
-                  <div className="home__postcard-right">
-                    {/* Stamp placeholder and Postmark */}
-                    <div className="home__postcard-header">
-                      <div className="home__postcard-postmark">
-                        <svg className="home__postcard-postmark-waves" viewBox="0 0 70 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path className="home__postcard-wave" d="M0 5 Q 7 1, 14 5 T 28 5 T 42 5 T 56 5 T 70 5" stroke="currentColor" strokeWidth="1" fill="none" style={{ '--wave-delay': '0.6s' }}/>
-                          <path className="home__postcard-wave" d="M0 14 Q 7 10, 14 14 T 28 14 T 42 14 T 56 14 T 70 14" stroke="currentColor" strokeWidth="1" fill="none" style={{ '--wave-delay': '0.7s' }}/>
-                          <path className="home__postcard-wave" d="M0 23 Q 7 19, 14 23 T 28 23 T 42 23 T 56 23 T 70 23" stroke="currentColor" strokeWidth="1" fill="none" style={{ '--wave-delay': '0.8s' }}/>
-                          <path className="home__postcard-wave" d="M0 32 Q 7 28, 14 32 T 28 32 T 42 32 T 56 32 T 70 32" stroke="currentColor" strokeWidth="1" fill="none" style={{ '--wave-delay': '0.9s' }}/>
-                        </svg>
-                        <div className="home__postcard-postmark-circle">
-                          <span className="home__postcard-postmark-star">★</span>
-                          <span className="home__postcard-postmark-text">POST</span>
-                          <span className="home__postcard-postmark-text home__postcard-postmark-text--bottom">JUN 30</span>
-                        </div>
-                      </div>
-                      <div
-                        className={`home__postcard-stamp-placeholder ${placedStamp ? 'home__postcard-stamp-placeholder--has-stamp' : ''} ${nearDropZone ? 'home__postcard-stamp-placeholder--near' : ''}`}
-                        ref={stampPlaceholderRef}
-                      >
-                        {placedStamp ? (
-                          <div
-                            className={`home__postcard-placed-stamp ${stampJustPlaced ? 'home__postcard-placed-stamp--thud' : ''}`}
-                            onMouseDown={(e) => handleStickerMouseDown(e, placedStamp.id, true)}
-                          >
-                            <div className="home__floating-stamp">
-                              <div className="home__floating-stamp-perforated">
-                                <div className="home__floating-stamp-inner">
-                                  <div className="home__floating-stamp-content">
-                                    <div className="home__floating-stamp-icon">
-                                      <span>{placedStamp.icon}</span>
-                                    </div>
-                                    <h4 className="home__floating-stamp-name">{placedStamp.name}</h4>
-                                    <p className="home__floating-stamp-tagline">{placedStamp.category}</p>
-                                  </div>
-                                  <div className="home__floating-stamp-footer">
-                                    <span className="home__floating-stamp-year">{placedStamp.year}</span>
-                                    <span className="home__floating-stamp-serial">{placedStamp.serial}</span>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        ) : (
-                          <>
-                            <span>PLACE</span>
-                            <span>STAMP</span>
-                            <span>HERE</span>
-                          </>
-                        )}
-                      </div>
-                    </div>
-
-                    {/* Address Section */}
-                    <div className="home__postcard-address">
-                      <div className="home__postcard-to">
-                        <span className="home__postcard-to-label">TO:</span>
-                        <span className="home__postcard-to-text">Friends of good design</span>
-                      </div>
-                      <div className="home__postcard-from">
-                        <span className="home__postcard-from-label">FROM:</span>
-                        <span className="home__postcard-from-text">Love, islander Studio xx</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </section>
-
-        {/* App Collection */}
-        <section className="home__collection" id="collection" ref={collectionRef}>
-          <motion.div
-            className="home__collection-header"
-            initial={{ opacity: 0, y: 30 }}
-            animate={collectionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-            transition={{ duration: 0.6 }}
+        <motion.div
+          className="coming-soon__content"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        >
+          {/* Decorative ornament */}
+          <motion.span
+            className="coming-soon__ornament"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <div className="home__collection-title">
-              <svg className={`collection-number-svg ${collectionInView ? 'collection-number-svg--visible' : ''}`} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path className="collection-number-path" d="M4 18V6L12 18V6" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-                <path className="collection-number-path collection-number-path--delayed" d="M16 10V18M16 6V7" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"/>
-              </svg>
-              <h2>App Collection</h2>
-            </div>
-            <p className="home__collection-count">{apps.length} stamps</p>
-          </motion.div>
+            ✦
+          </motion.span>
 
-          <div className="home__stamps">
-            {apps.map((app, index) => (
-              <motion.div
-                key={app.id}
-                initial={{ opacity: 0, y: 40 }}
-                animate={collectionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-                transition={{ duration: 0.5, delay: 0.2 + index * 0.15 }}
-                style={{ display: 'contents' }}
-              >
-              <Link
-                to={`/${app.id}`}
-                className={`home__stamp ${hoveredApp === index ? 'home__stamp--hovered' : ''}`}
-                onMouseEnter={() => setHoveredApp(index)}
-                onMouseLeave={() => setHoveredApp(null)}
-                style={{
-                  '--index': index,
-                  '--app-color': app.color,
-                }}
-              >
-                <div className="home__stamp-inner">
-                  {/* Stamp Header */}
-                  <div className="home__stamp-header">
-                    <span className="home__stamp-category">{app.category}</span>
-                    <span className={`home__stamp-status tag tag--${app.status}`}>
-                      {app.status === 'live' ? 'Live' : 'Soon'}
-                    </span>
-                  </div>
-
-                  {/* Stamp Content */}
-                  <div className="home__stamp-content">
-                    <div className="home__stamp-icon">
-                      <img
-                        src={app.icon}
-                        alt={app.name}
-                        onError={(e) => { e.target.style.opacity = 0 }}
-                      />
-                    </div>
-                    <h3 className="home__stamp-name">{app.name}</h3>
-                    <p className="home__stamp-tagline">{app.tagline}</p>
-                  </div>
-
-                  {/* Stamp Footer */}
-                  <div className="home__stamp-footer">
-                    <span className="home__stamp-year">{app.year}</span>
-                    <span className="home__stamp-arrow">
-                      View <span>→</span>
-                    </span>
-                  </div>
-
-                  {/* Decorative elements */}
-                  <div className="home__stamp-decoration">
-                    <span className="home__stamp-serial">IS-{String(index + 1).padStart(3, '0')}</span>
-                  </div>
-                </div>
-              </Link>
-              </motion.div>
-            ))}
-          </div>
-        </section>
-
-        {/* Widget Grid */}
-        <section className="home__widgets" ref={widgetsRef}>
-          <motion.div
-            className="home__widgets-header"
-            initial={{ opacity: 0, y: 30 }}
-            animate={widgetsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-            transition={{ duration: 0.6 }}
+          {/* Name */}
+          <motion.h1
+            className="coming-soon__title"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
           >
-            <h2>About the Studio</h2>
-          </motion.div>
+            Jittika
+          </motion.h1>
 
-          <div className="home__widgets-grid">
-            {/* About Widget */}
-            <motion.div
-              className="widget home__widget home__widget--about"
-              initial={{ opacity: 0, y: 30 }}
-              animate={widgetsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-            >
-              <span className="widget__label">Who we are</span>
-              <h3 className="widget__title">islander Studio</h3>
-              <p className="widget__content">
-                A tiny studio creating iOS apps that spark joy in everyday moments.
-              </p>
-            </motion.div>
+          {/* Tagline */}
+          <motion.p
+            className="coming-soon__tagline"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+          >
+            Designer & Maker
+          </motion.p>
 
-            {/* Philosophy Widget */}
-            <motion.div
-              className="widget home__widget home__widget--philosophy"
-              initial={{ opacity: 0, y: 30 }}
-              animate={widgetsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
-              <span className="widget__label">Philosophy</span>
-              <ul className="home__values-list">
-                <li>
-                  <span className="home__values-marker">+</span>
-                  Design-first approach
-                </li>
-                <li>
-                  <span className="home__values-marker">+</span>
-                  Privacy by default
-                </li>
-                <li>
-                  <span className="home__values-marker">+</span>
-                  No subscriptions*
-                </li>
-              </ul>
-              <span className="home__values-note">*when possible</span>
-            </motion.div>
+          {/* Divider */}
+          <motion.div
+            className="coming-soon__divider"
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+          />
 
-            {/* Contact Widget */}
-            <motion.div
-              className="widget home__widget home__widget--contact"
-              initial={{ opacity: 0, y: 30 }}
-              animate={widgetsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-            >
-              <span className="widget__label">Get in touch</span>
-              <button
-                className="home__contact-btn"
-                onClick={handleCopyEmail}
-              >
-                <span className="home__contact-email">
-                  support@islanderstudio.app
-                </span>
-                <span className={`home__contact-action ${copiedEmail ? 'home__contact-action--copied' : ''}`}>
-                  {copiedEmail ? '✓ Copied' : 'Copy'}
-                </span>
-              </button>
-            </motion.div>
+          {/* Coming Soon */}
+          <motion.p
+            className="coming-soon__status"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.8 }}
+          >
+            Coming Soon
+          </motion.p>
 
-            {/* Links Widget */}
-            <motion.div
-              className="widget home__widget home__widget--links"
-              initial={{ opacity: 0, y: 30 }}
-              animate={widgetsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-            >
-              <span className="widget__label">Quick links</span>
-              <nav className="home__quick-links">
-                <Link to="/support" className="link-arrow">
-                  Support <span>→</span>
-                </Link>
-                <Link to="/privacy" className="link-arrow">
-                  Privacy <span>→</span>
-                </Link>
-              </nav>
-            </motion.div>
-          </div>
-        </section>
+          {/* Location */}
+          <motion.p
+            className="coming-soon__location"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 1 }}
+          >
+            Phuket, Thailand
+          </motion.p>
+
+          {/* Email */}
+          <motion.a
+            href="mailto:hello@jittika.com"
+            className="coming-soon__email"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 1.2 }}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            hello@jittika.com
+          </motion.a>
+        </motion.div>
+
+        {/* Bottom ornament */}
+        <motion.span
+          className="coming-soon__bottom-ornament"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.4 }}
+          transition={{ duration: 0.5, delay: 1.4 }}
+        >
+          ✦
+        </motion.span>
       </div>
     </>
   )
