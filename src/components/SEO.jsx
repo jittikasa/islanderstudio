@@ -43,7 +43,7 @@ export default function SEO({
       rssLink.setAttribute('rel', 'alternate')
       rssLink.setAttribute('type', 'application/rss+xml')
       rssLink.setAttribute('title', 'Jittika Blog RSS Feed')
-      rssLink.setAttribute('href', 'https://api.islanderstudio.app/feed.xml')
+      rssLink.setAttribute('href', 'https://api.jittika.com/feed.xml')
       document.head.appendChild(rssLink)
     }
 
@@ -54,7 +54,7 @@ export default function SEO({
       jsonFeedLink.setAttribute('rel', 'alternate')
       jsonFeedLink.setAttribute('type', 'application/feed+json')
       jsonFeedLink.setAttribute('title', 'Jittika Blog JSON Feed')
-      jsonFeedLink.setAttribute('href', 'https://api.islanderstudio.app/feed.json')
+      jsonFeedLink.setAttribute('href', 'https://api.jittika.com/feed.json')
       document.head.appendChild(jsonFeedLink)
     }
 

@@ -1,4 +1,4 @@
-# robots.txt for Islander Studio
+# robots.txt for Jittika
 #
 # IMPORTANT: Cloudflare may prepend restrictive rules for AI crawlers.
 # To allow AI indexing, go to Cloudflare Dashboard:
@@ -52,7 +52,7 @@ Allow: /
 # /llms-full.txt - Comprehensive reference with FAQs
 
 # Sitemaps
-Sitemap: https://api.islanderstudio.app/sitemap.xml
+Sitemap: https://api.jittika.com/sitemap.xml
 
 # Crawl-delay
 Crawl-delay: 10

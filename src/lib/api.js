@@ -3,7 +3,7 @@
  * Replaces Sanity CMS with D1 database backend
  */
 
-const API_URL = import.meta.env.VITE_API_URL || 'https://api.islanderstudio.app';
+const API_URL = import.meta.env.VITE_API_URL || 'https://api.jittika.com';
 
 /**
  * Helper function to make authenticated API requests
