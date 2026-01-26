@@ -7,6 +7,7 @@ import Placeholder from '@tiptap/extension-placeholder'
 import { marked } from 'marked'
 import { Eye, Save, Clock } from 'lucide-react'
 import PostPreviewModal from './PostPreviewModal'
+import { API_URL } from '../../lib/config'
 import './PostEditor.css'
 
 // Auto-save debounce hook
@@ -98,8 +99,6 @@ function markdownToHtml(content) {
   }
   return content
 }
-
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8787'
 
 // Featured Image Selection Modal
 function FeaturedImageModal({ isOpen, onClose, onSelect, apiUrl }) {

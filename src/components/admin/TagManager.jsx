@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react'
 import { Trash2, GitMerge, X } from 'lucide-react'
 import { mergeTags, bulkDeleteTags } from '../../lib/api'
+import { API_URL } from '../../lib/config'
 import './ContentManager.css'
 import './TagManager.css'
-
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8787'
 
 export default function TagManager() {
   const [tags, setTags] = useState([])

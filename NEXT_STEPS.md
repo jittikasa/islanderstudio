@@ -48,13 +48,14 @@ Your frontend will automatically redeploy when you push to the main branch, or y
 
 Your blog should now be fully functional at https://islanderstudio.app
 
-## Credentials (SAVE THESE)
+## Credentials
 
-- **Admin Password:** `Amorfatigi88`
-- **Password Hash:** `$2a$10$rN7kH7J4y3.2YKismEONi.tRkeCOwFTNuqea0f2X83yQT7y1I99fK`
-- **JWT Secret:** `6a6ec495d66886e54034cdbab451cdf6aae5e8581314b614abfeeca7824aff18`
-- **Database ID:** `7a69bf73-d4df-494b-a025-5d549c98164d`
-- **Workers API:** `https://islanderstudio-blog-api.jittikasa.workers.dev`
+**Important:** Store credentials securely (e.g., password manager, Cloudflare Secrets).
+Do NOT commit credentials to version control.
+
+Required secrets (set via Cloudflare dashboard or `wrangler secret put`):
+- `ADMIN_PASSWORD_HASH` - bcrypt hash of admin password
+- `JWT_SECRET` - 256-bit random hex string
 
 ## Test Your Deployment
 

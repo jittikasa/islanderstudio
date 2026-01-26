@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react'
 import ColorPicker from './ColorPicker'
+import { API_URL } from '../../lib/config'
 import './ContentManager.css'
 import './CategoryManager.css'
-
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8787'
 
 export default function CategoryManager() {
   const [categories, setCategories] = useState([])

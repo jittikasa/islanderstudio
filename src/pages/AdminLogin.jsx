@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
 import SEO from '../components/SEO';
+import { API_URL } from '../lib/config';
 import './AdminLogin.css';
-
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8787';
 
 export default function AdminLogin({ error: propError }) {
   const [error, setError] = useState('');

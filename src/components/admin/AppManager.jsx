@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
+import { API_URL } from '../../lib/config'
 import './ContentManager.css'
-
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8787'
 
 export default function AppManager() {
   const [apps, setApps] = useState([])

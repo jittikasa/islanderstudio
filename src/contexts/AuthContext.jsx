@@ -1,8 +1,7 @@
 import { createContext, useContext, useState, useEffect } from 'react'
+import { API_URL } from '../lib/config'
 
 const AuthContext = createContext()
-
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8787'
 
 export function useAuth() {
   return useContext(AuthContext)

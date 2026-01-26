@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react'
 import PostEditor from './PostEditor'
 import { useToast } from '../../contexts/ToastContext'
+import { API_URL } from '../../lib/config'
 import './ContentManager.css'
-
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8787'
 
 export default function PostManager({ initialAction, onActionComplete }) {
   const [posts, setPosts] = useState([])
